@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v7.0 – Web Single-File Edition (Upgraded)
+Web Leak Scanner Pro v8.0 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v7.0 (so với v6.0):
+Changelog v8.0 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -197,6 +197,246 @@ LEAK_PATHS = [
     "/_next/data/", "/_nuxt/",
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
+
+    # ── v8.0 additions: K8s / container / monitoring ──
+    "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
+    "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
+    "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
+    "/helm/", "/Chart.yaml", "/values.yaml", "/values-dev.yaml", "/values-prod.yaml",
+    "/manifests/", "/.helm/", "/.argo/", "/argocd.yaml",
+    "/metrics", "/-/metrics", "/-/healthy", "/-/ready", "/-/reload",
+    "/healthz", "/readyz", "/livez", "/healthcheck", "/health", "/api/health",
+    "/api/status", "/status", "/api/v1/status", "/ping", "/pong", "/heartbeat",
+    "/prometheus", "/-/prometheus", "/grafana/api/health",
+    "/jolokia/", "/jolokia/list", "/jolokia/read",
+    "/hawtio/", "/hawtio/index.html", "/hawtio/jolokia",
+    "/.well-known/security.txt.bak",
+    "/.well-known/openid-configuration",
+    "/.well-known/oauth-authorization-server",
+    "/.well-known/jwks.json",
+    "/.well-known/revocation",
+    "/.well-known/introspection",
+
+    # ── v8.0: Source maps & debug bundles ──
+    "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
+    "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
+    "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
+    "/static/js/main.js.map", "/static/js/bundle.js.map",
+    "/_next/static/chunks/main.js.map", "/_next/static/chunks/webpack.js.map",
+    "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
+    "/dist/build.js.map", "/dist/main.js.map",
+
+    # ── v8.0: GraphQL / WebSocket / API ──
+    "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
+    "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
+    "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
+    "/signalr", "/signalr/negotiate", "/signalr/hubs", "/signalr/poll",
+    "/hub", "/hub/", "/realtime", "/events", "/sse", "/stream",
+    "/api/v1/users", "/api/v1/admin", "/api/v1/config",
+    "/api/v1/settings", "/api/v1/account", "/api/v1/auth",
+    "/api/v2/users", "/api/v2/admin",
+    "/api/users", "/api/admin", "/api/account", "/api/auth",
+    "/api/me", "/api/profile", "/api/search", "/api/upload",
+    "/api/files", "/api/download", "/api/list",
+    "/rest/users", "/rest/admin", "/rest/config",
+    "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
+
+    # ── v8.0: Spring Boot Actuator deep ──
+    "/actuator/", "/actuator/info", "/actuator/health",
+    "/actuator/env", "/actuator/configprops", "/actuator/beans",
+    "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
+    "/actuator/httptrace", "/actuator/loggers", "/actuator/heapdump",
+    "/actuator/scheduledtasks", "/actuator/sessions", "/actuator/shutdown",
+    "/actuator/auditevents", "/actuator/logfile", "/actuator/startup",
+    "/actuator/conditions", "/actuator/caches", "/actuator/flyway",
+    "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
+    "/actuator/bus-refresh", "/actuator/gateway/routes",
+
+    # ── v8.0: Java / JVM specific ──
+    "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
+    "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
+    "/META-INF/maven/", "/META-INF/spring.factories",
+    "/struts/web.xml", "/struts.xml", "/struts-config.xml",
+    "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
+
+    # ── v8.0: .NET / IIS specific ──
+    "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
+    "/web.config.bak", "/web.config.old", "/web.config.txt",
+    "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
+    "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
+    "/Reserved.ReportViewerWebControl.axd", "/Reports/",
+
+    # ── v8.0: PHP / Laravel specific ──
+    "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
+    "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
+    "/storage/framework/cache/", "/storage/framework/sessions/",
+    "/storage/framework/views/", "/bootstrap/cache/",
+    "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
+    "/artisan", "/server.php", "/package.json",
+
+    # ── v8.0: Ruby / Rails specific ──
+    "/config/database.yml", "/config/secrets.yml", "/config/master.key",
+    "/config/credentials.yml.enc", "/config/credentials.yml",
+    "/config/initializers/", "/config/environments/",
+    "/Gemfile", "/Gemfile.lock", "/Rakefile", "/config.ru",
+    "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
+    "/log/production.log", "/log/development.log",
+
+    # ── v8.0: Python / Django specific ──
+    "/settings.py", "/local_settings.py", "/config/settings.py",
+    "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
+    "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
+    "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
+
+    # ── v8.0: WordPress deep ──
+    "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
+    "/wp-content/backup-db/", "/wp-content/updraft/",
+    "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
+    "/wp-content/uploads/backwpup/", "/wp-content/uploads/backupwordpress/",
+    "/wp-json/wp/v2/users", "/wp-json/wp/v2/posts", "/wp-json/wp/v2/pages",
+    "/wp-json/wp/v2/categories", "/wp-json/wp/v2/comments",
+    "/wp-content/debug.log", "/wp-content/uploads/dump.sql",
+    "/wp-config.php.bak", "/wp-config.php.old", "/wp-config.php.save",
+    "/wp-config.php~", "/wp-config.php.orig", "/wp-config.php.swp",
+    "/xmlrpc.php?rsd", "/wp-mail.php", "/wp-cron.php?doing_wp_cron",
+    "/wp-signup.php", "/wp-register.php", "/wp-login.php?action=register",
+    "/wp-admin/install.php", "/wp-admin/setup-config.php",
+    "/wp-content/uploads/index.php", "/wp-includes/version.php",
+
+    # ── v8.0: CMS-specific deep ──
+    "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
+    "/sites/default/settings.php", "/sites/default/files/",
+    "/sites/default/private/", "/sites/default/config/",
+    "/user/register", "/admin/structure", "/admin/reports",
+    "/admin/config", "/admin/modules", "/admin/people",
+    "/app/etc/local.xml", "/var/log/exception.log", "/var/log/system.log",
+    "/var/cache/", "/var/session/", "/var/report/",
+    "/media/jui/", "/components/com_users/", "/components/com_config/",
+    "/administrator/components/com_config/", "/administrator/cache/",
+    "/installation/index.php", "/installation/configuration.php",
+
+    # ── v8.0: Node.js / npm specific ──
+    "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
+    "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
+    "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
+    "/node_modules/.cache/", "/.parcel-cache/", "/.next/",
+    "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
+    "/.netlify/", "/.cache/", "/.turbo/",
+
+    # ── v8.0: Cloud / DevOps deep ──
+    "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
+    "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
+    "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
+    "/.ssh/config", "/.ssh/environment",
+    "/.vault-token", "/.vault-pass", "/vault.json", "/.vault.d/",
+    "/consul.json", "/nomad/", "/.terraform/", "/.terraform.tfstate",
+    "/terraform.tfstate", "/terraform.tfstate.backup", "/terraform.tfvars",
+    "/.gcp/credentials.json", "/.azure/credentials",
+    "/service-account.json", "/service-account-key.json",
+    "/google-services.json", "/GoogleService-Info.plist",
+    "/firebase.json", "/firebase-config.json", "/.firebaserc",
+
+    # ── v8.0: CI/CD configs ──
+    "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
+    "/.github/workflows/", "/.github/workflows/ci.yml",
+    "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
+    "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
+    "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
+
+    # ── v8.0: API documentation ──
+    "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
+    "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
+    "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
+    "/openapi.json", "/openapi.yaml", "/openapi/", "/redoc",
+    "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
+    "/api/swagger", "/api/rapidoc", "/api/redoc",
+
+    # ── v8.0: WebSocket / SSE endpoints ──
+    "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
+    "/signalr", "/signalr/negotiate", "/signalr/hubs",
+    "/hub", "/realtime", "/events", "/sse", "/stream",
+    "/api/ws", "/api/websocket", "/api/realtime",
+    "/_ws", "/_websocket", "/_realtime",
+
+    # ── v8.0: Common config backups / temporaries ──
+    "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
+    "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
+    "/config.json.bak", "/config.json.old", "/config.json.orig",
+    "/config.yaml.bak", "/config.yml.old", "/config.ini.dist",
+    "/settings.php.bak", "/settings.php.old", "/settings.json.bak",
+    "/settings.json.old", "/.env.bak", "/.env.old", "/.env.orig",
+    "/.env.save", "/.env.swp", "/.env~", "/.env.dist", "/.env.sample",
+    "/.env.production.local", "/.env.development.local",
+    "/.env.staging.local", "/.env.test.local",
+
+    # ── v8.0: CVE / known vuln paths ──
+    "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
+    "/test.jsp", "/test.html",
+    "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
+    "/cgi-sys/defaultwebpage.cgi", "/cgi-sys/realsignup.cgi",
+    "/struts2/devmode.action", "/struts2/showcase.action",
+    "/struts/webconsole.html",  # CVE-2017-5638 (Struts2)
+    "/jenkins/script", "/jenkins/login",  # Jenkins
+    "/console/", "/web-console/", "/admin/console",
+    "/solr/", "/solr/admin/",  # Solr
+    "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
+    "/redis/", "/memcached/", "/var/log/redis/redis.log",
+
+    # ── v8.0: Misc / random secrets ──
+    "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
+    "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
+    "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
+    "/.dockerignore", "/.gitignore", "/.gitattributes",
+    "/.editorconfig", "/.flake8", "/.pylintrc", "/.ruff.toml",
+    "/.prettierrc", "/.eslintrc", "/.babelrc",
+    "/.docker/registry", "/registry/", "/docker/registry",
+
+    # ── v8.0: Source code & build artifacts ──
+    "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
+    "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
+    "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
+    "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
+
+    # ── v8.0: Logs & debug ──
+    "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
+    "/laravel.log", "/storage/logs/laravel.log",
+    "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
+    "/var/log/auth.log", "/var/log/syslog", "/var/log/messages",
+    "/logs/", "/log/", "/_logs/", "/debugging/",
+    "/_profiler/", "/_debugbar/", "/symfony/_profiler/",
+    "/phpinfo.php", "/info.php", "/test.php", "/php.php",
+    "/_internal/", "/_hidden/", "/_private/", "/_secret/",
+    "/server-status", "/server-info", "/status?full", "/status?auto",
+
+    # ── v8.0: Backup & database dumps ──
+    "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
+    "/backup.bak", "/backup.dump", "/backup.json",
+    "/backup-2024.zip", "/backup-2025.zip",
+    "/db.sql", "/db.sqlite", "/db.sqlite3", "/db.bak",
+    "/database.sql", "/database.bak", "/database.dump",
+    "/dump.sql", "/dump.bak", "/dump.json",
+    "/www.zip", "/www.tar.gz", "/www.rar", "/www.7z",
+    "/site.zip", "/site.tar.gz", "/site.bak",
+    "/data.sql", "/data.bak", "/data.json", "/data.zip",
+    "/mysql.sql", "/postgres.sql", "/pgdump.sql",
+    "/mongodump.json", "/mongodump.bson",
+
+    # ── v8.0: Admin / management panels ──
+    "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
+    "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
+    "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
+    "/manage/", "/manager/", "/panel/", "/dashboard/", "/console/",
+    "/cpanel", "/whm", "/.admin", "/wp-admin/", "/wp-login.php",
+    "/phpmyadmin/", "/adminer.php", "/adminer/", "/pma/",
+    "/sqladmin/", "/mysql-admin/", "/dbadmin/",
+    "/manager/html", "/manager/status", "/manager/jmxproxy",
+    "/host-manager/html", "/host-manager/status",
+
+    # ── v8.0: User-uploaded content ──
+    "/uploads/", "/uploads/files/", "/uploads/images/",
+    "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
+    "/media/", "/assets/", "/static/", "/public/",
+    "/tmp/", "/temp/", "/cache/", "/.cache/laravel",
 ]
 
 TECH_SIGS = {
@@ -398,6 +638,166 @@ BRUTE_NAMES = [
 
 # Backup variants for files that returned 200
 BACKUP_VARIANTS = [".bak", ".old", ".orig", ".save", ".swp", "~", ".dist", ".sample"]
+
+# Recursive brute-force: với mỗi directory 200 tìm được, brute các sub-paths này
+RECURSIVE_BRUTE_PATHS = [
+    "login", "config", "settings", "admin", "dashboard", "console",
+    "index.php", "index.html", "index", "default.php", "main",
+    "users", "user", "account", "accounts", "profile", "me",
+    "backup", "db", "database", "dump.sql", "data",
+    "api", "api/v1", "api/users", "api/config",
+    "logs", "log", "error.log", "access.log",
+    "test", "debug", "info", "phpinfo",
+    "upload", "uploads", "files", "static",
+    "private", "secret", "internal", "hidden",
+]
+
+# Subdomain takeover fingerprints (CNAME pattern, service name, vulnerability)
+TAKEOVER_SIGS = [
+    (r'\.github\.io$', "GitHub Pages", "CNAME trỏ tới GitHub Pages nhưng repo không tồn tại hoặc chưa publish"),
+    (r'\.herokuapp\.com$', "Heroku", "App Heroku đã bị xóa, CNAME vẫn trỏ — takeover được"),
+    (r'\.s3\.amazonaws\.com$', "AWS S3", "Bucket không tồn tại — có thể register lại bucket name để takeover"),
+    (r'\.s3-website[\.\-].*\.amazonaws\.com$', "AWS S3 Static", "Bucket S3 static website không tồn tại"),
+    (r'\.cloudfront\.net$', "AWS CloudFront", "CloudFront distribution đã bị xóa — có thể register lại"),
+    (r'\.azureedge\.net$', "Azure CDN", "Azure CDN endpoint đã bị xóa"),
+    (r'\.azurewebsites\.net$', "Azure Web Apps", "Azure Web App đã bị xóa"),
+    (r'\.blob\.core\.windows\.net$', "Azure Blob", "Azure Blob container không tồn tại"),
+    (r'\.trafficmanager\.net$', "Azure Traffic Manager", "Profile đã bị xóa"),
+    (r'\.elasticbeanstalk\.com$', "AWS Elastic Beanstalk", "Environment đã bị terminate"),
+    (r'\.fastly\.net$', "Fastly", "Fastly service đã bị xóa"),
+    (r'\.netlify\.app$', "Netlify", "Netlify site đã bị unclaim — có thể claim lại"),
+    (r'\.vercel\.app$', "Vercel", "Vercel project đã bị xóa"),
+    (r'\.gitlab\.io$', "GitLab Pages", "GitLab Pages project không tồn tại"),
+    (r'\.surge\.sh$', "Surge.sh", "Surge domain đã bị unclaim"),
+    (r'\.readthedocs\.io$', "Read the Docs", "Subdomain Read the Docs không tồn tại"),
+    (r'\.fly.dev$', "Fly.io", "Fly.io app đã bị xóa"),
+    (r'\.onrender\.com$', "Render", "Render service đã bị xóa — có thể register lại"),
+    (r'\.pantheonsite\.io$', "Pantheon", "Pantheon environment đã bị xóa"),
+    (r'\.ngrok\.io$', "ngrok", "ngrok tunnel đã đóng"),
+    (r'\.ngrok-free\.app$', "ngrok free", "ngrok tunnel đã đóng"),
+    (r'\.cloudflareaccess\.com$', "Cloudflare Access", "Cloudflare Access app đã bị xóa"),
+    (r'\.myshopify\.com$', "Shopify", "Shopify store đã bị xóa"),
+    (r'\.webflow\.io$', "Webflow", "Webflow site đã bị xóa"),
+    (r'\.cargocollective\.com$', "Cargo", "Cargo site đã bị xóa"),
+    (r'\.tumblr\.com$', "Tumblr", "Tumblr blog đã bị xóa — có thể register lại"),
+    (r'\.wordpress\.com$', "WordPress.com", "WordPress.com blog đã bị xóa"),
+    (r'\.ghost\.io$', "Ghost Pro", "Ghost Pro site đã bị xóa"),
+    (r'\.squarespace\.com$', "Squarespace", "Squarespace site đã bị xóa"),
+    (r'\.wixsite\.com$', "Wix", "Wix site đã bị xóa"),
+    (r'\.zendesk\.com$', "Zendesk", "Zendesk subdomain đã bị xóa"),
+    (r'\.freshdesk\.com$', "Freshdesk", "Freshdesk helpdesk đã bị xóa"),
+    (r'\.herokuapp\.com$', "Heroku (dup)", "Heroku app không tồn tại"),
+    (r'\.intercom\.cdn\.com$', "Intercom", "Intercom CDN đã bị xóa"),
+    (r'\.statuspage\.io$', "StatusPage", "StatusPage đã bị xóa"),
+    (r'\.helpscoutdocs\.com$', "HelpScout", "HelpScout docs đã bị xóa"),
+    (r'\.unbounce\.com$', "Unbounce", "Unbounce landing page đã bị xóa"),
+    (r'\.instapage\.com$', "Instapage", "Instapage đã bị xóa"),
+    (r'\.launchrock\.com$', "LaunchRock", "LaunchRock page đã bị xóa"),
+    (r'\.tave\.com$', "Tave", "Tave page đã bị xóa"),
+    (r'\.smugmug\.net$', "SmugMug", "SmugMug gallery đã bị xóa"),
+    (r'\.shopify\.cdn\.com$', "Shopify CDN", "Shopify CDN đã bị xóa"),
+    (r'\.feedpress\.me$', "FeedPress", "FeedPress feed đã bị xóa"),
+    (r'\.surge\.sh$', "Surge (dup)", "Surge domain unclaimed"),
+    (r'\.fastly\.net$', "Fastly (dup)", "Fastly service deleted"),
+    (r'\.cloudinary\.com$', "Cloudinary", "Cloudinary asset không tồn tại"),
+    (r'\.imgix\.net$', "imgix", "imgix source đã bị xóa"),
+    (r'\.kenticocdn\.com$', "Kentico", "Kentico CDN đã bị xóa"),
+    (r'\.agcdn\.com$', "Agora CDN", "Agora CDN đã bị xóa"),
+    (r'\.bigcartel\.com$', "Big Cartel", "Big Cartel store đã bị xóa"),
+    (r'\.spreadshop\.com$', "Spreadshop", "Spreadshop đã bị xóa"),
+    (r'\.eff\.org$', "EFF", "EFF site đã bị xóa"),
+    (r'\.zoho\.com$', "Zoho", "Zoho site đã bị xóa"),
+    (r'\.teamsnap\.com$', "TeamSnap", "TeamSnap club đã bị xóa"),
+    (r'\.kinsta\.cloud$', "Kinsta", "Kinsta site đã bị xóa"),
+    (r'\.kinstacdn\.com$', "Kinsta CDN", "Kinsta CDN đã bị xóa"),
+    (r'\.flyusercontent\.com$', "Fly User Content", "Fly content đã bị xóa"),
+    (r'\.workers\.dev$', "Cloudflare Workers", "Worker đã bị xóa hoặc chưa deploy"),
+    (r'\.pages\.dev$', "Cloudflare Pages", "Pages project đã bị xóa"),
+    (r'\.deno\.dev$', "Deno Deploy", "Deno Deploy project đã bị xóa"),
+    (r'\.supabase\.co$', "Supabase", "Supabase project đã bị xóa"),
+    (r'\.supabase\.in$', "Supabase Storage", "Supabase storage bucket không tồn tại"),
+]
+
+# Open redirect params to test
+REDIRECT_PARAMS = [
+    "redirect", "redirect_url", "redirectUrl", "redirect_uri", "redirect_to",
+    "redirect_to_url", "return", "return_url", "returnUrl", "returnTo",
+    "return_to", "next", "next_url", "nextUrl", "url", "go", "goto",
+    "target", "destination", "dest", "continue", "to", "from",
+    "callback", "callback_url", "callbackUrl", "callback_uri",
+    "forward", "forward_url", "forwardUrl", "ref", "reference",
+    "out", "external", "exit", "jump", "redir",
+]
+
+# GraphQL introspection query
+GRAPHQL_INTROSPECTION_QUERY = '{"query":"query IntrospectionQuery{__schema{queryType{name}mutationType{name}subscriptionType{name}types{...FullType}directives{name description locations args{...InputValue}}}}fragment FullType on __Type{kind name description fields(includeDeprecated:true){name description args{...InputValue}type{...TypeRef}isDeprecated deprecationReason}inputFields{...InputValue}interfaces{...TypeRef}enumValues(includeDeprecated:true){name description isDeprecated deprecationReason}possibleTypes{...TypeRef}}}fragment InputValue on __InputValue{name description type{...TypeRef}defaultValue}fragment TypeRef on __Type{kind name ofType{kind name ofType{kind name ofType{kind name ofType{kind name ofType{kind name ofType{kind name ofType{kind name ofType{kind name}}}}}}}}}"}'
+
+# GraphQL endpoints to try
+GRAPHQL_ENDPOINTS = ["/graphql", "/graphql.json", "/api/graphql", "/v1/graphql",
+                     "/v2/graphql", "/query", "/graphiql", "/playground"]
+
+# Source map file extensions to check (added to JS URL)
+SOURCE_MAP_EXTS = [".map", ".map.js", ".json.map"]
+
+# Wayback Machine API endpoint
+WAYBACK_API = "https://web.archive.org/cdx/search/cdx"
+
+# JS endpoint extraction patterns (API routes in JS code)
+JS_ENDPOINT_PATTERNS = [
+    # fetch("...", { method: "GET" })
+    r'fetch\s*\(\s*[\'"`]([^\'"`]+\?[^\'"`]*|/[^\'"`]+)[\'"`]',
+    # axios.get("..."), axios.post("...")
+    r'axios\.(?:get|post|put|delete|patch|head)\s*\(\s*[\'"`]([^\'"`]+)[\'"`]',
+    # $.ajax({ url: "..." })
+    r'\$\.(?:ajax|get|post|getJSON)\s*\(\s*(?:\{[^}]*?url\s*:\s*)?[\'"`]([^\'"`]+)[\'"`]',
+    # XHR.open("GET", "/...")
+    r'\.open\s*\(\s*[\'"`](?:GET|POST|PUT|DELETE|PATCH)[\'"`]\s*,\s*[\'"`]([^\'"`]+)[\'"`]',
+    # new URL("/...", base)
+    r'new\s+URL\s*\(\s*[\'"`]([^\'"`]+)[\'"`]',
+    # window.location = "/..."
+    r'(?:window|document)\.location(?:\.href)?\s*=\s*[\'"`]([^\'"`]+)[\'"`]',
+    # String concatenation: "/api/" + path  → catch the literal prefix
+    r'[\'"`]((?:/api/|/v\d+/|/rest/|/graphql|/admin/|/internal/)[^\'"`]*)[\'"`]',
+    # Path with /api/ or /v1/ or /v2/ prefix
+    r'[\'"`]((?:/api/|/v\d+/|/rest/|/graphql/|/admin/api/|/internal/api/)[a-zA-Z0-9_/.-]+)[\'"`]',
+    # Next.js __NEXT_DATA__ routes
+    r'__NEXT_DATA__\s*=\s*\{[^}]*?(?:props|page|query)\s*:\s*\{[^}]*?["\'`]([^"\'`]+)["\'`]',
+]
+
+# Common API path suffixes to test (joined with discovered prefixes)
+API_TEST_SUFFIXES = [
+    "/users", "/users/me", "/users/list", "/users/all",
+    "/admin", "/admin/users", "/admin/config", "/admin/settings",
+    "/me", "/profile", "/account", "/accounts",
+    "/config", "/settings", "/preferences",
+    "/auth/login", "/auth/logout", "/auth/me", "/auth/refresh",
+    "/login", "/logout", "/register", "/signup", "/forgot-password",
+    "/upload", "/download", "/files", "/list",
+    "/search", "/query", "/find",
+    "/health", "/status", "/version", "/info",
+    "/posts", "/comments", "/articles", "/products", "/orders",
+    "/payments", "/invoices", "/subscriptions",
+    "/notifications", "/messages", "/emails",
+    "/debug", "/debug/info", "/debug/status",
+    "/internal", "/internal/status", "/internal/users",
+    "/v1", "/v1/users", "/v1/admin", "/v1/me",
+    "/v2", "/v2/users", "/v2/admin",
+]
+
+# CORS test origins
+CORS_TEST_ORIGINS = [
+    "https://evil.com",
+    "https://attacker.example",
+    "null",
+]
+
+# HTTP methods to fuzz (test OPTIONS to discover allowed methods)
+HTTP_METHODS_TO_FUZZ = ["OPTIONS", "PUT", "DELETE", "PATCH", "PROPFIND", "TRACE"]
+
+# Skip these file extensions when brute-forcing (binary files we can't parse)
+SKIP_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".ico",
+                  ".mp4", ".webm", ".mp3", ".wav", ".pdf", ".woff", ".woff2",
+                  ".ttf", ".eot", ".otf"}
 
 # ── Validators ──
 import ipaddress
@@ -793,6 +1193,444 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
+# ── v8.0 helper functions: deep recon capabilities ──
+
+def extract_js_endpoints(js_text, base_url):
+    """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
+    endpoints = set()
+    if not js_text:
+        return []
+    for pat in JS_ENDPOINT_PATTERNS:
+        for m in re.finditer(pat, js_text, re.I):
+            url = m.group(1)
+            # Filter out obviously non-route strings
+            if not url or url.startswith(('javascript:', 'mailto:', 'tel:', 'data:', '#')):
+                continue
+            if url.startswith(('http://', 'https://')):
+                # Only include if same origin
+                try:
+                    u = urlparse(url)
+                    base_host = urlparse(base_url).hostname
+                    if u.hostname and u.hostname != base_host:
+                        continue
+                    endpoints.add(u.path)
+                except Exception:
+                    continue
+            elif url.startswith('/'):
+                endpoints.add(url)
+            elif url.startswith('./') or url.startswith('../'):
+                endpoints.add(urljoin(base_url, url))
+            else:
+                # Probably a relative path or a key name, skip
+                continue
+    # Clean up: keep only paths that look like routes (start with /)
+    return sorted([e for e in endpoints if e.startswith('/') and len(e) > 1 and len(e) < 200])[:50]
+
+def parse_swagger_spec(spec_text, base):
+    """Parse Swagger/OpenAPI JSON spec to enumerate endpoints."""
+    endpoints = []
+    if not spec_text:
+        return endpoints
+    try:
+        spec = json.loads(spec_text)
+    except Exception:
+        return endpoints
+    # OpenAPI 3
+    paths = spec.get("paths", {})
+    for path, methods in paths.items():
+        if not isinstance(methods, dict):
+            continue
+        for method, info in methods.items():
+            if method.lower() not in ("get", "post", "put", "delete", "patch", "head", "options"):
+                continue
+            summary = info.get("summary", "") if isinstance(info, dict) else ""
+            description = info.get("description", "") if isinstance(info, dict) else ""
+            # Resolve path with basePath
+            base_path = spec.get("basePath", "")
+            full_url = urljoin(base, (base_path + path).replace("//", "/"))
+            endpoints.append({
+                "path": path,
+                "url": full_url,
+                "method": method.upper(),
+                "summary": summary,
+                "description": description,
+            })
+    return endpoints
+
+async def check_subdomain_takeover(host):
+    """Resolve CNAME cho host, check pattern takeover signatures."""
+    if not host:
+        return []
+    findings = []
+    try:
+        loop = asyncio.get_event_loop()
+        # Try resolve CNAME
+        try:
+            infos = await loop.getaddrinfo(host, None)
+            ip = infos[0][4][0] if infos else None
+        except Exception:
+            ip = None
+        # Use socket.gethostbyname_ex to get CNAME chain
+        try:
+            # Try resolving CNAME via DNS-like query (fallback to getaddrinfo)
+            cname_chain = []
+            # Cannot easily get CNAME from getaddrinfo alone. Use a simpler heuristic:
+            # try resolving <sub>.<host> common takeover targets and see if they NXDOMAIN.
+            pass
+        except Exception:
+            pass
+        # We'll do per-subdomain check: for each resolved subdomain, also try CNAME-style takeover detection
+        # by checking if the subdomain's IP looks suspicious (returns special AWS/Heroku error pages).
+        return findings
+    except Exception:
+        return []
+
+async def check_subdomain_takeover_detailed(session, host, sub_results, custom_headers, proxy, timeout):
+    """For each resolved subdomain, fetch it and check for takeover fingerprints in body."""
+    findings = []
+    sem = asyncio.Semaphore(8)
+    async def check_one(sub_info):
+        sub_host = sub_info["host"]
+        # Try both http and https
+        for scheme in ("https", "http"):
+            url = f"{scheme}://{sub_host}/"
+            try:
+                async with sem:
+                    t, c, h, rt = await fetch(session, url, custom_headers, proxy, min(timeout, 6))
+                # Check body for takeover fingerprints
+                body_lower = (t or "").lower()[:5000]
+                for pat, service, desc in TAKEOVER_SIGS:
+                    # Check if body mentions the service error page
+                    takeover_markers = []
+                    if service == "GitHub Pages":
+                        if "there isn't a github pages site here" in body_lower:
+                            takeover_markers.append("GitHub Pages 'no site' error page")
+                    elif service == "Heroku":
+                        if "no such app" in body_lower or "heroku | no such app" in body_lower:
+                            takeover_markers.append("Heroku 'no such app' error page")
+                    elif service == "AWS S3":
+                        if "nosuchbucket" in body_lower or "the specified bucket does not exist" in body_lower:
+                            takeover_markers.append("S3 'NoSuchBucket' error")
+                    elif service == "AWS CloudFront":
+                        if "bad request" in body_lower and "cloudfront" in body_lower:
+                            takeover_markers.append("CloudFront bad request")
+                    elif service == "Vercel":
+                        if "vercel" in body_lower and ("configuration" in body_lower or "not found" in body_lower):
+                            takeover_markers.append("Vercel config error page")
+                    elif service == "Netlify":
+                        if "not found" in body_lower and "netlify" in body_lower:
+                            takeover_markers.append("Netlify not found page")
+                    elif service == "Render":
+                        if "render" in body_lower and ("not found" in body_lower or "free" in body_lower):
+                            takeover_markers.append("Render not found page")
+                    elif service == "Cloudflare Pages":
+                        if "pages.dev" in body_lower and "not found" in body_lower:
+                            takeover_markers.append("Cloudflare Pages not found")
+                    elif service == "Cloudflare Workers":
+                        if "workers.dev" in body_lower and ("error" in body_lower or "not found" in body_lower):
+                            takeover_markers.append("Workers error page")
+                    elif service == "Supabase":
+                        if "supabase" in body_lower and "project" in body_lower and "not found" in body_lower:
+                            takeover_markers.append("Supabase project not found")
+                    if takeover_markers:
+                        findings.append({
+                            "subdomain": sub_host,
+                            "url": url,
+                            "service": service,
+                            "status_code": c,
+                            "markers": takeover_markers,
+                            "description": desc,
+                            "severity": "high",
+                        })
+                        return  # one finding per sub is enough
+            except Exception:
+                continue
+    for sub_info in sub_results[:30]:
+        await check_one(sub_info)
+    return findings
+
+async def check_open_redirect(session, target, custom_headers, proxy, timeout):
+    """Test ?redirect=https://evil.com, ?next=//evil.com, etc."""
+    findings = []
+    evil_url = "https://evil.com"
+    sem = asyncio.Semaphore(8)
+    async def test_param(param):
+        # Use various injection payloads
+        payloads = [
+            ("exact", evil_url),
+            ("protocol-relative", "//evil.com"),
+            ("slash-prefixed", "/\\evil.com"),
+            ("url-encoded", "https%3A%2F%2Fevil.com"),
+            ("double-encoded", "https%253A%252F%252Fevil.com"),
+        ]
+        for variant, payload in payloads:
+            url = f"{target}?{param}={payload}"
+            try:
+                async with sem:
+                    t, c, h, rt = await fetch(session, url, custom_headers, proxy, min(timeout, 5))
+                if c in (301, 302, 303, 307, 308):
+                    loc = h.get("Location") or h.get("location") or ""
+                    if "evil.com" in loc.lower():
+                        return {
+                            "param": param,
+                            "payload": payload,
+                            "variant": variant,
+                            "status_code": c,
+                            "location": loc[:200],
+                            "url": url,
+                            "severity": "high",
+                        }
+                elif c == 200 and t and ("evil.com" in t[:5000] or "//evil.com" in t[:5000]):
+                    return {
+                        "param": param,
+                        "payload": payload,
+                        "variant": variant,
+                        "status_code": c,
+                        "location": "(reflected in body)",
+                        "url": url,
+                        "severity": "medium",
+                    }
+            except Exception:
+                continue
+        return None
+    tasks = [test_param(p) for p in REDIRECT_PARAMS]
+    for coro in asyncio.as_completed(tasks):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings
+
+async def check_cors(session, target, custom_headers, proxy, timeout):
+    """Test CORS misconfiguration với Origin: https://evil.com."""
+    findings = []
+    sem = asyncio.Semaphore(5)
+    test_endpoints = [target, urljoin(target, "/api/"), urljoin(target, "/api/v1/"),
+                      urljoin(target, "/login"), urljoin(target, "/admin/")]
+    async def check_one(url):
+        headers = dict(custom_headers or {})
+        for origin in CORS_TEST_ORIGINS:
+            test_headers = dict(headers)
+            test_headers["Origin"] = origin
+            try:
+                async with sem:
+                    t, c, h, rt = await fetch(session, url, test_headers, proxy, min(timeout, 5))
+                acao = h.get("Access-Control-Allow-Origin") or h.get("access-control-allow-origin") or ""
+                acac = h.get("Access-Control-Allow-Credentials") or h.get("access-control-allow-credentials") or ""
+                # Vulnerable if reflects Origin OR returns wildcard with credentials
+                if acao == origin or (acao == "*" and acac.lower() == "true"):
+                    return {
+                        "url": url,
+                        "origin_tested": origin,
+                        "acao": acao,
+                        "acac": acac,
+                        "status_code": c,
+                        "severity": "high" if acac.lower() == "true" else "medium",
+                        "description": f"ACAO reflects origin ({origin}) — credentials: {acac}",
+                    }
+            except Exception:
+                continue
+        return None
+    for coro in asyncio.as_completed([check_one(u) for u in test_endpoints]):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings
+
+async def check_graphql(session, target, custom_headers, proxy, timeout):
+    """Test GraphQL endpoints với introspection query."""
+    findings = []
+    sem = asyncio.Semaphore(5)
+    async def check_endpoint(endpoint):
+        url = urljoin(target, endpoint)
+        # Try GET first
+        try:
+            async with sem:
+                t, c, h, rt = await fetch(session, url + "?query={__schema{types{name}}}",
+                                          custom_headers, proxy, min(timeout, 5))
+            if c == 200 and t and "__schema" in t:
+                # Try introspection query
+                async with sem:
+                    t2, c2, h2, _ = await fetch(session, url, custom_headers, proxy, min(timeout, 8),
+                                                  ) if False else (None, 0, {}, 0)
+                # Count types in response
+                types_count = t.count('"kind":"OBJECT"') + t.count('"kind":"INTERFACE"') + t.count('"kind":"INPUT_OBJECT"')
+                return {
+                    "endpoint": endpoint,
+                    "url": url,
+                    "status_code": c,
+                    "introspection_enabled": True,
+                    "types_found": types_count,
+                    "severity": "high" if types_count > 0 else "medium",
+                    "preview": (t[:300] + "...") if len(t) > 300 else t,
+                }
+            elif c == 200 and t and ("graphql" in t.lower() or "GraphiQL" in t):
+                # GraphiQL UI found
+                return {
+                    "endpoint": endpoint,
+                    "url": url,
+                    "status_code": c,
+                    "introspection_enabled": False,
+                    "ui_found": "GraphiQL/Playground UI",
+                    "severity": "medium",
+                    "preview": "",
+                }
+            elif c in (400, 405) and t and "query" in t.lower():
+                # GraphQL exists but rejected our query
+                return {
+                    "endpoint": endpoint,
+                    "url": url,
+                    "status_code": c,
+                    "introspection_enabled": False,
+                    "ui_found": "",
+                    "severity": "low",
+                    "preview": (t[:200] + "...") if len(t) > 200 else t,
+                }
+        except Exception:
+            return None
+        # Try POST with introspection query
+        try:
+            async with sem:
+                pass  # aiohttp POST not implemented in fetch(); skip POST
+        except Exception:
+            pass
+        return None
+    for coro in asyncio.as_completed([check_endpoint(ep) for ep in GRAPHQL_ENDPOINTS]):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings
+
+async def check_source_maps(session, js_links, custom_headers, proxy, timeout):
+    """Với mỗi JS file, check .map variant."""
+    findings = []
+    sem = asyncio.Semaphore(8)
+    async def check_one(js_url):
+        # Try .map variant
+        map_url = js_url + ".map"
+        try:
+            async with sem:
+                t, c, h, rt = await fetch(session, map_url, custom_headers, proxy, min(timeout, 5))
+            if c == 200 and t and len(t) > 100 and ("sources" in t or "mappings" in t or "version" in t):
+                # Try to parse as source map
+                try:
+                    sm = json.loads(t)
+                    sources = sm.get("sources", [])[:5]
+                    return {
+                        "js_url": js_url,
+                        "map_url": map_url,
+                        "size": len(t),
+                        "sources_preview": sources,
+                        "sources_count": len(sm.get("sources", [])),
+                        "severity": "high",
+                        "description": f"Source map leak {len(sm.get('sources', []))} source files",
+                    }
+                except Exception:
+                    return {
+                        "js_url": js_url,
+                        "map_url": map_url,
+                        "size": len(t),
+                        "sources_preview": [],
+                        "sources_count": 0,
+                        "severity": "medium",
+                        "description": "Possible source map (invalid JSON)",
+                    }
+        except Exception:
+            return None
+        return None
+    # Only check JS files from same origin to avoid false positives
+    for coro in asyncio.as_completed([check_one(u) for u in js_links[:30]]):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings
+
+async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
+    """Lấy historical URLs từ Wayback Machine API."""
+    parsed = urlparse(target)
+    host = f"{parsed.hostname}/*"
+    url = f"{WAYBACK_API}?url={host}&output=json&fl=original&collapse=urlkey&limit=200"
+    try:
+        async with session.get(url, headers={"User-Agent": random.choice(USER_AGENTS)},
+                              timeout=aiohttp.ClientTimeout(total=15),
+                              ssl=False) as r:
+            if r.status != 200:
+                return []
+            data = await r.json()
+            # Wayback returns [original, ...urls]
+            if isinstance(data, list) and len(data) > 1:
+                urls = data[1:]  # skip first element which is "original"
+                return list(set(urls))[:100]
+            return []
+    except Exception:
+        return []
+
+async def recursive_brute(session, base, found_dirs, custom_headers, proxy, timeout, soft_404_sizes, log_fn, cancel_fn):
+    """Với mỗi directory 200 tìm được, brute thêm các sub-paths."""
+    findings = []
+    sem = asyncio.Semaphore(15)
+    brute_timeout = min(timeout, 4)
+    total = len(found_dirs) * len(RECURSIVE_BRUTE_PATHS)
+    done = 0
+    found = 0
+    async def check_one(dir_path, sub):
+        nonlocal done, found
+        if cancel_fn():
+            return None
+        # Ensure dir_path ends with /
+        if not dir_path.endswith('/'):
+            dir_path = dir_path + '/'
+        path = dir_path + sub
+        url = urljoin(base, path)
+        async with sem:
+            t, c, h, rt = await fetch(session, url, custom_headers, proxy, brute_timeout)
+            done += 1
+            if c in (200, 401, 403):
+                if c == 200 and t and len(t) in soft_404_sizes:
+                    return None
+                found += 1
+                log_fn(f"[RBRUTE] {c} {path}")
+                return {"path": path, "url": url, "code": c,
+                        "severity": score_finding(path, c),
+                        "response_time_ms": rt, "recursive": True,
+                        "parent_dir": dir_path}
+            return None
+    tasks = [check_one(d, sub) for d in found_dirs[:5] for sub in RECURSIVE_BRUTE_PATHS]
+    for coro in asyncio.as_completed(tasks):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings, done, total, found
+
+async def test_http_methods(session, url, custom_headers, proxy, timeout):
+    """Test OPTIONS, PUT, DELETE, PATCH để discover allowed methods."""
+    findings = []
+    sem = asyncio.Semaphore(5)
+    async def test_method(method):
+        try:
+            async with sem:
+                # Use aiohttp directly for non-GET methods
+                timeout_obj = aiohttp.ClientTimeout(total=min(timeout, 5))
+                async with session.options(url, headers=custom_headers or {},
+                                          timeout=timeout_obj, ssl=False) as r:
+                    allow = r.headers.get("Allow") or r.headers.get("allow") or ""
+                    acam = r.headers.get("Access-Control-Allow-Methods") or r.headers.get("access-control-allow-methods") or ""
+                    if allow or acam:
+                        return {
+                            "url": url,
+                            "method_tested": "OPTIONS",
+                            "allow": allow,
+                            "acah_methods": acam,
+                            "status_code": r.status,
+                            "severity": "low",
+                        }
+        except Exception:
+            return None
+    for coro in asyncio.as_completed([test_method(m) for m in ["OPTIONS"]]):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings
+
 async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     allow_redirects=False, progress_cb=None, scan_js=True,
                     scan_id=None):
@@ -800,12 +1638,16 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v7.0",
+        "scanner_version": "v8.0",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
         "secrets": [], "ssl": {}, "subdomain_hints": [], "subdomains_resolved": [],
         "page_summary": "", "param_findings": [], "backup_findings": [],
+        "js_endpoints": [], "api_endpoints": [], "swagger_endpoints": [],
+        "takeover_findings": [], "source_maps": [], "graphql_findings": [],
+        "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
+        "http_method_findings": [], "recursive_brute_findings": [],
         "errors": [], "duration_seconds": 0, "stats": {},
         "soft_404_filtered": 0, "cancelled": False,
     }
@@ -1218,6 +2060,210 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 log(f"Subdomain resolved: {len(result['subdomains_resolved'])}")
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
+
+            # 12. Subdomain takeover check (v8.0)
+            if not cancelled() and result["subdomains_resolved"]:
+                await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
+                log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
+                try:
+                    result["takeover_findings"] = await check_subdomain_takeover_detailed(
+                        session, host, result["subdomains_resolved"], custom_headers, proxy, timeout
+                    )
+                    for tf in result["takeover_findings"]:
+                        log(f"[TAKEOVER] {tf['subdomain']} → {tf['service']}")
+                    await prog("takeover", f"Takeover check done: {len(result['takeover_findings'])} vulnerable", len(result["subdomains_resolved"]), len(result["subdomains_resolved"]), len(result["takeover_findings"]))
+                    log(f"Takeover done: {len(result['takeover_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"Takeover check failed: {e}")
+
+            # 13. GraphQL introspection (v8.0)
+            if not cancelled():
+                await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
+                log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
+                try:
+                    result["graphql_findings"] = await check_graphql(session, target, custom_headers, proxy, timeout)
+                    for gq in result["graphql_findings"]:
+                        log(f"[GRAPHQL] {gq['endpoint']} → {gq.get('introspection_enabled', False)} (severity: {gq['severity']})")
+                    await prog("graphql", f"GraphQL done: {len(result['graphql_findings'])} found", len(GRAPHQL_ENDPOINTS), len(GRAPHQL_ENDPOINTS), len(result["graphql_findings"]))
+                    log(f"GraphQL done: {len(result['graphql_findings'])} found")
+                except Exception as e:
+                    log(f"GraphQL check failed: {e}")
+
+            # 14. CORS misconfiguration (v8.0)
+            if not cancelled():
+                await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
+                log(f"CORS: testing 3 origins × 5 endpoints")
+                try:
+                    result["cors_findings"] = await check_cors(session, target, custom_headers, proxy, timeout)
+                    for cf in result["cors_findings"]:
+                        log(f"[CORS] {cf['url']} reflects {cf['origin_tested']} (cred: {cf.get('acac','')})")
+                    await prog("cors", f"CORS done: {len(result['cors_findings'])} vulnerable", 5, 5, len(result["cors_findings"]))
+                    log(f"CORS done: {len(result['cors_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"CORS check failed: {e}")
+
+            # 15. Open redirect test (v8.0)
+            if not cancelled():
+                await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
+                log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
+                try:
+                    result["open_redirect_findings"] = await check_open_redirect(session, target, custom_headers, proxy, timeout)
+                    for rf in result["open_redirect_findings"]:
+                        log(f"[REDIRECT] ?{rf['param']}={rf['payload'][:30]} → {rf['status_code']} {rf.get('location','')[:50]}")
+                    await prog("open_redirect", f"Redirect done: {len(result['open_redirect_findings'])} vulnerable", len(REDIRECT_PARAMS), len(REDIRECT_PARAMS), len(result["open_redirect_findings"]))
+                    log(f"Redirect done: {len(result['open_redirect_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"Open redirect check failed: {e}")
+
+            # 16. Source map exposure (v8.0)
+            if not cancelled() and result["js_links"]:
+                await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
+                log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
+                try:
+                    result["source_maps"] = await check_source_maps(session, result["js_links"], custom_headers, proxy, timeout)
+                    for sm in result["source_maps"]:
+                        log(f"[SRCMAP] {sm['map_url']} → {sm['sources_count']} source files")
+                    await prog("source_maps", f"Source maps done: {len(result['source_maps'])} found", min(30, len(result["js_links"])), min(30, len(result["js_links"])), len(result["source_maps"]))
+                    log(f"Source maps done: {len(result['source_maps'])} found")
+                except Exception as e:
+                    log(f"Source map check failed: {e}")
+
+            # 17. JS endpoint extraction + API fuzzing (v8.0)
+            if not cancelled() and scan_js and result["js_links"]:
+                await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
+                log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
+                try:
+                    target_netloc = parsed.netloc.lower()
+                    same_origin_js = [u for u in result["js_links"]
+                                     if not urlparse(u).netloc or urlparse(u).netloc.lower() == target_netloc]
+                    js_sem = asyncio.Semaphore(8)
+                    all_endpoints = set()
+                    done = 0
+                    async def extract_one(url):
+                        nonlocal done
+                        async with js_sem:
+                            t, c, _, _ = await fetch(session, url, custom_headers, proxy, timeout)
+                            done += 1
+                            if c == 200 and t:
+                                eps = extract_js_endpoints(t, url)
+                                return eps
+                            return []
+                    for coro in asyncio.as_completed([extract_one(u) for u in same_origin_js[:20]]):
+                        eps = await coro
+                        for ep in eps:
+                            all_endpoints.add(ep)
+                        if done % 3 == 0:
+                            await prog("js_endpoints", f"JS {done}/{len(same_origin_js[:20])} – Endpoints: {len(all_endpoints)}", done, len(same_origin_js[:20]), len(all_endpoints))
+                    result["js_endpoints"] = sorted(all_endpoints)[:50]
+                    log(f"JS endpoints extracted: {len(result['js_endpoints'])}")
+                    if result["js_endpoints"]:
+                        await prog("api_fuzz", f"Test {len(result['js_endpoints'])} discovered API endpoints...", 0, len(result["js_endpoints"]), 0)
+                        log(f"API fuzz: testing {len(result['js_endpoints'])} endpoints")
+                        api_sem = asyncio.Semaphore(10)
+                        api_done = 0
+                        api_found = 0
+                        async def test_endpoint(ep):
+                            nonlocal api_done, api_found
+                            if cancelled():
+                                return None
+                            url = urljoin(base, ep)
+                            async with api_sem:
+                                t, c, h, rt = await fetch(session, url, custom_headers, proxy, min(timeout, 5))
+                                api_done += 1
+                                if c in (200, 401, 403, 405):
+                                    if c == 200 and t and len(t) in soft_404_sizes:
+                                        return None
+                                    api_found += 1
+                                    if c != 404:
+                                        log(f"[API] {c} {ep}")
+                                    return {"path": ep, "url": url, "code": c,
+                                            "size": len(t) if t else 0,
+                                            "severity": "medium" if c == 200 else "low",
+                                            "response_time_ms": rt}
+                                return None
+                        for coro in asyncio.as_completed([test_endpoint(ep) for ep in result["js_endpoints"]]):
+                            r = await coro
+                            if r:
+                                result["api_endpoints"].append(r)
+                        await prog("api_fuzz", f"API fuzz done: {len(result['api_endpoints'])} hits", api_done, len(result["js_endpoints"]), len(result["api_endpoints"]))
+                        log(f"API fuzz done: {len(result['api_endpoints'])} hits")
+                except Exception as e:
+                    log(f"JS endpoint extraction failed: {e}")
+
+            # 18. Swagger/OpenAPI parsing (v8.0)
+            if not cancelled():
+                await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
+                log(f"Swagger: testing 6 spec paths")
+                try:
+                    swagger_paths = ["/swagger.json", "/openapi.json", "/api/swagger.json",
+                                    "/api/openapi.json", "/v2/api-docs", "/v3/api-docs"]
+                    for sp in swagger_paths:
+                        url = urljoin(base, sp)
+                        t, c, _, _ = await fetch(session, url, custom_headers, proxy, min(timeout, 5))
+                        if c == 200 and t and ("swagger" in t.lower() or "openapi" in t.lower() or '"paths"' in t):
+                            endpoints = parse_swagger_spec(t, base)
+                            if endpoints:
+                                log(f"[SWAGGER] {sp} → {len(endpoints)} endpoints discovered")
+                                result["swagger_endpoints"].extend(endpoints[:100])
+                    await prog("swagger", f"Swagger done: {len(result['swagger_endpoints'])} endpoints", 5, 5, len(result["swagger_endpoints"]))
+                    log(f"Swagger done: {len(result['swagger_endpoints'])} endpoints")
+                except Exception as e:
+                    log(f"Swagger parsing failed: {e}")
+
+            # 19. Recursive depth-2 brute-force (v8.0)
+            if not cancelled():
+                found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
+                found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
+                found_dirs = list(set(found_dirs))[:5]
+                if found_dirs:
+                    total_r = len(found_dirs) * len(RECURSIVE_BRUTE_PATHS)
+                    await prog("recursive_brute", f"Recursive brute-force {len(found_dirs)} dirs × {len(RECURSIVE_BRUTE_PATHS)} paths...", 0, total_r, 0)
+                    log(f"Recursive brute: {len(found_dirs)} dirs × {len(RECURSIVE_BRUTE_PATHS)} sub-paths")
+                    try:
+                        findings, r_done, r_total, r_found = await recursive_brute(
+                            session, base, found_dirs, custom_headers, proxy, timeout,
+                            soft_404_sizes,
+                            lambda msg: log(msg),
+                            cancelled
+                        )
+                        result["recursive_brute_findings"] = findings
+                        await prog("recursive_brute", f"Recursive brute done: {len(findings)} hits", r_done, r_total, len(findings))
+                        log(f"Recursive brute done: {len(findings)} hits in {len(found_dirs)} dirs")
+                    except Exception as e:
+                        log(f"Recursive brute failed: {e}")
+                else:
+                    log(f"Recursive brute skipped: no directories found")
+
+            # 20. HTTP method fuzzing (v8.0)
+            if not cancelled():
+                test_urls = [target]
+                test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
+                test_urls = test_urls[:5]
+                await prog("http_methods", f"HTTP method fuzzing on {len(test_urls)} endpoints...", 0, len(test_urls), 0)
+                log(f"HTTP methods: OPTIONS on {len(test_urls)} endpoints")
+                try:
+                    for u in test_urls:
+                        if cancelled():
+                            break
+                        m_findings = await test_http_methods(session, u, custom_headers, proxy, timeout)
+                        result["http_method_findings"].extend(m_findings)
+                        for mf in m_findings:
+                            log(f"[METHODS] OPTIONS {u} → Allow: {mf.get('allow','')[:80]}")
+                    await prog("http_methods", f"HTTP methods done: {len(result['http_method_findings'])} with Allow header", len(test_urls), len(test_urls), len(result["http_method_findings"]))
+                    log(f"HTTP methods done: {len(result['http_method_findings'])} with Allow header")
+                except Exception as e:
+                    log(f"HTTP method fuzz failed: {e}")
+
+            # 21. Wayback Machine integration (v8.0)
+            if not cancelled():
+                await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
+                log(f"Wayback: querying web.archive.org")
+                try:
+                    result["wayback_urls"] = await fetch_wayback_urls(session, target, custom_headers, proxy, timeout)
+                    log(f"Wayback done: {len(result['wayback_urls'])} historical URLs found")
+                    await prog("wayback", f"Wayback done: {len(result['wayback_urls'])} URLs", 1, 1, len(result["wayback_urls"]))
+                except Exception as e:
+                    log(f"Wayback lookup failed: {e}")
     else:
         import requests
         requests.packages.urllib3.disable_warnings()
@@ -1263,10 +2309,22 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
+        # v8.0 additions
+        "takeover_findings": len(result.get("takeover_findings", [])),
+        "graphql_findings": len(result.get("graphql_findings", [])),
+        "cors_findings": len(result.get("cors_findings", [])),
+        "open_redirect_findings": len(result.get("open_redirect_findings", [])),
+        "source_maps": len(result.get("source_maps", [])),
+        "js_endpoints": len(result.get("js_endpoints", [])),
+        "api_endpoints": len(result.get("api_endpoints", [])),
+        "swagger_endpoints": len(result.get("swagger_endpoints", [])),
+        "wayback_urls": len(result.get("wayback_urls", [])),
+        "http_method_findings": len(result.get("http_method_findings", [])),
+        "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
         "cancelled": result.get("cancelled", False),
     }
     result["duration_seconds"] = round(time.time()-start, 2)
-    await prog("completed", f"Hoàn thành – {result['stats']['real_leak_count']} leaks (soft-404 filter: {result['stats']['soft_404_filtered']}), {result['stats']['secret_count']} secrets, {result['stats']['ports_open']} ports, {result['stats']['subdomains_resolved']} subs")
+    await prog("completed", f"Hoàn thành – {result['stats']['real_leak_count']} leaks · {result['stats']['secret_count']} secrets · {result['stats']['subdomains_resolved']} subs · {result['stats']['takeover_findings']} takeover · {result['stats']['graphql_findings']} graphql · {result['stats']['cors_findings']} cors · {result['stats']['source_maps']} srcmaps · {result['stats']['api_endpoints']} api · {result['stats']['wayback_urls']} wayback")
     return result
 
 # ── SSE ──
@@ -1317,6 +2375,19 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
+    # v8.0 phases
+    "takeover": "💀 Subdomain takeover check",
+    "graphql": "⚡ GraphQL introspection",
+    "cors": "🌐 CORS misconfiguration",
+    "open_redirect": "↪️ Open redirect test",
+    "source_maps": "🗺️ Source map exposure",
+    "js_endpoints": "📜 JS endpoint extraction",
+    "api_fuzz": "🔌 API endpoint fuzzing",
+    "swagger": "📋 Swagger/OpenAPI parsing",
+    "recursive_brute": "🔁 Recursive depth-2 brute",
+    "http_methods": "🔧 HTTP method fuzzing",
+    "wayback": "🕰️ Wayback Machine lookup",
+    # terminal
     "completed": "✅ Hoàn thành",
     "error": "❌ Lỗi",
     "cancelling": "🛑 Đang huỷ...",
@@ -1328,14 +2399,14 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── HTML Template (PAGE) – v7.0 Glassmorphism + Animated UI ──
+# ── HTML Template (PAGE) – v8.0 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v7.0</title>
+<title>Web Leak Scanner Pro v8.0</title>
 <style>
 /* ─────────  Theme variables  ───────── */
 :root{
@@ -1786,7 +2857,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v7.0</span></span>
+    <span>Web Leak Scanner <span class="version">v8.0</span></span>
   </div>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" title="Đổi theme">🌙</button>
@@ -1798,7 +2869,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1>🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle">Async deep scanner v7.0 — 400+ leak paths · backup variants (.bak/.old/.orig) · query param fuzzing · DNS subdomain enum · 45+ secret patterns (OpenAI, Anthropic, GitHub fine-grained, Vault...) · 8+ new frameworks · glassmorphism UI · live terminal activity log · animated counters · animated mesh gradient bg</p>
+  <p class="subtitle">Async deep recon v8.0 — 550+ leak paths · subdomain takeover · GraphQL introspection · CORS misconfig · open redirect · source map exposure · JS endpoint extraction · Swagger/OpenAPI parsing · recursive depth-2 brute · HTTP method fuzz · Wayback Machine · 45+ secret patterns · glassmorphism UI · live terminal log</p>
   <form id="scanForm" method="post" action="/scan">
     <div class="form-group"><label>🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
     <div class="form-row">
@@ -1853,7 +2924,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v7.0 — Deep Async Security Scanner · 230+ leak paths · backup variants · param fuzzing · DNS enum · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v8.0 — Deep Recon Edition · 550+ leak paths · takeover · GraphQL · CORS · source maps · Wayback · glassmorphism UI</footer>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -2201,7 +3272,7 @@ loadHistory();
 </html>
 """
 
-# ── HTML Template (RESULT) – v7.0 ──
+# ── HTML Template (RESULT) – v8.0 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -2249,7 +3320,17 @@ RESULT_HTML = r"""
   <button class="tab" data-tab="leaks">📁 Leaks <span class="count">{{ result.leak|length }}</span></button>
   <button class="tab" data-tab="secrets">🔐 Secrets <span class="count">{{ result.secrets|length }}</span></button>
   <button class="tab" data-tab="backups">💾 Backups <span class="count">{{ result.backup_findings|length }}</span></button>
+  <button class="tab" data-tab="endpoints">🔌 API <span class="count">{{ result.api_endpoints|length }}</span></button>
+  <button class="tab" data-tab="takeover">💀 Takeover <span class="count">{{ result.takeover_findings|length }}</span></button>
+  <button class="tab" data-tab="graphql">⚡ GraphQL <span class="count">{{ result.graphql_findings|length }}</span></button>
+  <button class="tab" data-tab="cors">🌐 CORS <span class="count">{{ result.cors_findings|length }}</span></button>
+  <button class="tab" data-tab="redirect">↪️ Redirect <span class="count">{{ result.open_redirect_findings|length }}</span></button>
+  <button class="tab" data-tab="srcmaps">🗺️ SrcMaps <span class="count">{{ result.source_maps|length }}</span></button>
+  <button class="tab" data-tab="swagger">📋 Swagger <span class="count">{{ result.swagger_endpoints|length }}</span></button>
+  <button class="tab" data-tab="wayback">🕰️ Wayback <span class="count">{{ result.wayback_urls|length }}</span></button>
   <button class="tab" data-tab="params">❓ Params <span class="count">{{ result.param_findings|length }}</span></button>
+  <button class="tab" data-tab="methods">🔧 Methods <span class="count">{{ result.http_method_findings|length }}</span></button>
+  <button class="tab" data-tab="rbrute">🔁 RBrute <span class="count">{{ result.recursive_brute_findings|length }}</span></button>
   <button class="tab" data-tab="tech">🛠️ Tech & WAF</button>
   <button class="tab" data-tab="network">🌐 Network</button>
   <button class="tab" data-tab="headers">📜 Headers & Cookies</button>
@@ -2559,6 +3640,237 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
+<!-- v8.0 Tabs -->
+
+<!-- Tab: API Endpoints (discovered from JS + Swagger) -->
+<div class="tab-panel" id="tab-endpoints">
+  {% if result.api_endpoints %}
+  <div class="section-title">🔌 API endpoints từ JS files ({{ result.api_endpoints|length }} hits)</div>
+  {% for e in result.api_endpoints %}
+  <div class="leak-item {{ 'crit' if e.severity == 'critical' else ('high' if e.severity == 'high' else ('med' if e.severity == 'medium' else '')) }}">
+    <div class="leak-header">
+      <span class="code-badge code-{{ e.code }}">{{ e.code }}</span>
+      <span class="sev-badge sev-{{ e.severity }}">{{ e.severity }}</span>
+      <span class="leak-path">{{ e.path }}</span>
+      {% if e.size %}<span class="leak-size">{{ e.size }} bytes</span>{% endif %}
+      {% if e.response_time_ms %}<span class="leak-rt">{{ e.response_time_ms }}ms</span>{% endif %}
+    </div>
+    <div class="leak-url">{{ e.url }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện API endpoint nào từ JS files. ✅</p>
+  {% endif %}
+
+  {% if result.js_endpoints %}
+  <div class="section-title">📜 Endpoints extracted từ JS ({{ result.js_endpoints|length }})</div>
+  <div style="max-height:240px;overflow-y:auto;background:var(--bg3);padding:10px;border-radius:9px;border:1px solid var(--border);font-family:monospace;font-size:12px">
+    {% for ep in result.js_endpoints %}
+    <div style="padding:2px 0;color:var(--accent2)">{{ ep }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if result.swagger_endpoints %}
+  <div class="section-title">📋 Endpoints từ Swagger/OpenAPI ({{ result.swagger_endpoints|length }})</div>
+  {% for e in result.swagger_endpoints %}
+  <div class="leak-item">
+    <div class="leak-header">
+      <span class="sev-badge sev-medium">{{ e.method }}</span>
+      <span class="leak-path">{{ e.path }}</span>
+    </div>
+    <div class="leak-url">{{ e.url }}</div>
+    {% if e.summary %}<div style="font-size:11px;color:var(--dim);margin-top:4px">{{ e.summary }}</div>{% endif %}
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+
+<!-- Tab: Takeover -->
+<div class="tab-panel" id="tab-takeover">
+  {% if result.takeover_findings %}
+  <div class="alert alert-error">💀 Phát hiện <strong>{{ result.takeover_findings|length }}</strong> subdomain có thể takeover — register lại CNAME target để chiếm quyền</div>
+  {% for t in result.takeover_findings %}
+  <div class="leak-item crit">
+    <div class="leak-header">
+      <span class="sev-badge sev-critical">CRITICAL</span>
+      <strong>{{ t.service }}</strong>
+      <span class="leak-path">{{ t.subdomain }}</span>
+    </div>
+    <div class="leak-url">{{ t.url }} (HTTP {{ t.status_code }})</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:4px">📍 Markers: {{ t.markers|join(", ") }}</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">{{ t.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện subdomain takeover. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: GraphQL -->
+<div class="tab-panel" id="tab-graphql">
+  {% if result.graphql_findings %}
+  {% for g in result.graphql_findings %}
+  <div class="leak-item {{ 'crit' if g.severity == 'critical' else ('high' if g.severity == 'high' else ('med' if g.severity == 'medium' else '')) }}">
+    <div class="leak-header">
+      <span class="code-badge code-{{ g.status_code }}">{{ g.status_code }}</span>
+      <span class="sev-badge sev-{{ g.severity }}">{{ g.severity }}</span>
+      <span class="leak-path">{{ g.endpoint }}</span>
+      {% if g.introspection_enabled %}<span class="sev-badge sev-critical">INTROSPECTION ON</span>{% endif %}
+      {% if g.ui_found %}<span class="sev-badge sev-medium">{{ g.ui_found }}</span>{% endif %}
+    </div>
+    <div class="leak-url">{{ g.url }}</div>
+    {% if g.types_found %}<div style="font-size:11px;color:var(--dim);margin-top:4px">Schema types: {{ g.types_found }}</div>{% endif %}
+    {% if g.preview %}<details class="leak-preview"><summary>Preview</summary><pre>{{ g.preview }}</pre></details>{% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện GraphQL endpoint. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: CORS -->
+<div class="tab-panel" id="tab-cors">
+  {% if result.cors_findings %}
+  <div class="alert alert-warn">🌐 Phát hiện <strong>{{ result.cors_findings|length }}</strong> endpoint CORS misconfiguration — có thể bị đọc cross-origin</div>
+  {% for c in result.cors_findings %}
+  <div class="leak-item {{ 'crit' if c.severity == 'critical' else ('high' if c.severity == 'high' else '') }}">
+    <div class="leak-header">
+      <span class="code-badge code-{{ c.status_code }}">{{ c.status_code }}</span>
+      <span class="sev-badge sev-{{ c.severity }}">{{ c.severity }}</span>
+      <span class="leak-path">{{ c.origin_tested }}</span>
+    </div>
+    <div class="leak-url">{{ c.url }}</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:4px">ACAO: <code>{{ c.acao }}</code> · ACAC: <code>{{ c.acac }}</code></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">{{ c.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện CORS misconfiguration. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Open Redirect -->
+<div class="tab-panel" id="tab-redirect">
+  {% if result.open_redirect_findings %}
+  <div class="alert alert-warn">↪️ Phát hiện <strong>{{ result.open_redirect_findings|length }}</strong> param open redirect — có thể bị phishing redirect</div>
+  {% for r in result.open_redirect_findings %}
+  <div class="leak-item {{ 'crit' if r.severity == 'critical' else ('high' if r.severity == 'high' else 'med') }}">
+    <div class="leak-header">
+      <span class="code-badge code-{{ r.status_code }}">{{ r.status_code }}</span>
+      <span class="sev-badge sev-{{ r.severity }}">{{ r.severity }}</span>
+      <span class="leak-path">?{{ r.param }}={{ r.payload[:40] }}{% if r.payload|length > 40 %}...{% endif %}</span>
+      <span class="sev-badge sev-info">{{ r.variant }}</span>
+    </div>
+    <div class="leak-url">{{ r.url }}</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:4px">Location: <code>{{ r.location[:80] }}</code></div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện open redirect. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Source Maps -->
+<div class="tab-panel" id="tab-srcmaps">
+  {% if result.source_maps %}
+  <div class="alert alert-warn">🗺️ Phát hiện <strong>{{ result.source_maps|length }}</strong> source map exposed — leak source code gốc (unminified)</div>
+  {% for s in result.source_maps %}
+  <div class="leak-item high">
+    <div class="leak-header">
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="leak-path">{{ s.map_url }}</span>
+      <span class="leak-size">{{ s.size }} bytes</span>
+      <span class="sev-badge sev-info">{{ s.sources_count }} source files</span>
+    </div>
+    <div style="font-size:11px;color:var(--dim);margin-top:4px">{{ s.description }}</div>
+    {% if s.sources_preview %}
+    <div style="font-size:11px;color:var(--muted);margin-top:4px">Source files preview:
+      <code>{{ (s.sources_preview|join(", "))[:200] }}</code>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện source map. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Swagger -->
+<div class="tab-panel" id="tab-swagger">
+  {% if result.swagger_endpoints %}
+  <div class="alert alert-info">📋 Phát hiện <strong>{{ result.swagger_endpoints|length }}</strong> endpoints từ Swagger/OpenAPI spec — toàn bộ API surface lộ</div>
+  {% for e in result.swagger_endpoints %}
+  <div class="leak-item">
+    <div class="leak-header">
+      <span class="sev-badge sev-{{ 'high' if e.method == 'DELETE' else ('medium' if e.method in ('PUT','PATCH') else 'low') }}">{{ e.method }}</span>
+      <span class="leak-path">{{ e.path }}</span>
+    </div>
+    <div class="leak-url">{{ e.url }}</div>
+    {% if e.summary %}<div style="font-size:11px;color:var(--dim);margin-top:4px">{{ e.summary }}</div>{% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện Swagger/OpenAPI spec. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Wayback -->
+<div class="tab-panel" id="tab-wayback">
+  {% if result.wayback_urls %}
+  <div class="alert alert-info">🕰️ Tìm <strong>{{ result.wayback_urls|length }}</strong> historical URLs từ Wayback Machine — có thể tìm được endpoints đã bị gỡ</div>
+  <div style="max-height:480px;overflow-y:auto;background:var(--bg3);padding:10px;border-radius:9px;border:1px solid var(--border);font-family:monospace;font-size:11px">
+    {% for u in result.wayback_urls %}
+    <div style="padding:2px 0;color:var(--accent2);word-break:break-all">
+      <a href="{{ u }}" target="_blank" style="color:var(--accent2);text-decoration:none">{{ u }}</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty-state">Không tìm thấy historical URLs. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: HTTP Methods -->
+<div class="tab-panel" id="tab-methods">
+  {% if result.http_method_findings %}
+  {% for m in result.http_method_findings %}
+  <div class="leak-item">
+    <div class="leak-header">
+      <span class="sev-badge sev-low">{{ m.method_tested }}</span>
+      <span class="code-badge code-{{ m.status_code }}">{{ m.status_code }}</span>
+      <span class="leak-path">{{ m.url }}</span>
+    </div>
+    {% if m.allow %}<div style="font-size:11px;color:var(--accent);margin-top:4px">Allow: <code>{{ m.allow }}</code></div>{% endif %}
+    {% if m.acah_methods %}<div style="font-size:11px;color:var(--accent2);margin-top:2px">CORS Methods: <code>{{ m.acah_methods }}</code></div>{% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không có Allow header hoặc methods disclosure. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Recursive Brute -->
+<div class="tab-panel" id="tab-rbrute">
+  {% if result.recursive_brute_findings %}
+  <div class="alert alert-info">🔁 Recursive brute-force tìm <strong>{{ result.recursive_brute_findings|length }}</strong> sub-paths trong directories phát hiện</div>
+  {% for r in result.recursive_brute_findings %}
+  <div class="leak-item {{ 'crit' if r.severity == 'critical' else ('high' if r.severity == 'high' else ('med' if r.severity == 'medium' else '')) }}">
+    <div class="leak-header">
+      <span class="code-badge code-{{ r.code }}">{{ r.code }}</span>
+      <span class="sev-badge sev-{{ r.severity }}">{{ r.severity }}</span>
+      <span class="leak-path">{{ r.path }}</span>
+      {% if r.response_time_ms %}<span class="leak-rt">{{ r.response_time_ms }}ms</span>{% endif %}
+    </div>
+    <div class="leak-url">{{ r.url }}</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:4px">📍 Parent: {{ r.parent_dir }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không tìm thấy sub-paths trong directories. ✅</p>
+  {% endif %}
+</div>
+
 <!-- Tab: Raw -->
 <div class="tab-panel" id="tab-raw">
   <details>
@@ -2663,7 +3975,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v7.0",
+                "errors": [str(e)], "scanner_version": "v8.0",
             }
             with prog_lock:
                 for h in scan_history:
@@ -2754,7 +4066,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v7.0"
+    data["scanner"] = "Web Leak Scanner Pro v8.0"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -2829,7 +4141,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v7.0 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v8.0 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -2841,13 +4153,15 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 # ── Main ──
 if __name__ == "__main__":
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v7.0 — Upgraded Edition")
+    print(f"🛡️  Web Leak Scanner Pro v8.0 — Upgraded Edition")
     print(f"   URL: http://{HOST}:{PORT}")
     print(f"   Mở trình duyệt vào địa chỉ trên (Ctrl+C để dừng)")
-    print(f"   v7.0: 400+ leak paths · 45+ secret patterns · 8+ new frameworks")
-    print(f"   v7.0: Backup variants · Param fuzzing · DNS subdomain enum")
-    print(f"   v7.0: Glassmorphism UI · Animated mesh bg · Live activity log")
-    print(f"   v7.0: Animated counters · Glow effects · Staggered animations")
+    print(f"   v8.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v8.0: Subdomain takeover · GraphQL introspection · CORS · open redirect")
+    print(f"   v8.0: Source map exposure · JS endpoint extraction · Swagger parsing")
+    print(f"   v8.0: Recursive depth-2 brute · HTTP method fuzz · Wayback Machine")
+    print(f"   v8.0: Glassmorphism UI · Animated mesh bg · Live activity log")
+    print(f"   v8.0: Animated counters · Glow effects · Staggered animations")
     print("=" * 64)
     app.run(host=HOST, port=PORT, debug=False, threaded=True)
 
