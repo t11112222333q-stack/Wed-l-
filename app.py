@@ -1,52 +1,28 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v6.0 – Web Single-File Edition
-Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
-  pip install flask aiohttp
-  python app.py
-Rồi mở trình duyệt: http://localhost:5000
+Web Leak Scanner Pro v7.0 – UI/UX Edition
+Gộp Flask + Scanner + UI vào 1 file.
 
-Changelog v6.0 (so với v5.0):
-  + ⏱️ Real-time elapsed timer (mm:ss) + ETA ước tính còn lại.
-  + ⚡ Requests/sec rate counter (số request hoàn thành/giây).
-  + 🛑 Cancel Scan button + endpoint POST /cancel/<scan_id>.
-  + 🎯 Soft-404 calibration: fetch 1 path random kỳ lạ trước,
-    lưu size + signature, rồi filter các finding có pattern giống
-    (giảm false positive khi target trả 200 cho mọi path).
-  + 🚫 Ẩn phase "keepalive" và "connected" khỏi UI (chỉ là SSE heartbeat).
-  + 📝 Phase human-readable tiếng Việt (snake_case -> "Đang quét leak paths...").
-  + 📊 Sub-progress chi tiết: phase progress bar + ETA + rate ngay trong UI.
-  + ⚡ Concurrency mặc định tăng: 15->25, WAF slow 5->8.
-  + ⏱️ Timeout rút gọn cho brute-force (3s thay vì 10s) để scan nhanh hơn.
-  + 📈 Mini stats live: requests/sec, found, elapsed, ETA, phase.
-  + 🧹 Auto-dedup soft-404 khi render kết quả.
+Changelog v7.0 (so với v6.0):
+  + ✨ Glassmorphism UI với backdrop-blur, frosted glass cards.
+  + 🌈 Animated mesh-gradient background (aurora effect).
+  + 💡 Glow effects trên buttons, badges, critical findings.
+  + 📊 Animated count-up stat counters.
+  + ✨ Shimmer effect trên progress bar.
+  + 📡 Radar/scope animation trong khi scan.
+  + 🎯 Pulse animation trên critical/high severity items.
+  + 🎨 Custom scrollbar styled matching theme.
+  + 📱 Slide-in animations cho results, fade transitions.
+  + 🔮 Neon gradient text titles.
+  + ⚡ Smooth tab indicator (sliding underline).
+  + 🍞 Enhanced toast với slide+fade.
+  + 🎭 Loading skeleton states.
+  + 🌊 Ripple effect trên buttons click.
+  + 📈 Severity distribution mini-bar chart (CSS).
 
-Changelog v5.0 (so với v4.0):
-  + Security Headers Analysis (CSP, HSTS, X-Frame-Options, X-Content-Type-Options,
-    Referrer-Policy, Permissions-Policy, X-XSS-Protection, X-Permitted-Cross-Domain-Policies).
-  + Cookie Security Analysis (HttpOnly, Secure, SameSite, __Host- prefix).
-  + HTTPS / SSL basic info (subject, issuer, days to expiry).
-  + JavaScript file extraction + quét secret patterns trong nội dung JS
-    (AWS keys, Google API key, Slack token, JWT, private key, …).
-  + Sensitive Data Pattern Matching trong HTML (email, phone, JWT, AWS keys,
-    private key, GitHub/Firebase/Stripe tokens).
-  + Mở rộng WAF detection (Cloudflare, AWS WAF, Akamai, Imperva, Sucuri, F5,
-    Wordfence, ModSecurity, Fastly, Barracuda, Fortinet, Datadome, PerimeterX).
-  + Mở rộng LEAK_PATHS (+30 paths mới: .gitlab-ci.yml, firebase.json, .npmrc,
-    service-account.json, id_rsa.pub, .dockerenv, .htpasswd, …).
-  + Mở rộng TECH_SIGS (Next.js, Nuxt, Gatsby, SvelteKit, Express, Spring,
-    Rails, Symfony, CodeIgniter, Craft CMS, Strapi, Ghost, Joomla, Magento, Shopify).
-  + Form Detection (login forms, hidden inputs, file upload, CSRF tokens).
-  + CDN Detection (Cloudflare, CloudFront, Akamai, Fastly, MaxCDN, BunnyCDN).
-  + Auto-retry 429 (Too Many Requests) với exponential backoff.
-  + Severity scoring (Critical/High/Medium/Low) cho từng finding.
-  + Tabs UI (Summary / Leaks / Tech / Network / Sensitive / Raw).
-  + Filter / search trong kết quả.
-  + Export đa định dạng: JSON / CSV / standalone HTML.
-  + Scan history (in-memory, 10 scan gần nhất).
-  + Theme toggle Dark / Light.
-  + Response time tracking từng request.
+Changelog v6.0:
+  + Real-time elapsed timer + ETA + requests/sec + cancel + soft-404.
 """
 import os, sys, re, json, time, random, asyncio, threading, queue, csv, io, ssl, socket
 from datetime import datetime, timezone, timedelta
@@ -54,13 +30,11 @@ from urllib.parse import urlparse, urljoin
 from functools import wraps
 from collections import OrderedDict
 
-# ── Flask ──
 from flask import Flask, request, render_template_string, jsonify, Response
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
-# ── Config ──
 HOST = "0.0.0.0"
 PORT = int(os.environ.get("PORT", 5000))
 USER_AGENTS = [
@@ -75,7 +49,6 @@ BLOCKED_HOSTS = {"localhost", "127.0.0.1", "0.0.0.0", "::1", "169.254.169.254", 
 SCAN_HISTORY_MAX = 10
 
 LEAK_PATHS = [
-    # Common config / env
     "/robots.txt", "/sitemap.xml", "/.env", "/.env.local", "/.env.production",
     "/.env.development", "/.env.staging", "/.env.test", "/.env.example",
     "/.git/config", "/.git/HEAD", "/.git/index", "/.gitignore", "/.gitattributes",
@@ -83,37 +56,29 @@ LEAK_PATHS = [
     "/.htaccess", "/web.config", "/config.json", "/config.xml", "/config.yaml",
     "/config.yml", "/config.ini", "/appsettings.json", "/appsettings.Development.json",
     "/appsettings.Production.json", "/.htpasswd", "/.htaccess.bak", "/.htaccess.txt",
-    # Backup / dumps
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/db.sql", "/dump.sql",
     "/database.sql", "/www.zip", "/www.tar.gz", "/site.zip", "/website.zip",
     "/backup.sql", "/backup.json", "/data.sql", "/data.json",
-    # Admin panels
     "/admin/", "/administrator/", "/wp-admin/", "/phpmyadmin/", "/adminer.php",
     "/admin/login", "/manager/html", "/cpanel", "/.admin", "/wp-login.php",
-    # Cloud / SSH / DevOps secrets
     "/.aws/credentials", "/.aws/config", "/.ssh/id_rsa", "/.ssh/id_rsa.pub",
     "/.ssh/authorized_keys", "/.ssh/known_hosts", "/.dockerenv", "/.dockercfg",
     "/.gitlab-ci.yml", "/.github/workflows/", "/firebase.json", "/service-account.json",
     "/google-services.json", "/GoogleService-Info.plist", "/.npmrc", "/.yarnrc",
     "/.netrc", "/.pypirc", "/.kube/config", "/.terraform.tfvars", "/terraform.tfstate",
-    # API docs
     "/swagger.json", "/swagger.yaml", "/api-docs", "/openapi.json", "/openapi.yaml",
     "/swagger-ui/", "/swagger/", "/redoc", "/graphql", "/graphiql", "/altair",
     "/api/v1/", "/api/v2/", "/api/v3/", "/rest/", "/api/",
-    # Package manifests
     "/package.json", "/package-lock.json", "/composer.json", "/composer.lock",
     "/Dockerfile", "/docker-compose.yml", "/docker-compose.yaml", "/Containerfile",
     "/Pipfile", "/Pipfile.lock", "/requirements.txt", "/Gemfile", "/Gemfile.lock",
     "/go.mod", "/go.sum", "/pom.xml", "/build.gradle", "/build.sbt",
-    # History / debug
     "/.bash_history", "/.mysql_history", "/.psql_history", "/.viminfo",
     "/.phpstorm", "/.idea/", "/.vscode/", "/.DS_Store", "/Thumbs.db",
     "/phpinfo.php", "/info.php", "/_profiler/", "/symfony/", "/_debugbar/",
     "/actuator", "/actuator/health", "/actuator/env", "/actuator/mappings",
     "/actuator/heapdump", "/actuator/loggers", "/server-status", "/server-info",
-    # VCS
     "/.svn/entries", "/.svn/wc.db", "/.hg/store", "/.bzr/", "/CVS/Root",
-    # Misc
     "/install/", "/setup/", "/test/", "/temp/", "/tmp/", "/logs/", "/log/",
     "/old/", "/backup/", "/bak/", "/archive/", "/archives/", "/debug/",
     "/_files/", "/uploads/", "/files/", "/static/", "/public/",
@@ -145,7 +110,7 @@ TECH_SIGS = {
     "Angular":     [("html", r'ng-\w+|angular[./]|ng-version')],
     "Svelte":      [("html", r'svelte-[a-z0-9]+')],
     "PHP":         [("header", r'x-powered-by.*php|php/'), ("html", r'\.php\?|phpsessid')],
-    "ASP.NET":     [("header", r'x-aspnet|x-powered-by.*asp\.net|aspsessionid|aspnet'), ("cookie", r'asp\.net') , ("header", r'x-aspnetmvc')],
+    "ASP.NET":     [("header", r'x-aspnet|x-powered-by.*asp\.net|aspsessionid|aspnet'), ("cookie", r'asp\.net'), ("header", r'x-aspnetmvc')],
     "Ruby on Rails":[("header", r'x-powered-by.*rails|x-runtime|x-request-id'), ("cookie", r'_session|_rails')],
     "Spring Boot": [("header", r'x-application-context'), ("html", r'/actuator')],
     "Node.js":     [("header", r'x-powered-by.*nodejs|x-powered-by.*express')],
@@ -185,7 +150,6 @@ WAF_SIGS = [
     "Rate Limit (generic, HTTP 429)",
 ]
 
-# Security headers to check (key, header_name, severity if missing)
 SECURITY_HEADERS = [
     ("strict-transport-security", "Strict-Transport-Security (HSTS)", "high"),
     ("content-security-policy", "Content-Security-Policy (CSP)", "high"),
@@ -199,7 +163,6 @@ SECURITY_HEADERS = [
     ("cross-origin-resource-policy", "Cross-Origin-Resource-Policy", "medium"),
 ]
 
-# Sensitive data patterns (name, regex, severity, description)
 SECRET_PATTERNS = [
     ("AWS Access Key ID",      r'AKIA[0-9A-Z]{16}',                                "critical", "AWS Access Key - cho phép gọi API AWS"),
     ("AWS Secret Key",         r'aws_secret_access_key["\']?\s*[:=]\s*["\']?[A-Za-z0-9/+=]{40}', "critical", "AWS Secret Key"),
@@ -227,7 +190,6 @@ SECRET_PATTERNS = [
     ("US Phone",              r'\+1\s?\(?[2-9]\d{2}\)?[\s.-]?[2-9]\d{2}[\s.-]?\d{4}', "info", "US phone (E.164-ish)"),
 ]
 
-# CDN detection
 CDN_SIGS = [
     ("Cloudflare",     [r'cf-ray', r'cloudflare', r'cf-cache-status']),
     ("AWS CloudFront", [r'x-amz-cf-id', r'x-amz-cf-pop', r'cloudfront']),
@@ -240,7 +202,6 @@ CDN_SIGS = [
     ("jsDelivr",       [r'jsdelivr']),
 ]
 
-# Subdomain suggestions shown for recon (no network call – just hints)
 COMMON_SUBDOMAINS = [
     "www", "mail", "remote", "blog", "shop", "dev", "test", "stage", "staging",
     "api", "app", "admin", "portal", "vpn", "m", "mobile", "secure", "secure2",
@@ -251,7 +212,6 @@ COMMON_SUBDOMAINS = [
     "ns1", "ns2", "dns", "mx", "smtp", "imap", "pop", "ftp", "sftp",
 ]
 
-# ── Validators ──
 import ipaddress
 
 def validate_target(url):
@@ -266,11 +226,9 @@ def validate_target(url):
     hn = parsed.hostname.lower()
     if hn in BLOCKED_HOSTS:
         raise ValueError(f"'{hn}' bị chặn (SSRF protection)")
-    # IP literal checks (only if hostname IS an IP literal)
     try:
         ip = ipaddress.ip_address(hn)
     except ValueError:
-        # not an IP literal (it's a DNS name) -> skip IP-based checks
         ip = None
     if ip is not None:
         if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
@@ -293,7 +251,6 @@ def parse_headers(raw):
     return headers
 
 def get_ssl_info(host, port=443, timeout=5):
-    """Returns dict with subject, issuer, not_after, days_remaining (or None on failure)."""
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
@@ -311,19 +268,13 @@ def get_ssl_info(host, port=443, timeout=5):
                         days = (end - datetime.utcnow()).days
                     except Exception:
                         pass
-                return {
-                    "subject": subject.get("commonName", ""),
-                    "issuer": issuer.get("commonName", ""),
-                    "not_after": not_after,
-                    "days_remaining": days,
-                }
+                return {"subject": subject.get("commonName", ""), "issuer": issuer.get("commonName", ""), "not_after": not_after, "days_remaining": days}
     except Exception as e:
         return {"error": str(e)[:120]}
 
 def severity_rank(s):
     return {"critical": 4, "high": 3, "medium": 2, "low": 1, "info": 0}.get(s, 0)
 
-# ── Async Scanner ──
 try:
     import aiohttp
     HAS_AIOHTTP = True
@@ -332,16 +283,13 @@ except ImportError:
     print("[!] aiohttp chưa cài – pip install aiohttp")
 
 async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2):
-    """Fetch với auto-retry khi gặp 429 (exponential backoff)."""
     if not HAS_AIOHTTP:
         return "", 0, {}, 0
     last_err = None
     for attempt in range(max_retries + 1):
         start = time.time()
         try:
-            async with session.get(url, headers=headers, proxy=proxy,
-                                    timeout=aiohttp.ClientTimeout(total=timeout),
-                                    ssl=False, allow_redirects=True) as r:
+            async with session.get(url, headers=headers, proxy=proxy, timeout=aiohttp.ClientTimeout(total=timeout), ssl=False, allow_redirects=True) as r:
                 text = await r.text(errors="replace")
                 elapsed = round((time.time() - start) * 1000, 1)
                 if r.status == 429 and attempt < max_retries:
@@ -394,7 +342,6 @@ def detect_waf(headers, code, text):
     wafs, recs = [], []
     for sig in WAF_SIGS:
         if isinstance(sig, str):
-            # Rate Limit (generic)
             if code == 429 and "Rate Limit" not in wafs:
                 wafs.append(sig)
                 recs.append("Server trả 429 Too Many Requests – giảm concurrency, tăng delay")
@@ -423,27 +370,18 @@ def detect_cdn(headers):
     return sorted(set(cdns))
 
 def analyze_security_headers(headers):
-    """Trả về list of {header, present, value, severity}."""
     hl = {k.lower(): v for k, v in headers.items()}
     out = []
     for hname, display, sev in SECURITY_HEADERS:
         v = hl.get(hname)
-        out.append({
-            "header": display,
-            "present": v is not None,
-            "value": (v[:200] + "...") if v and len(v) > 200 else (v or ""),
-            "severity": sev if v is None else "info",
-            "missing": v is None,
-        })
+        out.append({"header": display, "present": v is not None, "value": (v[:200] + "...") if v and len(v) > 200 else (v or ""), "severity": sev if v is None else "info", "missing": v is None})
     return out
 
 def analyze_cookies(headers):
-    """Phân tích Set-Cookie flags (HttpOnly, Secure, SameSite, prefix)."""
     out = []
     raw = headers.get("Set-Cookie") or headers.get("set-cookie")
     if not raw:
         return out
-    # Gom nhiều set-cookie (Flask gộp thành một list nếu là from aiohttp)
     if isinstance(raw, str):
         cookies = [c.strip() for c in raw.split(",") if "=" in c.split(";")[0]]
     else:
@@ -455,13 +393,7 @@ def analyze_cookies(headers):
         name = name.strip()
         val = rest.split(";")[0]
         attrs = [a.strip().lower() for a in rest.split(";")[1:]]
-        flags = {
-            "httponly":  "httponly" in attrs,
-            "secure":    "secure" in attrs,
-            "samesite":  next((a.split("=",1)[1] for a in attrs if a.startswith("samesite")), None),
-            "host_prefix": name.startswith("__host-"),
-            "secure_prefix": name.startswith("__secure-"),
-        }
+        flags = {"httponly": "httponly" in attrs, "secure": "secure" in attrs, "samesite": next((a.split("=",1)[1] for a in attrs if a.startswith("samesite")), None), "host_prefix": name.startswith("__host-"), "secure_prefix": name.startswith("__secure-")}
         issues = []
         if not flags["httponly"]:
             issues.append("Thiếu HttpOnly (XSS cookie theft)")
@@ -469,32 +401,18 @@ def analyze_cookies(headers):
             issues.append("Thiếu Secure (leak qua HTTP)")
         if not flags["samesite"]:
             issues.append("Thiếu SameSite (CSRF)")
-        out.append({
-            "name": name,
-            "value_preview": val[:40] + ("..." if len(val) > 40 else ""),
-            "flags": flags,
-            "issues": issues,
-        })
+        out.append({"name": name, "value_preview": val[:40] + ("..." if len(val) > 40 else ""), "flags": flags, "issues": issues})
     return out
 
 def scan_secrets(text, label):
-    """Quét text tìm các secret patterns. Trả về list of {type, severity, match, label}."""
     out = []
     if not text:
         return out
     for name, pat, sev, desc in SECRET_PATTERNS:
         for m in re.finditer(pat, text, re.I):
             snippet = m.group(0)
-            # Che bớt một phần để tránh leak hoàn toàn khi export
             masked = snippet[:8] + "*" * (max(0, len(snippet) - 12)) + snippet[-4:] if len(snippet) > 16 else snippet[:2] + "***"
-            out.append({
-                "type": name,
-                "severity": sev,
-                "match_masked": masked,
-                "description": desc,
-                "source": label,
-            })
-    # Dedup theo (type, masked)
+            out.append({"type": name, "severity": sev, "match_masked": masked, "description": desc, "source": label})
     seen = set()
     deduped = []
     for s in out:
@@ -504,7 +422,6 @@ def scan_secrets(text, label):
     return deduped
 
 def extract_js_links(html, base):
-    """Trích link file .js từ HTML. Trả về list of absolute URLs (unique)."""
     if not html:
         return []
     links = set()
@@ -519,7 +436,6 @@ def extract_js_links(html, base):
     return sorted(links)[:30]
 
 def extract_forms(html, base):
-    """Trích <form> từ HTML. Trả về list of dicts."""
     if not html:
         return []
     forms = []
@@ -531,94 +447,49 @@ def extract_forms(html, base):
         if action_url and not action_url.startswith(("http://", "https://", "//")):
             action_url = urljoin(base, action_url) if action_url.startswith("/") else urljoin(base + "/", action_url)
         meth = (method.group(1) if method else "GET").upper()
-        # detect inputs
         inputs = re.findall(r'<input[^>]*>', block, re.I)
         input_summary = []
-        has_password = False
-        has_file = False
-        has_hidden = False
-        has_csrf = False
+        has_password = has_file = has_hidden = has_csrf = False
         for inp in inputs:
             name = re.search(r'name=["\']([^"\']*)["\']', inp, re.I)
             type_ = re.search(r'type=["\']([^"\']*)["\']', inp, re.I)
             t = (type_.group(1).lower() if type_ else "text")
             n = (name.group(1) if name else "")
-            if t == "password":
-                has_password = True
-            elif t == "file":
-                has_file = True
+            if t == "password": has_password = True
+            elif t == "file": has_file = True
             elif t == "hidden":
                 has_hidden = True
-                if re.search(r'csrf|_token|authenticity', n, re.I):
-                    has_csrf = True
+                if re.search(r'csrf|_token|authenticity', n, re.I): has_csrf = True
             input_summary.append({"name": n, "type": t})
         form_type = "login" if has_password else ("upload" if has_file else "generic")
-        forms.append({
-            "action": action_url,
-            "method": meth,
-            "type": form_type,
-            "has_password": has_password,
-            "has_file": has_file,
-            "has_hidden": has_hidden,
-            "has_csrf_token": has_csrf,
-            "input_count": len(input_summary),
-            "inputs_preview": input_summary[:10],
-        })
+        forms.append({"action": action_url, "method": meth, "type": form_type, "has_password": has_password, "has_file": has_file, "has_hidden": has_hidden, "has_csrf_token": has_csrf, "input_count": len(input_summary), "inputs_preview": input_summary[:10]})
     return forms
 
 def score_finding(path, code):
-    """Severity cho 1 path leak."""
     p = path.lower()
-    # Critical
-    if any(k in p for k in ["/.ssh/id_rsa", "/.aws/credentials", "/service-account.json",
-                           "/firebase.json", "/.netrc", "/.kube/config", "/.terraform.tfvars",
-                           "/terraform.tfstate", "private key", "/.env", "wp-config.php",
-                           "/config.php", "/configuration.php"]):
+    if any(k in p for k in ["/.ssh/id_rsa", "/.aws/credentials", "/service-account.json", "/firebase.json", "/.netrc", "/.kube/config", "/.terraform.tfvars", "/terraform.tfstate", "private key", "/.env", "wp-config.php", "/config.php", "/configuration.php"]):
         return "critical"
-    # High
-    if any(k in p for k in ["/db.sql", "/dump.sql", "/database.sql", "/backup.zip",
-                            "/backup.tar.gz", "/www.zip", "/site.zip", "/.git/config",
-                            "/.git/HEAD", "/.gitlab-ci.yml", "/.github/workflows/",
-                            "/.npmrc", "/.pypirc", "/.netrc", "/.ssh/authorized_keys",
-                            "/phpmyadmin/", "/adminer.php", "/swagger.json",
-                            "/openapi.json", "/actuator/env", "/actuator/heapdump",
-                            "/error.log", "/access.log", "/.bash_history"]):
+    if any(k in p for k in ["/db.sql", "/dump.sql", "/database.sql", "/backup.zip", "/backup.tar.gz", "/www.zip", "/site.zip", "/.git/config", "/.git/HEAD", "/.gitlab-ci.yml", "/.github/workflows/", "/.npmrc", "/.pypirc", "/.netrc", "/.ssh/authorized_keys", "/phpmyadmin/", "/adminer.php", "/swagger.json", "/openapi.json", "/actuator/env", "/actuator/heapdump", "/error.log", "/access.log", "/.bash_history"]):
         return "high"
-    # Medium
     if code == 401 or code == 403:
         return "medium"
-    if any(k in p for k in ["/admin/", "/administrator/", "/wp-admin/", "/wp-login.php",
-                            "/install/", "/setup/", "/phpinfo.php", "/info.php",
-                            "/server-status", "/.idea/", "/.vscode/", "/.DS_Store",
-                            "/Thumbs.db"]):
+    if any(k in p for k in ["/admin/", "/administrator/", "/wp-admin/", "/wp-login.php", "/install/", "/setup/", "/phpinfo.php", "/info.php", "/server-status", "/.idea/", "/.vscode/", "/.DS_Store", "/Thumbs.db"]):
         return "medium"
     return "low"
 
 def get_main_page_summary(html, max_chars=400):
     if not html:
         return ""
-    # Strip scripts + tags
     t = re.sub(r'<script[^>]*>.*?</script>', ' ', html, flags=re.I | re.S)
     t = re.sub(r'<style[^>]*>.*?</style>', ' ', t, flags=re.I | re.S)
     t = re.sub(r'<[^>]+>', ' ', t)
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
-                    allow_redirects=False, progress_cb=None, scan_js=True,
-                    scan_id=None):
+async def deep_scan(target, custom_headers=None, proxy=None, timeout=10, allow_redirects=False, progress_cb=None, scan_js=True, scan_id=None):
     start = time.time()
     target = validate_target(target)
-    result = {
-        "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v6.0",
-        "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
-        "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
-        "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
-        "secrets": [], "ssl": {}, "subdomain_hints": [], "page_summary": "",
-        "errors": [], "duration_seconds": 0, "stats": {},
-        "soft_404_filtered": 0, "cancelled": False,
-    }
+    result = {"target": target, "timestamp": datetime.now(timezone.utc).isoformat(), "scanner_version": "v7.0", "main": {}, "leak": [], "robots": [], "links": [], "js_links": [], "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [], "waf": {}, "cdn": [], "cookies": [], "security_headers": [], "secrets": [], "ssl": {}, "subdomain_hints": [], "page_summary": "", "errors": [], "duration_seconds": 0, "stats": {}, "soft_404_filtered": 0, "cancelled": False}
     parsed = urlparse(target)
     host = parsed.hostname
     base = f"{parsed.scheme}://{parsed.netloc}"
@@ -628,7 +499,6 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
 
     async def prog(phase, msg, current=0, total=0, found=0):
         if progress_cb:
-            # Tính ETA dựa trên elapsed + current/total
             elapsed = time.time() - start
             eta = None
             if total > 0 and current > 0:
@@ -636,42 +506,22 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 if rate > 0:
                     eta = max(0, round((total - current) / rate))
             display = phase_display(phase)
-            await progress_cb({
-                "phase": phase,
-                "phase_display": display,
-                "message": msg,
-                "current": current, "total": total, "found": found,
-                "elapsed": round(elapsed, 1),
-                "eta": eta,
-                "rate": round(current / elapsed, 1) if elapsed > 0 else 0,
-            })
+            await progress_cb({"phase": phase, "phase_display": display, "message": msg, "current": current, "total": total, "found": found, "elapsed": round(elapsed, 1), "eta": eta, "rate": round(current / elapsed, 1) if elapsed > 0 else 0})
 
     if HAS_AIOHTTP:
-        # Concurrency tăng nhẹ, brute-force timeout ngắn để scan nhanh hơn
         conn = aiohttp.TCPConnector(limit=100, limit_per_host=40, ssl=False)
-        async with aiohttp.ClientSession(connector=conn,
-                                          headers={"User-Agent": random.choice(USER_AGENTS)}) as session:
-            # 1. Main page
+        async with aiohttp.ClientSession(connector=conn, headers={"User-Agent": random.choice(USER_AGENTS)}) as session:
             await prog("main_page", "Đang tải trang chính...")
             main_text, main_code, main_headers, main_rt = await fetch(session, target, custom_headers, proxy, timeout)
-            result["main"] = {
-                "code": main_code,
-                "length": len(main_text) if main_text else 0,
-                "headers": dict(main_headers),
-                "response_time_ms": main_rt,
-            }
+            result["main"] = {"code": main_code, "length": len(main_text) if main_text else 0, "headers": dict(main_headers), "response_time_ms": main_rt}
             result["page_summary"] = get_main_page_summary(main_text)
             if main_code == 0:
                 result["errors"].append(f"Kết nối thất bại: {main_text[:120]}")
                 result["duration_seconds"] = round(time.time()-start, 2)
                 return result
-
-            # Cookies + security headers
             await prog("security_headers", "Phân tích security headers & cookies...")
             result["cookies"] = analyze_cookies(main_headers)
             result["security_headers"] = analyze_security_headers(main_headers)
-
-            # Technologies + WAF + CDN
             cookie_names = [c.get("name","") for c in result["cookies"]]
             techs = detect_tech(main_text, main_headers, cookie_names)
             result["technologies"] = techs
@@ -681,28 +531,16 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["cdn"] = detect_cdn(main_headers)
             if waf["should_slow_down"]:
                 await prog("waf", f"WAF: {', '.join(waf['detected'])} – Giảm tốc")
-
             limit = 8 if waf["should_slow_down"] else 25
-
-            # SSL info nếu HTTPS
             if parsed.scheme == "https":
                 await prog("ssl", "Đ kiểm tra SSL/TLS cert...")
                 result["ssl"] = get_ssl_info(host, 443, 5)
-
-            # 2. Ports
             if host:
                 await prog("ports", "Đang quét cổng...")
                 result["ports"] = await scan_ports(host)
                 await prog("ports_done", f"Cổng mở: {result['ports'] or 'Không có'}")
-
-            # 3. Leak paths — soft-404 calibration trước
             await prog("leak_scan", f"Soft-404 calibration...", 0, len(LEAK_PATHS), 0)
-            # Fetch 1 path random kỳ lạ -> nếu status 200 thì đây là soft-404 signature
-            calib_paths = [
-                f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__.html",
-                f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__.php",
-                f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__/",
-            ]
+            calib_paths = [f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__.html", f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__.php", f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__/"]
             soft_404_sizes = set()
             soft_404_hashes = set()
             soft_404_codes = set()
@@ -711,7 +549,6 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 if c == 200 and t:
                     sz = len(t)
                     soft_404_sizes.add(sz)
-                    # Hash nhanh: dùng 4 sample positions
                     try:
                         import hashlib
                         soft_404_hashes.add(hashlib.md5(t.encode('utf-8','replace')).hexdigest()[:12])
@@ -720,7 +557,6 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     soft_404_codes.add(c)
             if soft_404_sizes:
                 await prog("leak_scan", f"Soft-404 baseline: {len(soft_404_sizes)} size(s) – sẽ filter", 0, len(LEAK_PATHS), 0)
-
             await prog("leak_scan", f"Quét {len(LEAK_PATHS)} paths...", 0, len(LEAK_PATHS), 0)
             sem = asyncio.Semaphore(limit)
             found_count = 0
@@ -737,35 +573,19 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                         size = len(text) if text else 0
                         is_soft_404 = False
                         if code == 200 and size in soft_404_sizes and size > 0:
-                            # Có thể là soft-404 — hash check
                             try:
                                 import hashlib
                                 h_ = hashlib.md5((text or "").encode('utf-8','replace')).hexdigest()[:12]
                                 if h_ in soft_404_hashes:
                                     is_soft_404 = True
                             except Exception:
-                                # fallback: chỉ dựa vào size
                                 is_soft_404 = True
                         if is_soft_404:
                             soft_filtered_count += 1
-                            # Vẫn giữ lại nhưng đánh dấu soft_404 + severity info
-                            return {
-                                "path": path, "url": url, "code": code,
-                                "size": size, "preview": "", "headers": {},
-                                "severity": "info", "response_time_ms": rt,
-                                "soft_404": True,
-                            }
+                            return {"path": path, "url": url, "code": code, "size": size, "preview": "", "headers": {}, "severity": "info", "response_time_ms": rt, "soft_404": True}
                         if code == 200:
                             found_count += 1
-                        return {
-                            "path": path, "url": url, "code": code,
-                            "size": size,
-                            "preview": (text[:500]+"..." if len(text) > 500 else text) if code == 200 else "",
-                            "headers": dict(h) if code == 200 else {},
-                            "severity": sev,
-                            "response_time_ms": rt,
-                            "soft_404": False,
-                        }
+                        return {"path": path, "url": url, "code": code, "size": size, "preview": (text[:500]+"..." if len(text) > 500 else text) if code == 200 else "", "headers": dict(h) if code == 200 else {}, "severity": sev, "response_time_ms": rt, "soft_404": False}
                     return None
             tasks = [check_path(p) for p in LEAK_PATHS]
             done = 0
@@ -782,10 +602,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 result["errors"].append("Scan bị huỷ bởi user")
                 result["duration_seconds"] = round(time.time()-start, 2)
                 return result
-            # Sort by severity
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
-
-            # 4. robots.txt
             await prog("robots", "Phân tích robots.txt...")
             rt, rc, _, _ = await fetch(session, urljoin(base, "/robots.txt"), custom_headers, proxy, timeout)
             if rc == 200 and rt:
@@ -803,13 +620,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     full = urljoin(base, rp)
                     _, c, _, _ = await fetch(session, full, custom_headers, proxy, timeout)
                     if c == 200:
-                        result["leak"].append({
-                            "path": rp, "url": full, "code": 200, "size": 0,
-                            "preview": "[from robots.txt]", "headers": {},
-                            "severity": score_finding(rp, 200), "response_time_ms": 0,
-                        })
-
-            # 5. Links + JS + Forms
+                        result["leak"].append({"path": rp, "url": full, "code": 200, "size": 0, "preview": "[from robots.txt]", "headers": {}, "severity": score_finding(rp, 200), "response_time_ms": 0})
             if main_text:
                 await prog("links", "Trích xuất links / JS / forms...")
                 links = set()
@@ -824,13 +635,9 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 result["links"] = sorted([l for l in links if urlparse(l).netloc == parsed.netloc])[:80]
                 result["js_links"] = extract_js_links(main_text, base)
                 result["forms"] = extract_forms(main_text, base)
-
-                # 6. Secrets trong main HTML
                 await prog("secrets", "Quét secret patterns trong HTML...")
                 html_secrets = scan_secrets(main_text, "main page HTML")
                 result["secrets"].extend(html_secrets)
-
-                # 7. Fetch + scan JS files
                 if scan_js and result["js_links"]:
                     await prog("secrets_js", f"Quét {len(result['js_links'])} JS files...", 0, len(result["js_links"]))
                     js_sem = asyncio.Semaphore(5)
@@ -847,7 +654,6 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                         done += 1
                         if done % 5 == 0 or done == len(result["js_links"]):
                             await prog("secrets_js", f"JS {done}/{len(result['js_links'])} – Secrets: {len(result['secrets'])}", done, len(result["js_links"]), len(result['secrets']))
-                # Dedup secrets + sort
                 seen = set(); deduped = []
                 for s in result["secrets"]:
                     k = (s["type"], s["match_masked"], s["source"])
@@ -855,11 +661,8 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                         seen.add(k); deduped.append(s)
                 result["secrets"] = deduped
                 result["secrets"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
-
-            # 8. Directory listing
             await prog("dirs", "Kiểm tra directory listing...")
-            dirs = ["/backup/", "/temp/", "/tmp/", "/admin/", "/uploads/", "/files/",
-                    "/logs/", "/config/", "/static/", "/public/", "/_files/", "/media/"]
+            dirs = ["/backup/", "/temp/", "/tmp/", "/admin/", "/uploads/", "/files/", "/logs/", "/config/", "/static/", "/public/", "/_files/", "/media/"]
             async def check_dir(d):
                 url = urljoin(base, d)
                 t, c, _, _ = await fetch(session, url, custom_headers, proxy, timeout)
@@ -867,17 +670,13 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     return {"url": url, "type": "dirlist"}
                 return None
             result["dirs"] = [r for r in await asyncio.gather(*[check_dir(d) for d in dirs]) if r]
-
-            # 9. Brute-force common names — timeout ngắn để scan nhanh
             if not cancelled():
-                brute_total = 9 * 20  # 180
+                brute_total = 9 * 20
                 await prog("brute", "Brute-force common files...", 0, brute_total)
                 exts = [".php", ".html", ".txt", ".json", ".xml", ".bak", ".old", ".save", ".orig"]
-                names = ["index", "admin", "login", "config", "test", "api", "backup",
-                         "db", "database", "secret", "private", "key", "token", "user",
-                         "users", "account", "accounts", "config.bak", "panel"]
+                names = ["index", "admin", "login", "config", "test", "api", "backup", "db", "database", "secret", "private", "key", "token", "user", "users", "account", "accounts", "config.bak", "panel"]
                 bsem = asyncio.Semaphore(15)
-                brute_timeout = min(timeout, 4)  # rút gọn timeout cho brute
+                brute_timeout = min(timeout, 4)
                 b_done = 0
                 async def brute_one(n, e):
                     nonlocal b_done
@@ -889,7 +688,6 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                         t, c, _, rt = await fetch(session, url, custom_headers, proxy, brute_timeout)
                         b_done += 1
                         if c in (200, 403, 401):
-                            # Soft-404 check cho brute
                             if c == 200 and t and len(t) in soft_404_sizes:
                                 return None
                             return {"path": path, "code": c, "severity": score_finding(path, c), "response_time_ms": rt}
@@ -897,20 +695,16 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 result["brute"] = [r for r in await asyncio.gather(*[brute_one(n, e) for n in names for e in exts]) if r]
                 result["brute"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
                 await prog("brute", f"Brute xong: {len(result['brute'])} hits", b_done, brute_total, len(result['brute']))
-
-            # 10. Subdomain hints (no network call)
             result["subdomain_hints"] = [f"{s}.{host}" for s in COMMON_SUBDOMAINS[:30]]
     else:
         import requests
         requests.packages.urllib3.disable_warnings()
         try:
-            r = requests.get(target, headers={"User-Agent": random.choice(USER_AGENTS)},
-                             timeout=timeout, verify=False, allow_redirects=True)
+            r = requests.get(target, headers={"User-Agent": random.choice(USER_AGENTS)}, timeout=timeout, verify=False, allow_redirects=True)
             main_text, main_code, main_headers = r.text, r.status_code, dict(r.headers)
         except Exception as e:
             main_text, main_code, main_headers = str(e), 0, {}
-        result["main"] = {"code": main_code, "length": len(main_text),
-                          "headers": main_headers, "response_time_ms": 0}
+        result["main"] = {"code": main_code, "length": len(main_text), "headers": main_headers, "response_time_ms": 0}
         result["page_summary"] = get_main_page_summary(main_text)
         result["cookies"] = analyze_cookies(main_headers)
         result["security_headers"] = analyze_security_headers(main_headers)
@@ -921,40 +715,17 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["ssl"] = get_ssl_info(host, 443, 5)
         result["secrets"] = scan_secrets(main_text, "main page HTML")
         result["errors"].append("Chế độ đồng bộ – cài aiohttp để có async scan đầy đủ")
-
-    # Final stats
-    result["stats"] = {
-        "leak_count": len(result["leak"]),
-        "critical_count": sum(1 for x in result["leak"] if x.get("severity") == "critical"),
-        "high_count": sum(1 for x in result["leak"] if x.get("severity") == "high"),
-        "medium_count": sum(1 for x in result["leak"] if x.get("severity") == "medium"),
-        "low_count": sum(1 for x in result["leak"] if x.get("severity") == "low"),
-        "secret_count": len(result["secrets"]),
-        "secret_critical": sum(1 for x in result["secrets"] if x.get("severity") == "critical"),
-        "secret_high": sum(1 for x in result["secrets"] if x.get("severity") == "high"),
-        "ports_open": len(result["ports"]),
-        "dir_listings": len(result["dirs"]),
-        "tech_count": len(result["technologies"]),
-        "waf_detected": len(result.get("waf", {}).get("detected", [])),
-        "missing_security_headers": sum(1 for h in result["security_headers"] if h["missing"]),
-        "insecure_cookies": sum(1 for c in result["cookies"] if c.get("issues")),
-        "js_files_scanned": len(result.get("js_links", [])),
-        "forms_found": len(result.get("forms", [])),
-        "soft_404_filtered": result.get("soft_404_filtered", 0),
-        "real_leak_count": sum(1 for x in result.get("leak", []) if not x.get("soft_404")),
-        "cancelled": result.get("cancelled", False),
-    }
+    result["stats"] = {"leak_count": len(result["leak"]), "critical_count": sum(1 for x in result["leak"] if x.get("severity") == "critical"), "high_count": sum(1 for x in result["leak"] if x.get("severity") == "high"), "medium_count": sum(1 for x in result["leak"] if x.get("severity") == "medium"), "low_count": sum(1 for x in result["leak"] if x.get("severity") == "low"), "secret_count": len(result["secrets"]), "secret_critical": sum(1 for x in result["secrets"] if x.get("severity") == "critical"), "secret_high": sum(1 for x in result["secrets"] if x.get("severity") == "high"), "ports_open": len(result["ports"]), "dir_listings": len(result["dirs"]), "tech_count": len(result["technologies"]), "waf_detected": len(result.get("waf", {}).get("detected", [])), "missing_security_headers": sum(1 for h in result["security_headers"] if h["missing"]), "insecure_cookies": sum(1 for c in result["cookies"] if c.get("issues")), "js_files_scanned": len(result.get("js_links", [])), "forms_found": len(result.get("forms", [])), "soft_404_filtered": result.get("soft_404_filtered", 0), "real_leak_count": sum(1 for x in result.get("leak", []) if not x.get("soft_404")), "cancelled": result.get("cancelled", False)}
     result["duration_seconds"] = round(time.time()-start, 2)
     await prog("completed", f"Hoàn thành – {result['stats']['real_leak_count']} leaks (soft-404 filter: {result['stats']['soft_404_filtered']}), {result['stats']['secret_count']} secrets, {result['stats']['ports_open']} ports")
     return result
 
-# ── SSE ──
 progress_queues = {}
 prog_lock = threading.Lock()
 scan_results = {}
-scan_history = []  # list of {scan_id, target, started_at, status, leak_count}
-scan_cancels = set()  # set of scan_id that user wants to cancel
-scan_starts = {}  # scan_id -> start timestamp (for ETA calc)
+scan_history = []
+scan_cancels = set()
+scan_starts = {}
 
 def push_history(item):
     scan_history.insert(0, item)
@@ -977,7 +748,6 @@ def is_cancelled(scan_id):
 def fmt_sse(data):
     return f"data: {data}\n\n"
 
-# Phase name translation (snake_case -> tiếng Việt human-readable)
 PHASE_NAMES = {
     "main_page": "🌐 Tải trang chính",
     "security_headers": "📜 Phân tích security headers",
@@ -997,176 +767,980 @@ PHASE_NAMES = {
     "error": "❌ Lỗi",
     "cancelling": "🛑 Đang huỷ...",
     "cancelled": "🛑 Đã huỷ",
-    # Internal — không hiển thị cho user
     "connected": None,
     "keepalive": None,
 }
 
 def phase_display(phase):
-    """Trả về tên hiển thị cho phase, hoặc None nếu là internal heartbeat."""
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── HTML Template (PAGE) ──
+# ═══════════════════════════════════════════════════════════════
+# PAGE HTML — v7.0 Glassmorphism + Animated + Glow
+# ═══════════════════════════════════════════════════════════════
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v6.0</title>
+<title>🔒 Web Leak Scanner Pro v7.0</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
 :root{
-  --bg:#0f0f1a; --bg2:#16213e; --bg3:#1a1a2e; --border:#2d3561;
-  --text:#e0e0e0; --muted:#a0a0b0; --dim:#888;
-  --accent:#00d4aa; --accent2:#54a0ff; --warn:#feca57;
-  --danger:#ff6b6b; --ok:#1dd1a1;
+  --bg:#0a0e1a;
+  --bg2:rgba(22,27,50,.65);
+  --bg3:rgba(30,35,65,.55);
+  --border:rgba(100,120,200,.18);
+  --border-glow:rgba(0,212,170,.35);
+  --text:#e8edff;
+  --muted:#8892b8;
+  --dim:#5b6478;
+  --accent:#00d4aa;
+  --accent-glow:rgba(0,212,170,.4);
+  --accent2:#64b5f6;
+  --accent2-glow:rgba(100,181,246,.4);
+  --warn:#ffd166;
+  --danger:#ff6b9d;
+  --danger-glow:rgba(255,107,157,.4);
+  --ok:#06ffa5;
+  --purple:#b388ff;
+  --pink:#ff80ab;
+  --shadow:0 8px 32px rgba(0,0,0,.4);
+  --glass-blur:blur(16px);
 }
 [data-theme="light"]{
-  --bg:#f5f7fa; --bg2:#ffffff; --bg3:#eef1f6; --border:#d0d7e2;
-  --text:#1a1a2e; --muted:#5b6478; --dim:#8793a8;
-  --accent:#00b894; --accent2:#0984e3; --warn:#f0932b;
-  --danger:#eb4d4b; --ok:#2ecc71;
+  --bg:#f0f2fa;
+  --bg2:rgba(255,255,255,.75);
+  --bg3:rgba(240,242,250,.65);
+  --border:rgba(100,120,200,.2);
+  --border-glow:rgba(0,180,140,.3);
+  --text:#1a1a2e;
+  --muted:#5b6478;
+  --dim:#8793a8;
+  --accent:#00b894;
+  --accent-glow:rgba(0,184,148,.3);
+  --accent2:#0984e3;
+  --accent2-glow:rgba(9,132,227,.3);
+  --warn:#e17055;
+  --danger:#d63031;
+  --danger-glow:rgba(214,48,49,.3);
+  --ok:#00b894;
+  --shadow:0 8px 32px rgba(0,0,0,.12);
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s,color .3s}
-.navbar{background:var(--bg3);border-bottom:1px solid var(--border);padding:0 16px;display:flex;justify-content:space-between;align-items:center;height:54px;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
-.nav-brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
-.version{background:var(--accent);color:var(--bg);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:800}
-.nav-right{display:flex;align-items:center;gap:10px}
-.theme-toggle{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px}
-.theme-toggle:hover{background:var(--bg2)}
-.container{max-width:1100px;margin:0 auto;padding:16px}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;transition:border-color .2s}
-.card:hover{border-color:var(--accent)}
-.card h1,.card h2{font-size:20px;margin-bottom:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.card h3{font-size:16px;margin-bottom:10px}
-.subtitle{color:var(--muted);font-size:14px;margin-bottom:16px}
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:6px}
-.form-group input,.form-group select{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;font-family:inherit}
-.form-group input:focus,.form-group select:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,212,170,.15)}
-.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.form-row-2{display:grid;grid-template-columns:1fr 2fr;gap:12px}
-.btn{padding:10px 18px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;border:1px solid transparent;font-family:inherit}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#00b894);color:var(--bg)}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,170,.25)}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .4s,color .4s;
+}
+
+/* ═══ Animated Aurora Background ═══ */
+.aurora-bg{
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none;
+}
+.aurora-bg::before,.aurora-bg::after{
+  content:'';
+  position:absolute;
+  width:60vw;height:60vw;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.35;
+  animation:aurora 20s ease-in-out infinite;
+}
+.aurora-bg::before{
+  background:radial-gradient(circle,var(--accent),transparent 70%);
+  top:-20%;left:-10%;
+}
+.aurora-bg::after{
+  background:radial-gradient(circle,var(--accent2),transparent 70%);
+  bottom:-20%;right:-10%;
+  animation-delay:-10s;
+}
+.aurora-orb{
+  position:absolute;
+  width:40vw;height:40vw;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.2;
+  background:radial-gradient(circle,var(--purple),transparent 70%);
+  top:30%;left:30%;
+  animation:aurora 25s ease-in-out infinite reverse;
+}
+@keyframes aurora{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(10vw,5vh) scale(1.1)}
+  66%{transform:translate(-5vw,10vh) scale(.9)}
+}
+
+/* ═══ Custom Scrollbar ═══ */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.2);border-radius:10px}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--accent),var(--accent2));border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(var(--accent2),var(--accent))}
+
+/* ═══ Navbar ═══ */
+.navbar{
+  background:rgba(10,14,26,.7);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  height:60px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 20px rgba(0,0,0,.3);
+}
+.nav-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:-.5px;
+}
+.nav-brand .icon{
+  font-size:24px;
+  filter:drop-shadow(0 0 8px var(--accent-glow));
+  animation:shield-pulse 3s ease-in-out infinite;
+}
+@keyframes shield-pulse{
+  0%,100%{filter:drop-shadow(0 0 8px var(--accent-glow))}
+  50%{filter:drop-shadow(0 0 16px var(--accent-glow))}
+}
+.version{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  padding:3px 10px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:900;
+  box-shadow:0 0 12px var(--accent-glow);
+  animation:badge-glow 2s ease-in-out infinite;
+}
+@keyframes badge-glow{
+  0%,100%{box-shadow:0 0 12px var(--accent-glow)}
+  50%{box-shadow:0 0 20px var(--accent-glow),0 0 30px var(--accent2-glow)}
+}
+.nav-right{display:flex;align-items:center;gap:12px}
+.theme-toggle{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  color:var(--text);
+  width:40px;height:40px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .3s;
+  backdrop-filter:blur(8px);
+}
+.theme-toggle:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 16px var(--accent-glow);
+  transform:rotate(180deg) scale(1.1);
+}
+
+/* ═══ Container ═══ */
+.container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* ═══ Glass Card ═══ */
+.card{
+  background:var(--bg2);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
+  animation:card-in .5s ease-out;
+}
+@keyframes card-in{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+  transition:left .8s;
+}
+.card:hover{
+  border-color:var(--border-glow);
+  box-shadow:0 8px 40px rgba(0,212,170,.15),var(--shadow);
+  transform:translateY(-2px);
+}
+.card:hover::before{left:100%}
+
+.card h1{
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2),var(--purple));
+  background-size:200% 200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradient-shift 5s ease infinite;
+  letter-spacing:-1px;
+}
+@keyframes gradient-shift{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.card h2{
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.card h3{font-size:17px;font-weight:700;margin-bottom:12px}
+.subtitle{color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.7}
+
+/* ═══ Form ═══ */
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:600;
+  margin-bottom:8px;
+  letter-spacing:.3px;
+}
+.form-group input,.form-group select{
+  width:100%;
+  padding:12px 16px;
+  background:rgba(0,0,0,.2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--text);
+  font-size:14px;
+  outline:none;
+  font-family:'Inter',sans-serif;
+  transition:all .3s;
+}
+[data-theme="light"] .form-group input,[data-theme="light"] .form-group select{
+  background:rgba(255,255,255,.5);
+}
+.form-group input:focus,.form-group select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-glow),0 0 20px var(--accent-glow);
+  background:rgba(0,212,170,.05);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-group input[type="checkbox"]{
+  width:18px;height:18px;
+  accent-color:var(--accent);
+  cursor:pointer;
+}
+
+/* ═══ Buttons ═══ */
+.btn{
+  padding:12px 24px;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  font-family:'Inter',sans-serif;
+  position:relative;
+  overflow:hidden;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  box-shadow:0 4px 20px var(--accent-glow);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px var(--accent-glow),0 0 40px var(--accent2-glow);
+}
+.btn-primary:active{transform:translateY(0)}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-secondary{background:var(--bg3);color:var(--accent);border-color:var(--accent)}
-.btn-secondary:hover{background:var(--accent);color:var(--bg)}
-.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
-.btn-ghost:hover{color:var(--text);border-color:var(--accent)}
-.progress-card{border-left:3px solid var(--accent)}
-.progress-info{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
-.progress-bar-bg{width:100%;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:10px}
-.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .3s;width:0%}
+/* Ripple */
+.btn::after{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  width:0;height:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.4);
+  transform:translate(-50%,-50%);
+  transition:width .6s,height .6s,opacity .6s;
+  opacity:0;
+}
+.btn:active::after{width:300px;height:300px;opacity:1;transition:0s}
+
+.btn-secondary{
+  background:rgba(0,212,170,.1);
+  color:var(--accent);
+  border:1px solid var(--accent);
+}
+.btn-secondary:hover{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 0 20px var(--accent-glow);
+}
+.btn-ghost{
+  background:transparent;
+  color:var(--muted);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover{
+  color:var(--text);
+  border-color:var(--accent);
+  box-shadow:0 0 16px var(--accent-glow);
+}
+
+/* ═══ Progress Card ═══ */
+.progress-card{
+  border-left:3px solid var(--accent);
+  position:relative;
+}
+.radar{
+  position:absolute;
+  top:16px;right:16px;
+  width:50px;height:50px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  border-top-color:transparent;
+  border-right-color:transparent;
+  animation:radar-spin 1.5s linear infinite;
+  opacity:.8;
+}
+.radar::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  width:60%;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  transform-origin:left center;
+  transform:rotate(0deg);
+  animation:radar-sweep 2s linear infinite;
+}
+@keyframes radar-spin{to{transform:rotate(360deg)}}
+@keyframes radar-sweep{to{transform:rotate(360deg)}}
+
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:10px;
+  font-weight:500;
+}
+#progressPhase{font-weight:700;color:var(--accent)}
+.progress-bar-bg{
+  width:100%;
+  height:8px;
+  background:rgba(0,0,0,.3);
+  border-radius:8px;
+  overflow:hidden;
+  margin-bottom:12px;
+  position:relative;
+}
+.progress-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--purple));
+  background-size:200% 100%;
+  border-radius:8px;
+  transition:width .4s cubic-bezier(.4,0,.2,1);
+  width:0%;
+  position:relative;
+  animation:gradient-flow 3s linear infinite;
+}
+@keyframes gradient-flow{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+.progress-bar-fill::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+  animation:shimmer 1.5s infinite;
+}
+@keyframes shimmer{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
+}
 .progress-msg{font-size:13px;color:var(--muted)}
-.progress-found{font-size:13px;font-weight:700;color:var(--ok);margin-top:4px}
-.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
-.stat-box{text-align:center;padding:12px 6px;background:var(--bg3);border:1px solid var(--border);border-radius:10px}
-.stat-number{font-size:22px;font-weight:800;color:var(--accent)}
-.stat-label{font-size:10px;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-.sev-crit{color:var(--danger)!important}
-.sev-high{color:#feca57!important}
+.progress-found{
+  font-size:14px;
+  font-weight:800;
+  color:var(--ok);
+  margin-top:8px;
+  text-shadow:0 0 10px rgba(6,255,165,.4);
+}
+
+/* ═══ Stats Grid ═══ */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+.stat-box{
+  text-align:center;
+  padding:16px 8px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:14px;
+  transition:all .3s;
+  position:relative;
+  overflow:hidden;
+}
+.stat-box::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  opacity:0;
+  transition:opacity .3s;
+}
+.stat-box:hover{
+  border-color:var(--accent);
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,212,170,.2);
+}
+.stat-box:hover::before{opacity:1}
+.stat-number{
+  font-size:28px;
+  font-weight:900;
+  color:var(--accent);
+  font-family:'JetBrains Mono',monospace;
+  text-shadow:0 0 20px var(--accent-glow);
+}
+.stat-label{
+  font-size:10px;
+  color:var(--dim);
+  margin-top:4px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-weight:600;
+}
+.sev-crit{color:var(--danger)!important;text-shadow:0 0 20px var(--danger-glow)!important}
+.sev-high{color:var(--warn)!important;text-shadow:0 0 15px rgba(255,209,102,.4)!important}
 .sev-med{color:#ff9f43!important}
-.tabs{display:flex;gap:4px;margin-bottom:14px;border-bottom:1px solid var(--border);overflow-x:auto}
-.tab{padding:10px 14px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;font-weight:600;border-bottom:2px solid transparent;white-space:nowrap;font-family:inherit}
-.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ═══ Tabs ═══ */
+.tabs{
+  display:flex;
+  gap:2px;
+  margin-bottom:18px;
+  border-bottom:2px solid var(--border);
+  overflow-x:auto;
+  position:relative;
+  scrollbar-width:thin;
+}
+.tab{
+  padding:12px 18px;
+  background:none;
+  border:none;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  white-space:nowrap;
+  font-family:'Inter',sans-serif;
+  transition:all .3s;
+  position:relative;
+}
+.tab.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+  text-shadow:0 0 10px var(--accent-glow);
+}
 .tab:hover{color:var(--text)}
+.tab .count{
+  background:rgba(0,212,170,.15);
+  color:var(--accent);
+  padding:2px 8px;
+  border-radius:10px;
+  font-size:11px;
+  margin-left:6px;
+  font-weight:700;
+}
+.tab.active .count{
+  background:var(--accent);
+  color:var(--bg);
+}
 .tab-panel{display:none}
-.tab-panel.active{display:block;animation:fadeIn .25s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.section-title{font-size:14px;font-weight:700;margin:14px 0 10px;display:flex;align-items:center;gap:6px;color:var(--text)}
-.section-title .count{background:var(--bg3);color:var(--muted);padding:1px 8px;border-radius:10px;font-size:11px;margin-left:6px}
-.tech-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;background:rgba(0,212,170,.1);color:var(--accent);border:1px solid rgba(0,212,170,.3)}
-.port-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;margin:2px;background:rgba(84,160,255,.15);color:var(--accent2);border:1px solid rgba(84,160,255,.3)}
-.cdn-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;background:rgba(254,202,87,.12);color:var(--warn);border:1px solid rgba(254,202,87,.3)}
-.sev-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
-.sev-critical{background:rgba(255,107,107,.2);color:var(--danger)}
-.sev-high{background:rgba(254,202,87,.2);color:var(--warn)}
+.tab-panel.active{
+  display:block;
+  animation:tab-in .4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes tab-in{
+  from{opacity:0;transform:translateY(10px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ═══ Section Title ═══ */
+.section-title{
+  font-size:15px;
+  font-weight:700;
+  margin:18px 0 12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--text);
+}
+.section-title .count{
+  background:var(--bg3);
+  color:var(--muted);
+  padding:2px 10px;
+  border-radius:12px;
+  font-size:12px;
+  margin-left:4px;
+}
+
+/* ═══ Tags / Badges ═══ */
+.tech-tag{
+  display:inline-block;
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+  margin:3px;
+  background:rgba(0,212,170,.1);
+  color:var(--accent);
+  border:1px solid rgba(0,212,170,.3);
+  transition:all .3s;
+}
+.tech-tag:hover{
+  background:var(--accent);
+  color:var(--bg);
+  box-shadow:0 0 16px var(--accent-glow);
+  transform:scale(1.05);
+}
+.port-badge{
+  display:inline-block;
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+  margin:3px;
+  background:rgba(100,181,246,.15);
+  color:var(--accent2);
+  border:1px solid rgba(100,181,246,.3);
+  font-family:'JetBrains Mono',monospace;
+  transition:all .3s;
+}
+.port-badge:hover{transform:scale(1.1);box-shadow:0 0 12px var(--accent2-glow)}
+.cdn-badge{
+  display:inline-block;
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+  margin:3px;
+  background:rgba(255,209,102,.12);
+  color:var(--warn);
+  border:1px solid rgba(255,209,102,.3);
+}
+
+/* ═══ Severity Badges ═══ */
+.sev-badge{
+  padding:3px 10px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  display:inline-block;
+}
+.sev-critical{background:rgba(255,107,157,.2);color:var(--danger);box-shadow:0 0 10px var(--danger-glow);animation:pulse-crit 2s ease-in-out infinite}
+.sev-high{background:rgba(255,209,102,.2);color:var(--warn)}
 .sev-medium{background:rgba(255,159,64,.2);color:#ff9f43}
 .sev-low{background:rgba(0,212,170,.15);color:var(--accent)}
-.sev-info{background:rgba(160,160,176,.15);color:var(--dim)}
-.leak-item{padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;transition:all .2s}
-.leak-item:hover{border-color:var(--accent)}
-.leak-item.crit{border-left:3px solid var(--danger)}
+.sev-info{background:rgba(136,146,176,.15);color:var(--dim)}
+@keyframes pulse-crit{
+  0%,100%{box-shadow:0 0 10px var(--danger-glow)}
+  50%{box-shadow:0 0 20px var(--danger-glow),0 0 30px var(--danger-glow)}
+}
+
+/* ═══ Leak Items ═══ */
+.leak-item{
+  padding:14px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:10px;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  animation:slide-in .4s ease-out;
+}
+@keyframes slide-in{
+  from{opacity:0;transform:translateX(-15px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.leak-item:hover{
+  border-color:var(--accent);
+  transform:translateX(4px);
+  box-shadow:0 4px 20px rgba(0,212,170,.15);
+}
+.leak-item.crit{
+  border-left:3px solid var(--danger);
+  animation:slide-in .4s ease-out,pulse-border 2s ease-in-out infinite;
+}
+@keyframes pulse-border{
+  0%,100%{box-shadow:0 0 0 rgba(255,107,157,0)}
+  50%{box-shadow:0 0 15px rgba(255,107,157,.2)}
+}
 .leak-item.high{border-left:3px solid var(--warn)}
 .leak-item.med{border-left:3px solid #ff9f43}
 .leak-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.code-badge{padding:2px 8px;border-radius:4px;font-size:12px;font-weight:800;min-width:36px;text-align:center}
-.code-200{background:rgba(29,209,161,.2);color:var(--ok)}
-.code-403{background:rgba(254,202,87,.2);color:var(--warn)}
-.code-401{background:rgba(255,107,107,.2);color:var(--danger)}
-.code-404{background:rgba(160,160,176,.2);color:var(--dim)}
-.leak-path{font-family:ui-monospace,'SFMono-Regular',Menlo,monospace;font-weight:700;font-size:13px;color:var(--text);word-break:break-all}
+.code-badge{
+  padding:3px 10px;
+  border-radius:6px;
+  font-size:12px;
+  font-weight:800;
+  min-width:40px;
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+}
+.code-200{background:rgba(6,255,165,.2);color:var(--ok);box-shadow:0 0 8px rgba(6,255,165,.2)}
+.code-403{background:rgba(255,209,102,.2);color:var(--warn)}
+.code-401{background:rgba(255,107,157,.2);color:var(--danger)}
+.code-404{background:rgba(136,146,176,.2);color:var(--dim)}
+.leak-path{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:14px;
+  color:var(--text);
+  word-break:break-all;
+}
 .leak-size{font-size:11px;color:var(--dim)}
-.leak-url{font-size:11px;color:var(--dim);word-break:break-all;margin-top:2px}
+.leak-url{font-size:11px;color:var(--dim);word-break:break-all;margin-top:4px}
 .leak-rt{font-size:10px;color:var(--dim);margin-left:auto}
-.leak-preview summary{cursor:pointer;color:var(--accent);font-size:12px;font-weight:600}
-.leak-preview pre{background:var(--bg);padding:10px;border-radius:8px;font-size:12px;overflow-x:auto;margin-top:6px;max-height:240px;overflow-y:auto;color:#aed581;font-family:ui-monospace,monospace;white-space:pre-wrap;word-break:break-all}
-.robots-content{background:var(--bg);padding:10px;border-radius:8px;font-family:ui-monospace,monospace;font-size:12px;max-height:240px;overflow-y:auto;white-space:pre-wrap}
-.waf-info{background:rgba(255,107,107,.05);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:12px}
-.alert{padding:12px;border-radius:8px;margin-bottom:12px;font-size:14px}
-.alert-error{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:var(--danger)}
-.alert-warn{background:rgba(254,202,87,.1);border:1px solid rgba(254,202,87,.3);color:var(--warn)}
-.alert-info{background:rgba(84,160,255,.1);border:1px solid rgba(84,160,255,.3);color:var(--accent2)}
-.empty-state{text-align:center;padding:24px;color:var(--dim)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin:2px}
-.badge-time{background:rgba(84,160,255,.12);color:var(--accent2)}
-.badge-waf{background:rgba(255,107,107,.12);color:var(--danger)}
-.badge-ssl-ok{background:rgba(29,209,161,.15);color:var(--ok)}
-.badge-ssl-warn{background:rgba(254,202,87,.15);color:var(--warn)}
-.badge-ssl-err{background:rgba(255,107,107,.15);color:var(--danger)}
-.filter-bar{margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
-.filter-bar input{flex:1;min-width:200px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit}
-.filter-bar select{padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit}
-.cookie-item{padding:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;font-size:13px}
-.cookie-name{font-family:monospace;font-weight:700;color:var(--accent)}
-.cookie-flag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;margin-left:4px}
-.flag-ok{background:rgba(29,209,161,.2);color:var(--ok)}
-.flag-bad{background:rgba(255,107,107,.2);color:var(--danger)}
-.sec-header-row{display:flex;justify-content:space-between;align-items:center;padding:8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;font-size:13px}
+.leak-preview summary{
+  cursor:pointer;
+  color:var(--accent);
+  font-size:13px;
+  font-weight:600;
+  margin-top:8px;
+}
+.leak-preview summary:hover{text-shadow:0 0 8px var(--accent-glow)}
+.leak-preview pre{
+  background:rgba(0,0,0,.3);
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  overflow-x:auto;
+  margin-top:8px;
+  max-height:240px;
+  overflow-y:auto;
+  color:#aed581;
+  font-family:'JetBrains Mono',monospace;
+  white-space:pre-wrap;
+  word-break:break-all;
+  border:1px solid var(--border);
+}
+
+/* ═══ Alerts ═══ */
+.alert{
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:14px;
+  font-size:14px;
+  animation:slide-in .4s ease-out;
+  backdrop-filter:blur(8px);
+}
+.alert-error{background:rgba(255,107,157,.1);border:1px solid rgba(255,107,157,.3);color:var(--danger);box-shadow:0 0 20px rgba(255,107,157,.1)}
+.alert-warn{background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.3);color:var(--warn)}
+.alert-info{background:rgba(100,181,246,.1);border:1px solid rgba(100,181,246,.3);color:var(--accent2)}
+
+/* ═══ Empty State ═══ */
+.empty-state{
+  text-align:center;
+  padding:32px;
+  color:var(--dim);
+  font-size:15px;
+}
+
+/* ═══ Actions ═══ */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+
+/* ═══ Badges ═══ */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  margin:2px;
+  transition:all .3s;
+}
+.badge-time{background:rgba(100,181,246,.12);color:var(--accent2)}
+.badge-waf{background:rgba(255,107,157,.12);color:var(--danger);box-shadow:0 0 10px var(--danger-glow)}
+.badge-ssl-ok{background:rgba(6,255,165,.15);color:var(--ok)}
+.badge-ssl-warn{background:rgba(255,209,102,.15);color:var(--warn)}
+.badge-ssl-err{background:rgba(255,107,157,.15);color:var(--danger);box-shadow:0 0 10px var(--danger-glow)}
+
+/* ═══ Filter Bar ═══ */
+.filter-bar{
+  margin-bottom:14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.filter-bar input{
+  flex:1;
+  min-width:200px;
+  padding:10px 14px;
+  background:rgba(0,0,0,.2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  font-size:14px;
+  font-family:'Inter',sans-serif;
+  outline:none;
+  transition:all .3s;
+}
+.filter-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.filter-bar select{
+  padding:10px 14px;
+  background:rgba(0,0,0,.2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  font-size:14px;
+  font-family:'Inter',sans-serif;
+  outline:none;
+  cursor:pointer;
+}
+
+/* ═══ Cookie / Header rows ═══ */
+.cookie-item{
+  padding:10px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:8px;
+  font-size:13px;
+  transition:all .2s;
+}
+.cookie-item:hover{border-color:var(--accent)}
+.cookie-name{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent)}
+.cookie-flag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;margin-left:4px;font-weight:600}
+.flag-ok{background:rgba(6,255,165,.2);color:var(--ok)}
+.flag-bad{background:rgba(255,107,157,.2);color:var(--danger)}
+
+.sec-header-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:8px;
+  margin-bottom:6px;
+  font-size:13px;
+  transition:all .2s;
+}
+.sec-header-row:hover{border-color:var(--accent)}
 .sec-header-missing{border-left:3px solid var(--danger)}
 .sec-header-present{border-left:3px solid var(--ok)}
-.sec-header-name{font-family:monospace;font-weight:600;color:var(--text)}
-.sec-header-value{font-family:monospace;font-size:11px;color:var(--muted);word-break:break-all;max-width:55%;text-align:right}
-.form-item{padding:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;font-size:13px}
-.form-action{font-family:monospace;color:var(--accent);word-break:break-all}
-.form-tag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700;margin-left:4px;text-transform:uppercase}
-.form-tag-login{background:rgba(255,107,107,.15);color:var(--danger)}
-.form-tag-upload{background:rgba(254,202,87,.15);color:var(--warn)}
-.form-tag-csrf{background:rgba(84,160,255,.15);color:var(--accent2)}
-.history-list{display:flex;flex-direction:column;gap:6px}
-.history-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s}
-.history-item:hover{border-color:var(--accent);background:var(--bg2)}
-.history-target{font-family:monospace;color:var(--accent);word-break:break-all}
-.history-meta{font-size:11px;color:var(--dim)}
-.footer{text-align:center;padding:16px;color:var(--dim);font-size:12px;border-top:1px solid var(--border);margin-top:16px}
+.sec-header-name{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--text)}
+.sec-header-value{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);word-break:break-all;max-width:55%;text-align:right}
+
+/* ═══ Form items ═══ */
+.form-item{
+  padding:10px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:8px;
+  font-size:13px;
+}
+.form-action{font-family:'JetBrains Mono',monospace;color:var(--accent);word-break:break-all}
+.form-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-left:6px;text-transform:uppercase}
+.form-tag-login{background:rgba(255,107,157,.15);color:var(--danger)}
+.form-tag-upload{background:rgba(255,209,102,.15);color:var(--warn)}
+.form-tag-csrf{background:rgba(100,181,246,.15);color:var(--accent2)}
+
+/* ═══ History ═══ */
+.history-list{display:flex;flex-direction:column;gap:8px}
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  cursor:pointer;
+  font-size:13px;
+  transition:all .3s;
+  animation:slide-in .3s ease-out;
+}
+.history-item:hover{
+  border-color:var(--accent);
+  background:rgba(0,212,170,.05);
+  transform:translateX(4px);
+  box-shadow:0 4px 16px rgba(0,212,170,.15);
+}
+.history-target{font-family:'JetBrains Mono',monospace;color:var(--accent);word-break:break-all}
+.history-meta{font-size:11px;color:var(--dim);margin-top:2px}
+
+/* ═══ Robots content ═══ */
+.robots-content{
+  background:rgba(0,0,0,.3);
+  padding:12px;
+  border-radius:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  max-height:240px;
+  overflow-y:auto;
+  white-space:pre-wrap;
+  border:1px solid var(--border);
+}
+
+/* ═══ WAF info ═══ */
+.waf-info{
+  background:rgba(255,107,157,.05);
+  border:1px solid rgba(255,107,157,.2);
+  border-radius:12px;
+  padding:14px;
+}
+
+/* ═══ Footer ═══ */
+.footer{
+  text-align:center;
+  padding:24px;
+  color:var(--dim);
+  font-size:12px;
+  border-top:1px solid var(--border);
+  margin-top:24px;
+}
+
+/* ═══ Toast ═══ */
+.toast{
+  position:fixed;
+  bottom:24px;right:24px;
+  background:var(--bg2);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--accent);
+  color:var(--text);
+  padding:12px 20px;
+  border-radius:12px;
+  font-size:14px;
+  z-index:9999;
+  box-shadow:0 8px 32px rgba(0,0,0,.3),0 0 20px var(--accent-glow);
+  opacity:0;
+  transform:translateX(100px);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.toast.show{opacity:1;transform:translateX(0)}
+
+/* ═══ Severity Distribution Bar ═══ */
+.sev-distribution{
+  display:flex;
+  height:8px;
+  border-radius:8px;
+  overflow:hidden;
+  margin-bottom:8px;
+  background:rgba(0,0,0,.2);
+}
+.sev-dist-crit{background:var(--danger);transition:width .5s}
+.sev-dist-high{background:var(--warn);transition:width .5s}
+.sev-dist-med{background:#ff9f43;transition:width .5s}
+.sev-dist-low{background:var(--accent);transition:width .5s}
+.sev-dist-info{background:var(--dim);transition:width .5s}
+.sev-legend{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  font-size:11px;
+  color:var(--muted);
+}
+.sev-legend span{display:flex;align-items:center;gap:4px}
+.sev-legend .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* ═══ Skeleton loading ═══ */
+.skeleton{
+  background:linear-gradient(90deg,var(--bg3) 25%,rgba(100,120,200,.1) 50%,var(--bg3) 75%);
+  background-size:200% 100%;
+  animation:skeleton-loading 1.5s infinite;
+  border-radius:8px;
+}
+@keyframes skeleton-loading{
+  from{background-position:200% 0}
+  to{background-position:-200% 0}
+}
+
 .hidden{display:none!important}
-.toast{position:fixed;bottom:20px;right:20px;background:var(--bg2);border:1px solid var(--accent);color:var(--text);padding:10px 16px;border-radius:8px;font-size:13px;z-index:200;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;transform:translateY(10px);transition:all .3s}
-.toast.show{opacity:1;transform:none}
+
 @media(max-width:768px){
   .form-row{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:repeat(3,1fr)}
   .container{padding:12px}
+  .card{padding:16px}
+  .card h1{font-size:22px}
 }
 </style>
 </head>
 <body>
+<div class="aurora-bg"><div class="aurora-orb"></div></div>
+
 <nav class="navbar">
-  <div class="nav-brand"><span>🔒</span><span>Web Leak Scanner <span class="version">v6.0</span></span></div>
+  <div class="nav-brand">
+    <span class="icon">🔒</span>
+    <span>Web Leak Scanner</span>
+    <span class="version">v7.0</span>
+  </div>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" title="Đổi theme">🌙</button>
   </div>
 </nav>
+
 <main class="container">
 
 <!-- Form -->
 <div class="card">
-  <h1>🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle">Async scanner: leak paths · ports · tech · WAF/CDN · security headers · cookies · JS secrets · forms · soft-404 filter · elapsed timer · ETA · cancel</p>
+  <h1>🕵️ Quét Lỗ Hổng Thông Tin Rò Rỉ</h1>
+  <p class="subtitle">Async scanner: leak paths · ports · tech · WAF/CDN · security headers · cookies · JS secrets · forms · soft-404 filter · real-time progress · ETA · cancel</p>
   <form id="scanForm" method="post" action="/scan">
-    <div class="form-group"><label>🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
+    <div class="form-group">
+      <label>🌐 URL mục tiêu</label>
+      <input type="text" name="target" placeholder="https://example.com" required>
+    </div>
     <div class="form-row">
       <div class="form-group"><label>⏱️ Timeout (s)</label><input type="number" name="timeout" value="10" min="1" max="60"></div>
       <div class="form-group"><label>🔀 Proxy</label><input type="text" name="proxy" placeholder="http://proxy:8080"></div>
@@ -1194,13 +1768,14 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 
 <!-- Progress -->
 <div id="progressPanel" class="card progress-card hidden">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+  <div class="radar"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
     <h3 style="margin:0">📡 Tiến trình quét</h3>
     <div style="display:flex;gap:6px;align-items:center">
       <span class="badge badge-time" id="elapsedBadge" title="Thời gian đã trôi qua">⏱️ 00:00</span>
-      <span class="badge" id="etaBadge" style="background:rgba(254,202,87,.12);color:#feca57;display:none" title="Còn lại (ước tính)">⌛ ETA --:--</span>
-      <span class="badge" id="rateBadge" style="background:rgba(84,160,255,.12);color:#54a0ff;display:none" title="Tốc độ">⚡ -- req/s</span>
-      <button class="btn btn-ghost" id="cancelBtn" style="padding:4px 10px;font-size:12px">🛑 Huỷ</button>
+      <span class="badge" id="etaBadge" style="background:rgba(255,209,102,.12);color:var(--warn);display:none" title="Còn lại (ước tính)">⌛ ETA --:--</span>
+      <span class="badge" id="rateBadge" style="background:rgba(100,181,246,.12);color:var(--accent2);display:none" title="Tốc độ">⚡ -- req/s</span>
+      <button class="btn btn-ghost" id="cancelBtn" style="padding:6px 14px;font-size:12px">🛑 Huỷ</button>
     </div>
   </div>
   <div class="progress-info"><span id="progressPhase">Khởi tạo...</span><span id="progressCount"></span></div>
@@ -1213,22 +1788,22 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v6.0 – Async Security Scanner · elapsed timer · ETA · cancel · soft-404 filter</footer>
+<footer class="footer">🔒 Web Leak Scanner Pro v7.0 — Glassmorphism UI · Aurora Background · Glow Effects · Shimmer Progress · Animated Counters · Radar Scan</footer>
 <div id="toast" class="toast"></div>
 
 <script>
 const $ = (s)=>document.querySelector(s);
 const $$ = (s)=>document.querySelectorAll(s);
 
-// Theme toggle
-const THEME_KEY = 'wlsv5_theme';
+// Theme
+const THEME_KEY = 'wlsv7_theme';
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
   $('#themeToggle').textContent = t === 'dark' ? '🌙' : '☀️';
   localStorage.setItem(THEME_KEY, t);
 }
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-$('#themeToggle').addEventListener('click', ()=>{
+ $('#themeToggle').addEventListener('click', ()=>{
   const cur = document.documentElement.getAttribute('data-theme');
   applyTheme(cur === 'dark' ? 'light' : 'dark');
 });
@@ -1236,7 +1811,22 @@ $('#themeToggle').addEventListener('click', ()=>{
 // Toast
 function toast(msg){
   const t = $('#toast'); t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// Animated count-up
+function animateCount(el, target, duration=800){
+  const start = 0;
+  const startTime = performance.now();
+  function update(now){
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = Math.floor(start + (target - start) * eased);
+    el.textContent = val;
+    if(progress < 1) requestAnimationFrame(update);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(update);
 }
 
 // History
@@ -1293,9 +1883,7 @@ function initFilter(){
       const isSoft = el.dataset.soft404 === 'true';
       const matchQ = !q || path.includes(q);
       let matchS = sev === 'all' || s === sev;
-      // Nếu chọn info -> chỉ hiện soft-404
       if(sev === 'info') matchS = isSoft;
-      // Ẩn soft-404 nếu user tick
       const matchHide = !(hideS404 && isSoft);
       el.style.display = (matchQ && matchS && matchHide) ? '' : 'none';
     });
@@ -1304,11 +1892,17 @@ function initFilter(){
   $('#filterSev').addEventListener('change', applyFilter);
   const hideChk = $('#hideSoft404');
   if(hideChk) hideChk.addEventListener('change', applyFilter);
-  // Apply ngay lần đầu
   applyFilter();
 }
 
-// Submit scan
+// Animated stat counters
+function animateStats(){
+  $$('.stat-number[data-target]').forEach(el=>{
+    const target = parseInt(el.dataset.target) || 0;
+    animateCount(el, target, 1000);
+  });
+}
+
 let timerInterval = null;
 let scanStartTs = 0;
 
@@ -1333,37 +1927,21 @@ function startTimer(){
     elapsed.textContent = '⏱️ ' + fmtTime(e);
   }, 250);
 }
+function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval = null; } }
 
-function stopTimer(){
-  if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
-}
-
-// Phase translation fallback (dùng nếu backend không gửi phase_display)
 const PHASE_FALLBACK = {
-  'main_page':'🌐 Tải trang chính',
-  'security_headers':'📜 Phân tích security headers',
-  'fingerprint':'🛠️ Nhận diện công nghệ',
-  'waf':'🛡️ Phát hiện WAF',
-  'ssl':'🔒 Kiểm tra SSL/TLS',
-  'ports':'🔌 Quét cổng',
-  'ports_done':'✅ Xong quét cổng',
-  'leak_scan':'📁 Quét leak paths',
-  'robots':'🤖 Phân tích robots.txt',
-  'links':'🔗 Trích xuất links/JS/forms',
-  'secrets':'🔐 Quét secret trong HTML',
-  'secrets_js':'📜 Quét secret trong JS files',
-  'dirs':'📂 Kiểm tra directory listing',
-  'brute':'🔍 Brute-force common files',
-  'completed':'✅ Hoàn thành',
-  'error':'❌ Lỗi',
-  'cancelling':'🛑 Đang huỷ',
-  'cancelled':'🛑 Đã huỷ',
+  'main_page':'🌐 Tải trang chính','security_headers':'📜 Phân tích security headers',
+  'fingerprint':'🛠️ Nhận diện công nghệ','waf':'🛡️ Phát hiện WAF',
+  'ssl':'🔒 Kiểm tra SSL/TLS','ports':'🔌 Quét cổng','ports_done':'✅ Xong quét cổng',
+  'leak_scan':'📁 Quét leak paths','robots':'🤖 Phân tích robots.txt',
+  'links':'🔗 Trích xuất links/JS/forms','secrets':'🔐 Quét secret trong HTML',
+  'secrets_js':'📜 Quét secret trong JS files','dirs':'📂 Kiểm tra directory listing',
+  'brute':'🔍 Brute-force common files','completed':'✅ Hoàn thành',
+  'error':'❌ Lỗi','cancelling':'🛑 Đang huỷ','cancelled':'🛑 Đã huỷ',
 };
-
-// Phases internal — KHÔNG hiển thị cho user
 const INTERNAL_PHASES = new Set(['connected', 'keepalive']);
 
-$('#scanForm').addEventListener('submit', async function(e){
+ $('#scanForm').addEventListener('submit', async function(e){
   e.preventDefault();
   const btn = $('#scanBtn');
   const progressPanel = $('#progressPanel');
@@ -1386,8 +1964,6 @@ $('#scanForm').addEventListener('submit', async function(e){
   startTimer();
 
   let currentScanId = null;
-
-  // Cancel button handler
   cancelBtn.onclick = async ()=>{
     if(!currentScanId) return;
     cancelBtn.disabled = true;
@@ -1410,40 +1986,26 @@ $('#scanForm').addEventListener('submit', async function(e){
     evtSource.onmessage = function(e){
       try{
         const d = JSON.parse(e.data);
-        // Bỏ qua internal heartbeats
         if(d.phase && INTERNAL_PHASES.has(d.phase)) return;
-
-        // Phase display — ưu tiên phase_display từ backend, fallback translation
         if(d.phase || d.phase_display){
           const display = d.phase_display || PHASE_FALLBACK[d.phase] || d.phase || '';
           if(display) phase.textContent = display;
         }
-
-        // Progress bar + count
         if(d.total > 0){
           const pct = Math.round((d.current/d.total)*100);
           bar.style.width = pct + '%';
           count.textContent = d.current + '/' + d.total + ' (' + pct + '%)';
-        } else {
-          count.textContent = '';
-        }
-
-        // Message
+        } else { count.textContent = ''; }
         if(d.message) msg.textContent = d.message;
-
-        // Found counter
         if(d.found !== undefined && d.found > 0){
           found.classList.remove('hidden');
           found.textContent = '🔍 Tìm thấy: ' + d.found;
         }
-
-        // Elapsed (từ backend, chính xác hơn timer local)
         const elapsedBadge = $('#elapsedBadge');
         const etaBadge = $('#etaBadge');
         const rateBadge = $('#rateBadge');
         if(d.elapsed !== undefined){
           elapsedBadge.textContent = '⏱️ ' + fmtTime(d.elapsed);
-          // Hiện eta + rate nếu có
           if(d.eta !== null && d.eta !== undefined && d.total > 0){
             etaBadge.style.display = '';
             etaBadge.textContent = '⌛ ETA ' + fmtTime(d.eta);
@@ -1453,14 +2015,11 @@ $('#scanForm').addEventListener('submit', async function(e){
             rateBadge.textContent = '⚡ ' + d.rate + ' req/s';
           }
         }
-
-        // Terminal phases
         if(d.phase === 'completed' || d.phase === 'error' || d.phase === 'cancelled'){
           evtSource.close();
           stopTimer();
           cancelBtn.style.display = 'none';
           if(d.phase === 'cancelled'){
-            // vẫn load result để xem partial
             setTimeout(()=>loadResult(scanId).then(loadHistory), 200);
           } else {
             loadResult(scanId).then(loadHistory);
@@ -1496,7 +2055,7 @@ async function loadResult(scanId){
   resetBtn();
   initTabs();
   initFilter();
-  // Smooth scroll
+  animateStats();
   $('#resultsArea').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
@@ -1506,22 +2065,24 @@ loadHistory();
 </html>
 """
 
-# ── HTML Template (RESULT) ──
+# ═══════════════════════════════════════════════════════════════
+# RESULT HTML — v7.0
+# ═══════════════════════════════════════════════════════════════
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
   <h2 style="margin:0">📊 Kết quả cho {{ result.target }}</h2>
-  <div>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
     {% if result.duration_seconds %}<span class="badge badge-time">⏱️ {{ result.duration_seconds }}s</span>{% endif %}
-    {% if result.cancelled %}<span class="badge" style="background:rgba(255,107,107,.15);color:#ff6b6b">🛑 Đã huỷ</span>{% endif %}
-    {% if result.stats and result.stats.soft_404_filtered %}<span class="badge" style="background:rgba(160,160,176,.15);color:#a0a0b0">🎯 Soft-404 filter: {{ result.stats.soft_404_filtered }}</span>{% endif %}
+    {% if result.cancelled %}<span class="badge badge-waf">🛑 Đã huỷ</span>{% endif %}
+    {% if result.stats and result.stats.soft_404_filtered %}<span class="badge" style="background:rgba(136,146,176,.15);color:var(--dim)">🎯 Soft-404: {{ result.stats.soft_404_filtered }}</span>{% endif %}
     {% if result.waf.detected %}<span class="badge badge-waf">🛡️ WAF: {{ result.waf.detected|join(", ") }}</span>{% endif %}
-    {% if result.cdn %}<span class="badge" style="background:rgba(254,202,87,.12);color:#feca57">☁️ CDN: {{ result.cdn|join(", ") }}</span>{% endif %}
+    {% if result.cdn %}<span class="badge" style="background:rgba(255,209,102,.12);color:var(--warn)">☁️ CDN: {{ result.cdn|join(", ") }}</span>{% endif %}
     {% if result.ssl %}
       {% if result.ssl.days_remaining is defined and result.ssl.days_remaining != None %}
         {% if result.ssl.days_remaining > 30 %}
-          <span class="badge badge-ssl-ok">🔒 SSL {{ result.ssl.days_remaining }}d còn lại</span>
+          <span class="badge badge-ssl-ok">🔒 SSL {{ result.ssl.days_remaining }}d</span>
         {% elif result.ssl.days_remaining > 0 %}
           <span class="badge badge-ssl-warn">🔒 SSL sắp hết ({{ result.ssl.days_remaining }}d)</span>
         {% else %}
@@ -1532,19 +2093,48 @@ RESULT_HTML = r"""
   </div>
 </div>
 
-{% if result.error %}
-<div class="alert alert-error"><strong>❌ Lỗi:</strong> {{ result.error }}</div>
+{% if result.errors %}
+{% for err in result.errors %}
+<div class="alert alert-error"><strong>⚠️</strong> {{ err }}</div>
+{% endfor %}
 {% else %}
 
-<!-- Stats grid -->
+<!-- Stats grid with animated counters -->
 <div class="stats-grid">
-  <div class="stat-box"><div class="stat-number">{{ result.main.code }}</div><div class="stat-label">Main code</div></div>
-  <div class="stat-box"><div class="stat-number sev-crit">{{ result.stats.critical_count|default(0) }}</div><div class="stat-label">Critical</div></div>
-  <div class="stat-box"><div class="stat-number sev-high">{{ result.stats.high_count|default(0) }}</div><div class="stat-label">High</div></div>
-  <div class="stat-box"><div class="stat-number">{{ result.leak|length }}</div><div class="stat-label">Leaks</div></div>
-  <div class="stat-box"><div class="stat-number sev-crit">{{ result.stats.secret_critical|default(0) }}</div><div class="stat-label">Secrets crit</div></div>
-  <div class="stat-box"><div class="stat-number">{{ result.ports|length }}</div><div class="stat-label">Open ports</div></div>
+  <div class="stat-box"><div class="stat-number" data-target="{{ result.main.code }}">{{ result.main.code }}</div><div class="stat-label">Main code</div></div>
+  <div class="stat-box"><div class="stat-number sev-crit" data-target="{{ result.stats.critical_count|default(0) }}">{{ result.stats.critical_count|default(0) }}</div><div class="stat-label">Critical</div></div>
+  <div class="stat-box"><div class="stat-number sev-high" data-target="{{ result.stats.high_count|default(0) }}">{{ result.stats.high_count|default(0) }}</div><div class="stat-label">High</div></div>
+  <div class="stat-box"><div class="stat-number" data-target="{{ result.leak|length }}">{{ result.leak|length }}</div><div class="stat-label">Leaks</div></div>
+  <div class="stat-box"><div class="stat-number sev-crit" data-target="{{ result.stats.secret_critical|default(0) }}">{{ result.stats.secret_critical|default(0) }}</div><div class="stat-label">Secrets crit</div></div>
+  <div class="stat-box"><div class="stat-number" data-target="{{ result.ports|length }}">{{ result.ports|length }}</div><div class="stat-label">Open ports</div></div>
 </div>
+
+<!-- Severity distribution bar -->
+{% if result.leak %}
+{% set total_leaks = result.leak|length %}
+{% set crit_n = result.stats.critical_count|default(0) %}
+{% set high_n = result.stats.high_count|default(0) %}
+{% set med_n = result.stats.medium_count|default(0) %}
+{% set low_n = result.stats.low_count|default(0) %}
+{% set info_n = total_leaks - crit_n - high_n - med_n - low_n %}
+<div style="margin-bottom:20px">
+  <div class="section-title" style="margin:0 0 8px">📊 Phân bố mức độ</div>
+  <div class="sev-distribution">
+    {% if crit_n %}<div class="sev-dist-crit" style="width:{% if total_leaks > 0 %}{{ (crit_n * 100 / total_leaks)|round }}{% else %}0{% endif %}%"></div>{% endif %}
+    {% if high_n %}<div class="sev-dist-high" style="width:{% if total_leaks > 0 %}{{ (high_n * 100 / total_leaks)|round }}{% else %}0{% endif %}%"></div>{% endif %}
+    {% if med_n %}<div class="sev-dist-med" style="width:{% if total_leaks > 0 %}{{ (med_n * 100 / total_leaks)|round }}{% else %}0{% endif %}%"></div>{% endif %}
+    {% if low_n %}<div class="sev-dist-low" style="width:{% if total_leaks > 0 %}{{ (low_n * 100 / total_leaks)|round }}{% else %}0{% endif %}%"></div>{% endif %}
+    {% if info_n > 0 %}<div class="sev-dist-info" style="width:{% if total_leaks > 0 %}{{ (info_n * 100 / total_leaks)|round }}{% else %}0{% endif %}%"></div>{% endif %}
+  </div>
+  <div class="sev-legend">
+    <span><span class="dot" style="background:var(--danger)"></span>Critical: {{ crit_n }}</span>
+    <span><span class="dot" style="background:var(--warn)"></span>High: {{ high_n }}</span>
+    <span><span class="dot" style="background:#ff9f43"></span>Medium: {{ med_n }}</span>
+    <span><span class="dot" style="background:var(--accent)"></span>Low: {{ low_n }}</span>
+    {% if info_n > 0 %}<span><span class="dot" style="background:var(--dim)"></span>Info: {{ info_n }}</span>{% endif %}
+  </div>
+</div>
+{% endif %}
 
 <!-- Tabs -->
 <div class="tabs">
@@ -1575,50 +2165,42 @@ RESULT_HTML = r"""
   {% if result.waf.detected %}
   <div class="alert alert-info">🛡️ WAF phát hiện: <strong>{{ result.waf.detected|join(", ") }}</strong>. Nên giảm tốc độ scan.</div>
   {% endif %}
-
   {% if result.page_summary %}
   <div class="section-title">📄 Tóm tắt nội dung trang</div>
-  <div style="background:var(--bg3);padding:10px;border-radius:8px;font-size:13px;color:var(--muted)">{{ result.page_summary }}</div>
+  <div style="background:var(--bg3);padding:12px;border-radius:10px;font-size:13px;color:var(--muted);border:1px solid var(--border)">{{ result.page_summary }}</div>
   {% endif %}
-
   {% if result.technologies %}
   <div class="section-title">🛠️ Công nghệ phát hiện</div>
   <div>{% for t in result.technologies %}<span class="tech-tag">{{ t }}</span>{% endfor %}</div>
   {% endif %}
-
   {% if result.cdn %}
   <div class="section-title">☁️ CDN / Edge</div>
   <div>{% for c in result.cdn %}<span class="cdn-badge">{{ c }}</span>{% endfor %}</div>
   {% endif %}
-
   {% if result.ssl and result.ssl.subject %}
   <div class="section-title">🔒 SSL/TLS Certificate</div>
-  <div style="background:var(--bg3);padding:10px;border-radius:8px;font-family:monospace;font-size:12px">
+  <div style="background:var(--bg3);padding:12px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12px;border:1px solid var(--border)">
     <div><strong>Subject:</strong> {{ result.ssl.subject }}</div>
     <div><strong>Issuer:</strong> {{ result.ssl.issuer }}</div>
     <div><strong>Valid until:</strong> {{ result.ssl.not_after }}</div>
-    {% if result.ssl.days_remaining != None %}
-      <div><strong>Days remaining:</strong> {{ result.ssl.days_remaining }}</div>
-    {% endif %}
+    {% if result.ssl.days_remaining != None %}<div><strong>Days remaining:</strong> {{ result.ssl.days_remaining }}</div>{% endif %}
   </div>
   {% endif %}
-
   {% if result.waf.detected %}
   <div class="section-title">🛡️ WAF / Bảo vệ</div>
   <div class="waf-info">
     <p><strong>Phát hiện:</strong> {{ result.waf.detected|join(", ") }}</p>
     {% if result.waf.recommendations %}
-    <ul style="margin-top:6px;margin-left:16px;color:var(--muted);font-size:13px">
+    <ul style="margin-top:8px;margin-left:20px;color:var(--muted);font-size:13px">
       {% for r in result.waf.recommendations %}<li>{{ r }}</li>{% endfor %}
     </ul>
     {% endif %}
   </div>
   {% endif %}
-
   {% if result.subdomain_hints %}
-  <div class="section-title">🌐 Gợi ý subdomain (cần DNS check ngoài)</div>
+  <div class="section-title">🌐 Gợi ý subdomain</div>
   <div style="max-height:120px;overflow-y:auto;font-size:12px;color:var(--muted)">
-    {% for s in result.subdomain_hints %}<div style="padding:2px 0;font-family:monospace">{{ s }}</div>{% endfor %}
+    {% for s in result.subdomain_hints %}<div style="padding:3px 0;font-family:'JetBrains Mono',monospace">{{ s }}</div>{% endfor %}
   </div>
   {% endif %}
 </div>
@@ -1635,7 +2217,7 @@ RESULT_HTML = r"""
       <option value="low">🟢 Low</option>
       <option value="info">⚪ Info (soft-404)</option>
     </select>
-    <label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer">
+    <label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer">
       <input type="checkbox" id="hideSoft404" checked> Ẩn soft-404
     </label>
   </div>
@@ -1656,7 +2238,7 @@ RESULT_HTML = r"""
     </div>
     {% endfor %}
   {% else %}
-    <p class="empty-state">Không phát hiện file nhạy cảm. ✅</p>
+    <p class="empty-state">✅ Không phát hiện file nhạy cảm.</p>
   {% endif %}
 </div>
 
@@ -1668,14 +2250,14 @@ RESULT_HTML = r"""
       <div class="leak-header">
         <span class="sev-badge sev-{{ s.severity }}">{{ s.severity }}</span>
         <strong>{{ s.type }}</strong>
-        <span style="font-family:monospace;font-size:12px;color:var(--muted)">{{ s.match_masked }}</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)">{{ s.match_masked }}</span>
       </div>
       <div style="font-size:12px;color:var(--dim);margin-top:4px">📍 {{ s.source }}</div>
       <div style="font-size:11px;color:var(--muted);margin-top:2px">{{ s.description }}</div>
     </div>
     {% endfor %}
   {% else %}
-    <p class="empty-state">Không phát hiện secret pattern. ✅</p>
+    <p class="empty-state">✅ Không phát hiện secret pattern.</p>
   {% endif %}
 </div>
 
@@ -1685,23 +2267,20 @@ RESULT_HTML = r"""
   {% if result.technologies %}
     <div>{% for t in result.technologies %}<span class="tech-tag">{{ t }}</span>{% endfor %}</div>
   {% else %}<p class="empty-state">Không xác định được tech.</p>{% endif %}
-
   <div class="section-title">🛡️ WAF</div>
   {% if result.waf.detected %}
     <div class="waf-info">
       <p><strong>Phát hiện:</strong> {{ result.waf.detected|join(", ") }}</p>
       {% if result.waf.recommendations %}
-      <ul style="margin-top:6px;margin-left:16px;color:var(--muted);font-size:13px">
+      <ul style="margin-top:8px;margin-left:20px;color:var(--muted);font-size:13px">
         {% for r in result.waf.recommendations %}<li>{{ r }}</li>{% endfor %}
       </ul>
       {% endif %}
     </div>
   {% else %}<p class="empty-state">Không phát hiện WAF.</p>{% endif %}
-
   <div class="section-title">☁️ CDN</div>
   {% if result.cdn %}<div>{% for c in result.cdn %}<span class="cdn-badge">{{ c }}</span>{% endfor %}</div>
   {% else %}<p class="empty-state">Không phát hiện CDN.</p>{% endif %}
-
   {% if result.robots %}
   <div class="section-title">🤖 robots.txt paths ({{ result.robots|length }})</div>
   <pre class="robots-content">{{ result.robots|join("\n") }}</pre>
@@ -1713,24 +2292,21 @@ RESULT_HTML = r"""
   {% if result.ports %}
   <div class="section-title">🔌 Cổng mở ({{ result.ports|length }})</div>
   <div>{% for p in result.ports %}<span class="port-badge">{{ p }}</span>{% endfor %}</div>
-  {% else %}<p class="empty-state">Không có cổng mở trong danh sách check.</p>{% endif %}
-
+  {% else %}<p class="empty-state">Không có cổng mở.</p>{% endif %}
   {% if result.dirs %}
   <div class="section-title">📂 Directory Listing ({{ result.dirs|length }})</div>
   {% for d in result.dirs %}
     <div class="leak-item"><div class="leak-header"><span>📂</span><a href="{{ d.url }}" target="_blank" style="color:var(--accent);text-decoration:none;word-break:break-all">{{ d.url }}</a><span style="font-size:11px;color:var(--warn)">({{ d.type }})</span></div></div>
   {% endfor %}
   {% endif %}
-
   {% if result.brute %}
-  <div class="section-title">🔍 Brute-force common files ({{ result.brute|length }})</div>
+  <div class="section-title">🔍 Brute-force ({{ result.brute|length }})</div>
   {% for f in result.brute %}
-    <div style="padding:4px 0;font-size:13px"><span class="code-badge code-{{ f.code }}">{{ f.code }}</span> <span class="sev-badge sev-{{ f.severity }}">{{ f.severity }}</span> <span style="font-family:monospace">{{ f.path }}</span> {% if f.response_time_ms %}<span style="font-size:11px;color:var(--dim)">{{ f.response_time_ms }}ms</span>{% endif %}</div>
+    <div style="padding:6px 0;font-size:13px"><span class="code-badge code-{{ f.code }}">{{ f.code }}</span> <span class="sev-badge sev-{{ f.severity }}">{{ f.severity }}</span> <span style="font-family:'JetBrains Mono',monospace">{{ f.path }}</span> {% if f.response_time_ms %}<span style="font-size:11px;color:var(--dim)">{{ f.response_time_ms }}ms</span>{% endif %}</div>
   {% endfor %}
   {% endif %}
-
   {% if result.links %}
-  <div class="section-title">🔗 Liên kết cùng domain ({{ result.links|length }})</div>
+  <div class="section-title">🔗 Liên kết ({{ result.links|length }})</div>
   <div style="max-height:240px;overflow-y:auto">
     {% for link in result.links %}
     <div style="padding:4px 0;font-size:12px"><a href="{{ link }}" target="_blank" style="color:var(--accent2);text-decoration:none;word-break:break-all">{{ link }}</a></div>
@@ -1751,23 +2327,21 @@ RESULT_HTML = r"""
     <div class="sec-header-value">{{ h.value or '—' }}</div>
   </div>
   {% endfor %}
-
   <div class="section-title">🍪 Cookies ({{ result.cookies|length }})</div>
   {% if result.cookies %}
     {% for c in result.cookies %}
     <div class="cookie-item">
       <span class="cookie-name">{{ c.name }}</span>
-      <span style="font-family:monospace;font-size:11px;color:var(--dim)">{{ c.value_preview }}</span><br>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim)">{{ c.value_preview }}</span><br>
       {% if c.flags.httponly %}<span class="cookie-flag flag-ok">HttpOnly</span>{% else %}<span class="cookie-flag flag-bad">!HttpOnly</span>{% endif %}
       {% if c.flags.secure %}<span class="cookie-flag flag-ok">Secure</span>{% else %}<span class="cookie-flag flag-bad">!Secure</span>{% endif %}
       {% if c.flags.samesite %}<span class="cookie-flag flag-ok">SameSite={{ c.flags.samesite }}</span>{% else %}<span class="cookie-flag flag-bad">!SameSite</span>{% endif %}
       {% if c.flags.host_prefix %}<span class="cookie-flag flag-ok">__Host-</span>{% endif %}
       {% if c.flags.secure_prefix %}<span class="cookie-flag flag-ok">__secure-</span>{% endif %}
-      {% if c.issues %}<div style="font-size:11px;color:var(--danger);margin-top:4px">⚠️ {{ c.issues|join("; ") }}</div>{% endif %}
+      {% if c.issues %}<div style="font-size:11px;color:var(--danger);margin-top:6px">⚠️ {{ c.issues|join("; ") }}</div>{% endif %}
     </div>
     {% endfor %}
   {% else %}<p class="empty-state">Không có cookie.</p>{% endif %}
-
   <div class="section-title">📡 Main Response Headers</div>
   <pre class="robots-content">{% for k, v in result.main.headers.items() %}{{ k }}: {{ v }}
 {% endfor %}</pre>
@@ -1783,16 +2357,15 @@ RESULT_HTML = r"""
         {% if f.type == 'upload' %}<span class="form-tag form-tag-upload">UPLOAD</span>{% endif %}
         {% if f.has_csrf_token %}<span class="form-tag form-tag-csrf">CSRF</span>{% endif %}
       </div>
-      <div style="font-size:11px;color:var(--dim);margin-top:4px">Inputs: {{ f.input_count }}{% if f.has_hidden %} · có hidden field{% endif %}{% if f.has_password %} · có password{% endif %}{% if f.has_file %} · có file upload{% endif %}</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Inputs: {{ f.input_count }}{% if f.has_hidden %} · có hidden field{% endif %}{% if f.has_password %} · có password{% endif %}{% if f.has_file %} · có file upload{% endif %}</div>
     </div>
     {% endfor %}
   {% else %}<p class="empty-state">Không phát hiện form.</p>{% endif %}
-
   {% if result.js_links %}
   <div class="section-title">📜 JS Files ({{ result.js_links|length }})</div>
   <div style="max-height:200px;overflow-y:auto">
     {% for j in result.js_links %}
-    <div style="padding:3px 0;font-size:12px"><a href="{{ j }}" target="_blank" style="color:var(--accent2);text-decoration:none;word-break:break-all">{{ j }}</a></div>
+    <div style="padding:4px 0;font-size:12px"><a href="{{ j }}" target="_blank" style="color:var(--accent2);text-decoration:none;word-break:break-all">{{ j }}</a></div>
     {% endfor %}
   </div>
   {% endif %}
@@ -1801,8 +2374,8 @@ RESULT_HTML = r"""
 <!-- Tab: Raw -->
 <div class="tab-panel" id="tab-raw">
   <details>
-    <summary style="cursor:pointer;color:var(--accent);font-weight:600">📜 Full JSON result (click to expand)</summary>
-    <pre class="robots-content" style="max-height:500px">{{ result|tojson(indent=2)|forceescape }}</pre>
+    <summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:14px">📜 Full JSON result (click to expand)</summary>
+    <pre class="robots-content" style="max-height:500px;margin-top:10px">{{ result|tojson(indent=2)|forceescape }}</pre>
   </details>
 </div>
 
@@ -1838,7 +2411,6 @@ def scan():
     target = request.form.get("target", "").strip()
     if not target:
         return jsonify({"scan_id": None, "error": "URL trống"})
-
     custom_headers = parse_headers(request.form.get("headers", ""))
     proxy = request.form.get("proxy", "").strip() or None
     try:
@@ -1848,35 +2420,19 @@ def scan():
         timeout = 10
     allow_redirects = request.form.get("redirect") == "yes"
     scan_js = request.form.get("scan_js", "yes") == "yes"
-
     scan_id = int(time.time() * 1000)
-
     with prog_lock:
         progress_queues[scan_id] = queue.Queue(maxsize=500)
         scan_starts[scan_id] = time.time()
-
-    push_history({
-        "scan_id": scan_id,
-        "target": target,
-        "started_at": datetime.now(timezone.utc).isoformat(),
-        "status": "running",
-        "leak_count": 0,
-        "duration_seconds": 0,
-    })
-
+    push_history({"scan_id": scan_id, "target": target, "started_at": datetime.now(timezone.utc).isoformat(), "status": "running", "leak_count": 0, "duration_seconds": 0})
     async def progress_cb(data):
         send_prog(scan_id, data)
-
     def do_scan():
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            result = loop.run_until_complete(deep_scan(
-                target, custom_headers, proxy, timeout,
-                allow_redirects, progress_cb, scan_js, scan_id
-            ))
+            result = loop.run_until_complete(deep_scan(target, custom_headers, proxy, timeout, allow_redirects, progress_cb, scan_js, scan_id))
             scan_results[scan_id] = result
-            # update history
             with prog_lock:
                 for h in scan_history:
                     if h["scan_id"] == scan_id:
@@ -1884,23 +2440,9 @@ def scan():
                         h["leak_count"] = result.get("stats", {}).get("real_leak_count", 0)
                         h["duration_seconds"] = result.get("duration_seconds", 0)
                         break
-            send_prog(scan_id, {
-                "phase": "cancelled" if result.get("cancelled") else "completed",
-                "phase_display": "🛑 Đã huỷ" if result.get("cancelled") else "✅ Hoàn thành",
-                "message": f"Done in {result['duration_seconds']}s · {result.get('stats',{}).get('real_leak_count',0)} real leaks (soft-404 filter: {result.get('soft_404_filtered',0)})",
-            })
+            send_prog(scan_id, {"phase": "cancelled" if result.get("cancelled") else "completed", "phase_display": "🛑 Đã huỷ" if result.get("cancelled") else "✅ Hoàn thành", "message": f"Done in {result['duration_seconds']}s · {result.get('stats',{}).get('real_leak_count',0)} real leaks (soft-404 filter: {result.get('soft_404_filtered',0)})"})
         except Exception as e:
-            scan_results[scan_id] = {
-                "target": target, "error": str(e),
-                "timestamp": datetime.now(timezone.utc).isoformat(),
-                "duration_seconds": 0, "stats": {}, "leak": [], "secrets": [],
-                "ports": [], "dirs": [], "brute": [], "technologies": [],
-                "waf": {"detected": [], "recommendations": [], "should_slow_down": False},
-                "cdn": [], "cookies": [], "security_headers": [],
-                "links": [], "js_links": [], "forms": [], "robots": [],
-                "main": {}, "subdomain_hints": [], "page_summary": "",
-                "errors": [str(e)], "scanner_version": "v5.0",
-            }
+            scan_results[scan_id] = {"target": target, "error": str(e), "timestamp": datetime.now(timezone.utc).isoformat(), "duration_seconds": 0, "stats": {}, "leak": [], "secrets": [], "ports": [], "dirs": [], "brute": [], "technologies": [], "waf": {"detected": [], "recommendations": [], "should_slow_down": False}, "cdn": [], "cookies": [], "security_headers": [], "links": [], "js_links": [], "forms": [], "robots": [], "main": {}, "subdomain_hints": [], "page_summary": "", "errors": [str(e)], "scanner_version": "v7.0"}
             with prog_lock:
                 for h in scan_history:
                     if h["scan_id"] == scan_id:
@@ -1914,7 +2456,6 @@ def scan():
                 scan_cancels.discard(scan_id)
                 scan_starts.pop(scan_id, None)
             scan_results.pop(scan_id, None)
-
     threading.Thread(target=do_scan, daemon=True).start()
     return jsonify({"scan_id": scan_id})
 
@@ -1925,8 +2466,7 @@ def progress_stream(scan_id):
         with prog_lock:
             q = progress_queues.get(scan_id)
         if not q:
-            yield fmt_sse(json.dumps({"phase": "completed",
-                                       "message": "Scan đã hoàn thành hoặc không tồn tại"}))
+            yield fmt_sse(json.dumps({"phase": "completed", "message": "Scan đã hoàn thành hoặc không tồn tại"}))
             return
         yield fmt_sse(json.dumps({"phase": "connected", "message": "SSE connected"}))
         while True:
@@ -1941,9 +2481,7 @@ def progress_stream(scan_id):
                     pass
             except queue.Empty:
                 yield fmt_sse(json.dumps({"phase": "keepalive"}))
-    return Response(stream(), mimetype="text/event-stream",
-                    headers={"Cache-Control": "no-cache",
-                             "X-Accel-Buffering": "no"})
+    return Response(stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 @app.route("/result/<int:scan_id>")
 def result(scan_id):
@@ -1953,127 +2491,101 @@ def result(scan_id):
 @app.route("/history")
 def history():
     with prog_lock:
-        # only return finished scans for history list
-        items = [{"scan_id": h["scan_id"], "target": h["target"],
-                  "started_at": h["started_at"], "leak_count": h.get("leak_count", 0),
-                  "duration_seconds": h.get("duration_seconds", 0),
-                  "status": h.get("status", "")} for h in scan_history]
+        items = [{"scan_id": h["scan_id"], "target": h["target"], "started_at": h["started_at"], "leak_count": h.get("leak_count", 0), "duration_seconds": h.get("duration_seconds", 0), "status": h.get("status", "")} for h in scan_history]
     return jsonify({"history": items})
 
 @app.route("/cancel/<int:scan_id>", methods=["POST"])
 def cancel_scan(scan_id):
     with prog_lock:
         scan_cancels.add(scan_id)
-    # Push ngay 1 event để UI thấy ngay
-    send_prog(scan_id, {
-        "phase": "cancelling",
-        "phase_display": "🛑 Đang huỷ...",
-        "message": "Đã nhận yêu cầu huỷ, sẽ dừng ở phase tiếp theo",
-    })
+    send_prog(scan_id, {"phase": "cancelling", "phase_display": "🛑 Đang huỷ...", "message": "Đã nhận yêu cầu huỷ, sẽ dừng ở phase tiếp theo"})
     return jsonify({"ok": True, "scan_id": scan_id, "status": "cancelling"})
 
 @app.route("/download_json", methods=["POST"])
 def download_json():
     d = request.form.get("json_data")
     if not d: return "No data", 400
-    try:
-        data = json.loads(d)
-    except Exception:
-        return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v6.0"
+    try: data = json.loads(d)
+    except Exception: return "Invalid JSON", 400
+    data["scanner"] = "Web Leak Scanner Pro v7.0"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
-    return Response(json.dumps(data, indent=2, ensure_ascii=False),
-                    mimetype="application/json",
-                    headers={"Content-Disposition": "attachment; filename=scan_result_v6.json"})
+    return Response(json.dumps(data, indent=2, ensure_ascii=False), mimetype="application/json", headers={"Content-Disposition": "attachment; filename=scan_result_v7.json"})
 
 @app.route("/download_csv", methods=["POST"])
 def download_csv():
     d = request.form.get("json_data")
     if not d: return "No data", 400
-    try:
-        data = json.loads(d)
-    except Exception:
-        return "Invalid JSON", 400
+    try: data = json.loads(d)
+    except Exception: return "Invalid JSON", 400
     out = io.StringIO()
     w = csv.writer(out)
     w.writerow(["Section", "Field", "Value"])
-    # Stats
     for k, v in (data.get("stats") or {}).items():
         w.writerow(["stats", k, v])
-    # Main
     main = data.get("main") or {}
     w.writerow(["main", "code", main.get("code")])
     w.writerow(["main", "length", main.get("length")])
     w.writerow(["main", "response_time_ms", main.get("response_time_ms")])
-    # Leak
     for item in data.get("leak", []):
         w.writerow(["leak", item.get("severity"), f"{item.get('code')} {item.get('path')} ({item.get('size')}b)"])
-    # Secrets
     for s in data.get("secrets", []):
         w.writerow(["secret", s.get("severity"), f"{s.get('type')}: {s.get('match_masked')} @ {s.get('source')}"])
-    # Ports
     w.writerow(["ports", "open", ", ".join(str(p) for p in data.get("ports", []))])
-    # Tech
     w.writerow(["tech", "list", ", ".join(data.get("technologies", []))])
-    # WAF
     w.writerow(["waf", "detected", ", ".join((data.get("waf") or {}).get("detected", []))])
-    # CDN
     w.writerow(["cdn", "list", ", ".join(data.get("cdn", []))])
-    # Security headers
     for h in data.get("security_headers", []):
-        w.writerow(["sec_header", h.get("severity") if h.get("missing") else "ok",
-                    f"{'MISSING' if h.get('missing') else 'OK'} {h.get('header')}"])
-    # Cookies
+        w.writerow(["sec_header", h.get("severity") if h.get("missing") else "ok", f"{'MISSING' if h.get('missing') else 'OK'} {h.get('header')}"])
     for c in data.get("cookies", []):
-        w.writerow(["cookie", "issues" if c.get("issues") else "ok",
-                    f"{c.get('name')} | issues: {'; '.join(c.get('issues', [])) or 'none'}"])
-    # Forms
+        w.writerow(["cookie", "issues" if c.get("issues") else "ok", f"{c.get('name')} | issues: {'; '.join(c.get('issues', [])) or 'none'}"])
     for f in data.get("forms", []):
         w.writerow(["form", f.get("type"), f"{f.get('method')} {f.get('action')} (inputs: {f.get('input_count')})"])
     payload = out.getvalue().encode("utf-8")
-    return Response(payload, mimetype="text/csv",
-                    headers={"Content-Disposition": "attachment; filename=scan_result_v6.csv"})
+    return Response(payload, mimetype="text/csv", headers={"Content-Disposition": "attachment; filename=scan_result_v7.csv"})
 
 @app.route("/download_html", methods=["POST"])
 def download_html():
     d = request.form.get("json_data")
     if not d: return "No data", 400
-    try:
-        data = json.loads(d)
-    except Exception:
-        return "Invalid JSON", 400
+    try: data = json.loads(d)
+    except Exception: return "Invalid JSON", 400
     html = render_template_string(RESULT_HTML, result=data)
     full = f"""<!DOCTYPE html>
 <html lang="vi"><head><meta charset="UTF-8">
 <title>Scan Report - {data.get('target','')}</title>
 <style>
-body{{font-family:system-ui,sans-serif;background:#0f0f1a;color:#e0e0e0;padding:20px;margin:0}}
-.card{{background:#16213e;border:1px solid #2d3561;border-radius:12px;padding:18px;margin-bottom:16px}}
-h2{{background:linear-gradient(90deg,#00d4aa,#54a0affff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}}
-.badge{{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;margin:2px}}
-.badge-time{{background:rgba(84,160,255,.12);color:#54a0ff}}
-.badge-waf{{background:rgba(255,107,107,.12);color:#ff6b6b}}
-code,pre{{font-family:monospace;background:#0a0a12;padding:8px;border-radius:6px;display:block;white-space:pre-wrap;word-break:break-all}}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap');
+body{{font-family:'Inter',sans-serif;background:#0a0e1a;color:#e8edff;padding:20px;margin:0}}
+.card{{background:rgba(22,27,50,.65);backdrop-filter:blur(16px);border:1px solid rgba(100,120,200,.18);border-radius:16px;padding:24px;margin-bottom:16px}}
+h2{{background:linear-gradient(135deg,#00d4aa,#64b5f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}}
+.badge{{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;margin:2px}}
+.badge-time{{background:rgba(100,181,246,.12);color:#64b5f6}}
+.badge-waf{{background:rgba(255,107,157,.12);color:#ff6b9d}}
+.stat-box{{display:inline-block;text-align:center;padding:12px;margin:4px;background:rgba(30,35,65,.55);border-radius:12px}}
+.stat-number{{font-size:24px;font-weight:800;color:#00d4aa;font-family:'JetBrains Mono',monospace}}
+.sev-badge{{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:800}}
+.sev-critical{{background:rgba(255,107,157,.2);color:#ff6b9d}}
+.sev-high{{background:rgba(255,209,102,.2);color:#ffd166}}
+.sev-medium{{background:rgba(255,159,64,.2);color:#ff9f43}}
+.sev-low{{background:rgba(0,212,170,.15);color:#00d4aa}}
+code,pre{{font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,.3);padding:8px;border-radius:6px;display:block;white-space:pre-wrap;word-break:break-all}}
+.leak-item{{padding:10px;background:rgba(30,35,65,.55);border:1px solid rgba(100,120,200,.18);border-radius:10px;margin-bottom:8px}}
 </style>
 </head><body>
-<h1>🔒 Web Leak Scanner Pro v6.0 — Standalone Report</h1>
+<h1>🔒 Web Leak Scanner Pro v7.0 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
 {html}
 </body></html>"""
-    return Response(full.encode("utf-8"), mimetype="text/html",
-                    headers={"Content-Disposition": "attachment; filename=scan_report_v6.html"})
+    return Response(full.encode("utf-8"), mimetype="text/html", headers={"Content-Disposition": "attachment; filename=scan_report_v7.html"})
 
-# ── Main ──
 if __name__ == "__main__":
     print("=" * 60)
-    print(f"🔒 Web Leak Scanner Pro v6.0 – Web Edition")
+    print(f"🔒 Web Leak Scanner Pro v7.0 – UI/UX Edition")
     print(f"   URL: http://{HOST}:{PORT}")
-    print(f"   Mở trình duyệt vào địa chỉ trên (Ctrl+C để dừng)")
-    print(f"   v5.0: Security Headers · Cookies · SSL · JS secrets")
-    print(f"   v5.0: Forms · CDN · Severity scoring · Tabs UI · CSV/HTML export")
-    print(f"   v6.0: Elapsed timer · ETA · Cancel · Soft-404 filter")
-    print(f"   v6.0: Phase human-readable · Concurrency boost · Brute timeout")
+    print(f"   ✨ Glassmorphism · Aurora BG · Glow Effects")
+    print(f"   ✨ Shimmer Progress · Animated Counters · Radar")
+    print(f"   ✨ Severity Distribution · Slide-in Animations")
     print("=" * 60)
     app.run(host=HOST, port=PORT, debug=False, threaded=True)
