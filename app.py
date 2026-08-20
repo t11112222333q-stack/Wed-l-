@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v8.0 — Deep Recon Edition
+Web Leak Scanner Pro v9.0 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v8.0 (so với v6.0):
+Changelog v9.0 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -198,7 +198,7 @@ LEAK_PATHS = [
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
 
-    # ── v8.0 additions: K8s / container / monitoring ──
+    # ── v9.0 additions: K8s / container / monitoring ──
     "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
     "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
     "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
@@ -217,7 +217,7 @@ LEAK_PATHS = [
     "/.well-known/revocation",
     "/.well-known/introspection",
 
-    # ── v8.0: Source maps & debug bundles ──
+    # ── v9.0: Source maps & debug bundles ──
     "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
     "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
     "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
@@ -226,7 +226,7 @@ LEAK_PATHS = [
     "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
     "/dist/build.js.map", "/dist/main.js.map",
 
-    # ── v8.0: GraphQL / WebSocket / API ──
+    # ── v9.0: GraphQL / WebSocket / API ──
     "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
     "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
@@ -241,7 +241,7 @@ LEAK_PATHS = [
     "/rest/users", "/rest/admin", "/rest/config",
     "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
 
-    # ── v8.0: Spring Boot Actuator deep ──
+    # ── v9.0: Spring Boot Actuator deep ──
     "/actuator/", "/actuator/info", "/actuator/health",
     "/actuator/env", "/actuator/configprops", "/actuator/beans",
     "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
@@ -252,21 +252,21 @@ LEAK_PATHS = [
     "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
     "/actuator/bus-refresh", "/actuator/gateway/routes",
 
-    # ── v8.0: Java / JVM specific ──
+    # ── v9.0: Java / JVM specific ──
     "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
     "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
     "/META-INF/maven/", "/META-INF/spring.factories",
     "/struts/web.xml", "/struts.xml", "/struts-config.xml",
     "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
 
-    # ── v8.0: .NET / IIS specific ──
+    # ── v9.0: .NET / IIS specific ──
     "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
     "/web.config.bak", "/web.config.old", "/web.config.txt",
     "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
     "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
     "/Reserved.ReportViewerWebControl.axd", "/Reports/",
 
-    # ── v8.0: PHP / Laravel specific ──
+    # ── v9.0: PHP / Laravel specific ──
     "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
     "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
     "/storage/framework/cache/", "/storage/framework/sessions/",
@@ -274,7 +274,7 @@ LEAK_PATHS = [
     "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
     "/artisan", "/server.php", "/package.json",
 
-    # ── v8.0: Ruby / Rails specific ──
+    # ── v9.0: Ruby / Rails specific ──
     "/config/database.yml", "/config/secrets.yml", "/config/master.key",
     "/config/credentials.yml.enc", "/config/credentials.yml",
     "/config/initializers/", "/config/environments/",
@@ -282,13 +282,13 @@ LEAK_PATHS = [
     "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
     "/log/production.log", "/log/development.log",
 
-    # ── v8.0: Python / Django specific ──
+    # ── v9.0: Python / Django specific ──
     "/settings.py", "/local_settings.py", "/config/settings.py",
     "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
     "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
     "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
 
-    # ── v8.0: WordPress deep ──
+    # ── v9.0: WordPress deep ──
     "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
     "/wp-content/backup-db/", "/wp-content/updraft/",
     "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
@@ -303,7 +303,7 @@ LEAK_PATHS = [
     "/wp-admin/install.php", "/wp-admin/setup-config.php",
     "/wp-content/uploads/index.php", "/wp-includes/version.php",
 
-    # ── v8.0: CMS-specific deep ──
+    # ── v9.0: CMS-specific deep ──
     "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
     "/sites/default/settings.php", "/sites/default/files/",
     "/sites/default/private/", "/sites/default/config/",
@@ -315,7 +315,7 @@ LEAK_PATHS = [
     "/administrator/components/com_config/", "/administrator/cache/",
     "/installation/index.php", "/installation/configuration.php",
 
-    # ── v8.0: Node.js / npm specific ──
+    # ── v9.0: Node.js / npm specific ──
     "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
     "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
     "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
@@ -323,7 +323,7 @@ LEAK_PATHS = [
     "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
     "/.netlify/", "/.cache/", "/.turbo/",
 
-    # ── v8.0: Cloud / DevOps deep ──
+    # ── v9.0: Cloud / DevOps deep ──
     "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
     "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
     "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
@@ -336,14 +336,14 @@ LEAK_PATHS = [
     "/google-services.json", "/GoogleService-Info.plist",
     "/firebase.json", "/firebase-config.json", "/.firebaserc",
 
-    # ── v8.0: CI/CD configs ──
+    # ── v9.0: CI/CD configs ──
     "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
     "/.github/workflows/", "/.github/workflows/ci.yml",
     "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
     "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
     "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
 
-    # ── v8.0: API documentation ──
+    # ── v9.0: API documentation ──
     "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
     "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
     "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
@@ -351,14 +351,14 @@ LEAK_PATHS = [
     "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
     "/api/swagger", "/api/rapidoc", "/api/redoc",
 
-    # ── v8.0: WebSocket / SSE endpoints ──
+    # ── v9.0: WebSocket / SSE endpoints ──
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
     "/signalr", "/signalr/negotiate", "/signalr/hubs",
     "/hub", "/realtime", "/events", "/sse", "/stream",
     "/api/ws", "/api/websocket", "/api/realtime",
     "/_ws", "/_websocket", "/_realtime",
 
-    # ── v8.0: Common config backups / temporaries ──
+    # ── v9.0: Common config backups / temporaries ──
     "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
     "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
     "/config.json.bak", "/config.json.old", "/config.json.orig",
@@ -369,7 +369,7 @@ LEAK_PATHS = [
     "/.env.production.local", "/.env.development.local",
     "/.env.staging.local", "/.env.test.local",
 
-    # ── v8.0: CVE / known vuln paths ──
+    # ── v9.0: CVE / known vuln paths ──
     "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
     "/test.jsp", "/test.html",
     "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
@@ -382,7 +382,7 @@ LEAK_PATHS = [
     "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
     "/redis/", "/memcached/", "/var/log/redis/redis.log",
 
-    # ── v8.0: Misc / random secrets ──
+    # ── v9.0: Misc / random secrets ──
     "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
     "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
     "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
@@ -391,13 +391,13 @@ LEAK_PATHS = [
     "/.prettierrc", "/.eslintrc", "/.babelrc",
     "/.docker/registry", "/registry/", "/docker/registry",
 
-    # ── v8.0: Source code & build artifacts ──
+    # ── v9.0: Source code & build artifacts ──
     "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
     "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
     "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
     "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
 
-    # ── v8.0: Logs & debug ──
+    # ── v9.0: Logs & debug ──
     "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
     "/laravel.log", "/storage/logs/laravel.log",
     "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
@@ -408,7 +408,7 @@ LEAK_PATHS = [
     "/_internal/", "/_hidden/", "/_private/", "/_secret/",
     "/server-status", "/server-info", "/status?full", "/status?auto",
 
-    # ── v8.0: Backup & database dumps ──
+    # ── v9.0: Backup & database dumps ──
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
     "/backup.bak", "/backup.dump", "/backup.json",
     "/backup-2024.zip", "/backup-2025.zip",
@@ -421,7 +421,7 @@ LEAK_PATHS = [
     "/mysql.sql", "/postgres.sql", "/pgdump.sql",
     "/mongodump.json", "/mongodump.bson",
 
-    # ── v8.0: Admin / management panels ──
+    # ── v9.0: Admin / management panels ──
     "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
     "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
     "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
@@ -432,7 +432,7 @@ LEAK_PATHS = [
     "/manager/html", "/manager/status", "/manager/jmxproxy",
     "/host-manager/html", "/host-manager/status",
 
-    # ── v8.0: User-uploaded content ──
+    # ── v9.0: User-uploaded content ──
     "/uploads/", "/uploads/files/", "/uploads/images/",
     "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
     "/media/", "/assets/", "/static/", "/public/",
@@ -1436,7 +1436,7 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-# ── v8.0 helper functions: deep recon capabilities ──
+# ── v9.0 helper functions: deep recon capabilities ──
 
 def extract_js_endpoints(js_text, base_url):
     """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
@@ -1807,6 +1807,287 @@ async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
     except Exception:
         return []
 
+# ── v9.0 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
+
+async def fetch_ct_logs(session, domain, log_fn=None):
+    """Query crt.sh Certificate Transparency logs để lấy tất cả subdomains đã từng được cert.
+    Đây là cách mạnh nhất để enum subdomain — không cần DNS, không cần wordlist."""
+    if not domain:
+        return []
+    # crt.sh returns JSON array of {name_value: "sub.example.com\nsub2.example.com", ...}
+    url = f"https://crt.sh/?q=%.{domain}&output=json"
+    subdomains = set()
+    try:
+        async with session.get(url, headers={"User-Agent": random.choice(USER_AGENTS)},
+                              timeout=aiohttp.ClientTimeout(total=20),
+                              ssl=False) as r:
+            if r.status != 200:
+                if log_fn: log_fn(f"[CT] crt.sh returned {r.status}")
+                return []
+            text = await r.text(errors="replace")
+            try:
+                data = json.loads(text)
+            except Exception:
+                if log_fn: log_fn("[CT] crt.sh response not JSON, trying line-parse")
+                # Fallback: parse as text
+                for m in re.finditer(r'([a-zA-Z0-9][a-zA-Z0-9\-\_]*\.' + re.escape(domain) + r')', text):
+                    subdomains.add(m.group(1).lower())
+                return sorted(subdomains)[:200]
+            for entry in data:
+                if isinstance(entry, dict):
+                    name_value = entry.get("name_value", "") or entry.get("common_name", "")
+                    for line in name_value.split("\n"):
+                        line = line.strip().lower()
+                        # Remove wildcard prefix
+                        if line.startswith("*."):
+                            line = line[2:]
+                        if line.endswith(domain.lower()) and "*" not in line:
+                            subdomains.add(line)
+        if log_fn: log_fn(f"[CT] crt.sh found {len(subdomains)} unique subdomains")
+        return sorted(subdomains)[:200]
+    except Exception as e:
+        if log_fn: log_fn(f"[CT] crt.sh query failed: {type(e).__name__}: {str(e)[:60]}")
+        return []
+
+async def lookup_dns_records(host):
+    """Lookup DNS records: A, AAAA, MX, NS, TXT, SOA, CNAME."""
+    if not host:
+        return {}
+    records = {"A": [], "AAAA": [], "MX": [], "NS": [], "TXT": [], "SOA": [], "CNAME": []}
+    loop = asyncio.get_event_loop()
+    async def query(record_type, fn_name):
+        try:
+            infos = await loop.getaddrinfo(host, None, type=getattr(__import__("socket"), record_type, 0))
+            ips = sorted({info[4][0] for info in infos})
+            records[record_type if record_type != "SOCK_STREAM" else "A"] = ips
+        except Exception:
+            pass
+    # getaddrinfo only does A/AAAA; for MX/NS/TXT/SOA we'd need dnspython — fallback to socket.getaddrinfo
+    try:
+        infos = await loop.getaddrinfo(host, None)
+        records["A"] = sorted({info[4][0] for info in infos if ":" not in info[4][0]})
+        records["AAAA"] = sorted({info[4][0] for info in infos if ":" in info[4][0]})
+    except Exception:
+        pass
+    # Try reverse DNS for first A record
+    if records["A"]:
+        try:
+            hostname, _, _ = await loop.getnameinfo((records["A"][0], 0), 0)
+            records["PTR"] = [hostname]
+        except Exception:
+            pass
+    # Filter empty
+    return {k: v for k, v in records.items() if v}
+
+async def deep_crawl(session, base, main_text, custom_headers, proxy, timeout, soft_404_sizes, log_fn, cancel_fn, max_depth=2, max_pages=30):
+    """Deep crawler: collect all internal links từ main page, fetch từng page depth-2.
+    Extract thêm endpoints, secrets, forms từ tất cả pages."""
+    if not main_text:
+        return [], []
+    parsed = urlparse(base)
+    target_host = parsed.hostname
+    visited = set()
+    pages_data = []  # list of {url, code, size, secrets, forms}
+    queue = [(urljoin(base, "/"), 0)]
+    all_secrets = []
+    all_forms = []
+    sem = asyncio.Semaphore(10)
+    pages_crawled = 0
+
+    # Extract initial links từ main_text
+    initial_links = set()
+    for m in re.finditer(r'(?:href|src|action)\s*=\s*["\']([^"\']+)["\']', main_text, re.I):
+        u = m.group(1)
+        if u.startswith(("http://", "https://")):
+            try:
+                u_p = urlparse(u)
+                if u_p.hostname == target_host:
+                    initial_links.add(u)
+            except Exception:
+                pass
+        elif u.startswith("/") and not u.startswith("//"):
+            initial_links.add(urljoin(base, u))
+        elif not u.startswith(("#", "javascript:", "mailto:", "data:", "tel:")):
+            initial_links.add(urljoin(base, u))
+    # Limit to 20 initial links for deep crawl
+    queue = [(u, 0) for u in list(initial_links)[:20]]
+
+    async def crawl_one(url, depth):
+        nonlocal pages_crawled
+        if cancel_fn() or pages_crawled >= max_pages:
+            return None
+        async with sem:
+            t, c, h, rt = await fetch(session, url, custom_headers, proxy, min(timeout, 8))
+        if c != 200 or not t:
+            return None
+        pages_crawled += 1
+        # Check soft-404
+        if len(t) in soft_404_sizes:
+            return None
+        # Extract secrets from this page
+        page_secrets = scan_secrets(t, f"crawl: {url}")
+        # Extract forms
+        page_forms = extract_forms(t, base)
+        # Extract more links for depth+1
+        next_links = set()
+        if depth < max_depth - 1:
+            for m in re.finditer(r'(?:href|src)\s*=\s*["\']([^"\']+)["\']', t, re.I):
+                u = m.group(1)
+                if u.startswith("/") and not u.startswith("//"):
+                    full = urljoin(base, u)
+                    if full not in visited:
+                        next_links.add(full)
+                elif u.startswith(("http://", "https://")):
+                    try:
+                        u_p = urlparse(u)
+                        if u_p.hostname == target_host and u not in visited:
+                            next_links.add(u)
+                    except Exception:
+                        pass
+        return {
+            "url": url, "code": c, "size": len(t),
+            "secrets": page_secrets, "forms": page_forms,
+            "next_links": list(next_links)[:5], "depth": depth,
+        }
+
+    # Crawl depth 0
+    depth_0_results = []
+    tasks = [crawl_one(url, 0) for url, _ in queue]
+    for coro in asyncio.as_completed(tasks):
+        r = await coro
+        if r:
+            visited.add(r["url"])
+            depth_0_results.append(r)
+            all_secrets.extend(r["secrets"])
+            all_forms.extend(r["forms"])
+            if r["secrets"]:
+                log_fn(f"[CRAWL] {r['url']} → {len(r['secrets'])} secrets")
+            if r["forms"]:
+                log_fn(f"[CRAWL] {r['url']} → {len(r['forms'])} forms")
+
+    # Crawl depth 1
+    depth_1_urls = set()
+    for r in depth_0_results:
+        for u in r["next_links"]:
+            if u not in visited:
+                depth_1_urls.add(u)
+    depth_1_urls = list(depth_1_urls)[:10]
+    if depth_1_urls and not cancel_fn():
+        tasks = [crawl_one(url, 1) for url in depth_1_urls]
+        for coro in asyncio.as_completed(tasks):
+            r = await coro
+            if r:
+                visited.add(r["url"])
+                depth_0_results.append(r)
+                all_secrets.extend(r["secrets"])
+                all_forms.extend(r["forms"])
+
+    return depth_0_results, all_secrets
+
+def extract_js_strings(js_text, min_length=12, max_strings=100):
+    """Extract all string literals từ JS source code (string interpolation, single/double quote, template).
+    Filter ra URLs, paths, possible API keys, possible JWT, etc."""
+    if not js_text:
+        return []
+    strings = set()
+    # Match single/double quoted strings
+    for pat in [
+        r'"((?:[^"\\]|\\.){%d,})"' % min_length,
+        r"'((?:[^'\\]|\\.){%d,})'" % min_length,
+        r'`((?:[^`\\]|\\.){%d,})`' % min_length,
+    ]:
+        for m in re.finditer(pat, js_text):
+            s = m.group(1)
+            # Filter out common noise
+            if not s or len(s) > 500:
+                continue
+            # Skip CSS, hex colors, base64 data URLs, common boilerplate
+            skip_patterns = [r'^#[0-9a-f]{3,8}$', r'^data:', r'^\s*$', r'^[a-z]+(-[a-z]+)+$',
+                           r'^\.\w', r'^\s*\{', r'^[0-9]+$', r'^\s*function',
+                           r'^[a-z]+(?:[A-Z][a-z]+)+$']  # camelCase identifiers
+            if any(re.match(p, s, re.I) for p in skip_patterns):
+                continue
+            strings.add(s)
+    # Dedup and limit
+    return list(strings)[:max_strings]
+
+async def check_git_exposure(session, base, custom_headers, proxy, timeout, log_fn):
+    """Check if .git directory is exposed — fetch HEAD, config, index, then enumerate objects."""
+    findings = []
+    git_paths_to_check = [
+        "/.git/HEAD",
+        "/.git/config",
+        "/.git/index",
+        "/.git/description",
+        "/.git/info/refs",
+        "/.git/info/packs",
+        "/.git/objects/info/packs",
+        "/.git/refs/heads/master",
+        "/.git/refs/heads/main",
+        "/.git/logs/HEAD",
+        "/.git/COMMIT_EDITMSG",
+        "/.git/packed-refs",
+    ]
+    sem = asyncio.Semaphore(5)
+    async def check_one(path):
+        url = urljoin(base, path)
+        try:
+            async with sem:
+                t, c, h, rt = await fetch(session, url, custom_headers, proxy, min(timeout, 5))
+            if c == 200 and t:
+                # Verify it's actually git content
+                is_git = False
+                content_preview = ""
+                if path.endswith("HEAD"):
+                    # HEAD file contains "ref: refs/heads/master" or similar
+                    if "ref:" in t or len(t.strip()) == 40:  # 40 = SHA-1 hash length
+                        is_git = True
+                        content_preview = t.strip()[:100]
+                elif path.endswith("config"):
+                    if "[core]" in t or "[remote" in t:
+                        is_git = True
+                        content_preview = t.strip()[:300]
+                elif path.endswith("index"):
+                    # Binary file, check for "DIRC" magic
+                    if t.startswith("DIRC") or len(t) > 100:
+                        is_git = True
+                        content_preview = f"[binary, {len(t)} bytes]"
+                elif path.endswith("packed-refs"):
+                    if "# pack-refs with" in t or "refs/" in t:
+                        is_git = True
+                        content_preview = t.strip()[:200]
+                else:
+                    # Other paths — just check size > 0
+                    if len(t) > 0:
+                        is_git = True
+                        content_preview = (t[:200] + "...") if len(t) > 200 else t
+                if is_git:
+                    log_fn(f"[GIT-EXPOSED] {path} → 200 ({len(t)}b)")
+                    return {
+                        "path": path, "url": url, "code": 200, "size": len(t),
+                        "severity": "critical",
+                        "preview": content_preview,
+                        "description": f"Git directory exposed: {path}",
+                    }
+            elif c == 403:
+                # Forbidden — still interesting (means .git exists but protected)
+                log_fn(f"[GIT-PROTECTED] {path} → 403")
+                return {
+                    "path": path, "url": url, "code": 403, "size": 0,
+                    "severity": "medium",
+                    "preview": "",
+                    "description": f"Git directory protected (403): {path}",
+                }
+        except Exception:
+            return None
+        return None
+    tasks = [check_one(p) for p in git_paths_to_check]
+    for coro in asyncio.as_completed(tasks):
+        r = await coro
+        if r:
+            findings.append(r)
+    return findings
+
 async def recursive_brute(session, base, found_dirs, custom_headers, proxy, timeout, soft_404_sizes, log_fn, cancel_fn):
     """Với mỗi directory 200 tìm được, brute thêm các sub-paths."""
     findings = []
@@ -1881,7 +2162,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v8.0",
+        "scanner_version": "v9.0",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
@@ -1891,6 +2172,10 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "takeover_findings": [], "source_maps": [], "graphql_findings": [],
         "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
         "http_method_findings": [], "recursive_brute_findings": [],
+        # v9.0 additions
+        "ct_subdomains": [], "dns_records": {}, "git_findings": [],
+        "crawled_pages": [], "js_strings": [],
+        "static_platforms": [], "frameworks_detected": [],
         "errors": [], "duration_seconds": 0, "stats": {},
         "soft_404_filtered": 0, "cancelled": False,
     }
@@ -2126,7 +2411,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
-            # 3a.5. Static-site specific paths (v8.1)
+            # 3a.5. Static-site specific paths (v9.0)
             # Nếu detect Netlify/Vercel/CF Pages/GH Pages → scan thêm STATIC_SITE_PATHS
             # Nếu detect framework → scan thêm FRAMEWORK_EXTRA_PATHS
             extra_paths = set()
@@ -2405,7 +2690,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
 
-            # 12. Subdomain takeover check (v8.0)
+            # 12. Subdomain takeover check (v9.0)
             if not cancelled() and result["subdomains_resolved"]:
                 await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
                 log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
@@ -2420,7 +2705,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Takeover check failed: {e}")
 
-            # 13. GraphQL introspection (v8.0)
+            # 13. GraphQL introspection (v9.0)
             if not cancelled():
                 await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
                 log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
@@ -2433,7 +2718,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"GraphQL check failed: {e}")
 
-            # 14. CORS misconfiguration (v8.0)
+            # 14. CORS misconfiguration (v9.0)
             if not cancelled():
                 await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
                 log(f"CORS: testing 3 origins × 5 endpoints")
@@ -2446,7 +2731,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CORS check failed: {e}")
 
-            # 15. Open redirect test (v8.0)
+            # 15. Open redirect test (v9.0)
             if not cancelled():
                 await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
                 log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
@@ -2459,7 +2744,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Open redirect check failed: {e}")
 
-            # 16. Source map exposure (v8.0)
+            # 16. Source map exposure (v9.0)
             if not cancelled() and result["js_links"]:
                 await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
                 log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
@@ -2472,7 +2757,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Source map check failed: {e}")
 
-            # 17. JS endpoint extraction + API fuzzing (v8.0)
+            # 17. JS endpoint extraction + API fuzzing (v9.0)
             if not cancelled() and scan_js and result["js_links"]:
                 await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
                 log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
@@ -2534,7 +2819,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"JS endpoint extraction failed: {e}")
 
-            # 18. Swagger/OpenAPI parsing (v8.0)
+            # 18. Swagger/OpenAPI parsing (v9.0)
             if not cancelled():
                 await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
                 log(f"Swagger: testing 6 spec paths")
@@ -2554,7 +2839,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Swagger parsing failed: {e}")
 
-            # 19. Recursive depth-2 brute-force (v8.0)
+            # 19. Recursive depth-2 brute-force (v9.0)
             if not cancelled():
                 found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
                 found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
@@ -2578,7 +2863,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 else:
                     log(f"Recursive brute skipped: no directories found")
 
-            # 20. HTTP method fuzzing (v8.0)
+            # 20. HTTP method fuzzing (v9.0)
             if not cancelled():
                 test_urls = [target]
                 test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
@@ -2598,7 +2883,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"HTTP method fuzz failed: {e}")
 
-            # 21. Wayback Machine integration (v8.0)
+            # 21. Wayback Machine integration (v9.0)
             if not cancelled():
                 await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
                 log(f"Wayback: querying web.archive.org")
@@ -2608,6 +2893,119 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     await prog("wayback", f"Wayback done: {len(result['wayback_urls'])} URLs", 1, 1, len(result["wayback_urls"]))
                 except Exception as e:
                     log(f"Wayback lookup failed: {e}")
+
+            # 22. Certificate Transparency logs (v9.0) — crt.sh subdomain enum
+            if not cancelled():
+                await prog("ct_logs", "Certificate Transparency logs (crt.sh)...", 0, 1, 0)
+                log(f"CT: querying crt.sh for *.{host}")
+                try:
+                    ct_subs = await fetch_ct_logs(session, host, log)
+                    # Merge với subdomains_resolved
+                    existing_subs = {s["host"] for s in result.get("subdomains_resolved", [])}
+                    new_ct_subs = []
+                    for sub in ct_subs:
+                        if sub not in existing_subs:
+                            # Try DNS resolve
+                            try:
+                                loop = asyncio.get_event_loop()
+                                infos = await loop.getaddrinfo(sub, None)
+                                ip = infos[0][4][0] if infos else None
+                                new_ct_subs.append({"sub": sub.split(".")[0] if "." in sub else sub,
+                                                    "host": sub, "ip": ip, "ok": True, "source": "crt.sh"})
+                            except Exception:
+                                new_ct_subs.append({"sub": sub.split(".")[0] if "." in sub else sub,
+                                                    "host": sub, "ip": None, "ok": False, "source": "crt.sh"})
+                    result["ct_subdomains"] = new_ct_subs
+                    result["subdomains_resolved"].extend([s for s in new_ct_subs if s["ok"]])
+                    log(f"[CT] Found {len(ct_subs)} CT subdomains, {len(new_ct_subs)} new (resolved: {sum(1 for s in new_ct_subs if s['ok'])})")
+                    await prog("ct_logs", f"CT done: {len(ct_subs)} subs found", 1, 1, len(ct_subs))
+                except Exception as e:
+                    log(f"CT logs failed: {e}")
+
+            # 23. DNS records lookup (v9.0)
+            if not cancelled() and host:
+                await prog("dns_records", "DNS records lookup (A/AAAA/MX/TXT/CNAME)...", 0, 1, 0)
+                log(f"DNS: looking up records for {host}")
+                try:
+                    result["dns_records"] = await lookup_dns_records(host)
+                    for rtype, rvals in result["dns_records"].items():
+                        log(f"[DNS] {rtype}: {', '.join(rvals[:3])}")
+                    await prog("dns_records", f"DNS done: {len(result['dns_records'])} record types", 1, 1, len(result["dns_records"]))
+                except Exception as e:
+                    log(f"DNS lookup failed: {e}")
+
+            # 24. .git directory exposure check (v9.0)
+            if not cancelled():
+                await prog("git_exposure", "Check .git directory exposure (HEAD, config, index)...", 0, 1, 0)
+                log(f"Git: checking .git directory exposure")
+                try:
+                    git_findings = await check_git_exposure(session, base, custom_headers, proxy, timeout, log)
+                    if git_findings:
+                        result["git_findings"] = git_findings
+                        # Add to leaks list too
+                        for gf in git_findings:
+                            result["leak"].append({
+                                "path": gf["path"], "url": gf["url"], "code": gf["code"],
+                                "size": gf["size"], "preview": gf.get("preview", ""),
+                                "headers": {}, "severity": gf["severity"],
+                                "response_time_ms": 0, "soft_404": False,
+                            })
+                        result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
+                    await prog("git_exposure", f"Git check done: {len(git_findings)} findings", 1, 1, len(git_findings))
+                except Exception as e:
+                    log(f"Git exposure check failed: {e}")
+
+            # 25. Deep crawl (v9.0) — crawl links depth-2, extract secrets from all pages
+            if not cancelled() and main_text and len(main_text) > 100:
+                await prog("deep_crawl", "Deep crawl internal links (depth-2)...", 0, 1, 0)
+                log(f"Deep crawl: collecting internal links depth-2")
+                try:
+                    pages_data, crawled_secrets = await deep_crawl(
+                        session, base, main_text, custom_headers, proxy, timeout,
+                        soft_404_sizes, log, cancelled, max_depth=2, max_pages=20
+                    )
+                    result["crawled_pages"] = pages_data
+                    # Dedup crawled secrets vs existing
+                    existing_secret_keys = {(s["type"], s["match_masked"]) for s in result["secrets"]}
+                    new_secrets = [s for s in crawled_secrets
+                                   if (s["type"], s["match_masked"]) not in existing_secret_keys]
+                    result["secrets"].extend(new_secrets)
+                    result["secrets"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
+                    log(f"[CRAWL] Crawled {len(pages_data)} pages, found {len(new_secrets)} new secrets")
+                    await prog("deep_crawl", f"Deep crawl done: {len(pages_data)} pages, +{len(new_secrets)} secrets", 1, 1, len(pages_data))
+                except Exception as e:
+                    log(f"Deep crawl failed: {e}")
+
+            # 26. JS source string extraction (v9.0)
+            if not cancelled() and scan_js and result.get("js_links"):
+                target_netloc = parsed.netloc.lower()
+                same_origin_js = [u for u in result["js_links"]
+                                 if not urlparse(u).netloc or urlparse(u).netloc.lower() == target_netloc]
+                if same_origin_js:
+                    await prog("js_strings", f"Extract strings từ {min(15, len(same_origin_js))} JS files...", 0, min(15, len(same_origin_js)), 0)
+                    log(f"JS strings: extracting from {min(15, len(same_origin_js))} JS files")
+                    try:
+                        js_sem = asyncio.Semaphore(8)
+                        all_strings = set()
+                        done = 0
+                        async def extract_strings_one(url):
+                            nonlocal done
+                            async with js_sem:
+                                t, c, _, _ = await fetch(session, url, custom_headers, proxy, timeout)
+                                done += 1
+                                if c == 200 and t:
+                                    return extract_js_strings(t, min_length=15, max_strings=50)
+                                return []
+                        for coro in asyncio.as_completed([extract_strings_one(u) for u in same_origin_js[:15]]):
+                            strs = await coro
+                            all_strings.update(strs)
+                            if done % 3 == 0:
+                                await prog("js_strings", f"JS {done}/{min(15, len(same_origin_js))} – Strings: {len(all_strings)}", done, min(15, len(same_origin_js)), len(all_strings))
+                        result["js_strings"] = sorted(all_strings)[:200]
+                        log(f"[JS-STR] Extracted {len(result['js_strings'])} unique strings from JS files")
+                        await prog("js_strings", f"JS strings done: {len(result['js_strings'])} extracted", min(15, len(same_origin_js)), min(15, len(same_origin_js)), len(result["js_strings"]))
+                    except Exception as e:
+                        log(f"JS string extraction failed: {e}")
     else:
         import requests
         requests.packages.urllib3.disable_warnings()
@@ -2653,7 +3051,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
-        # v8.0 additions
+        # v9.0 additions
         "takeover_findings": len(result.get("takeover_findings", [])),
         "graphql_findings": len(result.get("graphql_findings", [])),
         "cors_findings": len(result.get("cors_findings", [])),
@@ -2665,10 +3063,16 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "wayback_urls": len(result.get("wayback_urls", [])),
         "http_method_findings": len(result.get("http_method_findings", [])),
         "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
+        # v9.0 additions
+        "ct_subdomains": len(result.get("ct_subdomains", [])),
+        "dns_records": len(result.get("dns_records", {})),
+        "git_findings": len(result.get("git_findings", [])),
+        "crawled_pages": len(result.get("crawled_pages", [])),
+        "js_strings": len(result.get("js_strings", [])),
         "cancelled": result.get("cancelled", False),
     }
     result["duration_seconds"] = round(time.time()-start, 2)
-    await prog("completed", f"Hoàn thành – {result['stats']['real_leak_count']} leaks · {result['stats']['secret_count']} secrets · {result['stats']['subdomains_resolved']} subs · {result['stats']['takeover_findings']} takeover · {result['stats']['graphql_findings']} graphql · {result['stats']['cors_findings']} cors · {result['stats']['source_maps']} srcmaps · {result['stats']['api_endpoints']} api · {result['stats']['wayback_urls']} wayback")
+    await prog("completed", f"Hoàn thành – {result['stats']['real_leak_count']} leaks · {result['stats']['secret_count']} secrets · {result['stats']['subdomains_resolved']+result['stats']['ct_subdomains']} subs · {result['stats']['takeover_findings']} takeover · {result['stats']['git_findings']} git · {result['stats']['graphql_findings']} graphql · {result['stats']['cors_findings']} cors · {result['stats']['source_maps']} srcmaps · {result['stats']['api_endpoints']} api · {result['stats']['wayback_urls']} wayback · {result['stats']['crawled_pages']} crawled · {result['stats']['js_strings']} js-str")
     return result
 
 # ── SSE ──
@@ -2720,7 +3124,7 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
-    # v8.0 phases
+    # v9.0 phases
     "takeover": "💀 Subdomain takeover check",
     "graphql": "⚡ GraphQL introspection",
     "cors": "🌐 CORS misconfiguration",
@@ -2732,6 +3136,12 @@ PHASE_NAMES = {
     "recursive_brute": "🔁 Recursive depth-2 brute",
     "http_methods": "🔧 HTTP method fuzzing",
     "wayback": "🕰️ Wayback Machine lookup",
+    # v9.0 phases
+    "ct_logs": "📜 Certificate Transparency (crt.sh)",
+    "dns_records": "🌐 DNS records lookup",
+    "git_exposure": "📂 .git directory exposure",
+    "deep_crawl": "🕷️ Deep crawl (depth-2)",
+    "js_strings": "📜 JS source string extraction",
     # terminal
     "completed": "✅ Hoàn thành",
     "error": "❌ Lỗi",
@@ -2744,26 +3154,27 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── HTML Template (PAGE) – v8.0 Deep Recon Edition ──
+# ── HTML Template (PAGE) – v9.0 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v8.0</title>
+<title>Web Leak Scanner Pro v9.0 — Recon Beast</title>
 <style>
-/* ─────────  Theme variables  ───────── */
+/* ─────────  v9.0 Theme variables  ───────── */
 :root{
-  --bg:#070710; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
+  --bg:#050509; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
   --border:rgba(0,212,170,.18); --border-hi:rgba(0,212,170,.45);
   --text:#e8eef5; --muted:#9aa3b8; --dim:#6a7388;
   --accent:#00d4aa; --accent2:#54a0ff; --accent3:#a78bfa;
   --warn:#feca57; --danger:#ff5b6b; --ok:#1dd1a1;
-  --glass-blur:18px;
-  --shadow:0 8px 32px rgba(0,0,0,.45);
-  --glow-accent:0 0 24px rgba(0,212,170,.35);
+  --glass-blur:22px;
+  --shadow:0 12px 40px rgba(0,0,0,.6);
+  --glow-accent:0 0 32px rgba(0,212,170,.45);
   --mesh-1:#1a1a3a; --mesh-2:#0a2a3a; --mesh-3:#2a0a3a;
+  --particle-color:rgba(0,212,170,.35);
 }
 [data-theme="light"]{
   --bg:#eef2f9; --bg2:rgba(255,255,255,.65); --bg3:rgba(255,255,255,.85);
@@ -2771,11 +3182,26 @@ PAGE_HTML = r"""
   --text:#1a1f2e; --muted:#5b6478; --dim:#8793a8;
   --accent:#00b894; --accent2:#0984e3; --accent3:#7c3aed;
   --warn:#d68910; --danger:#e74c3c; --ok:#27ae60;
-  --glass-blur:14px;
-  --shadow:0 6px 24px rgba(20,40,80,.12);
-  --glow-accent:0 0 20px rgba(0,184,148,.25);
+  --glass-blur:18px;
+  --shadow:0 8px 28px rgba(20,40,80,.18);
+  --glow-accent:0 0 24px rgba(0,184,148,.3);
   --mesh-1:#dbe7ff; --mesh-2:#d7f5ef; --mesh-3:#e7d7ff;
+  --particle-color:rgba(0,184,148,.25);
 }
+
+/* Particle canvas background */
+#particleCanvas{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.2);border-radius:5px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent2));
+  border-radius:5px; transition:background .2s}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--accent2),var(--accent3))}
+[data-theme="light"] ::-webkit-scrollbar-track{background:rgba(0,0,0,.05)}
+*{scrollbar-width:thin;scrollbar-color:var(--accent) rgba(0,0,0,.2)}
 
 /* ─────────  Animated mesh gradient background  ───────── */
 body::before{
@@ -2800,6 +3226,40 @@ body::after{
   33%{background-position: 50% 100%, 0% 50%, 100% 0%, 0 0;}
   66%{background-position: 100% 50%, 50% 0%, 0% 50%, 0 0;}
   100%{background-position: 0% 0%, 100% 0%, 50% 100%, 0 0;}
+}
+
+/* Confetti canvas for critical findings celebration */
+#confettiCanvas{
+  position:fixed; inset:0; z-index:300; pointer-events:none;
+}
+
+/* Holographic gradient border (animated) */
+.holo-border{
+  position:relative;
+}
+.holo-border::after{
+  content:""; position:absolute; inset:-1px; border-radius:inherit; z-index:-1;
+  background:linear-gradient(120deg, var(--accent), var(--accent2), var(--accent3),
+    var(--accent), var(--accent2));
+  background-size:300% 300%;
+  animation:holoShift 4s ease infinite;
+  opacity:.5;
+}
+@keyframes holoShift{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+
+/* Critical leak item holographic glow */
+.leak-item.crit{
+  position:relative;
+  isolation:isolate;
+}
+.leak-item.crit::before{
+  content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit;
+  background:linear-gradient(120deg, rgba(255,91,107,.1), rgba(254,202,87,.05), rgba(255,91,107,.1));
+  background-size:200% 200%;
+  animation:holoShift 3s ease infinite;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -2838,32 +3298,45 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .theme-toggle:hover{transform:translateY(-1px) rotate(8deg);border-color:var(--accent);
   box-shadow:0 4px 12px rgba(0,212,170,.25)}
 
-/* ─────────  Container / Cards  ───────── */
-.container{max-width:1180px;margin:0 auto;padding:20px}
+/* ─────────  Container / Cards — v9.0 with 3D holographic effects  ───────── */
+.container{max-width:1200px;margin:0 auto;padding:20px;perspective:1500px}
 .card{
-  background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(140%);
-  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(140%);
-  border:1px solid var(--border); border-radius:16px; padding:22px; margin-bottom:18px;
-  transition:all .3s cubic-bezier(.4,0,.2,1); position:relative; overflow:hidden;
+  background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  border:1px solid var(--border); border-radius:18px; padding:24px; margin-bottom:20px;
+  transition:all .4s cubic-bezier(.4,0,.2,1); position:relative; overflow:hidden;
   box-shadow:var(--shadow);
   animation:cardIn .55s cubic-bezier(.16,.84,.44,1) backwards;
+  transform-style:preserve-3d;
 }
 .card:nth-child(1){animation-delay:.05s}
 .card:nth-child(2){animation-delay:.15s}
 .card:nth-child(3){animation-delay:.25s}
 .card:nth-child(4){animation-delay:.35s}
-@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.98)}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.98) rotateX(-5deg)}
   to{opacity:1;transform:none}}
+/* Holographic shimmer overlay */
 .card::before{
-  content:""; position:absolute; top:0; left:-100%; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  animation:scanLine 4s ease-in-out infinite; opacity:.5;
+  content:""; position:absolute; top:0; left:-100%; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),var(--accent3),transparent);
+  animation:scanLine 5s ease-in-out infinite; opacity:.7;
 }
+/* Radial gradient highlight (holographic) */
+.card::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),
+    rgba(0,212,170,.15) 0%, transparent 40%);
+  transition:opacity .3s;
+}
+.card:hover::after{opacity:1}
 @keyframes scanLine{0%,100%{left:-100%}50%{left:100%}}
-.card:hover{border-color:var(--border-hi); transform:translateY(-2px);
-  box-shadow:0 12px 40px rgba(0,212,170,.18), var(--shadow)}
+.card:hover{
+  border-color:var(--border-hi);
+  transform:translateY(-3px) rotateX(2deg);
+  box-shadow:0 18px 50px rgba(0,212,170,.22), var(--shadow), 0 0 0 1px rgba(0,212,170,.1);
+}
 .card h1,.card h2{
-  font-size:22px; margin-bottom:10px;
+  font-size:24px; margin-bottom:12px;
   background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   background-size:200% 200%;animation:brandShift 6s ease infinite;
@@ -3202,7 +3675,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v8.0</span></span>
+    <span>Web Leak Scanner <span class="version">v9.0</span></span>
   </div>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" title="Đổi theme">🌙</button>
@@ -3214,7 +3687,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1>🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle">Async deep recon v8.0 — 550+ leak paths · subdomain takeover · GraphQL introspection · CORS misconfig · open redirect · source map exposure · JS endpoint extraction · Swagger/OpenAPI parsing · recursive depth-2 brute · HTTP method fuzz · Wayback Machine · 45+ secret patterns · glassmorphism UI · live terminal log</p>
+  <p class="subtitle">Async deep recon v9.0 — 550+ leak paths · subdomain takeover · GraphQL introspection · CORS misconfig · open redirect · source map exposure · JS endpoint extraction · Swagger/OpenAPI parsing · recursive depth-2 brute · HTTP method fuzz · Wayback Machine · 45+ secret patterns · glassmorphism UI · live terminal log</p>
   <form id="scanForm" method="post" action="/scan">
     <div class="form-group"><label>🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
     <div class="form-row">
@@ -3269,8 +3742,182 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v8.0 — Deep Recon Edition · 550+ leak paths · takeover · GraphQL · CORS · source maps · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v9.0 — Recon Beast · 550+ leak paths · CT logs (crt.sh) · DNS records · .git exposure · deep crawl depth-2 · JS string extraction · takeover · GraphQL · CORS · source maps · Wayback · glassmorphism UI</footer>
+<canvas id="particleCanvas"></canvas>
+<canvas id="confettiCanvas"></canvas>
 <div id="toast" class="toast"></div>
+
+<script>
+// ───────── v9.0 Particle background canvas ─────────
+const particleCanvas = document.getElementById('particleCanvas');
+const pctx = particleCanvas.getContext('2d');
+let particles = [];
+let mouse = {x: -1000, y: -1000};
+
+function resizeParticleCanvas(){
+  particleCanvas.width = window.innerWidth;
+  particleCanvas.height = window.innerHeight;
+}
+resizeParticleCanvas();
+window.addEventListener('resize', resizeParticleCanvas);
+
+function initParticles(){
+  particles = [];
+  const count = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 18000));
+  for(let i = 0; i < count; i++){
+    particles.push({
+      x: Math.random() * particleCanvas.width,
+      y: Math.random() * particleCanvas.height,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2 + 0.5,
+      a: Math.random() * 0.5 + 0.2,
+    });
+  }
+}
+initParticles();
+window.addEventListener('resize', initParticles);
+
+window.addEventListener('mousemove', (e)=>{
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  // Update card holographic highlight position
+  document.querySelectorAll('.card').forEach(card=>{
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mx', x + '%');
+    card.style.setProperty('--my', y + '%');
+  });
+});
+
+function animateParticles(){
+  pctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim() || 'rgba(0,212,170,.35)';
+  for(let i = 0; i < particles.length; i++){
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    // Mouse attraction
+    const dx = mouse.x - p.x;
+    const dy = mouse.y - p.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist < 150){
+      const force = (150 - dist) / 150 * 0.03;
+      p.vx += (dx / dist) * force;
+      p.vy += (dy / dist) * force;
+    }
+    // Damping
+    p.vx *= 0.99;
+    p.vy *= 0.99;
+    // Wrap edges
+    if(p.x < 0) p.x = particleCanvas.width;
+    if(p.x > particleCanvas.width) p.x = 0;
+    if(p.y < 0) p.y = particleCanvas.height;
+    if(p.y > particleCanvas.height) p.y = 0;
+    // Draw particle
+    pctx.beginPath();
+    pctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    pctx.fillStyle = accent;
+    pctx.globalAlpha = p.a;
+    pctx.fill();
+  }
+  // Draw connections
+  pctx.globalAlpha = 1;
+  for(let i = 0; i < particles.length; i++){
+    for(let j = i + 1; j < particles.length; j++){
+      const p1 = particles[i];
+      const p2 = particles[j];
+      const dx = p1.x - p2.x;
+      const dy = p1.y - p2.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 120){
+        pctx.beginPath();
+        pctx.moveTo(p1.x, p1.y);
+        pctx.lineTo(p2.x, p2.y);
+        pctx.strokeStyle = accent;
+        pctx.globalAlpha = (1 - dist / 120) * 0.15;
+        pctx.lineWidth = 0.8;
+        pctx.stroke();
+      }
+    }
+  }
+  pctx.globalAlpha = 1;
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ───────── v9.0 Confetti effect for critical findings ─────────
+const confettiCanvas = document.getElementById('confettiCanvas');
+const cctx = confettiCanvas.getContext('2d');
+let confettiPieces = [];
+
+function resizeConfettiCanvas(){
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+resizeConfettiCanvas();
+window.addEventListener('resize', resizeConfettiCanvas);
+
+function fireConfetti(count = 80){
+  const colors = ['#ff5b6b', '#feca57', '#00d4aa', '#54a0ff', '#a78bfa', '#1dd1a1'];
+  for(let i = 0; i < count; i++){
+    confettiPieces.push({
+      x: Math.random() * confettiCanvas.width,
+      y: -20,
+      vx: (Math.random() - 0.5) * 6,
+      vy: Math.random() * 4 + 2,
+      gravity: 0.15,
+      r: Math.random() * 6 + 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rotation: Math.random() * Math.PI * 2,
+      vrotation: (Math.random() - 0.5) * 0.3,
+      life: 1,
+    });
+  }
+}
+
+function animateConfetti(){
+  cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  for(let i = confettiPieces.length - 1; i >= 0; i--){
+    const p = confettiPieces[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += p.gravity;
+    p.vx *= 0.99;
+    p.rotation += p.vrotation;
+    p.life -= 0.005;
+    if(p.y > confettiCanvas.height + 50 || p.life <= 0){
+      confettiPieces.splice(i, 1);
+      continue;
+    }
+    cctx.save();
+    cctx.translate(p.x, p.y);
+    cctx.rotate(p.rotation);
+    cctx.globalAlpha = Math.max(0, p.life);
+    cctx.fillStyle = p.color;
+    cctx.fillRect(-p.r/2, -p.r/2, p.r, p.r * 0.6);
+    cctx.restore();
+  }
+  if(confettiPieces.length > 0){
+    requestAnimationFrame(animateConfetti);
+  }
+}
+
+// Function to be called after result load to fire confetti if critical findings
+function checkAndFireConfetti(){
+  // Look for critical count > 0 in stat boxes
+  const critEl = document.querySelector('.stat-number.sev-crit');
+  if(critEl){
+    const val = parseInt(critEl.textContent) || 0;
+    if(val > 0){
+      setTimeout(()=>fireConfetti(100), 400);
+      animateConfetti();
+    }
+  }
+}
+
+</script>
 
 <script>
 const $ = (s)=>document.querySelector(s);
@@ -3439,6 +4086,22 @@ const PHASE_FALLBACK = {
   'brute':'🔍 Brute-force common files',
   'param_fuzz':'❓ Query param fuzzing',
   'subdomains':'🌐 DNS subdomain enum',
+  'takeover':'💀 Subdomain takeover check',
+  'graphql':'⚡ GraphQL introspection',
+  'cors':'🌐 CORS misconfiguration',
+  'open_redirect':'↪️ Open redirect test',
+  'source_maps':'🗺️ Source map exposure',
+  'js_endpoints':'📜 JS endpoint extraction',
+  'api_fuzz':'🔌 API endpoint fuzzing',
+  'swagger':'📋 Swagger/OpenAPI parsing',
+  'recursive_brute':'🔁 Recursive depth-2 brute',
+  'http_methods':'🔧 HTTP method fuzzing',
+  'wayback':'🕰️ Wayback Machine lookup',
+  'ct_logs':'📜 Certificate Transparency (crt.sh)',
+  'dns_records':'🌐 DNS records lookup',
+  'git_exposure':'📂 .git directory exposure',
+  'deep_crawl':'🕷️ Deep crawl (depth-2)',
+  'js_strings':'📜 JS source string extraction',
   'completed':'✅ Hoàn thành',
   'error':'❌ Lỗi',
   'cancelling':'🛑 Đang huỷ',
@@ -3590,6 +4253,7 @@ async function loadResult(scanId){
   initTabs();
   initFilter();
   animateCounters();
+  checkAndFireConfetti();  // v9.0: fire confetti if critical findings
   $('#resultsArea').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
@@ -3618,7 +4282,7 @@ loadHistory();
 </html>
 """
 
-# ── HTML Template (RESULT) – v8.0 Deep Recon ──
+# ── HTML Template (RESULT) – v9.0 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -3684,6 +4348,11 @@ RESULT_HTML = r"""
   <button class="tab" data-tab="srcmaps">🗺️ SrcMaps <span class="count">{{ result.source_maps|length }}</span></button>
   <button class="tab" data-tab="swagger">📋 Swagger <span class="count">{{ result.swagger_endpoints|length }}</span></button>
   <button class="tab" data-tab="wayback">🕰️ Wayback <span class="count">{{ result.wayback_urls|length }}</span></button>
+  <button class="tab" data-tab="ct_logs">📜 CT Subs <span class="count">{{ result.ct_subdomains|length }}</span></button>
+  <button class="tab" data-tab="dns">🌐 DNS <span class="count">{{ result.dns_records|length }}</span></button>
+  <button class="tab" data-tab="git">📂 .Git <span class="count">{{ result.git_findings|length }}</span></button>
+  <button class="tab" data-tab="crawled">🕷️ Crawled <span class="count">{{ result.crawled_pages|length }}</span></button>
+  <button class="tab" data-tab="js_strings">📜 JS Strings <span class="count">{{ result.js_strings|length }}</span></button>
   <button class="tab" data-tab="params">❓ Params <span class="count">{{ result.param_findings|length }}</span></button>
   <button class="tab" data-tab="methods">🔧 Methods <span class="count">{{ result.http_method_findings|length }}</span></button>
   <button class="tab" data-tab="rbrute">🔁 RBrute <span class="count">{{ result.recursive_brute_findings|length }}</span></button>
@@ -4026,7 +4695,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v8.0 Tabs -->
+<!-- v9.0 Tabs -->
 
 <!-- Tab: API Endpoints (discovered from JS + Swagger) -->
 <div class="tab-panel" id="tab-endpoints">
@@ -4257,6 +4926,105 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
+<!-- Tab: CT Subdomains (v9.0) -->
+<div class="tab-panel" id="tab-ct_logs">
+  {% if result.ct_subdomains %}
+  <div class="alert alert-info">📜 Found <strong>{{ result.ct_subdomains|length }}</strong> subdomains từ Certificate Transparency logs (crt.sh) — đây là subdomains đã từng được issue certificate</div>
+  {% for s in result.ct_subdomains %}
+  <div style="padding:5px 0;font-size:13px;font-family:monospace;border-bottom:1px dashed var(--border)">
+    <span style="color:var(--accent)">{{ s.host }}</span>
+    {% if s.ip %}<span style="color:var(--muted);margin-left:8px">→ {{ s.ip }}</span>{% endif %}
+    {% if not s.ok %}<span class="sev-badge sev-info" style="margin-left:8px">NXDOMAIN</span>{% endif %}
+    <span class="sev-badge sev-info" style="margin-left:8px">source: {{ s.source }}</span>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không tìm thấy CT subdomains (crt.sh không trả về kết quả hoặc query failed). ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: DNS Records (v9.0) -->
+<div class="tab-panel" id="tab-dns">
+  {% if result.dns_records %}
+  <div class="section-title">🌐 DNS Records cho {{ result.target }}</div>
+  {% for rtype, rvals in result.dns_records.items() %}
+  <div class="leak-item">
+    <div class="leak-header">
+      <span class="sev-badge sev-info">{{ rtype }}</span>
+      <span class="leak-path">{{ rvals|length }} record(s)</span>
+    </div>
+    <div style="font-family:monospace;font-size:12px;color:var(--muted);margin-top:6px;padding-left:10px">
+      {% for v in rvals %}
+      <div style="padding:2px 0">→ {{ v }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không lấy được DNS records. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Git Exposure (v9.0) -->
+<div class="tab-panel" id="tab-git">
+  {% if result.git_findings %}
+  <div class="alert alert-error">📂 <strong>.git directory EXPOSED!</strong> Phát hiện {{ result.git_findings|length }} file(s) trong .git folder có thể truy cập công khai. Attacker có thể reconstruct toàn bộ source code + history!</div>
+  {% for g in result.git_findings %}
+  <div class="leak-item crit">
+    <div class="leak-header">
+      <span class="code-badge code-{{ g.code }}">{{ g.code }}</span>
+      <span class="sev-badge sev-{{ g.severity }}">{{ g.severity }}</span>
+      <span class="leak-path">{{ g.path }}</span>
+      {% if g.size %}<span class="leak-size">{{ g.size }} bytes</span>{% endif %}
+    </div>
+    <div class="leak-url">{{ g.url }}</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:4px">{{ g.description }}</div>
+    {% if g.preview %}<details class="leak-preview"><summary>Preview ({{ g.preview|length }} chars)</summary><pre>{{ g.preview }}</pre></details>{% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện .git directory exposure. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Crawled Pages (v9.0) -->
+<div class="tab-panel" id="tab-crawled">
+  {% if result.crawled_pages %}
+  <div class="alert alert-info">🕷️ Deep crawl đã thu thập <strong>{{ result.crawled_pages|length }}</strong> internal pages (depth-2), extract secrets từ mỗi page</div>
+  {% for p in result.crawled_pages %}
+  <div class="leak-item">
+    <div class="leak-header">
+      <span class="code-badge code-{{ p.code }}">{{ p.code }}</span>
+      <span class="sev-badge sev-info">depth {{ p.depth }}</span>
+      <span class="leak-path">{{ p.url|replace(result.target, '')|truncate(80, true, '...') }}</span>
+      <span class="leak-size">{{ p.size }} bytes</span>
+      {% if p.secrets|length %}<span class="sev-badge sev-high">{{ p.secrets|length }} secrets</span>{% endif %}
+      {% if p.forms|length %}<span class="sev-badge sev-medium">{{ p.forms|length }} forms</span>{% endif %}
+    </div>
+    <div class="leak-url">{{ p.url }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không có internal pages nào để crawl. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: JS Strings (v9.0) -->
+<div class="tab-panel" id="tab-js_strings">
+  {% if result.js_strings %}
+  <div class="alert alert-info">📜 Extracted <strong>{{ result.js_strings|length }}</strong> unique strings từ JS files — check manually cho API keys, endpoints, hardcoded URLs, internal info</div>
+  <div style="max-height:600px;overflow-y:auto;background:var(--bg3);padding:12px;border-radius:9px;border:1px solid var(--border);font-family:monospace;font-size:11px">
+    {% for s in result.js_strings %}
+    <div style="padding:3px 0;color:var(--accent2);word-break:break-all;border-bottom:1px dashed var(--border)">
+      <span style="color:var(--dim)">[{{ loop.index }}]</span> {{ s }}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty-state">Không extract được strings từ JS files. ✅</p>
+  {% endif %}
+</div>
+
 <!-- Tab: Raw -->
 <div class="tab-panel" id="tab-raw">
   <details>
@@ -4361,7 +5129,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v8.0",
+                "errors": [str(e)], "scanner_version": "v9.0",
             }
             with prog_lock:
                 for h in scan_history:
@@ -4452,7 +5220,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v8.0"
+    data["scanner"] = "Web Leak Scanner Pro v9.0"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -4527,7 +5295,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v8.0 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v9.0 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -4539,15 +5307,15 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 # ── Main ──
 if __name__ == "__main__":
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v8.0 — Upgraded Edition")
+    print(f"🛡️  Web Leak Scanner Pro v9.0 — Upgraded Edition")
     print(f"   URL: http://{HOST}:{PORT}")
     print(f"   Mở trình duyệt vào địa chỉ trên (Ctrl+C để dừng)")
-    print(f"   v8.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v8.0: Subdomain takeover · GraphQL introspection · CORS · open redirect")
-    print(f"   v8.0: Source map exposure · JS endpoint extraction · Swagger parsing")
-    print(f"   v8.0: Recursive depth-2 brute · HTTP method fuzz · Wayback Machine")
-    print(f"   v8.0: Glassmorphism UI · Animated mesh bg · Live activity log")
-    print(f"   v8.0: Animated counters · Glow effects · Staggered animations")
+    print(f"   v9.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v9.0: Subdomain takeover · GraphQL introspection · CORS · open redirect")
+    print(f"   v9.0: Source map exposure · JS endpoint extraction · Swagger parsing")
+    print(f"   v9.0: Recursive depth-2 brute · HTTP method fuzz · Wayback Machine")
+    print(f"   v9.0: Glassmorphism UI · Animated mesh bg · Live activity log")
+    print(f"   v9.0: Animated counters · Glow effects · Staggered animations")
     print("=" * 64)
     app.run(host=HOST, port=PORT, debug=False, threaded=True)
 
