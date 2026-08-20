@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v9.0 — Deep Recon Edition
+Web Leak Scanner Pro v9.1 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v9.0 (so với v6.0):
+Changelog v9.1 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -198,7 +198,7 @@ LEAK_PATHS = [
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
 
-    # ── v9.0 additions: K8s / container / monitoring ──
+    # ── v9.1 additions: K8s / container / monitoring ──
     "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
     "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
     "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
@@ -217,7 +217,7 @@ LEAK_PATHS = [
     "/.well-known/revocation",
     "/.well-known/introspection",
 
-    # ── v9.0: Source maps & debug bundles ──
+    # ── v9.1: Source maps & debug bundles ──
     "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
     "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
     "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
@@ -226,7 +226,7 @@ LEAK_PATHS = [
     "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
     "/dist/build.js.map", "/dist/main.js.map",
 
-    # ── v9.0: GraphQL / WebSocket / API ──
+    # ── v9.1: GraphQL / WebSocket / API ──
     "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
     "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
@@ -241,7 +241,7 @@ LEAK_PATHS = [
     "/rest/users", "/rest/admin", "/rest/config",
     "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
 
-    # ── v9.0: Spring Boot Actuator deep ──
+    # ── v9.1: Spring Boot Actuator deep ──
     "/actuator/", "/actuator/info", "/actuator/health",
     "/actuator/env", "/actuator/configprops", "/actuator/beans",
     "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
@@ -252,21 +252,21 @@ LEAK_PATHS = [
     "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
     "/actuator/bus-refresh", "/actuator/gateway/routes",
 
-    # ── v9.0: Java / JVM specific ──
+    # ── v9.1: Java / JVM specific ──
     "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
     "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
     "/META-INF/maven/", "/META-INF/spring.factories",
     "/struts/web.xml", "/struts.xml", "/struts-config.xml",
     "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
 
-    # ── v9.0: .NET / IIS specific ──
+    # ── v9.1: .NET / IIS specific ──
     "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
     "/web.config.bak", "/web.config.old", "/web.config.txt",
     "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
     "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
     "/Reserved.ReportViewerWebControl.axd", "/Reports/",
 
-    # ── v9.0: PHP / Laravel specific ──
+    # ── v9.1: PHP / Laravel specific ──
     "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
     "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
     "/storage/framework/cache/", "/storage/framework/sessions/",
@@ -274,7 +274,7 @@ LEAK_PATHS = [
     "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
     "/artisan", "/server.php", "/package.json",
 
-    # ── v9.0: Ruby / Rails specific ──
+    # ── v9.1: Ruby / Rails specific ──
     "/config/database.yml", "/config/secrets.yml", "/config/master.key",
     "/config/credentials.yml.enc", "/config/credentials.yml",
     "/config/initializers/", "/config/environments/",
@@ -282,13 +282,13 @@ LEAK_PATHS = [
     "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
     "/log/production.log", "/log/development.log",
 
-    # ── v9.0: Python / Django specific ──
+    # ── v9.1: Python / Django specific ──
     "/settings.py", "/local_settings.py", "/config/settings.py",
     "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
     "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
     "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
 
-    # ── v9.0: WordPress deep ──
+    # ── v9.1: WordPress deep ──
     "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
     "/wp-content/backup-db/", "/wp-content/updraft/",
     "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
@@ -303,7 +303,7 @@ LEAK_PATHS = [
     "/wp-admin/install.php", "/wp-admin/setup-config.php",
     "/wp-content/uploads/index.php", "/wp-includes/version.php",
 
-    # ── v9.0: CMS-specific deep ──
+    # ── v9.1: CMS-specific deep ──
     "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
     "/sites/default/settings.php", "/sites/default/files/",
     "/sites/default/private/", "/sites/default/config/",
@@ -315,7 +315,7 @@ LEAK_PATHS = [
     "/administrator/components/com_config/", "/administrator/cache/",
     "/installation/index.php", "/installation/configuration.php",
 
-    # ── v9.0: Node.js / npm specific ──
+    # ── v9.1: Node.js / npm specific ──
     "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
     "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
     "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
@@ -323,7 +323,7 @@ LEAK_PATHS = [
     "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
     "/.netlify/", "/.cache/", "/.turbo/",
 
-    # ── v9.0: Cloud / DevOps deep ──
+    # ── v9.1: Cloud / DevOps deep ──
     "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
     "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
     "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
@@ -336,14 +336,14 @@ LEAK_PATHS = [
     "/google-services.json", "/GoogleService-Info.plist",
     "/firebase.json", "/firebase-config.json", "/.firebaserc",
 
-    # ── v9.0: CI/CD configs ──
+    # ── v9.1: CI/CD configs ──
     "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
     "/.github/workflows/", "/.github/workflows/ci.yml",
     "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
     "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
     "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
 
-    # ── v9.0: API documentation ──
+    # ── v9.1: API documentation ──
     "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
     "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
     "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
@@ -351,14 +351,14 @@ LEAK_PATHS = [
     "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
     "/api/swagger", "/api/rapidoc", "/api/redoc",
 
-    # ── v9.0: WebSocket / SSE endpoints ──
+    # ── v9.1: WebSocket / SSE endpoints ──
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
     "/signalr", "/signalr/negotiate", "/signalr/hubs",
     "/hub", "/realtime", "/events", "/sse", "/stream",
     "/api/ws", "/api/websocket", "/api/realtime",
     "/_ws", "/_websocket", "/_realtime",
 
-    # ── v9.0: Common config backups / temporaries ──
+    # ── v9.1: Common config backups / temporaries ──
     "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
     "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
     "/config.json.bak", "/config.json.old", "/config.json.orig",
@@ -369,7 +369,7 @@ LEAK_PATHS = [
     "/.env.production.local", "/.env.development.local",
     "/.env.staging.local", "/.env.test.local",
 
-    # ── v9.0: CVE / known vuln paths ──
+    # ── v9.1: CVE / known vuln paths ──
     "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
     "/test.jsp", "/test.html",
     "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
@@ -382,7 +382,7 @@ LEAK_PATHS = [
     "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
     "/redis/", "/memcached/", "/var/log/redis/redis.log",
 
-    # ── v9.0: Misc / random secrets ──
+    # ── v9.1: Misc / random secrets ──
     "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
     "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
     "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
@@ -391,13 +391,13 @@ LEAK_PATHS = [
     "/.prettierrc", "/.eslintrc", "/.babelrc",
     "/.docker/registry", "/registry/", "/docker/registry",
 
-    # ── v9.0: Source code & build artifacts ──
+    # ── v9.1: Source code & build artifacts ──
     "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
     "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
     "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
     "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
 
-    # ── v9.0: Logs & debug ──
+    # ── v9.1: Logs & debug ──
     "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
     "/laravel.log", "/storage/logs/laravel.log",
     "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
@@ -408,7 +408,7 @@ LEAK_PATHS = [
     "/_internal/", "/_hidden/", "/_private/", "/_secret/",
     "/server-status", "/server-info", "/status?full", "/status?auto",
 
-    # ── v9.0: Backup & database dumps ──
+    # ── v9.1: Backup & database dumps ──
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
     "/backup.bak", "/backup.dump", "/backup.json",
     "/backup-2024.zip", "/backup-2025.zip",
@@ -421,7 +421,7 @@ LEAK_PATHS = [
     "/mysql.sql", "/postgres.sql", "/pgdump.sql",
     "/mongodump.json", "/mongodump.bson",
 
-    # ── v9.0: Admin / management panels ──
+    # ── v9.1: Admin / management panels ──
     "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
     "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
     "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
@@ -432,7 +432,7 @@ LEAK_PATHS = [
     "/manager/html", "/manager/status", "/manager/jmxproxy",
     "/host-manager/html", "/host-manager/status",
 
-    # ── v9.0: User-uploaded content ──
+    # ── v9.1: User-uploaded content ──
     "/uploads/", "/uploads/files/", "/uploads/images/",
     "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
     "/media/", "/assets/", "/static/", "/public/",
@@ -794,6 +794,139 @@ CORS_TEST_ORIGINS = [
 # HTTP methods to fuzz (test OPTIONS to discover allowed methods)
 HTTP_METHODS_TO_FUZZ = ["OPTIONS", "PUT", "DELETE", "PATCH", "PROPFIND", "TRACE"]
 
+# v9.1 WAF bypass modes
+WAF_BYPASS_MODES = ["auto", "stealth", "aggressive", "turbo"]
+WAF_BYPASS_PROFILES = {
+    "auto":      {"concurrency": 30, "delay_min": 0,    "delay_max": 0.3,  "rotate_ua": True,  "rotate_xff": False, "retry": 2},
+    "stealth":   {"concurrency": 5,  "delay_min": 0.8,  "delay_max": 2.5,  "rotate_ua": True,  "rotate_xff": True,  "retry": 3},
+    "aggressive":{"concurrency": 60, "delay_min": 0,    "delay_max": 0.05, "rotate_ua": True,  "rotate_xff": True,  "retry": 1},
+    "turbo":     {"concurrency": 100,"delay_min": 0,    "delay_max": 0,    "rotate_ua": False, "rotate_xff": False, "retry": 0},
+}
+
+# Pool of fake X-Forwarded-For IPs to rotate (bypass IP rate-limiting)
+FAKE_XFF_IPS = [
+    f"{random.randint(1,223)}.{random.randint(0,255)}.{random.randint(0,255)}.{random.randint(1,254)}"
+    for _ in range(50)
+]
+
+# Pool of fake Referer values (looks more like a real browser request)
+FAKE_REFERERS = [
+    "https://www.google.com/search?q=", "https://www.bing.com/search?q=",
+    "https://duckduckgo.com/?q=", "https://github.com/",
+    "https://stackoverflow.com/questions/", "https://www.reddit.com/",
+    "https://twitter.com/", "https://www.linkedin.com/",
+    "https://www.facebook.com/", "https://www.youtube.com/",
+]
+
+# Pool of Accept-Language values
+FAKE_ACCEPT_LANG = [
+    "en-US,en;q=0.9", "en-GB,en;q=0.9", "vi-VN,vi;q=0.9,en;q=0.8",
+    "zh-CN,zh;q=0.9,en;q=0.8", "ja-JP,ja;q=0.9,en;q=0.8",
+    "ko-KR,ko;q=0.9,en;q=0.8", "de-DE,de;q=0.9,en;q=0.8",
+    "fr-FR,fr;q=0.9,en;q=0.8", "es-ES,es;q=0.9,en;q=0.8",
+    "pt-BR,pt;q=0.9,en;q=0.8", "ru-RU,ru;q=0.9,en;q=0.8",
+    "it-IT,it;q=0.9,en;q=0.8", "pl-PL,pl;q=0.9,en;q=0.8",
+    "tr-TR,tr;q=0.9,en;q=0.8", "ar-SA,ar;q=0.9,en;q=0.8",
+]
+
+# SSTI test payloads — safe to send (no destructive payloads)
+SSTI_PAYLOADS = [
+    # Jinja2 / Twig
+    ("{{7*7}}", "49"),
+    ("{{7*'7'}}", "7777777"),  # Jinja2 only
+    ("{{1+1}}", "2"),
+    # Tornado
+    ("{%import os%}", "import os"),
+    # Java Freemarker
+    ("${7*7}", "49"),
+    ("${\"freemarker\"}", "freemarker"),
+    # Java Velocity
+    ("#set($x=7*7)${x}", "49"),
+    # ERB (Ruby)
+    ("<%=7*7%>", "49"),
+    ("<%=system('id')%>", "uid="),
+    # Smarty
+    ("{7*7}", "49"),
+    # Mako (Python)
+    ("${7*7}", "49"),
+    # Pebble
+    ("{{7*7}}", "49"),
+    # Handlebars / Mustache (won't compute, just check for reflection)
+    ("{{7*7}}", "49"),
+    # Generic — check reflection
+    ("xss{{7*7}}probe", "xss49probe"),
+    # ASP.NET Razor
+    ("@(7*7)", "49"),
+    # Check reflection without computation
+    ("STTItest49", "STTItest49"),
+]
+
+# Prototype pollution payloads
+PROTO_POLLUTION_PAYLOADS = [
+    "?__proto__[polluted]=yes",
+    "?__proto__.polluted=yes",
+    "?__proto__[polluted]=yes",
+    "?constructor[prototype][polluted]=yes",
+    "?constructor.prototype.polluted=yes",
+    "?__proto__[__proto__][polluted]=yes",
+    # JSON body variants (we'd need POST; only test GET here)
+    "?__proto__[isAdmin]=true",
+    "?__proto__[admin]=1",
+    "?__proto__[role]=admin",
+    "?__proto__[isAuthenticated]=true",
+]
+
+# HTTP header injection payloads
+HEADER_INJECTION_PAYLOADS = [
+    # X-Forwarded-Host injection
+    ("X-Forwarded-Host", "evil.com"),
+    ("X-Forwarded-Host", "127.0.0.1:8080"),
+    ("X-Forwarded-Host", "localhost"),
+    ("X-Forwarded-For", "127.0.0.1"),
+    ("X-Forwarded-For", "10.0.0.1"),
+    ("X-Real-IP", "127.0.0.1"),
+    ("X-Real-IP", "10.0.0.1"),
+    ("X-Original-URL", "/admin"),
+    ("X-Original-URL", "/admin/users"),
+    ("X-Rewrite-URL", "/admin"),
+    ("X-Custom-IP-Authorization", "127.0.0.1"),
+    ("X-Forwarded-User", "admin"),
+    ("X-Remote-User", "admin"),
+    ("X-Forwarded-Email", "admin@example.com"),
+    ("X-Original-Remote-Addr", "127.0.0.1"),
+    ("X-Client-IP", "127.0.0.1"),
+    ("True-Client-IP", "127.0.0.1"),
+    ("X-Host", "evil.com"),
+    ("Host", "evil.com"),
+    ("X-HTTP-Method-Override", "PUT"),
+    ("X-HTTP-Method-Override", "DELETE"),
+    ("X-Method-Override", "PUT"),
+]
+
+# Cache poisoning payloads (test if Origin/Host reflected in cache key)
+CACHE_POISON_PAYLOADS = [
+    ("X-Forwarded-Host", "evil.cache-poison.example"),
+    ("X-Forwarded-Scheme", "https"),
+    ("X-Forwarded-Proto", "https"),
+    ("X-Original-URL", "/?cachebust=1"),
+    ("X-Forwarded-Server", "evil.com"),
+    ("X-HTTP-Method-Override", "GET"),
+]
+
+# Login form test credentials (for default credential checks)
+DEFAULT_CREDS = [
+    ("admin", "admin"),
+    ("admin", "password"),
+    ("admin", "admin123"),
+    ("admin", "123456"),
+    ("root", "root"),
+    ("root", "toor"),
+    ("test", "test"),
+    ("user", "user"),
+    ("guest", "guest"),
+    ("demo", "demo"),
+]
+
 # Skip these file extensions when brute-forcing (binary files we can't parse)
 SKIP_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".ico",
                   ".mp4", ".webm", ".mp3", ".wav", ".pdf", ".woff", ".woff2",
@@ -895,60 +1028,324 @@ def get_activity(scan_id, since=0):
         q = activity_logs.get(scan_id, [])
         return [item for item in q if item["t"] >= since]
 
-async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2):
+async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2, bypass_mode="auto"):
     """Fetch với auto-retry khi gặp 429/timeout, xoay User-Agent mỗi retry.
-    KHÔNG retry khi connection refused/error (chỉ retry khi có khả năng thành công)."""
+    v9.1: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
     if not HAS_AIOHTTP:
         return "", 0, {}, 0
     last_err = None
     base_headers = dict(headers or {})
-    for attempt in range(max_retries + 1):
+    profile = WAF_BYPASS_PROFILES.get(bypass_mode, WAF_BYPASS_PROFILES["auto"])
+    effective_retries = max(max_retries, profile["retry"])
+    for attempt in range(effective_retries + 1):
         start = time.time()
+        # Build bypass headers — rotate per attempt
         attempt_headers = dict(base_headers)
-        if "User-Agent" not in attempt_headers and "user-agent" not in attempt_headers:
+        # User-Agent rotation
+        if profile["rotate_ua"]:
             attempt_headers["User-Agent"] = random.choice(USER_AGENTS)
-        elif attempt > 0:
+        elif "User-Agent" not in attempt_headers and "user-agent" not in attempt_headers:
             attempt_headers["User-Agent"] = random.choice(USER_AGENTS)
+        # X-Forwarded-For rotation (bypass IP rate-limiting)
+        if profile["rotate_xff"]:
+            attempt_headers["X-Forwarded-For"] = random.choice(FAKE_XFF_IPS)
+            attempt_headers["X-Real-IP"] = attempt_headers["X-Forwarded-For"]
+            attempt_headers["X-Client-IP"] = attempt_headers["X-Forwarded-For"]
+            attempt_headers["True-Client-IP"] = attempt_headers["X-Forwarded-For"]
+        # Add Accept-Language + Referer for stealth mode
+        if bypass_mode == "stealth":
+            attempt_headers.setdefault("Accept-Language", random.choice(FAKE_ACCEPT_LANG))
+            attempt_headers.setdefault("Referer", random.choice(FAKE_REFERERS) + url.split('/')[-1] if url.split('/')[-1] else random.choice(FAKE_REFERERS))
+            attempt_headers.setdefault("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+            attempt_headers.setdefault("Sec-Fetch-Dest", "document")
+            attempt_headers.setdefault("Sec-Fetch-Mode", "navigate")
+            attempt_headers.setdefault("Sec-Fetch-Site", "cross-site")
+            attempt_headers.setdefault("Sec-Fetch-User", "?1")
+            attempt_headers.setdefault("Upgrade-Insecure-Requests", "1")
+        # Add randomized delay before request (rate-limit avoidance)
+        if profile["delay_max"] > 0:
+            delay = random.uniform(profile["delay_min"], profile["delay_max"])
+            await asyncio.sleep(delay)
         try:
             async with session.get(url, headers=attempt_headers, proxy=proxy,
                                     timeout=aiohttp.ClientTimeout(total=timeout),
                                     ssl=False, allow_redirects=True) as r:
                 text = await r.text(errors="replace")
                 elapsed = round((time.time() - start) * 1000, 1)
-                if r.status == 429 and attempt < max_retries:
-                    backoff = (2 ** attempt) + random.uniform(0, 0.8)
+                if r.status == 429 and attempt < effective_retries:
+                    # Exponential backoff with jitter
+                    backoff = (2 ** attempt) + random.uniform(0.5, 1.5)
+                    # If stealth mode, longer backoff
+                    if bypass_mode == "stealth":
+                        backoff += 2
                     await asyncio.sleep(backoff)
                     continue
-                # 403 + Cloudflare challenge page → retry với UA khác
-                if r.status == 403 and attempt < max_retries:
-                    cf_challenge_markers = ["cloudflare", "challenge", "captcha", "just a moment"]
-                    if any(m in text.lower()[:3000] for m in cf_challenge_markers):
+                # 403 + Cloudflare/Akamai challenge page → retry with new UA + XFF
+                if r.status == 403 and attempt < effective_retries:
+                    challenge_markers = ["cloudflare", "challenge", "captcha", "just a moment",
+                                        "akamai", "bmsc", "incapsula", "access denied",
+                                        "blocked", "forbidden", "request rejected"]
+                    if any(m in text.lower()[:3000] for m in challenge_markers):
                         await asyncio.sleep(0.5 * (attempt + 1))
                         continue
                 return text, r.status, dict(r.headers), elapsed
         except asyncio.TimeoutError as e:
-            # Timeout → retry OK (server slow nhưng có thể recover)
             elapsed = round((time.time() - start) * 1000, 1)
             last_err = "Timeout"
-            if attempt < max_retries:
+            if attempt < effective_retries:
                 await asyncio.sleep(0.3 * (attempt + 1))
                 continue
         except (aiohttp.ClientConnectorError, aiohttp.ServerDisconnectedError,
                 aiohttp.ClientOSError, ConnectionError) as e:
-            # Connection refused/network error → thử 1 lần nữa với delay ngắn, nếu vẫn fail thì thôi
             elapsed = round((time.time() - start) * 1000, 1)
             last_err = str(type(e).__name__) + ": " + str(e)[:60]
-            if attempt < 1:  # Chỉ retry 1 lần cho connection errors
+            if attempt < 1:
                 await asyncio.sleep(0.2)
                 continue
-            break  # Không retry nữa
+            break
         except Exception as e:
             elapsed = round((time.time() - start) * 1000, 1)
             last_err = str(type(e).__name__) + ": " + str(e)[:60]
-            if attempt < max_retries:
+            if attempt < effective_retries:
                 await asyncio.sleep(0.3 * (attempt + 1))
                 continue
     return str(last_err)[:100] if last_err else "", 0, {}, 0
+
+async def fetch_with_custom_headers(session, url, custom_headers, proxy, timeout, method="GET", body=None):
+    """Fetch với arbitrary method + body (POST/PUT/etc) + custom headers.
+    Used for SSTI/SQLi/header injection tests."""
+    if not HAS_AIOHTTP:
+        return "", 0, {}, 0
+    start = time.time()
+    try:
+        timeout_obj = aiohttp.ClientTimeout(total=timeout)
+        kwargs = {"headers": custom_headers, "proxy": proxy, "timeout": timeout_obj, "ssl": False, "allow_redirects": True}
+        if body and method in ("POST", "PUT", "PATCH"):
+            kwargs["data"] = body
+        async with session.request(method, url, **kwargs) as r:
+            text = await r.text(errors="replace")
+            elapsed = round((time.time() - start) * 1000, 1)
+            return text, r.status, dict(r.headers), elapsed
+    except Exception as e:
+        return str(type(e).__name__) + ": " + str(e)[:60], 0, {}, 0
+
+async def check_ssti(session, target, custom_headers, proxy, timeout, log_fn, cancel_fn):
+    """Test Server-Side Template Injection trên các endpoint phổ biến."""
+    findings = []
+    test_endpoints = [
+        target,
+        urljoin(target, "/search"),
+        urljoin(target, "/render"),
+        urljoin(target, "/template"),
+        urljoin(target, "/preview"),
+        urljoin(target, "/api/render"),
+        urljoin(target, "/api/preview"),
+        urljoin(target, "/page"),
+    ]
+    sem = asyncio.Semaphore(5)
+    async def test_one(url):
+        if cancel_fn():
+            return None
+        results = []
+        for payload, expected in SSTI_PAYLOADS:
+            if cancel_fn():
+                return results
+            try:
+                # Inject payload via query param `q`, `name`, `template`, `input`, `query`
+                for param in ["q", "name", "template", "input", "query", "search", "text"]:
+                    test_url = f"{url}?{param}={payload}"
+                    async with sem:
+                        t, c, h, rt = await fetch(session, test_url, custom_headers, proxy, min(timeout, 5))
+                    if c == 200 and t:
+                        # Check if expected value appears in response (means template engine executed payload)
+                        if expected in t:
+                            results.append({
+                                "url": test_url, "param": param, "payload": payload,
+                                "expected": expected, "status_code": c,
+                                "severity": "critical",
+                                "description": f"SSTI detected: payload '{payload}' → returned '{expected}' (template engine executed)",
+                            })
+                            log_fn(f"[SSTI] {param}={payload} → {expected} (CRITICAL)")
+                            return results  # One finding per endpoint is enough
+            except Exception:
+                continue
+        return results
+    for coro in asyncio.as_completed([test_one(u) for u in test_endpoints]):
+        r = await coro
+        if r:
+            findings.extend(r)
+    return findings
+
+async def check_proto_pollution(session, target, custom_headers, proxy, timeout, log_fn, cancel_fn):
+    """Test Prototype Pollution via query params."""
+    findings = []
+    sem = asyncio.Semaphore(5)
+    async def test_one(payload):
+        if cancel_fn():
+            return None
+        test_url = target + payload
+        try:
+            async with sem:
+                t, c, h, rt = await fetch(session, test_url, custom_headers, proxy, min(timeout, 5))
+            # Check if response changed significantly vs baseline (means __proto__ injection affected something)
+            # Or check for any reflection of "polluted" in body/headers
+            if c == 200 and t and "polluted" in t.lower():
+                return {
+                    "url": test_url, "payload": payload, "status_code": c,
+                    "severity": "high",
+                    "description": "Prototype Pollution detected: payload reflected in response",
+                }
+        except Exception:
+            return None
+        return None
+    for coro in asyncio.as_completed([test_one(p) for p in PROTO_POLLUTION_PAYLOADS]):
+        r = await coro
+        if r:
+            findings.append(r)
+            log_fn(f"[PROTO] {r['payload'][:50]} → REFLECTED")
+    return findings
+
+async def check_header_injection(session, target, custom_headers, proxy, timeout, log_fn, cancel_fn):
+    """Test HTTP header injection: X-Forwarded-Host, X-Original-URL, etc."""
+    findings = []
+    sem = asyncio.Semaphore(5)
+    async def test_one(header_name, value):
+        if cancel_fn():
+            return None
+        test_headers = dict(custom_headers or {})
+        test_headers[header_name] = value
+        try:
+            async with sem:
+                t, c, h, rt = await fetch(session, target, test_headers, proxy, min(timeout, 5))
+            # Check if our injected value was reflected in body or Location header
+            reflected_in_body = value in (t or "")[:5000]
+            location = h.get("Location") or h.get("location") or ""
+            reflected_in_location = value in location
+            # Check for redirect to our injected host
+            if c in (301, 302, 303, 307, 308) and value in location:
+                return {
+                    "header": header_name, "value": value, "status_code": c,
+                    "redirect_location": location[:200],
+                    "severity": "high",
+                    "description": f"Header injection: {header_name}={value} → redirect to injected host",
+                }
+            elif reflected_in_body and value not in ("evil.com", "127.0.0.1:8080", "localhost", "admin"):
+                return {
+                    "header": header_name, "value": value, "status_code": c,
+                    "redirect_location": "",
+                    "severity": "medium",
+                    "description": f"Header injection: {header_name}={value} reflected in body",
+                }
+            # Special: X-Original-URL / X-Rewrite-URL → if 200, may have bypassed access control
+            elif header_name in ("X-Original-URL", "X-Rewrite-URL") and c == 200:
+                # Compare body length vs original request
+                # If significantly different, may have hit internal endpoint
+                return {
+                    "header": header_name, "value": value, "status_code": c,
+                    "redirect_location": "",
+                    "severity": "medium",
+                    "description": f"Header injection: {header_name}={value} → 200 OK (possible access bypass)",
+                }
+        except Exception:
+            return None
+        return None
+    for coro in asyncio.as_completed([test_one(h, v) for h, v in HEADER_INJECTION_PAYLOADS]):
+        r = await coro
+        if r:
+            findings.append(r)
+            log_fn(f"[HEADER-INJ] {r['header']}={r['value']} → {r['status_code']}")
+    return findings
+
+async def check_cache_poisoning(session, target, main_text, custom_headers, proxy, timeout, log_fn, cancel_fn):
+    """Test cache poisoning: inject X-Forwarded-Host/Scheme and check if response reflects it."""
+    findings = []
+    sem = asyncio.Semaphore(3)
+    async def test_one(header_name, value):
+        if cancel_fn:
+            return None
+        test_headers = dict(custom_headers or {})
+        test_headers[header_name] = value
+        try:
+            async with sem:
+                t, c, h, rt = await fetch(session, target, test_headers, proxy, min(timeout, 5))
+            if c == 200 and t:
+                # Check if our injected value appears in response (means it was cached)
+                if value in t[:5000] and value not in (main_text or ""):
+                    return {
+                        "header": header_name, "value": value,
+                        "severity": "high",
+                        "description": f"Cache poisoning: {header_name}={value} reflected in cached response",
+                        "evidence": value,
+                    }
+        except Exception:
+            return None
+        return None
+    for coro in asyncio.as_completed([test_one(h, v) for h, v in CACHE_POISON_PAYLOADS]):
+        r = await coro
+        if r:
+            findings.append(r)
+            log_fn(f"[CACHE-POISON] {r['header']}={r['value']} → reflected")
+    return findings
+
+async def check_default_creds(session, target, forms, custom_headers, proxy, timeout, log_fn, cancel_fn):
+    """Test default credentials trên login forms detected."""
+    findings = []
+    if not forms:
+        return findings
+    login_forms = [f for f in forms if f.get("type") == "login" and f.get("action")]
+    if not login_forms:
+        return findings
+    sem = asyncio.Semaphore(3)
+    for form in login_forms[:3]:  # Test up to 3 login forms
+        if cancel_fn():
+            break
+        action = form.get("action")
+        method = form.get("method", "POST").upper()
+        # Find password + username field names
+        inputs = form.get("inputs_preview", [])
+        username_field = None
+        password_field = None
+        for inp in inputs:
+            if inp.get("type") == "password":
+                password_field = inp.get("name", "password")
+            elif inp.get("type") in ("text", "email") and inp.get("name"):
+                username_field = inp.get("name")
+        if not username_field or not password_field:
+            username_field = username_field or "username"
+            password_field = password_field or "password"
+        log_fn(f"[AUTH] Testing default creds on {action} (fields: {username_field}, {password_field})")
+        for username, password in DEFAULT_CREDS:
+            if cancel_fn():
+                break
+            try:
+                # Build form body
+                body = f"{username_field}={username}&{password_field}={password}"
+                test_headers = dict(custom_headers or {})
+                test_headers["Content-Type"] = "application/x-www-form-urlencoded"
+                async with sem:
+                    t, c, h, rt = await fetch_with_custom_headers(session, action, test_headers, proxy, min(timeout, 8), method="POST", body=body)
+                # Check for successful login (redirect to dashboard, or "welcome" in body)
+                if c in (302, 303) and any(m in (h.get("Location") or "").lower() for m in ["dashboard", "admin", "welcome", "home", "panel"]):
+                    findings.append({
+                        "form_action": action, "username": username, "password": password,
+                        "status_code": c, "redirect": h.get("Location", "")[:100],
+                        "severity": "critical",
+                        "description": f"Default credentials work: {username}:{password}",
+                    })
+                    log_fn(f"[AUTH] Default creds work: {username}:{password} → {c}")
+                    break
+                elif c == 200 and any(m in (t or "").lower()[:3000] for m in ["welcome", "logged in", "dashboard", "logout", "sign out"]):
+                    findings.append({
+                        "form_action": action, "username": username, "password": password,
+                        "status_code": c, "redirect": "",
+                        "severity": "critical",
+                        "description": f"Default credentials work: {username}:{password}",
+                    })
+                    log_fn(f"[AUTH] Default creds work: {username}:{password}")
+                    break
+            except Exception:
+                continue
+    return findings
 
 async def fetch_with_fallbacks(session, target, custom_headers, proxy, timeout, log_fn=None):
     """Try target với nhiều chiến lược fallback.
@@ -1436,7 +1833,7 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-# ── v9.0 helper functions: deep recon capabilities ──
+# ── v9.1 helper functions: deep recon capabilities ──
 
 def extract_js_endpoints(js_text, base_url):
     """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
@@ -1807,7 +2204,7 @@ async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
     except Exception:
         return []
 
-# ── v9.0 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
+# ── v9.1 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
 
 async def fetch_ct_logs(session, domain, log_fn=None):
     """Query crt.sh Certificate Transparency logs để lấy tất cả subdomains đã từng được cert.
@@ -2157,12 +2554,12 @@ async def test_http_methods(session, url, custom_headers, proxy, timeout):
 
 async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     allow_redirects=False, progress_cb=None, scan_js=True,
-                    scan_id=None):
+                    scan_id=None, bypass_mode="auto"):
     start = time.time()
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v9.0",
+        "scanner_version": "v9.1",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
@@ -2172,10 +2569,15 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "takeover_findings": [], "source_maps": [], "graphql_findings": [],
         "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
         "http_method_findings": [], "recursive_brute_findings": [],
-        # v9.0 additions
+        # v9.1 additions
         "ct_subdomains": [], "dns_records": {}, "git_findings": [],
         "crawled_pages": [], "js_strings": [],
         "static_platforms": [], "frameworks_detected": [],
+        # v9.1 additions
+        "ssti_findings": [], "proto_pollution_findings": [],
+        "header_injection_findings": [], "cache_poison_findings": [],
+        "default_creds_findings": [],
+        "bypass_mode": "auto",
         "errors": [], "duration_seconds": 0, "stats": {},
         "soft_404_filtered": 0, "cancelled": False,
     }
@@ -2281,7 +2683,11 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             if waf["should_slow_down"]:
                 await prog("waf", f"WAF: {', '.join(waf['detected'])} – Giảm tốc")
 
-            limit = 12 if waf["should_slow_down"] else 30
+            limit = WAF_BYPASS_PROFILES.get(bypass_mode, WAF_BYPASS_PROFILES["auto"])["concurrency"]
+            if waf["should_slow_down"] and bypass_mode == "auto":
+                limit = 12  # Auto-throttle if WAF detected and not in aggressive/turbo mode
+            result["bypass_mode"] = bypass_mode
+            log(f"[BYPASS] Mode: {bypass_mode} → concurrency={limit}, rotate_ua={WAF_BYPASS_PROFILES.get(bypass_mode, {}).get('rotate_ua')}, rotate_xff={WAF_BYPASS_PROFILES.get(bypass_mode, {}).get('rotate_xff')}")
 
             # SSL info nếu HTTPS
             if parsed.scheme == "https":
@@ -2411,7 +2817,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
-            # 3a.5. Static-site specific paths (v9.0)
+            # 3a.5. Static-site specific paths (v9.1)
             # Nếu detect Netlify/Vercel/CF Pages/GH Pages → scan thêm STATIC_SITE_PATHS
             # Nếu detect framework → scan thêm FRAMEWORK_EXTRA_PATHS
             extra_paths = set()
@@ -2690,7 +3096,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
 
-            # 12. Subdomain takeover check (v9.0)
+            # 12. Subdomain takeover check (v9.1)
             if not cancelled() and result["subdomains_resolved"]:
                 await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
                 log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
@@ -2705,7 +3111,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Takeover check failed: {e}")
 
-            # 13. GraphQL introspection (v9.0)
+            # 13. GraphQL introspection (v9.1)
             if not cancelled():
                 await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
                 log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
@@ -2718,7 +3124,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"GraphQL check failed: {e}")
 
-            # 14. CORS misconfiguration (v9.0)
+            # 14. CORS misconfiguration (v9.1)
             if not cancelled():
                 await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
                 log(f"CORS: testing 3 origins × 5 endpoints")
@@ -2731,7 +3137,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CORS check failed: {e}")
 
-            # 15. Open redirect test (v9.0)
+            # 15. Open redirect test (v9.1)
             if not cancelled():
                 await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
                 log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
@@ -2744,7 +3150,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Open redirect check failed: {e}")
 
-            # 16. Source map exposure (v9.0)
+            # 16. Source map exposure (v9.1)
             if not cancelled() and result["js_links"]:
                 await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
                 log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
@@ -2757,7 +3163,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Source map check failed: {e}")
 
-            # 17. JS endpoint extraction + API fuzzing (v9.0)
+            # 17. JS endpoint extraction + API fuzzing (v9.1)
             if not cancelled() and scan_js and result["js_links"]:
                 await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
                 log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
@@ -2819,7 +3225,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"JS endpoint extraction failed: {e}")
 
-            # 18. Swagger/OpenAPI parsing (v9.0)
+            # 18. Swagger/OpenAPI parsing (v9.1)
             if not cancelled():
                 await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
                 log(f"Swagger: testing 6 spec paths")
@@ -2839,7 +3245,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Swagger parsing failed: {e}")
 
-            # 19. Recursive depth-2 brute-force (v9.0)
+            # 19. Recursive depth-2 brute-force (v9.1)
             if not cancelled():
                 found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
                 found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
@@ -2863,7 +3269,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 else:
                     log(f"Recursive brute skipped: no directories found")
 
-            # 20. HTTP method fuzzing (v9.0)
+            # 20. HTTP method fuzzing (v9.1)
             if not cancelled():
                 test_urls = [target]
                 test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
@@ -2883,7 +3289,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"HTTP method fuzz failed: {e}")
 
-            # 21. Wayback Machine integration (v9.0)
+            # 21. Wayback Machine integration (v9.1)
             if not cancelled():
                 await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
                 log(f"Wayback: querying web.archive.org")
@@ -2894,7 +3300,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Wayback lookup failed: {e}")
 
-            # 22. Certificate Transparency logs (v9.0) — crt.sh subdomain enum
+            # 22. Certificate Transparency logs (v9.1) — crt.sh subdomain enum
             if not cancelled():
                 await prog("ct_logs", "Certificate Transparency logs (crt.sh)...", 0, 1, 0)
                 log(f"CT: querying crt.sh for *.{host}")
@@ -2922,7 +3328,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CT logs failed: {e}")
 
-            # 23. DNS records lookup (v9.0)
+            # 23. DNS records lookup (v9.1)
             if not cancelled() and host:
                 await prog("dns_records", "DNS records lookup (A/AAAA/MX/TXT/CNAME)...", 0, 1, 0)
                 log(f"DNS: looking up records for {host}")
@@ -2934,7 +3340,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"DNS lookup failed: {e}")
 
-            # 24. .git directory exposure check (v9.0)
+            # 24. .git directory exposure check (v9.1)
             if not cancelled():
                 await prog("git_exposure", "Check .git directory exposure (HEAD, config, index)...", 0, 1, 0)
                 log(f"Git: checking .git directory exposure")
@@ -2955,7 +3361,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Git exposure check failed: {e}")
 
-            # 25. Deep crawl (v9.0) — crawl links depth-2, extract secrets from all pages
+            # 25. Deep crawl (v9.1) — crawl links depth-2, extract secrets from all pages
             if not cancelled() and main_text and len(main_text) > 100:
                 await prog("deep_crawl", "Deep crawl internal links (depth-2)...", 0, 1, 0)
                 log(f"Deep crawl: collecting internal links depth-2")
@@ -2976,7 +3382,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Deep crawl failed: {e}")
 
-            # 26. JS source string extraction (v9.0)
+            # 26. JS source string extraction (v9.1)
             if not cancelled() and scan_js and result.get("js_links"):
                 target_netloc = parsed.netloc.lower()
                 same_origin_js = [u for u in result["js_links"]
@@ -3006,6 +3412,63 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                         await prog("js_strings", f"JS strings done: {len(result['js_strings'])} extracted", min(15, len(same_origin_js)), min(15, len(same_origin_js)), len(result["js_strings"]))
                     except Exception as e:
                         log(f"JS string extraction failed: {e}")
+
+            # 27. SSTI detection (v9.1)
+            if not cancelled():
+                await prog("ssti", "Server-Side Template Injection test...", 0, 1, 0)
+                log(f"SSTI: testing 8 endpoints × {len(SSTI_PAYLOADS)} payloads × 7 params")
+                try:
+                    result["ssti_findings"] = await check_ssti(session, target, custom_headers, proxy, timeout, log, cancelled)
+                    await prog("ssti", f"SSTI done: {len(result['ssti_findings'])} vulnerable", 1, 1, len(result["ssti_findings"]))
+                    log(f"SSTI done: {len(result['ssti_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"SSTI check failed: {e}")
+
+            # 28. Prototype Pollution (v9.1)
+            if not cancelled():
+                await prog("proto_pollution", f"Prototype Pollution test ({len(PROTO_POLLUTION_PAYLOADS)} payloads)...", 0, len(PROTO_POLLUTION_PAYLOADS), 0)
+                log(f"Proto pollution: testing {len(PROTO_POLLUTION_PAYLOADS)} payloads")
+                try:
+                    result["proto_pollution_findings"] = await check_proto_pollution(session, target, custom_headers, proxy, timeout, log, cancelled)
+                    await prog("proto_pollution", f"Proto pollution done: {len(result['proto_pollution_findings'])} vulnerable", len(PROTO_POLLUTION_PAYLOADS), len(PROTO_POLLUTION_PAYLOADS), len(result["proto_pollution_findings"]))
+                    log(f"Proto pollution done: {len(result['proto_pollution_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"Proto pollution check failed: {e}")
+
+            # 29. HTTP Header Injection (v9.1) — bypass access control
+            if not cancelled():
+                await prog("header_injection", f"HTTP header injection ({len(HEADER_INJECTION_PAYLOADS)} payloads)...", 0, len(HEADER_INJECTION_PAYLOADS), 0)
+                log(f"Header injection: testing {len(HEADER_INJECTION_PAYLOADS)} headers (X-Forwarded-*, X-Original-URL, etc.)")
+                try:
+                    result["header_injection_findings"] = await check_header_injection(session, target, custom_headers, proxy, timeout, log, cancelled)
+                    await prog("header_injection", f"Header injection done: {len(result['header_injection_findings'])} vulnerable", len(HEADER_INJECTION_PAYLOADS), len(HEADER_INJECTION_PAYLOADS), len(result["header_injection_findings"]))
+                    log(f"Header injection done: {len(result['header_injection_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"Header injection check failed: {e}")
+
+            # 30. Cache Poisoning (v9.1)
+            if not cancelled():
+                await prog("cache_poison", f"Cache poisoning test ({len(CACHE_POISON_PAYLOADS)} payloads)...", 0, len(CACHE_POISON_PAYLOADS), 0)
+                log(f"Cache poisoning: testing {len(CACHE_POISON_PAYLOADS)} headers")
+                try:
+                    result["cache_poison_findings"] = await check_cache_poisoning(session, target, main_text, custom_headers, proxy, timeout, log, cancelled)
+                    await prog("cache_poison", f"Cache poisoning done: {len(result['cache_poison_findings'])} vulnerable", len(CACHE_POISON_PAYLOADS), len(CACHE_POISON_PAYLOADS), len(result["cache_poison_findings"]))
+                    log(f"Cache poisoning done: {len(result['cache_poison_findings'])} vulnerable")
+                except Exception as e:
+                    log(f"Cache poisoning check failed: {e}")
+
+            # 31. Default Credentials test (v9.1)
+            if not cancelled() and result.get("forms"):
+                login_count = sum(1 for f in result["forms"] if f.get("type") == "login")
+                if login_count > 0:
+                    await prog("default_creds", f"Default credentials test ({login_count} login forms × {len(DEFAULT_CREDS)} creds)...", 0, login_count, 0)
+                    log(f"Default creds: testing {login_count} login forms with {len(DEFAULT_CREDS)} credential pairs")
+                    try:
+                        result["default_creds_findings"] = await check_default_creds(session, target, result["forms"], custom_headers, proxy, timeout, log, cancelled)
+                        await prog("default_creds", f"Default creds done: {len(result['default_creds_findings'])} valid", login_count, login_count, len(result["default_creds_findings"]))
+                        log(f"Default creds done: {len(result['default_creds_findings'])} valid")
+                    except Exception as e:
+                        log(f"Default creds check failed: {e}")
     else:
         import requests
         requests.packages.urllib3.disable_warnings()
@@ -3051,7 +3514,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
-        # v9.0 additions
+        # v9.1 additions
         "takeover_findings": len(result.get("takeover_findings", [])),
         "graphql_findings": len(result.get("graphql_findings", [])),
         "cors_findings": len(result.get("cors_findings", [])),
@@ -3063,12 +3526,18 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "wayback_urls": len(result.get("wayback_urls", [])),
         "http_method_findings": len(result.get("http_method_findings", [])),
         "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
-        # v9.0 additions
+        # v9.1 additions
         "ct_subdomains": len(result.get("ct_subdomains", [])),
         "dns_records": len(result.get("dns_records", {})),
         "git_findings": len(result.get("git_findings", [])),
         "crawled_pages": len(result.get("crawled_pages", [])),
         "js_strings": len(result.get("js_strings", [])),
+        # v9.1 additions
+        "ssti_findings": len(result.get("ssti_findings", [])),
+        "proto_pollution_findings": len(result.get("proto_pollution_findings", [])),
+        "header_injection_findings": len(result.get("header_injection_findings", [])),
+        "cache_poison_findings": len(result.get("cache_poison_findings", [])),
+        "default_creds_findings": len(result.get("default_creds_findings", [])),
         "cancelled": result.get("cancelled", False),
     }
     result["duration_seconds"] = round(time.time()-start, 2)
@@ -3124,7 +3593,7 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
-    # v9.0 phases
+    # v9.1 phases
     "takeover": "💀 Subdomain takeover check",
     "graphql": "⚡ GraphQL introspection",
     "cors": "🌐 CORS misconfiguration",
@@ -3136,12 +3605,18 @@ PHASE_NAMES = {
     "recursive_brute": "🔁 Recursive depth-2 brute",
     "http_methods": "🔧 HTTP method fuzzing",
     "wayback": "🕰️ Wayback Machine lookup",
-    # v9.0 phases
+    # v9.1 phases
     "ct_logs": "📜 Certificate Transparency (crt.sh)",
     "dns_records": "🌐 DNS records lookup",
     "git_exposure": "📂 .git directory exposure",
     "deep_crawl": "🕷️ Deep crawl (depth-2)",
     "js_strings": "📜 JS source string extraction",
+    # v9.1 phases
+    "ssti": "🧪 SSTI (template injection)",
+    "proto_pollution": "💀 Prototype Pollution",
+    "header_injection": "🛡️ HTTP Header Injection (bypass)",
+    "cache_poison": "☠️ Cache Poisoning",
+    "default_creds": "🔑 Default Credentials",
     # terminal
     "completed": "✅ Hoàn thành",
     "error": "❌ Lỗi",
@@ -3154,16 +3629,16 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── HTML Template (PAGE) – v9.0 Deep Recon Edition ──
+# ── HTML Template (PAGE) – v9.1 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v9.0 — Recon Beast</title>
+<title>Web Leak Scanner Pro v9.1 — Recon Beast</title>
 <style>
-/* ─────────  v9.0 Theme variables  ───────── */
+/* ─────────  v9.1 Theme variables  ───────── */
 :root{
   --bg:#050509; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
   --border:rgba(0,212,170,.18); --border-hi:rgba(0,212,170,.45);
@@ -3298,7 +3773,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .theme-toggle:hover{transform:translateY(-1px) rotate(8deg);border-color:var(--accent);
   box-shadow:0 4px 12px rgba(0,212,170,.25)}
 
-/* ─────────  Container / Cards — v9.0 with 3D holographic effects  ───────── */
+/* ─────────  Container / Cards — v9.1 with 3D holographic effects  ───────── */
 .container{max-width:1200px;margin:0 auto;padding:20px;perspective:1500px}
 .card{
   background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
@@ -3675,7 +4150,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v9.0</span></span>
+    <span>Web Leak Scanner <span class="version">v9.1</span></span>
   </div>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" title="Đổi theme">🌙</button>
@@ -3687,7 +4162,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1>🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle">Async deep recon v9.0 — 550+ leak paths · subdomain takeover · GraphQL introspection · CORS misconfig · open redirect · source map exposure · JS endpoint extraction · Swagger/OpenAPI parsing · recursive depth-2 brute · HTTP method fuzz · Wayback Machine · 45+ secret patterns · glassmorphism UI · live terminal log</p>
+  <p class="subtitle">Async deep recon v9.1 — 550+ leak paths · subdomain takeover · GraphQL introspection · CORS misconfig · open redirect · source map exposure · JS endpoint extraction · Swagger/OpenAPI parsing · recursive depth-2 brute · HTTP method fuzz · Wayback Machine · 45+ secret patterns · glassmorphism UI · live terminal log</p>
   <form id="scanForm" method="post" action="/scan">
     <div class="form-group"><label>🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
     <div class="form-row">
@@ -3695,6 +4170,29 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
       <div class="form-group"><label>🔀 Proxy</label><input type="text" name="proxy" placeholder="http://proxy:8080"></div>
       <div class="form-group"><label>🔎 Quét JS files</label>
         <select name="scan_js"><option value="yes" selected>Có (deep)</option><option value="no">Không (nhanh)</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>🛡️ WAF Bypass Mode</label>
+        <select name="bypass_mode" id="bypassMode">
+          <option value="auto" selected>🤖 Auto (cân bằng)</option>
+          <option value="stealth">🥷 Stealth (5 req/s, XFF+UA rotation)</option>
+          <option value="aggressive">⚔️ Aggressive (60 concurrent, full rotation)</option>
+          <option value="turbo">🚀 Turbo (100 concurrent, no rotation)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>🎯 Scan Intensity</label>
+        <select name="intensity">
+          <option value="full" selected>Full (31 phases)</option>
+          <option value="quick">Quick (10 phases, skip deep recon)</option>
+          <option value="deep">Deep Recon only (skip basic leak)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>🧪 Vuln Tests</label>
+        <select name="vuln_tests">
+          <option value="yes" selected>Có (SSTI, Proto, Header)</option>
+          <option value="no">Không (chỉ recon)</option>
+        </select>
       </div>
     </div>
     <div class="form-group"><label>📋 Custom Headers</label><input type="text" name="headers" placeholder="User-Agent: MyBot; X-Forwarded-For: 1.2.3.4"></div>
@@ -3742,13 +4240,13 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v9.0 — Recon Beast · 550+ leak paths · CT logs (crt.sh) · DNS records · .git exposure · deep crawl depth-2 · JS string extraction · takeover · GraphQL · CORS · source maps · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v9.1 — Recon Beast · 550+ leak paths · CT logs (crt.sh) · DNS records · .git exposure · deep crawl depth-2 · JS string extraction · takeover · GraphQL · CORS · source maps · Wayback · glassmorphism UI</footer>
 <canvas id="particleCanvas"></canvas>
 <canvas id="confettiCanvas"></canvas>
 <div id="toast" class="toast"></div>
 
 <script>
-// ───────── v9.0 Particle background canvas ─────────
+// ───────── v9.1 Particle background canvas ─────────
 const particleCanvas = document.getElementById('particleCanvas');
 const pctx = particleCanvas.getContext('2d');
 let particles = [];
@@ -3847,7 +4345,7 @@ function animateParticles(){
 }
 animateParticles();
 
-// ───────── v9.0 Confetti effect for critical findings ─────────
+// ───────── v9.1 Confetti effect for critical findings ─────────
 const confettiCanvas = document.getElementById('confettiCanvas');
 const cctx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
@@ -4102,6 +4600,11 @@ const PHASE_FALLBACK = {
   'git_exposure':'📂 .git directory exposure',
   'deep_crawl':'🕷️ Deep crawl (depth-2)',
   'js_strings':'📜 JS source string extraction',
+  'ssti':'🧪 SSTI (template injection)',
+  'proto_pollution':'💀 Prototype Pollution',
+  'header_injection':'🛡️ HTTP Header Injection (bypass)',
+  'cache_poison':'☠️ Cache Poisoning',
+  'default_creds':'🔑 Default Credentials',
   'completed':'✅ Hoàn thành',
   'error':'❌ Lỗi',
   'cancelling':'🛑 Đang huỷ',
@@ -4253,7 +4756,7 @@ async function loadResult(scanId){
   initTabs();
   initFilter();
   animateCounters();
-  checkAndFireConfetti();  // v9.0: fire confetti if critical findings
+  checkAndFireConfetti();  // v9.1: fire confetti if critical findings
   $('#resultsArea').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
@@ -4282,7 +4785,7 @@ loadHistory();
 </html>
 """
 
-# ── HTML Template (RESULT) – v9.0 Deep Recon ──
+# ── HTML Template (RESULT) – v9.1 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -4353,6 +4856,11 @@ RESULT_HTML = r"""
   <button class="tab" data-tab="git">📂 .Git <span class="count">{{ result.git_findings|length }}</span></button>
   <button class="tab" data-tab="crawled">🕷️ Crawled <span class="count">{{ result.crawled_pages|length }}</span></button>
   <button class="tab" data-tab="js_strings">📜 JS Strings <span class="count">{{ result.js_strings|length }}</span></button>
+  <button class="tab" data-tab="ssti">🧪 SSTI <span class="count">{{ result.ssti_findings|length }}</span></button>
+  <button class="tab" data-tab="proto">💀 Proto <span class="count">{{ result.proto_pollution_findings|length }}</span></button>
+  <button class="tab" data-tab="hinj">🛡️ Header Inj <span class="count">{{ result.header_injection_findings|length }}</span></button>
+  <button class="tab" data-tab="cache">☠️ Cache <span class="count">{{ result.cache_poison_findings|length }}</span></button>
+  <button class="tab" data-tab="creds">🔑 Creds <span class="count">{{ result.default_creds_findings|length }}</span></button>
   <button class="tab" data-tab="params">❓ Params <span class="count">{{ result.param_findings|length }}</span></button>
   <button class="tab" data-tab="methods">🔧 Methods <span class="count">{{ result.http_method_findings|length }}</span></button>
   <button class="tab" data-tab="rbrute">🔁 RBrute <span class="count">{{ result.recursive_brute_findings|length }}</span></button>
@@ -4695,7 +5203,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v9.0 Tabs -->
+<!-- v9.1 Tabs -->
 
 <!-- Tab: API Endpoints (discovered from JS + Swagger) -->
 <div class="tab-panel" id="tab-endpoints">
@@ -4926,7 +5434,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: CT Subdomains (v9.0) -->
+<!-- Tab: CT Subdomains (v9.1) -->
 <div class="tab-panel" id="tab-ct_logs">
   {% if result.ct_subdomains %}
   <div class="alert alert-info">📜 Found <strong>{{ result.ct_subdomains|length }}</strong> subdomains từ Certificate Transparency logs (crt.sh) — đây là subdomains đã từng được issue certificate</div>
@@ -4943,7 +5451,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: DNS Records (v9.0) -->
+<!-- Tab: DNS Records (v9.1) -->
 <div class="tab-panel" id="tab-dns">
   {% if result.dns_records %}
   <div class="section-title">🌐 DNS Records cho {{ result.target }}</div>
@@ -4965,7 +5473,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Git Exposure (v9.0) -->
+<!-- Tab: Git Exposure (v9.1) -->
 <div class="tab-panel" id="tab-git">
   {% if result.git_findings %}
   <div class="alert alert-error">📂 <strong>.git directory EXPOSED!</strong> Phát hiện {{ result.git_findings|length }} file(s) trong .git folder có thể truy cập công khai. Attacker có thể reconstruct toàn bộ source code + history!</div>
@@ -4987,7 +5495,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Crawled Pages (v9.0) -->
+<!-- Tab: Crawled Pages (v9.1) -->
 <div class="tab-panel" id="tab-crawled">
   {% if result.crawled_pages %}
   <div class="alert alert-info">🕷️ Deep crawl đã thu thập <strong>{{ result.crawled_pages|length }}</strong> internal pages (depth-2), extract secrets từ mỗi page</div>
@@ -5009,7 +5517,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: JS Strings (v9.0) -->
+<!-- Tab: JS Strings (v9.1) -->
 <div class="tab-panel" id="tab-js_strings">
   {% if result.js_strings %}
   <div class="alert alert-info">📜 Extracted <strong>{{ result.js_strings|length }}</strong> unique strings từ JS files — check manually cho API keys, endpoints, hardcoded URLs, internal info</div>
@@ -5022,6 +5530,109 @@ RESULT_HTML = r"""
   </div>
   {% else %}
   <p class="empty-state">Không extract được strings từ JS files. ✅</p>
+  {% endif %}
+</div>
+
+<!-- v9.1 Tabs -->
+
+<!-- Tab: SSTI -->
+<div class="tab-panel" id="tab-ssti">
+  {% if result.ssti_findings %}
+  <div class="alert alert-error">🧪 <strong>SERVER-SIDE TEMPLATE INJECTION detected!</strong> {{ result.ssti_findings|length }} endpoint(s) vulnerable — attacker có thể RCE server</div>
+  {% for s in result.ssti_findings %}
+  <div class="leak-item crit">
+    <div class="leak-header">
+      <span class="sev-badge sev-critical">CRITICAL</span>
+      <span class="sev-badge sev-info">param: {{ s.param }}</span>
+      <span class="leak-path">{{ s.payload }}</span>
+    </div>
+    <div class="leak-url">{{ s.url }}</div>
+    <div style="font-size:11px;color:var(--accent);margin-top:4px">✅ Expected: <code>{{ s.expected }}</code> (found in response)</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">{{ s.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện SSTI. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Proto Pollution -->
+<div class="tab-panel" id="tab-proto">
+  {% if result.proto_pollution_findings %}
+  <div class="alert alert-error">💀 <strong>PROTOTYPE POLLUTION detected!</strong> {{ result.proto_pollution_findings|length }} payload(s) reflected — attacker có thể ghi đè Object prototype</div>
+  {% for p in result.proto_pollution_findings %}
+  <div class="leak-item high">
+    <div class="leak-header">
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="code-badge code-{{ p.status_code }}">{{ p.status_code }}</span>
+      <span class="leak-path">{{ p.payload[:80] }}{% if p.payload|length > 80 %}...{% endif %}</span>
+    </div>
+    <div class="leak-url">{{ p.url }}</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:4px">{{ p.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện Prototype Pollution. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Header Injection -->
+<div class="tab-panel" id="tab-hinj">
+  {% if result.header_injection_findings %}
+  <div class="alert alert-warn">🛡️ <strong>HTTP HEADER INJECTION detected!</strong> {{ result.header_injection_findings|length }} header(s) bị inject — có thể bypass access control</div>
+  {% for h in result.header_injection_findings %}
+  <div class="leak-item {{ 'crit' if h.severity == 'critical' else ('high' if h.severity == 'high' else '') }}">
+    <div class="leak-header">
+      <span class="sev-badge sev-{{ h.severity }}">{{ h.severity }}</span>
+      <span class="code-badge code-{{ h.status_code }}">{{ h.status_code }}</span>
+      <span class="leak-path">{{ h.header }}: {{ h.value }}</span>
+    </div>
+    {% if h.redirect_location %}<div style="font-size:11px;color:var(--warn);margin-top:4px">→ Location: <code>{{ h.redirect_location }}</code></div>{% endif %}
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">{{ h.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện header injection. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Cache Poisoning -->
+<div class="tab-panel" id="tab-cache">
+  {% if result.cache_poison_findings %}
+  <div class="alert alert-error">☠️ <strong>CACHE POISONING detected!</strong> {{ result.cache_poison_findings|length }} header(s) có thể poison cache — toàn bộ user sẽ thấy content bị inject</div>
+  {% for c in result.cache_poison_findings %}
+  <div class="leak-item high">
+    <div class="leak-header">
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="leak-path">{{ c.header }}: {{ c.value }}</span>
+    </div>
+    <div style="font-size:11px;color:var(--accent);margin-top:4px">Evidence: <code>{{ c.evidence }}</code></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">{{ c.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện cache poisoning. ✅</p>
+  {% endif %}
+</div>
+
+<!-- Tab: Default Creds -->
+<div class="tab-panel" id="tab-creds">
+  {% if result.default_creds_findings %}
+  <div class="alert alert-error">🔑 <strong>DEFAULT CREDENTIALS WORK!</strong> {{ result.default_creds_findings|length }} form(s) accept default creds — attacker có thể login ngay</div>
+  {% for c in result.default_creds_findings %}
+  <div class="leak-item crit">
+    <div class="leak-header">
+      <span class="sev-badge sev-critical">CRITICAL</span>
+      <span class="code-badge code-{{ c.status_code }}">{{ c.status_code }}</span>
+      <span class="leak-path">👤 {{ c.username }} : 🔑 {{ c.password }}</span>
+    </div>
+    <div class="leak-url">{{ c.form_action }}</div>
+    {% if c.redirect %}<div style="font-size:11px;color:var(--warn);margin-top:4px">→ Redirect: <code>{{ c.redirect }}</code></div>{% endif %}
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">{{ c.description }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="empty-state">Không phát hiện default credentials. ✅</p>
   {% endif %}
 </div>
 
@@ -5075,6 +5686,10 @@ def scan():
         timeout = 10
     allow_redirects = request.form.get("redirect") == "yes"
     scan_js = request.form.get("scan_js", "yes") == "yes"
+    bypass_mode = request.form.get("bypass_mode", "auto")
+    if bypass_mode not in WAF_BYPASS_MODES:
+        bypass_mode = "auto"
+    vuln_tests = request.form.get("vuln_tests", "yes") == "yes"
 
     scan_id = int(time.time() * 1000)
 
@@ -5103,7 +5718,7 @@ def scan():
             asyncio.set_event_loop(loop)
             result = loop.run_until_complete(deep_scan(
                 target, custom_headers, proxy, timeout,
-                allow_redirects, progress_cb, scan_js, scan_id
+                allow_redirects, progress_cb, scan_js, scan_id, bypass_mode
             ))
             scan_results[scan_id] = result
             with prog_lock:
@@ -5129,7 +5744,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v9.0",
+                "errors": [str(e)], "scanner_version": "v9.1",
             }
             with prog_lock:
                 for h in scan_history:
@@ -5220,7 +5835,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v9.0"
+    data["scanner"] = "Web Leak Scanner Pro v9.1"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -5295,7 +5910,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v9.0 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v9.1 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -5307,15 +5922,15 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 # ── Main ──
 if __name__ == "__main__":
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v9.0 — Upgraded Edition")
+    print(f"🛡️  Web Leak Scanner Pro v9.1 — Upgraded Edition")
     print(f"   URL: http://{HOST}:{PORT}")
     print(f"   Mở trình duyệt vào địa chỉ trên (Ctrl+C để dừng)")
-    print(f"   v9.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v9.0: Subdomain takeover · GraphQL introspection · CORS · open redirect")
-    print(f"   v9.0: Source map exposure · JS endpoint extraction · Swagger parsing")
-    print(f"   v9.0: Recursive depth-2 brute · HTTP method fuzz · Wayback Machine")
-    print(f"   v9.0: Glassmorphism UI · Animated mesh bg · Live activity log")
-    print(f"   v9.0: Animated counters · Glow effects · Staggered animations")
+    print(f"   v9.1: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v9.1: Subdomain takeover · GraphQL introspection · CORS · open redirect")
+    print(f"   v9.1: Source map exposure · JS endpoint extraction · Swagger parsing")
+    print(f"   v9.1: Recursive depth-2 brute · HTTP method fuzz · Wayback Machine")
+    print(f"   v9.1: Glassmorphism UI · Animated mesh bg · Live activity log")
+    print(f"   v9.1: Animated counters · Glow effects · Staggered animations")
     print("=" * 64)
     app.run(host=HOST, port=PORT, debug=False, threaded=True)
 
