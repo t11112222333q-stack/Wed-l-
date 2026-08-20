@@ -1,2 +1,12 @@
-flask>=3.0.0
+# Web Leak Scanner Pro v9.1 — Dependencies
+# Cài đặt: pip install -r requirements.txt
+
+# Web framework
+Flask>=3.0.0
+
+# Async HTTP client (for scanner)
 aiohttp>=3.9.0
+
+# Production WSGI server (REQUIRED for Render/Heroku/cloud deploy)
+# Flask dev server cannot handle concurrent requests from scanner
+waitress>=3.0.0

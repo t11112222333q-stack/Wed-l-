@@ -1,10 +1,25 @@
+# Render.com Blueprint — Web Leak Scanner Pro v9.1
+# Deploy 1-click: https://render.com/deploy?repo=https://your-repo.com
+# Hoặc tạo Web Service manually với settings dưới đây.
+
 services:
   - type: web
     name: web-leak-scanner
     runtime: python
-    plan: free
+    plan: free  # hoặc 'starter' nếu cần 24/7 uptime
+    region: singapore  # hoặc oregon/frankfurt tùy user
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
+    healthCheckPath: /health
+    # Render sẽ set PORT env var (default 10000)
+    # App tự bind 0.0.0.0:$PORT via waitress
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: 3.12.0
+      # Render auto-set:
+      # - RENDER=1
+      # - PORT=10000
+    # Auto-deploy khi push to main branch
+    autoDeploy: true
+    # Render Free tier: 512MB RAM, sleeps after 15min idle
+    # Để tránh sleep: dùng UptimeRobot ping /health mỗi 10 phút
