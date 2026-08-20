@@ -4137,6 +4137,108 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   border-radius:8px;height:14px;margin:8px 0}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
+/* ───────── v9.2 Guide Modal + i18n + Templates  ───────── */
+.modal-overlay{
+  position:fixed; inset:0; z-index:500;
+  background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
+  display:none; align-items:center; justify-content:center;
+  padding:20px; opacity:0; transition:opacity .3s;
+}
+.modal-overlay.show{display:flex; opacity:1}
+.modal{
+  background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  border:1px solid var(--border-hi); border-radius:18px; padding:28px;
+  max-width:780px; width:100%; max-height:88vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,.6), var(--glow-accent);
+  transform:scale(.95) translateY(20px); transition:transform .35s cubic-bezier(.16,.84,.44,1);
+  position:relative;
+}
+.modal-overlay.show .modal{transform:none}
+.modal-close{
+  position:absolute; top:16px; right:16px;
+  background:rgba(255,91,107,.15); border:1px solid rgba(255,91,107,.3);
+  color:var(--danger); width:34px; height:34px; border-radius:50%;
+  cursor:pointer; font-size:18px; font-weight:700;
+  transition:all .2s; display:flex; align-items:center; justify-content:center;
+}
+.modal-close:hover{background:var(--danger); color:#fff; transform:rotate(90deg)}
+.modal h2{
+  font-size:24px; margin-bottom:8px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.modal h3{
+  font-size:16px; margin:18px 0 10px; color:var(--accent);
+  padding-bottom:6px; border-bottom:1px solid var(--border);
+}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7}
+.modal ul{list-style:none;padding:0;margin:8px 0}
+.modal ul li{
+  padding:8px 0; font-size:13px; color:var(--text);
+  border-bottom:1px dashed var(--border);
+  display:flex; align-items:flex-start; gap:10px;
+}
+.modal ul li:last-child{border-bottom:none}
+.modal ul li strong{color:var(--accent);min-width:120px;display:inline-block}
+.modal .badge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:12px 0}
+.modal .info-badge{
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:10px; padding:10px 12px; font-size:12px;
+}
+.modal .info-badge .label{color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.modal .info-badge .value{color:var(--accent);font-weight:700}
+
+/* Language switcher */
+.lang-switcher{
+  display:inline-flex; background:var(--bg3); border:1px solid var(--border);
+  border-radius:10px; padding:3px; gap:2px;
+}
+.lang-btn{
+  background:transparent; border:none; color:var(--muted);
+  padding:5px 12px; border-radius:7px; cursor:pointer;
+  font-size:12px; font-weight:700; transition:all .2s; font-family:inherit;
+}
+.lang-btn.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff; box-shadow:0 2px 8px rgba(0,212,170,.3);
+}
+.lang-btn:hover:not(.active){color:var(--text);background:rgba(0,212,170,.08)}
+
+/* Guide button */
+.guide-btn{
+  background:linear-gradient(135deg,var(--accent3),var(--accent2));
+  color:#fff; padding:7px 14px; border-radius:10px; cursor:pointer;
+  font-size:13px; font-weight:700; border:none; font-family:inherit;
+  transition:all .25s; display:inline-flex; align-items:center; gap:6px;
+  box-shadow:0 4px 12px rgba(167,139,250,.3);
+}
+.guide-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(167,139,250,.5)}
+
+/* Quick Templates */
+.templates-bar{
+  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;
+  padding:10px; background:var(--bg3); border-radius:10px; border:1px solid var(--border);
+}
+.template-btn{
+  background:var(--bg2); border:1px solid var(--border); color:var(--text);
+  padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;
+  font-weight:600; transition:all .2s; font-family:inherit;
+  display:inline-flex; align-items:center; gap:5px;
+}
+.template-btn:hover{
+  background:var(--accent); color:#0a0a12; border-color:var(--accent);
+  transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,212,170,.2);
+}
+.template-btn[data-tpl="quick"]{border-color:rgba(84,160,255,.4)}
+.template-btn[data-tpl="quick"]:hover{background:var(--accent2);color:#fff}
+.template-btn[data-tpl="deep"]{border-color:rgba(167,139,250,.4)}
+.template-btn[data-tpl="deep"]:hover{background:var(--accent3);color:#fff}
+.template-btn[data-tpl="waf"]{border-color:rgba(255,91,107,.4)}
+.template-btn[data-tpl="waf"]:hover{background:var(--danger);color:#fff}
+.template-btn[data-tpl="static"]{border-color:rgba(254,202,87,.4)}
+.template-btn[data-tpl="static"]:hover{background:var(--warn);color:#0a0a12}
+
 @media(max-width:768px){
   .form-row{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:repeat(3,1fr)}
@@ -4150,9 +4252,14 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v9.1</span></span>
+    <span>Web Leak Scanner <span class="version">v9.2</span></span>
   </div>
   <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="vi" id="langVi">🇻🇳 VI</button>
+      <button class="lang-btn" data-lang="en" id="langEn">🇬🇧 EN</button>
+    </div>
+    <button class="guide-btn" id="guideBtn">📖 <span data-i18n="guide">Hướng dẫn</span></button>
     <button class="theme-toggle" id="themeToggle" title="Đổi theme">🌙</button>
   </div>
 </nav>
@@ -4161,52 +4268,62 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 
 <!-- Form -->
 <div class="card">
-  <h1>🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle">Async deep recon v9.1 — 550+ leak paths · subdomain takeover · GraphQL introspection · CORS misconfig · open redirect · source map exposure · JS endpoint extraction · Swagger/OpenAPI parsing · recursive depth-2 brute · HTTP method fuzz · Wayback Machine · 45+ secret patterns · glassmorphism UI · live terminal log</p>
+  <h1 data-i18n="hero_title">🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
+  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v9.2 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
+
+  <!-- Quick Templates -->
+  <div class="templates-bar">
+    <span style="font-size:12px;color:var(--dim);font-weight:700;align-self:center;margin-right:4px" data-i18n="quick_templates">Templates:</span>
+    <button class="template-btn" data-tpl="quick" onclick="applyTemplate('quick')">⚡ <span data-i18n="tpl_quick">Quick Recon</span></button>
+    <button class="template-btn" data-tpl="deep" onclick="applyTemplate('deep')">🔬 <span data-i18n="tpl_deep">Deep Audit</span></button>
+    <button class="template-btn" data-tpl="waf" onclick="applyTemplate('waf')">🥷 <span data-i18n="tpl_waf">WAF Bypass</span></button>
+    <button class="template-btn" data-tpl="static" onclick="applyTemplate('static')">📦 <span data-i18n="tpl_static">Static Site</span></button>
+  </div>
+
   <form id="scanForm" method="post" action="/scan">
-    <div class="form-group"><label>🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
+    <div class="form-group"><label data-i18n="lbl_target">🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
     <div class="form-row">
-      <div class="form-group"><label>⏱️ Timeout (s)</label><input type="number" name="timeout" value="15" min="3" max="60"></div>
-      <div class="form-group"><label>🔀 Proxy</label><input type="text" name="proxy" placeholder="http://proxy:8080"></div>
-      <div class="form-group"><label>🔎 Quét JS files</label>
-        <select name="scan_js"><option value="yes" selected>Có (deep)</option><option value="no">Không (nhanh)</option></select>
+      <div class="form-group"><label data-i18n="lbl_timeout">⏱️ Timeout (s)</label><input type="number" name="timeout" value="15" min="3" max="60"></div>
+      <div class="form-group"><label data-i18n="lbl_proxy">🔀 Proxy</label><input type="text" name="proxy" placeholder="http://proxy:8080"></div>
+      <div class="form-group"><label data-i18n="lbl_scan_js">🔎 Quét JS files</label>
+        <select name="scan_js"><option value="yes" selected data-i18n="opt_js_deep">Có (deep)</option><option value="no" data-i18n="opt_js_quick">Không (nhanh)</option></select>
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>🛡️ WAF Bypass Mode</label>
+      <div class="form-group"><label data-i18n="lbl_bypass">🛡️ WAF Bypass Mode</label>
         <select name="bypass_mode" id="bypassMode">
-          <option value="auto" selected>🤖 Auto (cân bằng)</option>
-          <option value="stealth">🥷 Stealth (5 req/s, XFF+UA rotation)</option>
-          <option value="aggressive">⚔️ Aggressive (60 concurrent, full rotation)</option>
-          <option value="turbo">🚀 Turbo (100 concurrent, no rotation)</option>
+          <option value="auto" selected data-i18n="opt_auto">🤖 Auto (cân bằng)</option>
+          <option value="stealth" data-i18n="opt_stealth">🥷 Stealth (5 req/s, XFF+UA rotation)</option>
+          <option value="aggressive" data-i18n="opt_aggressive">⚔️ Aggressive (60 concurrent, full rotation)</option>
+          <option value="turbo" data-i18n="opt_turbo">🚀 Turbo (100 concurrent, no rotation)</option>
         </select>
       </div>
-      <div class="form-group"><label>🎯 Scan Intensity</label>
+      <div class="form-group"><label data-i18n="lbl_intensity">🎯 Scan Intensity</label>
         <select name="intensity">
-          <option value="full" selected>Full (31 phases)</option>
-          <option value="quick">Quick (10 phases, skip deep recon)</option>
-          <option value="deep">Deep Recon only (skip basic leak)</option>
+          <option value="full" selected data-i18n="opt_full">Full (31 phases)</option>
+          <option value="quick" data-i18n="opt_quick">Quick (10 phases, skip deep recon)</option>
+          <option value="deep" data-i18n="opt_deep_recon">Deep Recon only (skip basic leak)</option>
         </select>
       </div>
-      <div class="form-group"><label>🧪 Vuln Tests</label>
+      <div class="form-group"><label data-i18n="lbl_vuln_tests">🧪 Vuln Tests</label>
         <select name="vuln_tests">
-          <option value="yes" selected>Có (SSTI, Proto, Header)</option>
-          <option value="no">Không (chỉ recon)</option>
+          <option value="yes" selected data-i18n="opt_vuln_yes">Có (SSTI, Proto, Header)</option>
+          <option value="no" data-i18n="opt_vuln_no">Không (chỉ recon)</option>
         </select>
       </div>
     </div>
-    <div class="form-group"><label>📋 Custom Headers</label><input type="text" name="headers" placeholder="User-Agent: MyBot; X-Forwarded-For: 1.2.3.4"></div>
+    <div class="form-group"><label data-i18n="lbl_headers">📋 Custom Headers</label><input type="text" name="headers" placeholder="User-Agent: MyBot; X-Forwarded-For: 1.2.3.4"></div>
     <div class="form-group" style="display:flex;align-items:center;gap:10px">
       <input type="checkbox" name="redirect" value="yes" id="rd" checked>
-      <label for="rd" style="margin:0">Theo dõi redirect</label>
+      <label for="rd" style="margin:0" data-i18n="lbl_redirect">Theo dõi redirect</label>
     </div>
     <button type="submit" class="btn btn-primary" id="scanBtn">
-      <span class="btn-text">🔍 Bắt đầu quét</span>
+      <span class="btn-text" data-i18n="btn_start">🔍 Bắt đầu quét</span>
       <span class="btn-loading hidden">
         <span class="btn-loading-dot"></span>
         <span class="btn-loading-dot" style="animation-delay:.2s"></span>
         <span class="btn-loading-dot" style="animation-delay:.4s"></span>
-        Đang quét...
+        <span data-i18n="btn_scanning">Đang quét...</span>
       </span>
     </button>
   </form>
@@ -4214,19 +4331,19 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 
 <!-- History -->
 <div class="card" id="historyCard" style="display:none">
-  <h3>🕘 Lịch sử quét gần đây</h3>
+  <h3 data-i18n="history_title">🕘 Lịch sử quét gần đây</h3>
   <div class="history-list" id="historyList"></div>
 </div>
 
 <!-- Progress + Activity log -->
 <div id="progressPanel" class="card progress-card hidden">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px">
-    <h3 style="margin:0">📡 Tiến trình quét</h3>
+    <h3 style="margin:0" data-i18n="progress_title">📡 Tiến trình quét</h3>
     <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
       <span class="badge badge-time" id="elapsedBadge" title="Thời gian đã trôi qua">⏱️ 00:00</span>
       <span class="badge" id="etaBadge" style="background:rgba(254,202,87,.12);color:#feca57;display:none" title="Còn lại (ước tính)">⌛ ETA --:--</span>
       <span class="badge" id="rateBadge" style="background:rgba(84,160,255,.12);color:#54a0ff;display:none" title="Tốc độ">⚡ -- req/s</span>
-      <button class="btn btn-ghost" id="cancelBtn" style="padding:6px 12px;font-size:12px">🛑 Huỷ</button>
+      <button class="btn btn-ghost" id="cancelBtn" style="padding:6px 12px;font-size:12px" data-i18n="btn_cancel">🛑 Huỷ</button>
     </div>
   </div>
   <div class="progress-info"><span id="progressPhase">Khởi tạo...</span><span id="progressCount"></span></div>
@@ -4240,7 +4357,95 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v9.1 — Recon Beast · 550+ leak paths · CT logs (crt.sh) · DNS records · .git exposure · deep crawl depth-2 · JS string extraction · takeover · GraphQL · CORS · source maps · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v9.2 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
+
+<!-- Guide Modal -->
+<div class="modal-overlay" id="guideModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeGuide()">×</button>
+    <h2 data-i18n="guide_title">📖 Hướng dẫn sử dụng Web Leak Scanner</h2>
+    <p data-i18n="guide_intro">Tool quét bảo mật web 31 phases với 4 chế độ WAF bypass. Dưới đây là hướng dẫn chọn cấu hình phù hợp cho từng loại target.</p>
+
+    <h3 data-i18n="guide_templates_title">⚡ Quick Templates (Chọn nhanh)</h3>
+    <ul>
+      <li><strong data-i18n="tpl_quick">Quick Recon</strong> <span data-i18n="guide_tpl_quick">— Scan nhanh (~10s), chỉ check 100 paths phổ biến. Phù hợp khi cần survey nhanh target mới.</span></li>
+      <li><strong data-i18n="tpl_deep">Deep Audit</strong> <span data-i18n="guide_tpl_deep">— Full scan 31 phases (~60s), phát hiện mọi loại lỗ hổng. Phù hợp cho security audit chính thức.</span></li>
+      <li><strong data-i18n="tpl_waf">WAF Bypass</strong> <span data-i18n="guide_tpl_waf">— Stealth mode, xoay UA + X-Forwarded-For 50 IP. Phù hợp khi target có Cloudflare/Akamai/Imperva.</span></li>
+      <li><strong data-i18n="tpl_static">Static Site</strong> <span data-i18n="guide_tpl_static">— Cho Netlify/Vercel/GitHub Pages. Check _headers, _redirects, source maps, manifest.json.</span></li>
+    </ul>
+
+    <h3 data-i18n="guide_waf_title">🛡️ WAF Bypass Mode — Khi nào chọn gì?</h3>
+    <div class="badge-grid">
+      <div class="info-badge"><div class="label">Auto</div><div class="value" data-i18n="guide_waf_auto">Mặc định. Tự giảm tốc khi detect WAF</div></div>
+      <div class="info-badge"><div class="label">Stealth</div><div class="value" data-i18n="guide_waf_stealth">Cloudflare, Akamai, Imperva strict</div></div>
+      <div class="info-badge"><div class="label">Aggressive</div><div class="value" data-i18n="guide_waf_aggressive">WAF nhẹ, cần speed</div></div>
+      <div class="info-badge"><div class="label">Turbo</div><div class="value" data-i18n="guide_waf_turbo">No WAF, max speed 100 req concurrent</div></div>
+    </div>
+    <p data-i18n="guide_waf_detail"><strong>Stealth mode</strong> sẽ: 5 req/s, delay 0.8-2.5s giữa requests, xoay 5 User-Agents khác nhau, xoay 50 fake X-Forwarded-For IPs (bypass IP rate-limiting), thêm full browser headers (Referer, Sec-Fetch-*, Accept-Language). Dùng khi scan Netlify, Vercel, Cloudflare Pages — các platform chặn aggressive scan.</p>
+
+    <h3 data-i18n="guide_intensity_title">🎯 Scan Intensity</h3>
+    <ul>
+      <li><strong data-i18n="opt_full">Full (31 phases)</strong> <span data-i18n="guide_intensity_full">— Mọi phases: leak paths, takeover, GraphQL, CORS, SSTI, .git, deep crawl, CT logs, Wayback... Khuyến nghị dùng.</span></li>
+      <li><strong data-i18n="opt_quick">Quick (10 phases)</strong> <span data-i18n="guide_intensity_quick">— Skip deep recon, chỉ check leak paths cơ bản + ports + tech detection. Nhanh (~10s).</span></li>
+      <li><strong data-i18n="opt_deep_recon">Deep Recon only</strong> <span data-i18n="guide_intensity_deep">— Skip basic leak, chỉ chạy phases deep recon (CT logs, DNS, .git, deep crawl, JS strings).</span></li>
+    </ul>
+
+    <h3 data-i18n="guide_vuln_title">🧪 Vuln Tests — Có nên bật?</h3>
+    <p data-i18n="guide_vuln_intro">5 phases vuln detection (SSTI, Prototype Pollution, Header Injection, Cache Poisoning, Default Creds) sẽ gửi ~1000 requests active payload. Bật khi:</p>
+    <ul>
+      <li><strong>SSTI</strong> <span data-i18n="guide_vuln_ssti">— Test {{7*7}}, ${7*7}, <%=7*7%> trên 8 endpoints × 7 params. CRITICAL nếu template engine execute payload.</span></li>
+      <li><strong>Prototype Pollution</strong> <span data-i18n="guide_vuln_proto">— Test ?__proto__[polluted]=yes, ?constructor[prototype][test]=1. HIGH nếu reflected.</span></li>
+      <li><strong>Header Injection</strong> <span data-i18n="guide_vuln_header">— Test X-Forwarded-Host, X-Original-URL=/admin. HIGH nếu redirect tới injected host (bypass access control).</span></li>
+      <li><strong>Cache Poisoning</strong> <span data-i18n="guide_vuln_cache">— Test X-Forwarded-Host=evil.cache-poison. HIGH nếu reflected trong cached response.</span></li>
+      <li><strong>Default Creds</strong> <span data-i18n="guide_vuln_creds">— Test 10 cặp admin/admin, root/root trên login forms. CRITICAL nếu login thành công.</span></li>
+    </ul>
+    <p data-i18n="guide_vuln_warning">⚠️ <strong>Cảnh báo</strong>: Chỉ bật Vuln Tests khi bạn có quyền test target. Các payload active có thể bị WAF flag là malicious traffic.</p>
+
+    <h3 data-i18n="guide_features_title">🚀 Tính năng chính</h3>
+    <div class="badge-grid">
+      <div class="info-badge"><div class="label">Leak Paths</div><div class="value">550+</div></div>
+      <div class="info-badge"><div class="label">Secret Patterns</div><div class="value">45+</div></div>
+      <div class="info-badge"><div class="label">Tech Sigs</div><div class="value">56+</div></div>
+      <div class="info-badge"><div class="label">Subdomain Takeover</div><div class="value">60+ services</div></div>
+      <div class="info-badge"><div class="label">CT Logs (crt.sh)</div><div class="value">Subdomain enum</div></div>
+      <div class="info-badge"><div class="label">DNS Records</div><div class="value">A/AAAA/MX/NS/TXT</div></div>
+      <div class="info-badge"><div class="label">.git Exposure</div><div class="value">12 paths</div></div>
+      <div class="info-badge"><div class="label">Deep Crawl</div><div class="value">depth-2, 30 pages</div></div>
+      <div class="info-badge"><div class="label">JS Strings</div><div class="value">200 strings</div></div>
+      <div class="info-badge"><div class="label">Wayback Machine</div><div class="value">Historical URLs</div></div>
+      <div class="info-badge"><div class="label">Languages</div><div class="value">🇻🇳 VI / 🇬🇧 EN</div></div>
+      <div class="info-badge"><div class="label">Health Endpoint</div><div class="value">/health, /ping</div></div>
+    </div>
+
+    <h3 data-i18n="guide_deploy_title">🌐 Deploy lên cloud</h3>
+    <p data-i18n="guide_deploy_intro">Tool dùng waitress (production WSGI server) + /health endpoint, phù hợp deploy lên Render, Heroku, VPS. Repo có sẵn:</p>
+    <ul>
+      <li><strong>requirements.txt</strong> <span data-i18n="guide_deploy_req">— Flask, aiohttp, waitress</span></li>
+      <li><strong>render.yaml</strong> <span data-i18n="guide_deploy_render">— 1-click deploy lên Render.com</span></li>
+      <li><strong>Procfile</strong> <span data-i18n="guide_deploy_heroku">— Deploy lên Heroku</span></li>
+      <li><strong>README.md</strong> <span data-i18n="guide_deploy_readme">— Hướng dẫn chi tiết</span></li>
+    </ul>
+    <p data-i18n="guide_deploy_health"><strong>Quan trọng</strong>: Set Health Check Path = <code>/health</code> trên Render dashboard để tránh "Instance failed: i/o timeout".</p>
+
+    <h3 data-i18n="guide_tips_title">💡 Tips & Tricks</h3>
+    <ul>
+      <li><strong data-i18n="tip_1">Scan chậm?</strong> <span data-i18n="guide_tip_1">Chuyển sang Turbo mode (no WAF) hoặc Aggressive (light WAF).</span></li>
+      <li><strong data-i18n="tip_2">Bị WAF block?</strong> <span data-i18n="guide_tip_2">Chuyển sang Stealth mode, tăng timeout lên 30s.</span></li>
+      <li><strong data-i18n="tip_3">Main page fail (code 0)?</strong> <span data-i18n="guide_tip_3">Tool auto-thử 5 fallback strategies (HTTPS, HTTP, www., trailing slash). Nếu vẫn fail, target có thể down hoặc sandbox chặn.</span></li>
+      <li><strong data-i18n="tip_4">Confetti không hiện?</strong> <span data-i18n="guide_tip_4">Confetti chỉ bắn khi có critical findings (stat-number.sev-crit > 0).</span></li>
+      <li><strong data-i18n="tip_5">Đổi ngôn ngữ</strong> <span data-i18n="guide_tip_5">Click 🇻🇳 VI / 🇬🇧 EN ở góc phải navbar. Lưu vào localStorage, tự áp dụng lần sau.</span></li>
+      <li><strong data-i18n="tip_6">Export kết quả</strong> <span data-i18n="guide_tip_6">Click JSON / CSV / HTML report để download kết quả scan.</span></li>
+    </ul>
+
+    <h3 data-i18n="guide_legal_title">⚖️ Legal & Ethics</h3>
+    <p data-i18n="guide_legal">Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.</p>
+
+    <p style="text-align:center;margin-top:20px;color:var(--dim);font-size:12px">
+      <span data-i18n="guide_footer">v9.2 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
+    </p>
+  </div>
+</div>
+
 <canvas id="particleCanvas"></canvas>
 <canvas id="confettiCanvas"></canvas>
 <div id="toast" class="toast"></div>
@@ -4432,6 +4637,269 @@ $('#themeToggle').addEventListener('click', ()=>{
   const cur = document.documentElement.getAttribute('data-theme');
   applyTheme(cur === 'dark' ? 'light' : 'dark');
 });
+
+// ───────── v9.2 i18n (Internationalization: VI/EN) ─────────
+const I18N = {
+  vi: {
+    hero_title: "🕵️ Quét lỗ hổng thông tin rò rỉ",
+    hero_subtitle: "Async deep recon v9.2 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
+    guide: "Hướng dẫn",
+    quick_templates: "Templates:",
+    tpl_quick: "Quick Recon",
+    tpl_deep: "Deep Audit",
+    tpl_waf: "WAF Bypass",
+    tpl_static: "Static Site",
+    lbl_target: "🌐 URL mục tiêu",
+    lbl_timeout: "⏱️ Timeout (s)",
+    lbl_proxy: "🔀 Proxy",
+    lbl_scan_js: "🔎 Quét JS files",
+    opt_js_deep: "Có (deep)",
+    opt_js_quick: "Không (nhanh)",
+    lbl_bypass: "🛡️ WAF Bypass Mode",
+    opt_auto: "🤖 Auto (cân bằng)",
+    opt_stealth: "🥷 Stealth (5 req/s, XFF+UA rotation)",
+    opt_aggressive: "⚔️ Aggressive (60 concurrent, full rotation)",
+    opt_turbo: "🚀 Turbo (100 concurrent, no rotation)",
+    lbl_intensity: "🎯 Scan Intensity",
+    opt_full: "Full (31 phases)",
+    opt_quick: "Quick (10 phases, skip deep recon)",
+    opt_deep_recon: "Deep Recon only (skip basic leak)",
+    lbl_vuln_tests: "🧪 Vuln Tests",
+    opt_vuln_yes: "Có (SSTI, Proto, Header)",
+    opt_vuln_no: "Không (chỉ recon)",
+    lbl_headers: "📋 Custom Headers",
+    lbl_redirect: "Theo dõi redirect",
+    btn_start: "🔍 Bắt đầu quét",
+    btn_scanning: "Đang quét...",
+    btn_cancel: "🛑 Huỷ",
+    history_title: "🕘 Lịch sử quét gần đây",
+    progress_title: "📡 Tiến trình quét",
+    // Guide modal
+    guide_title: "📖 Hướng dẫn sử dụng Web Leak Scanner",
+    guide_intro: "Tool quét bảo mật web 31 phases với 4 chế độ WAF bypass. Dưới đây là hướng dẫn chọn cấu hình phù hợp cho từng loại target.",
+    guide_templates_title: "⚡ Quick Templates (Chọn nhanh)",
+    guide_tpl_quick: "— Scan nhanh (~10s), chỉ check 100 paths phổ biến. Phù hợp khi cần survey nhanh target mới.",
+    guide_tpl_deep: "— Full scan 31 phases (~60s), phát hiện mọi loại lỗ hổng. Phù hợp cho security audit chính thức.",
+    guide_tpl_waf: "— Stealth mode, xoay UA + X-Forwarded-For 50 IP. Phù hợp khi target có Cloudflare/Akamai/Imperva.",
+    guide_tpl_static: "— Cho Netlify/Vercel/GitHub Pages. Check _headers, _redirects, source maps, manifest.json.",
+    guide_waf_title: "🛡️ WAF Bypass Mode — Khi nào chọn gì?",
+    guide_waf_auto: "Mặc định. Tự giảm tốc khi detect WAF",
+    guide_waf_stealth: "Cloudflare, Akamai, Imperva strict",
+    guide_waf_aggressive: "WAF nhẹ, cần speed",
+    guide_waf_turbo: "No WAF, max speed 100 req concurrent",
+    guide_waf_detail: "<strong>Stealth mode</strong> sẽ: 5 req/s, delay 0.8-2.5s giữa requests, xoay 5 User-Agents khác nhau, xoay 50 fake X-Forwarded-For IPs (bypass IP rate-limiting), thêm full browser headers (Referer, Sec-Fetch-*, Accept-Language). Dùng khi scan Netlify, Vercel, Cloudflare Pages — các platform chặn aggressive scan.",
+    guide_intensity_title: "🎯 Scan Intensity",
+    guide_intensity_full: "— Mọi phases: leak paths, takeover, GraphQL, CORS, SSTI, .git, deep crawl, CT logs, Wayback... Khuyến nghị dùng.",
+    guide_intensity_quick: "— Skip deep recon, chỉ check leak paths cơ bản + ports + tech detection. Nhanh (~10s).",
+    guide_intensity_deep: "— Skip basic leak, chỉ chạy phases deep recon (CT logs, DNS, .git, deep crawl, JS strings).",
+    guide_vuln_title: "🧪 Vuln Tests — Có nên bật?",
+    guide_vuln_intro: "5 phases vuln detection (SSTI, Prototype Pollution, Header Injection, Cache Poisoning, Default Creds) sẽ gửi ~1000 requests active payload. Bật khi:",
+    guide_vuln_ssti: "— Test {{7*7}}, ${7*7}, <%=7*7%> trên 8 endpoints × 7 params. CRITICAL nếu template engine execute payload.",
+    guide_vuln_proto: "— Test ?__proto__[polluted]=yes, ?constructor[prototype][test]=1. HIGH nếu reflected.",
+    guide_vuln_header: "— Test X-Forwarded-Host, X-Original-URL=/admin. HIGH nếu redirect tới injected host (bypass access control).",
+    guide_vuln_cache: "— Test X-Forwarded-Host=evil.cache-poison. HIGH nếu reflected trong cached response.",
+    guide_vuln_creds: "— Test 10 cặp admin/admin, root/root trên login forms. CRITICAL nếu login thành công.",
+    guide_vuln_warning: "⚠️ <strong>Cảnh báo</strong>: Chỉ bật Vuln Tests khi bạn có quyền test target. Các payload active có thể bị WAF flag là malicious traffic.",
+    guide_features_title: "🚀 Tính năng chính",
+    guide_deploy_title: "🌐 Deploy lên cloud",
+    guide_deploy_intro: "Tool dùng waitress (production WSGI server) + /health endpoint, phù hợp deploy lên Render, Heroku, VPS. Repo có sẵn:",
+    guide_deploy_req: "— Flask, aiohttp, waitress",
+    guide_deploy_render: "— 1-click deploy lên Render.com",
+    guide_deploy_heroku: "— Deploy lên Heroku",
+    guide_deploy_readme: "— Hướng dẫn chi tiết",
+    guide_deploy_health: "<strong>Quan trọng</strong>: Set Health Check Path = <code>/health</code> trên Render dashboard để tránh \"Instance failed: i/o timeout\".",
+    guide_tips_title: "💡 Tips & Tricks",
+    tip_1: "Scan chậm?",
+    guide_tip_1: "Chuyển sang Turbo mode (no WAF) hoặc Aggressive (light WAF).",
+    tip_2: "Bị WAF block?",
+    guide_tip_2: "Chuyển sang Stealth mode, tăng timeout lên 30s.",
+    tip_3: "Main page fail (code 0)?",
+    guide_tip_3: "Tool auto-thử 5 fallback strategies (HTTPS, HTTP, www., trailing slash). Nếu vẫn fail, target có thể down hoặc sandbox chặn.",
+    tip_4: "Confetti không hiện?",
+    guide_tip_4: "Confetti chỉ bắn khi có critical findings (stat-number.sev-crit > 0).",
+    tip_5: "Đổi ngôn ngữ",
+    guide_tip_5: "Click 🇻🇳 VI / 🇬🇧 EN ở góc phải navbar. Lưu vào localStorage, tự áp dụng lần sau.",
+    tip_6: "Export kết quả",
+    guide_tip_6: "Click JSON / CSV / HTML report để download kết quả scan.",
+    guide_legal_title: "⚖️ Legal & Ethics",
+    guide_legal: "Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.",
+    guide_footer: "v9.2 — Recon Beast · Made with",
+    guide_close_hint: "Click × hoặc ngoài modal để đóng",
+  },
+  en: {
+    hero_title: "🕵️ Scan Information Leak Vulnerabilities",
+    hero_subtitle: "Async deep recon v9.2 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
+    guide: "Guide",
+    quick_templates: "Templates:",
+    tpl_quick: "Quick Recon",
+    tpl_deep: "Deep Audit",
+    tpl_waf: "WAF Bypass",
+    tpl_static: "Static Site",
+    lbl_target: "🌐 Target URL",
+    lbl_timeout: "⏱️ Timeout (s)",
+    lbl_proxy: "🔀 Proxy",
+    lbl_scan_js: "🔎 Scan JS files",
+    opt_js_deep: "Yes (deep)",
+    opt_js_quick: "No (fast)",
+    lbl_bypass: "🛡️ WAF Bypass Mode",
+    opt_auto: "🤖 Auto (balanced)",
+    opt_stealth: "🥷 Stealth (5 req/s, XFF+UA rotation)",
+    opt_aggressive: "⚔️ Aggressive (60 concurrent, full rotation)",
+    opt_turbo: "🚀 Turbo (100 concurrent, no rotation)",
+    lbl_intensity: "🎯 Scan Intensity",
+    opt_full: "Full (31 phases)",
+    opt_quick: "Quick (10 phases, skip deep recon)",
+    opt_deep_recon: "Deep Recon only (skip basic leak)",
+    lbl_vuln_tests: "🧪 Vuln Tests",
+    opt_vuln_yes: "Yes (SSTI, Proto, Header)",
+    opt_vuln_no: "No (recon only)",
+    lbl_headers: "📋 Custom Headers",
+    lbl_redirect: "Follow redirects",
+    btn_start: "🔍 Start Scan",
+    btn_scanning: "Scanning...",
+    btn_cancel: "🛑 Cancel",
+    history_title: "🕘 Recent Scan History",
+    progress_title: "📡 Scan Progress",
+    // Guide modal
+    guide_title: "📖 Web Leak Scanner User Guide",
+    guide_intro: "Web security scanner with 31 phases and 4 WAF bypass modes. Below is a guide to choose the right configuration for each target type.",
+    guide_templates_title: "⚡ Quick Templates (Quick Select)",
+    guide_tpl_quick: "— Fast scan (~10s), only checks 100 common paths. Suitable for quick survey of new targets.",
+    guide_tpl_deep: "— Full 31-phase scan (~60s), detects all vulnerability types. Suitable for official security audits.",
+    guide_tpl_waf: "— Stealth mode, rotates UA + X-Forwarded-For 50 IPs. For targets with Cloudflare/Akamai/Imperva.",
+    guide_tpl_static: "— For Netlify/Vercel/GitHub Pages. Checks _headers, _redirects, source maps, manifest.json.",
+    guide_waf_title: "🛡️ WAF Bypass Mode — When to choose what?",
+    guide_waf_auto: "Default. Auto-throttle when WAF detected",
+    guide_waf_stealth: "Cloudflare, Akamai, Imperva strict",
+    guide_waf_aggressive: "Light WAF, need speed",
+    guide_waf_turbo: "No WAF, max speed 100 concurrent req",
+    guide_waf_detail: "<strong>Stealth mode</strong> will: 5 req/s, 0.8-2.5s delay between requests, rotate 5 different User-Agents, rotate 50 fake X-Forwarded-For IPs (bypass IP rate-limiting), add full browser headers (Referer, Sec-Fetch-*, Accept-Language). Use when scanning Netlify, Vercel, Cloudflare Pages — platforms that block aggressive scanning.",
+    guide_intensity_title: "🎯 Scan Intensity",
+    guide_intensity_full: "— All phases: leak paths, takeover, GraphQL, CORS, SSTI, .git, deep crawl, CT logs, Wayback... Recommended.",
+    guide_intensity_quick: "— Skip deep recon, only check basic leak paths + ports + tech detection. Fast (~10s).",
+    guide_intensity_deep: "— Skip basic leak, only run deep recon phases (CT logs, DNS, .git, deep crawl, JS strings).",
+    guide_vuln_title: "🧪 Vuln Tests — Should you enable?",
+    guide_vuln_intro: "5 vuln detection phases (SSTI, Prototype Pollution, Header Injection, Cache Poisoning, Default Creds) will send ~1000 active payload requests. Enable when:",
+    guide_vuln_ssti: "— Test {{7*7}}, ${7*7}, <%=7*7%> on 8 endpoints × 7 params. CRITICAL if template engine executes payload.",
+    guide_vuln_proto: "— Test ?__proto__[polluted]=yes, ?constructor[prototype][test]=1. HIGH if reflected.",
+    guide_vuln_header: "— Test X-Forwarded-Host, X-Original-URL=/admin. HIGH if redirects to injected host (bypass access control).",
+    guide_vuln_cache: "— Test X-Forwarded-Host=evil.cache-poison. HIGH if reflected in cached response.",
+    guide_vuln_creds: "— Test 10 pairs admin/admin, root/root on login forms. CRITICAL if login succeeds.",
+    guide_vuln_warning: "⚠️ <strong>Warning</strong>: Only enable Vuln Tests when you have permission to test the target. Active payloads may be flagged as malicious traffic by WAF.",
+    guide_features_title: "🚀 Key Features",
+    guide_deploy_title: "🌐 Deploy to Cloud",
+    guide_deploy_intro: "Tool uses waitress (production WSGI server) + /health endpoint, suitable for Render, Heroku, VPS. Repo includes:",
+    guide_deploy_req: "— Flask, aiohttp, waitress",
+    guide_deploy_render: "— 1-click deploy to Render.com",
+    guide_deploy_heroku: "— Deploy to Heroku",
+    guide_deploy_readme: "— Detailed instructions",
+    guide_deploy_health: "<strong>Important</strong>: Set Health Check Path = <code>/health</code> on Render dashboard to avoid \"Instance failed: i/o timeout\".",
+    guide_tips_title: "💡 Tips & Tricks",
+    tip_1: "Slow scan?",
+    guide_tip_1: "Switch to Turbo mode (no WAF) or Aggressive (light WAF).",
+    tip_2: "Blocked by WAF?",
+    guide_tip_2: "Switch to Stealth mode, increase timeout to 30s.",
+    tip_3: "Main page fails (code 0)?",
+    guide_tip_3: "Tool auto-tries 5 fallback strategies (HTTPS, HTTP, www., trailing slash). If still fails, target may be down or sandbox blocked.",
+    tip_4: "No confetti?",
+    guide_tip_4: "Confetti only fires when there are critical findings (stat-number.sev-crit > 0).",
+    tip_5: "Change language",
+    guide_tip_5: "Click 🇻🇳 VI / 🇬🇧 EN in the top right navbar. Saved to localStorage, auto-applies next time.",
+    tip_6: "Export results",
+    guide_tip_6: "Click JSON / CSV / HTML report to download scan results.",
+    guide_legal_title: "⚖️ Legal & Ethics",
+    guide_legal: "Tool is for security research and authorized testing only. Only scan targets you have permission to test. Unauthorized scanning may violate laws (Cybersecurity law, GDPR, HIPAA...). Author is not responsible for misuse.",
+    guide_footer: "v9.2 — Recon Beast · Made with",
+    guide_close_hint: "Click × or outside modal to close",
+  }
+};
+
+const LANG_KEY = 'wlsv9_lang';
+let currentLang = localStorage.getItem(LANG_KEY) || 'vi';
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem(LANG_KEY, lang);
+  document.documentElement.setAttribute('lang', lang);
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const text = I18N[lang]?.[key];
+    if (text !== undefined) {
+      // Use innerHTML for elements that have HTML in translation (like <strong>, <code>)
+      if (text.includes('<') && (el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'LI' || el.tagName === 'DIV')) {
+        el.innerHTML = text;
+      } else {
+        el.textContent = text;
+      }
+    }
+  });
+  // Update active state on language buttons
+  $$('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  // Update HTML lang attribute
+  document.documentElement.lang = lang;
+}
+applyLanguage(currentLang);
+
+// Language switcher buttons
+$$('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    if (lang !== currentLang) {
+      applyLanguage(lang);
+      toast(lang === 'vi' ? '🇻🇳 Đã chuyển sang Tiếng Việt' : '🇬🇧 Switched to English');
+    }
+  });
+});
+
+// ───────── v9.2 Guide Modal ─────────
+function openGuide() {
+  $('#guideModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeGuide() {
+  $('#guideModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+$('#guideBtn').addEventListener('click', openGuide);
+$('#guideModal').addEventListener('click', (e) => {
+  if (e.target === $('#guideModal')) closeGuide();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && $('#guideModal').classList.contains('show')) {
+    closeGuide();
+  }
+});
+
+// ───────── v9.2 Quick Templates ─────────
+function applyTemplate(name) {
+  const tpl = {
+    quick:    {timeout: 8,  scan_js: 'no',  bypass_mode: 'auto',      intensity: 'quick', vuln_tests: 'no'},
+    deep:     {timeout: 20, scan_js: 'yes', bypass_mode: 'auto',      intensity: 'full',  vuln_tests: 'yes'},
+    waf:      {timeout: 30, scan_js: 'yes', bypass_mode: 'stealth',   intensity: 'full',  vuln_tests: 'yes'},
+    static:   {timeout: 15, scan_js: 'yes', bypass_mode: 'stealth',   intensity: 'full',  vuln_tests: 'no'},
+  }[name];
+  if (!tpl) return;
+  // Apply to form
+  const form = $('#scanForm');
+  form.querySelector('[name="timeout"]').value = tpl.timeout;
+  form.querySelector('[name="scan_js"]').value = tpl.scan_js;
+  form.querySelector('[name="bypass_mode"]').value = tpl.bypass_mode;
+  // intensity + vuln_tests may not exist if removed; check first
+  const intensitySel = form.querySelector('[name="intensity"]');
+  if (intensitySel) intensitySel.value = tpl.intensity;
+  const vulnSel = form.querySelector('[name="vuln_tests"]');
+  if (vulnSel) vulnSel.value = tpl.vuln_tests;
+  const msgs = {
+    quick: currentLang === 'vi' ? '⚡ Đã áp dụng: Quick Recon (scan nhanh)' : '⚡ Applied: Quick Recon (fast scan)',
+    deep: currentLang === 'vi' ? '🔬 Đã áp dụng: Deep Audit (full scan)' : '🔬 Applied: Deep Audit (full scan)',
+    waf: currentLang === 'vi' ? '🥷 Đã áp dụng: WAF Bypass (stealth mode)' : '🥷 Applied: WAF Bypass (stealth mode)',
+    static: currentLang === 'vi' ? '📦 Đã áp dụng: Static Site scan' : '📦 Applied: Static Site scan',
+  };
+  toast(msgs[name]);
+}
 
 function toast(msg){
   const t = $('#toast'); t.textContent = msg; t.classList.add('show');
@@ -5919,18 +6387,113 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
     return Response(full.encode("utf-8"), mimetype="text/html",
                     headers={"Content-Disposition": "attachment; filename=scan_report_v7.html"})
 
+# ── Health endpoint for Render/Heroku/cloud health checks ──
+@app.route("/health")
+def health():
+    """Lightweight health check endpoint — return 200 OK immediately.
+    Render/Heroku/probes use this to verify service is alive."""
+    import os
+    mem_info = {}
+    try:
+        import resource
+        # RSS in KB
+        mem_kb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        mem_info["rss_mb"] = round(mem_kb / 1024, 1)
+    except Exception:
+        pass
+    return jsonify({
+        "status": "ok",
+        "service": "Web Leak Scanner Pro v9.1",
+        "uptime": round(time.time() - _START_TIME, 1),
+        "active_scans": sum(1 for q in progress_queues.values() if q is not None),
+        "memory_mb": mem_info.get("rss_mb", 0),
+        "env": "render" if os.environ.get("RENDER") else ("heroku" if os.environ.get("DYNO") else "local"),
+    })
+
+@app.route("/ping")
+def ping():
+    """Bare minimum ping — just return 'pong'."""
+    return "pong"
+
+# Track start time for uptime display
+_START_TIME = time.time()
+
 # ── Main ──
-if __name__ == "__main__":
+def run_dev_server(host, port):
+    """Run Flask development server (NOT for production)."""
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v9.1 — Upgraded Edition")
-    print(f"   URL: http://{HOST}:{PORT}")
-    print(f"   Mở trình duyệt vào địa chỉ trên (Ctrl+C để dừng)")
+    print(f"🛡️  Web Leak Scanner Pro v9.1 — Development Server")
+    print(f"   URL: http://{host}:{port}")
+    print(f"   ⚠️  DEV SERVER — không phù hợp production!")
     print(f"   v9.1: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v9.1: Subdomain takeover · GraphQL introspection · CORS · open redirect")
-    print(f"   v9.1: Source map exposure · JS endpoint extraction · Swagger parsing")
-    print(f"   v9.1: Recursive depth-2 brute · HTTP method fuzz · Wayback Machine")
-    print(f"   v9.1: Glassmorphism UI · Animated mesh bg · Live activity log")
-    print(f"   v9.1: Animated counters · Glow effects · Staggered animations")
+    print(f"   v9.1: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
+    print(f"   v9.1: Source maps · JS endpoints · Swagger · Wayback · .git")
+    print(f"   v9.1: Cache poisoning · Header injection · Default creds")
+    print(f"   v9.1: 4 WAF bypass modes · Glassmorphism UI · Confetti")
     print("=" * 64)
-    app.run(host=HOST, port=PORT, debug=False, threaded=True)
+    app.run(host=host, port=port, debug=False, threaded=True)
+
+def run_production_server(host, port):
+    """Run waitress (production WSGI server) — suitable for Render/Heroku/cloud."""
+    try:
+        from waitress import serve as waitress_serve
+        print("=" * 64)
+        print(f"🛡️  Web Leak Scanner Pro v9.1 — Production Server (waitress)")
+        print(f"   URL: http://{host}:{port}")
+        print(f"   🌐 Production WSGI: waitress (multi-threaded, robust)")
+        print(f"   🔍 Health endpoint: /health, /ping")
+        print(f"   v9.1: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+        print(f"   v9.1: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+        print("=" * 64)
+        # Waitress with reasonable defaults for cloud deploy
+        # threads=8 — enough for scanner + UI + health checks
+        waitress_serve(app, host=host, port=port, threads=8,
+                      connection_limit=100, channel_timeout=120,
+                      recv_bytes=1048576,  # 1MB body limit
+                      send_bytes=10485760)  # 10MB response limit
+    except ImportError:
+        print("[!] waitress chưa cài — fallback to Flask dev server")
+        print("    Cài waitress: pip install waitress")
+        run_dev_server(host, port)
+
+if __name__ == "__main__":
+    # Auto-detect cloud environment:
+    # - Render sets RENDER env var + PORT (default 10000)
+    # - Heroku sets DYNO env var + PORT (default 5000)
+    # - Local: use PORT env or default 5000
+    import os
+    is_render = bool(os.environ.get("RENDER"))
+    is_heroku = bool(os.environ.get("DYNO"))
+    is_cloud = is_render or is_heroku
+
+    # PORT: cloud env sets this, otherwise use 5000 (local)
+    PORT = int(os.environ.get("PORT", 5000))
+
+    # In cloud env, bind 0.0.0.0 (required by Render/Heroku)
+    # In local, can use 0.0.0.0 too for LAN access
+    HOST = "0.0.0.0"
+
+    # Reduce concurrency on Render Free tier (512MB RAM)
+    # Auto-detect via env var or memory
+    if is_cloud:
+        import resource
+        try:
+            mem_kb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+            # If we have < 400MB available, use stealth mode as default
+            print(f"[CLOUD] Detected cloud env ({'Render' if is_render else 'Heroku'})")
+            print(f"[CLOUD] Memory: {mem_kb/1024:.1f}MB used")
+        except Exception:
+            pass
+
+    if is_cloud:
+        # Production: use waitress
+        run_production_server(HOST, PORT)
+    else:
+        # Local dev: ask user or auto-detect
+        # Default to waitress if available, else dev server
+        try:
+            import waitress
+            run_production_server(HOST, PORT)
+        except ImportError:
+            run_dev_server(HOST, PORT)
 
