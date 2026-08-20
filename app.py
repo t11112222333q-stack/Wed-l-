@@ -316,7 +316,8 @@ SECRET_PATTERNS = [
     ("Heroku API Key",         r'(?:heroku_api_key|heroku_api_token)["\']?\s*[:=]\s*["\']?[0-9a-fA-F]{32}', "high", "Heroku API key"),
     ("JWT Token",              r'eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}', "high", "JWT token - có thể leak claims"),
     ("Private Key PEM",        r'-----BEGIN (RSA|EC|DSA|OPENSSH|PGP) PRIVATE KEY-----', "critical", "Private key PEM"),
-    ("Generic Secret",         r'(?:secret|api[_-]?key|token|passwd|password)["\']?\s*[:=]\s*["\']?[A-Za-z0-9+/=_\-]{16,}', "medium", "Generic secret / api key"),
+    ("Generic Secret",         r'(?:secret|api[_-]?key|token|passwd|password)["\']?\s*[:=]\s*["\']?[A-Za-z0-9+/=_\-]{20,}', "medium", "Generic secret / api key (>= 20 chars)"),
+    ("Generic Secret Long",    r'(?:secret|api[_-]?key|token|passwd|password)["\']?\s*[:=]\s*["\']?[A-Za-z0-9+/=_\-]{40,}', "high", "Generic secret / api key (>= 40 chars)"),
     ("Firebase URL",          r'https?://[a-z0-9\-]+\.firebaseio\.com',            "high",     "Firebase realtime DB URL"),
     ("Firebase Config",        r'firebaseConfig\s*=\s*\{[^}]*?(?:apiKey|databaseURL|projectId)[^}]*?\}', "high", "Firebase client config"),
     ("Twilio SID",            r'AC[a-z0-9]{32}',                                  "high",     "Twilio Account SID"),
@@ -330,12 +331,10 @@ SECRET_PATTERNS = [
     ("Linear API Key",        r'lin_api_[A-Za-z0-9_\-]{30,}',                      "high",     "Linear API token"),
     ("Asana PAT",             r'[0-9]/[a-f0-9]{32,}:',                              "high",     "Asana personal access token"),
     ("CircleCI Token",        r'CCIPRJ_[A-Za-z0-9_\-]{22,}',                        "high",     "CircleCI project token"),
-    ("Datadog API Key",       r'[a-f0-9]{32}',                                     "medium",   "Possible Datadog API key (32 hex)"),
-    ("HashiCorp Vault Token", r'(?:hvs\.[A-Za-z0-9_\-]{90,}|s\.[A-Za-z0-9_\-]{24})', "critical", "Vault service token"),
+    ("Datadog API Key",       r'(?:DD_API_KEY|DATADOG_API_KEY)["\']?\s*[:=]\s*["\']?[a-f0-9]{32}', "high",   "Datadog API key (env-named)"),
+    ("HashiCorp Vault Token", r'(?:hvs\.[A-Za-z0-9_\-]{60,})',                       "critical", "Vault service token"),
     ("Tencent SecretId",      r'AKID[A-Za-z0-9]{13,}',                             "high",     "Tencent Cloud SecretId"),
-    ("Tencent SecretKey",     r'[a-zA-Z0-9]{36}',                                 "medium",   "Possible Tencent SecretKey (36 chars)"),
-    ("Alipay Private Key",    r'MIIEv[A-Za-z0-9+/=]{200,}',                        "critical", "Alipay RSA private key (base64)"),
-    ("Jenkins Token",         r'[a-f0-9]{40}',                                     "medium",   "Possible Jenkins API token (40 hex)"),
+    ("Jenkins Token",         r'jenkins[_-]?(?:token|api[_-]?key)["\']?\s*[:=]\s*["\']?[a-f0-9]{40}', "high", "Jenkins API token"),
     ("Telegram Bot Token",    r'[0-9]{6,10}:[A-Za-z0-9_\-]{30,}',                  "high",     "Telegram bot token"),
     ("Discord Bot Token",     r'[MN][A-Za-z0-9_\-]{22,}\.[A-Za-z0-9_\-]{4,}\.[A-Za-z0-9_\-]{20,}', "high", "Discord bot token"),
     ("Notion Integration",    r'(secret_)?ntn_[A-Za-z0-9]{40,}',                   "high",     "Notion integration token"),
@@ -667,9 +666,20 @@ def scan_secrets(text, label):
     out = []
     if not text:
         return out
+    # Skip vendor/common JS files hoàn toàn để tránh false positive
+    VENDOR_PATTERNS = [
+        'jquery', 'bootstrap', 'react-dom', 'react.development',
+        'vue.global', 'angular.min', 'monaco-editor', 'vs/loader',
+        'cdn.jsdelivr', 'unpkg.com', 'cdnjs.cloudflare',
+        'moment.min', 'lodash.min', 'axios.min', 'd3.min',
+        'fontawesome', 'tinymce', 'ckeditor', 'ace-builds',
+    ]
+    if any(vp in (label or '').lower() for vp in VENDOR_PATTERNS):
+        return []  # vendor JS, skip toàn bộ
     for name, pat, sev, desc in SECRET_PATTERNS:
         for m in re.finditer(pat, text, re.I):
             snippet = m.group(0)
+            # Skip generic-looking matches trong source code comments
             masked = snippet[:8] + "*" * (max(0, len(snippet) - 12)) + snippet[-4:] if len(snippet) > 16 else snippet[:2] + "***"
             out.append({
                 "type": name,
@@ -969,6 +979,33 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 result["errors"].append("Scan bị huỷ bởi user")
                 result["duration_seconds"] = round(time.time()-start, 2)
                 return result
+
+            # 3a. POST-HOC soft-404 clustering — nếu server trả 200 cho mọi path
+            # với cùng size/hash, tự đánh dấu là soft-404 dù calibration không catch được.
+            # Threshold: nếu >5 path 200 có cùng size và content-hash, mark tất cả là soft-404.
+            size_count = {}  # size -> [items]
+            hash_count = {}  # hash -> [items]
+            for item in result["leak"]:
+                if item.get("code") == 200 and not item.get("soft_404"):
+                    sz = item.get("size", 0)
+                    if sz > 0:
+                        size_count.setdefault(sz, []).append(item)
+            cluster_filtered = 0
+            CLUSTER_THRESHOLD = 8  # nếu 8+ paths cùng size → soft-404
+            for sz, items in size_count.items():
+                if len(items) >= CLUSTER_THRESHOLD and sz > 0:
+                    # Mark all as soft-404
+                    for item in items:
+                        item["soft_404"] = True
+                        item["severity"] = "info"
+                        cluster_filtered += 1
+                    log(f"[CLUSTER] {len(items)} paths cùng size {sz}b → mark soft-404")
+            if cluster_filtered > 0:
+                found_count -= cluster_filtered
+                soft_filtered_count += cluster_filtered
+                result["soft_404_filtered"] = soft_filtered_count
+                log(f"Cluster filter total: {cluster_filtered} items")
+
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
@@ -1048,26 +1085,45 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 result["secrets"].extend(html_secrets)
                 log(f"HTML secrets: {len(html_secrets)}")
 
-                # 7. Fetch + scan JS files
+                # 7. Fetch + scan JS files — SKIP external CDN domains
                 if scan_js and result["js_links"]:
-                    await prog("secrets_js", f"Quét {len(result['js_links'])} JS files...", 0, len(result["js_links"]))
-                    js_sem = asyncio.Semaphore(8)
-                    async def scan_one_js(url):
-                        async with js_sem:
-                            t, c, _, _ = await fetch(session, url, custom_headers, proxy, timeout)
-                            if c == 200 and t:
-                                ss = scan_secrets(t, f"JS: {url}")
-                                if ss:
-                                    log(f"[SECRET] {url}: {len(ss)} secrets")
-                                return ss
-                            return []
-                    done = 0
-                    for coro in asyncio.as_completed([scan_one_js(u) for u in result["js_links"]]):
-                        ss = await coro
-                        result["secrets"].extend(ss)
-                        done += 1
-                        if done % 5 == 0 or done == len(result["js_links"]):
-                            await prog("secrets_js", f"JS {done}/{len(result['js_links'])} – Secrets: {len(result['secrets'])}", done, len(result["js_links"]), len(result['secrets']))
+                    # Chỉ scan JS files cùng origin với target (tránh false positive từ CDN vendor)
+                    target_netloc = parsed.netloc.lower()
+                    same_origin_js = []
+                    external_js = []
+                    for u in result["js_links"]:
+                        try:
+                            u_parsed = urlparse(u)
+                            if u_parsed.netloc.lower() == target_netloc or not u_parsed.netloc:
+                                same_origin_js.append(u)
+                            else:
+                                external_js.append(u)
+                        except Exception:
+                            same_origin_js.append(u)
+                    if external_js:
+                        log(f"Skip {len(external_js)} external CDN JS files (avoid false positive)")
+                    if same_origin_js:
+                        await prog("secrets_js", f"Quét {len(same_origin_js)} same-origin JS files...", 0, len(same_origin_js), 0)
+                        js_sem = asyncio.Semaphore(8)
+                        async def scan_one_js(url):
+                            async with js_sem:
+                                t, c, _, _ = await fetch(session, url, custom_headers, proxy, timeout)
+                                if c == 200 and t:
+                                    ss = scan_secrets(t, f"JS: {url}")
+                                    if ss:
+                                        log(f"[SECRET] {url}: {len(ss)} secrets")
+                                    return ss
+                                return []
+                        done = 0
+                        for coro in asyncio.as_completed([scan_one_js(u) for u in same_origin_js]):
+                            ss = await coro
+                            result["secrets"].extend(ss)
+                            done += 1
+                            if done % 5 == 0 or done == len(same_origin_js):
+                                await prog("secrets_js", f"JS {done}/{len(same_origin_js)} – Secrets: {len(result['secrets'])}", done, len(same_origin_js), len(result['secrets']))
+                    else:
+                        log("No same-origin JS files to scan")
+                # Dedup secrets + sort
                 seen = set(); deduped = []
                 for s in result["secrets"]:
                     k = (s["type"], s["match_masked"], s["source"])
@@ -1090,16 +1146,17 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 return None
             result["dirs"] = [r for r in await asyncio.gather(*[check_dir(d) for d in dirs]) if r]
 
-            # 9. Brute-force common names
+            # 9. Brute-force common names — gửi progress liên tục
             if not cancelled():
                 brute_total = len(BRUTE_NAMES) * 9
-                await prog("brute", "Brute-force common files...", 0, brute_total)
+                await prog("brute", "Brute-force common files...", 0, brute_total, 0)
                 exts = [".php", ".html", ".txt", ".json", ".xml", ".bak", ".old", ".save", ".orig"]
                 bsem = asyncio.Semaphore(15)
                 brute_timeout = min(timeout, 4)
                 b_done = 0
+                b_found = 0
                 async def brute_one(n, e):
-                    nonlocal b_done
+                    nonlocal b_done, b_found
                     if cancelled():
                         return None
                     path = f"/{n}{e}"
@@ -1107,41 +1164,57 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     async with bsem:
                         t, c, _, rt = await fetch(session, url, custom_headers, proxy, brute_timeout)
                         b_done += 1
+                        if b_done % 30 == 0 or b_done == brute_total:
+                            await prog("brute", f"Brute {b_done}/{brute_total} – Found {b_found}", b_done, brute_total, b_found)
                         if c in (200, 403, 401):
-                            if c == 200 and t and len(t) in soft_404_sizes:
-                                return None
+                            # Soft-404 check: nếu size trùng baseline hoặc cùng size với nhiều path khác
+                            if c == 200 and t:
+                                sz = len(t)
+                                if sz in soft_404_sizes:
+                                    return None
+                            b_found += 1
                             log(f"[BRUTE] {c} {path}")
                             return {"path": path, "code": c, "severity": score_finding(path, c), "response_time_ms": rt}
                         return None
                 result["brute"] = [r for r in await asyncio.gather(*[brute_one(n, e) for n in BRUTE_NAMES for e in exts]) if r]
                 result["brute"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
-                await prog("brute", f"Brute xong: {len(result['brute'])} hits", b_done, brute_total, len(result['brute']))
+                await prog("brute", f"Brute xong: {len(result['brute'])} hits", b_done, brute_total, 0)
                 log(f"Brute: {len(result['brute'])} hits")
 
             # 10. Query param fuzzing trên endpoint chính
             if not cancelled():
-                await prog("param_fuzz", f"Query param fuzzing ({len(PARAM_FUZZ)} params)...")
+                p_total = len(PARAM_FUZZ)
+                await prog("param_fuzz", f"Query param fuzzing ({p_total} params)...", 0, p_total, 0)
                 psem = asyncio.Semaphore(10)
+                p_done = 0
+                p_found = 0
                 async def fuzz_param(param):
+                    nonlocal p_done, p_found
                     url = f"{target}?{param}=1"
                     async with psem:
                         t, c, _, rt = await fetch(session, url, custom_headers, proxy, min(timeout, 5))
+                        p_done += 1
+                        if p_done % 5 == 0 or p_done == p_total:
+                            await prog("param_fuzz", f"Param {p_done}/{p_total}", p_done, p_total, p_found)
                         # So sánh với main response để detect debug mode
                         if c == 200 and t and len(t) != len(main_text or ""):
                             diff = abs(len(t) - len(main_text or ""))
                             if diff > 50:  # significant difference
+                                p_found += 1
                                 log(f"[PARAM] ?{param}=1 → {c} ({len(t)}b, diff {diff})")
                                 return {"param": param, "url": url, "code": c, "size": len(t),
                                         "main_size": len(main_text or ""), "diff": diff}
                         return None
                 result["param_findings"] = [r for r in await asyncio.gather(*[fuzz_param(p) for p in PARAM_FUZZ]) if r]
+                await prog("param_fuzz", f"Param fuzz xong: {len(result['param_findings'])} interesting", p_done, p_total, 0)
                 log(f"Param fuzz: {len(result['param_findings'])} interesting")
 
             # 11. Subdomain hints (no network call) + DNS resolution
             result["subdomain_hints"] = [f"{s}.{host}" for s in COMMON_SUBDOMAINS[:30]]
-            await prog("subdomains", "DNS enum subdomains...")
+            await prog("subdomains", "DNS enum subdomains...", 0, 40, 0)
             try:
                 result["subdomains_resolved"] = await resolve_subdomains(host)
+                await prog("subdomains", f"Subdomain resolved: {len(result['subdomains_resolved'])}", len(result["subdomains_resolved"]), 40, len(result["subdomains_resolved"]))
                 log(f"Subdomain resolved: {len(result['subdomains_resolved'])}")
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
@@ -1390,7 +1463,9 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   width:100%; padding:11px 14px; background:rgba(0,0,0,.18);
   border:1px solid var(--border); border-radius:11px; color:var(--text); font-size:14px;
   outline:none; font-family:inherit; transition:all .25s;
+  min-width:0; /* prevent overflow on mobile */
 }
+.form-group input[type="text"]{overflow:hidden;text-overflow:ellipsis}
 [data-theme="light"] .form-group input,[data-theme="light"] .form-group select{
   background:rgba(255,255,255,.6);
 }
@@ -1449,9 +1524,11 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   height:100%; border-radius:6px;
   background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
   background-size:200% 100%;
-  animation:barShimmer 2s linear infinite, fillIn .35s ease;
+  animation:barShimmer 2s linear infinite;
   box-shadow:0 0 16px rgba(0,212,170,.6);
   position:relative;
+  min-width:0;
+  transition:width .25s ease-out;
 }
 .progress-bar-fill::after{
   content:""; position:absolute; top:0; left:0; bottom:0; width:30px;
@@ -1589,8 +1666,9 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .terminal .term-line[data-tag="DIRLIST"]{color:var(--accent2)}
 .terminal .term-line[data-tag="BRUTE"]{color:var(--accent)}
 .terminal .term-line[data-tag="PARAM"]{color:var(--warn)}
-.terminal .cursor{display:inline-block;width:8px;height:14px;background:#aed581;
-  vertical-align:text-bottom;animation:cursorBlink 1s steps(2) infinite;margin-left:4px}
+.terminal .cursor{display:inline-block;width:7px;height:13px;background:#aed581;
+  vertical-align:text-bottom;animation:cursorBlink 1s steps(2) infinite;margin-left:3px;
+  margin-bottom:1px;border-radius:1px;opacity:.85}
 @keyframes cursorBlink{0%,50%{opacity:1}51%,100%{opacity:0}}
 [data-theme="light"] .terminal{background:#1a1f2e;color:#aed581}
 [data-theme="light"] .terminal .cursor{background:#aed581}
@@ -2021,9 +2099,15 @@ $('#scanForm').addEventListener('submit', async function(e){
 
         if(d.message) msg.textContent = d.message;
 
-        if(d.found !== undefined && d.found > 0){
-          found.classList.remove('hidden');
-          found.textContent = '🔍 Tìm thấy: ' + d.found;
+        // Found counter — luôn cập nhật, ẩn nếu = 0 (tránh hiển thị số cũ)
+        if(d.found !== undefined){
+          if(d.found > 0){
+            found.classList.remove('hidden');
+            found.textContent = '🔍 Tìm thấy: ' + d.found;
+          } else {
+            found.classList.add('hidden');
+            found.textContent = '';
+          }
         }
 
         const elapsedBadge = $('#elapsedBadge');
@@ -2046,6 +2130,9 @@ $('#scanForm').addEventListener('submit', async function(e){
           stopTimer();
           stopActivityPolling();
           cancelBtn.style.display = 'none';
+          // Ẩn cursor khi scan xong
+          const cur = term.querySelector('.cursor');
+          if(cur) cur.style.display = 'none';
           if(d.phase === 'cancelled'){
             setTimeout(()=>loadResult(scanId).then(loadHistory), 300);
           } else {
