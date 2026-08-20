@@ -1,11 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v5.0 – Web Single-File Edition
+Web Leak Scanner Pro v6.0 – Web Single-File Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
+
+Changelog v6.0 (so với v5.0):
+  + ⏱️ Real-time elapsed timer (mm:ss) + ETA ước tính còn lại.
+  + ⚡ Requests/sec rate counter (số request hoàn thành/giây).
+  + 🛑 Cancel Scan button + endpoint POST /cancel/<scan_id>.
+  + 🎯 Soft-404 calibration: fetch 1 path random kỳ lạ trước,
+    lưu size + signature, rồi filter các finding có pattern giống
+    (giảm false positive khi target trả 200 cho mọi path).
+  + 🚫 Ẩn phase "keepalive" và "connected" khỏi UI (chỉ là SSE heartbeat).
+  + 📝 Phase human-readable tiếng Việt (snake_case -> "Đang quét leak paths...").
+  + 📊 Sub-progress chi tiết: phase progress bar + ETA + rate ngay trong UI.
+  + ⚡ Concurrency mặc định tăng: 15->25, WAF slow 5->8.
+  + ⏱️ Timeout rút gọn cho brute-force (3s thay vì 10s) để scan nhanh hơn.
+  + 📈 Mini stats live: requests/sec, found, elapsed, ETA, phase.
+  + 🧹 Auto-dedup soft-404 khi render kết quả.
 
 Changelog v5.0 (so với v4.0):
   + Security Headers Analysis (CSP, HSTS, X-Frame-Options, X-Content-Type-Options,
@@ -590,29 +605,50 @@ def get_main_page_summary(html, max_chars=400):
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
 async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
-                    allow_redirects=False, progress_cb=None, scan_js=True):
+                    allow_redirects=False, progress_cb=None, scan_js=True,
+                    scan_id=None):
     start = time.time()
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v5.0",
+        "scanner_version": "v6.0",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
         "secrets": [], "ssl": {}, "subdomain_hints": [], "page_summary": "",
         "errors": [], "duration_seconds": 0, "stats": {},
+        "soft_404_filtered": 0, "cancelled": False,
     }
     parsed = urlparse(target)
     host = parsed.hostname
     base = f"{parsed.scheme}://{parsed.netloc}"
 
+    def cancelled():
+        return scan_id is not None and is_cancelled(scan_id)
+
     async def prog(phase, msg, current=0, total=0, found=0):
         if progress_cb:
-            await progress_cb({"phase": phase, "message": msg, "current": current,
-                                "total": total, "found": found})
+            # Tính ETA dựa trên elapsed + current/total
+            elapsed = time.time() - start
+            eta = None
+            if total > 0 and current > 0:
+                rate = current / elapsed if elapsed > 0 else 0
+                if rate > 0:
+                    eta = max(0, round((total - current) / rate))
+            display = phase_display(phase)
+            await progress_cb({
+                "phase": phase,
+                "phase_display": display,
+                "message": msg,
+                "current": current, "total": total, "found": found,
+                "elapsed": round(elapsed, 1),
+                "eta": eta,
+                "rate": round(current / elapsed, 1) if elapsed > 0 else 0,
+            })
 
     if HAS_AIOHTTP:
-        conn = aiohttp.TCPConnector(limit=80, limit_per_host=30, ssl=False)
+        # Concurrency tăng nhẹ, brute-force timeout ngắn để scan nhanh hơn
+        conn = aiohttp.TCPConnector(limit=100, limit_per_host=40, ssl=False)
         async with aiohttp.ClientSession(connector=conn,
                                           headers={"User-Agent": random.choice(USER_AGENTS)}) as session:
             # 1. Main page
@@ -646,7 +682,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             if waf["should_slow_down"]:
                 await prog("waf", f"WAF: {', '.join(waf['detected'])} – Giảm tốc")
 
-            limit = 5 if waf["should_slow_down"] else 15
+            limit = 8 if waf["should_slow_down"] else 25
 
             # SSL info nếu HTTPS
             if parsed.scheme == "https":
@@ -659,26 +695,76 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 result["ports"] = await scan_ports(host)
                 await prog("ports_done", f"Cổng mở: {result['ports'] or 'Không có'}")
 
-            # 3. Leak paths
-            await prog("leak_scan", f"Kiểm tra {len(LEAK_PATHS)} paths...", 0, len(LEAK_PATHS), 0)
+            # 3. Leak paths — soft-404 calibration trước
+            await prog("leak_scan", f"Soft-404 calibration...", 0, len(LEAK_PATHS), 0)
+            # Fetch 1 path random kỳ lạ -> nếu status 200 thì đây là soft-404 signature
+            calib_paths = [
+                f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__.html",
+                f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__.php",
+                f"/__wlscan_calib_{random.randint(10**8, 10**9 - 1)}__/",
+            ]
+            soft_404_sizes = set()
+            soft_404_hashes = set()
+            soft_404_codes = set()
+            for cp in calib_paths:
+                t, c, _, _ = await fetch(session, urljoin(base, cp), custom_headers, proxy, timeout)
+                if c == 200 and t:
+                    sz = len(t)
+                    soft_404_sizes.add(sz)
+                    # Hash nhanh: dùng 4 sample positions
+                    try:
+                        import hashlib
+                        soft_404_hashes.add(hashlib.md5(t.encode('utf-8','replace')).hexdigest()[:12])
+                    except Exception:
+                        pass
+                    soft_404_codes.add(c)
+            if soft_404_sizes:
+                await prog("leak_scan", f"Soft-404 baseline: {len(soft_404_sizes)} size(s) – sẽ filter", 0, len(LEAK_PATHS), 0)
+
+            await prog("leak_scan", f"Quét {len(LEAK_PATHS)} paths...", 0, len(LEAK_PATHS), 0)
             sem = asyncio.Semaphore(limit)
             found_count = 0
+            soft_filtered_count = 0
             async def check_path(path):
-                nonlocal found_count
+                nonlocal found_count, soft_filtered_count
+                if cancelled():
+                    return None
                 async with sem:
                     url = urljoin(base, path)
                     text, code, h, rt = await fetch(session, url, custom_headers, proxy, timeout)
                     if code in (200, 401, 403):
+                        sev = score_finding(path, code)
+                        size = len(text) if text else 0
+                        is_soft_404 = False
+                        if code == 200 and size in soft_404_sizes and size > 0:
+                            # Có thể là soft-404 — hash check
+                            try:
+                                import hashlib
+                                h_ = hashlib.md5((text or "").encode('utf-8','replace')).hexdigest()[:12]
+                                if h_ in soft_404_hashes:
+                                    is_soft_404 = True
+                            except Exception:
+                                # fallback: chỉ dựa vào size
+                                is_soft_404 = True
+                        if is_soft_404:
+                            soft_filtered_count += 1
+                            # Vẫn giữ lại nhưng đánh dấu soft_404 + severity info
+                            return {
+                                "path": path, "url": url, "code": code,
+                                "size": size, "preview": "", "headers": {},
+                                "severity": "info", "response_time_ms": rt,
+                                "soft_404": True,
+                            }
                         if code == 200:
                             found_count += 1
-                        sev = score_finding(path, code)
                         return {
                             "path": path, "url": url, "code": code,
-                            "size": len(text) if text else 0,
+                            "size": size,
                             "preview": (text[:500]+"..." if len(text) > 500 else text) if code == 200 else "",
                             "headers": dict(h) if code == 200 else {},
                             "severity": sev,
                             "response_time_ms": rt,
+                            "soft_404": False,
                         }
                     return None
             tasks = [check_path(p) for p in LEAK_PATHS]
@@ -689,7 +775,13 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 if item:
                     result["leak"].append(item)
                 if done % 10 == 0 or done == len(LEAK_PATHS):
-                    await prog("leak_scan", f"{done}/{len(LEAK_PATHS)} – Found {found_count}", done, len(LEAK_PATHS), found_count)
+                    await prog("leak_scan", f"{done}/{len(LEAK_PATHS)} – Found {found_count} (soft-404 filtered: {soft_filtered_count})", done, len(LEAK_PATHS), found_count)
+            result["soft_404_filtered"] = soft_filtered_count
+            if cancelled():
+                result["cancelled"] = True
+                result["errors"].append("Scan bị huỷ bởi user")
+                result["duration_seconds"] = round(time.time()-start, 2)
+                return result
             # Sort by severity
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
 
@@ -776,23 +868,35 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 return None
             result["dirs"] = [r for r in await asyncio.gather(*[check_dir(d) for d in dirs]) if r]
 
-            # 9. Brute-force common names
-            await prog("brute", "Brute-force common files...")
-            exts = [".php", ".html", ".txt", ".json", ".xml", ".bak", ".old", ".save", ".orig"]
-            names = ["index", "admin", "login", "config", "test", "api", "backup",
-                     "db", "database", "secret", "private", "key", "token", "user",
-                     "users", "account", "accounts", "config.bak", "panel"]
-            bsem = asyncio.Semaphore(10)
-            async def brute_one(n, e):
-                path = f"/{n}{e}"
-                url = urljoin(base, path)
-                async with bsem:
-                    _, c, _, rt = await fetch(session, url, custom_headers, proxy, timeout)
-                    if c in (200, 403, 401):
-                        return {"path": path, "code": c, "severity": score_finding(path, c), "response_time_ms": rt}
-                    return None
-            result["brute"] = [r for r in await asyncio.gather(*[brute_one(n, e) for n in names for e in exts]) if r]
-            result["brute"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
+            # 9. Brute-force common names — timeout ngắn để scan nhanh
+            if not cancelled():
+                brute_total = 9 * 20  # 180
+                await prog("brute", "Brute-force common files...", 0, brute_total)
+                exts = [".php", ".html", ".txt", ".json", ".xml", ".bak", ".old", ".save", ".orig"]
+                names = ["index", "admin", "login", "config", "test", "api", "backup",
+                         "db", "database", "secret", "private", "key", "token", "user",
+                         "users", "account", "accounts", "config.bak", "panel"]
+                bsem = asyncio.Semaphore(15)
+                brute_timeout = min(timeout, 4)  # rút gọn timeout cho brute
+                b_done = 0
+                async def brute_one(n, e):
+                    nonlocal b_done
+                    if cancelled():
+                        return None
+                    path = f"/{n}{e}"
+                    url = urljoin(base, path)
+                    async with bsem:
+                        t, c, _, rt = await fetch(session, url, custom_headers, proxy, brute_timeout)
+                        b_done += 1
+                        if c in (200, 403, 401):
+                            # Soft-404 check cho brute
+                            if c == 200 and t and len(t) in soft_404_sizes:
+                                return None
+                            return {"path": path, "code": c, "severity": score_finding(path, c), "response_time_ms": rt}
+                        return None
+                result["brute"] = [r for r in await asyncio.gather(*[brute_one(n, e) for n in names for e in exts]) if r]
+                result["brute"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
+                await prog("brute", f"Brute xong: {len(result['brute'])} hits", b_done, brute_total, len(result['brute']))
 
             # 10. Subdomain hints (no network call)
             result["subdomain_hints"] = [f"{s}.{host}" for s in COMMON_SUBDOMAINS[:30]]
@@ -836,9 +940,12 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "insecure_cookies": sum(1 for c in result["cookies"] if c.get("issues")),
         "js_files_scanned": len(result.get("js_links", [])),
         "forms_found": len(result.get("forms", [])),
+        "soft_404_filtered": result.get("soft_404_filtered", 0),
+        "real_leak_count": sum(1 for x in result.get("leak", []) if not x.get("soft_404")),
+        "cancelled": result.get("cancelled", False),
     }
     result["duration_seconds"] = round(time.time()-start, 2)
-    await prog("completed", f"Hoàn thành – {result['stats']['leak_count']} leaks, {result['stats']['secret_count']} secrets, {result['stats']['ports_open']} ports")
+    await prog("completed", f"Hoàn thành – {result['stats']['real_leak_count']} leaks (soft-404 filter: {result['stats']['soft_404_filtered']}), {result['stats']['secret_count']} secrets, {result['stats']['ports_open']} ports")
     return result
 
 # ── SSE ──
@@ -846,6 +953,8 @@ progress_queues = {}
 prog_lock = threading.Lock()
 scan_results = {}
 scan_history = []  # list of {scan_id, target, started_at, status, leak_count}
+scan_cancels = set()  # set of scan_id that user wants to cancel
+scan_starts = {}  # scan_id -> start timestamp (for ETA calc)
 
 def push_history(item):
     scan_history.insert(0, item)
@@ -861,8 +970,41 @@ def send_prog(scan_id, data):
             except:
                 pass
 
+def is_cancelled(scan_id):
+    with prog_lock:
+        return scan_id in scan_cancels
+
 def fmt_sse(data):
     return f"data: {data}\n\n"
+
+# Phase name translation (snake_case -> tiếng Việt human-readable)
+PHASE_NAMES = {
+    "main_page": "🌐 Tải trang chính",
+    "security_headers": "📜 Phân tích security headers",
+    "fingerprint": "🛠️ Nhận diện công nghệ",
+    "waf": "🛡️ Phát hiện WAF",
+    "ssl": "🔒 Kiểm tra SSL/TLS",
+    "ports": "🔌 Quét cổng",
+    "ports_done": "✅ Xong quét cổng",
+    "leak_scan": "📁 Quét leak paths",
+    "robots": "🤖 Phân tích robots.txt",
+    "links": "🔗 Trích xuất links/JS/forms",
+    "secrets": "🔐 Quét secret trong HTML",
+    "secrets_js": "📜 Quét secret trong JS files",
+    "dirs": "📂 Kiểm tra directory listing",
+    "brute": "🔍 Brute-force common files",
+    "completed": "✅ Hoàn thành",
+    "error": "❌ Lỗi",
+    "cancelling": "🛑 Đang huỷ...",
+    "cancelled": "🛑 Đã huỷ",
+    # Internal — không hiển thị cho user
+    "connected": None,
+    "keepalive": None,
+}
+
+def phase_display(phase):
+    """Trả về tên hiển thị cho phase, hoặc None nếu là internal heartbeat."""
+    return PHASE_NAMES.get(phase, phase if phase else "")
 
 # ── HTML Template (PAGE) ──
 PAGE_HTML = r"""
@@ -871,7 +1013,7 @@ PAGE_HTML = r"""
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v5.0</title>
+<title>Web Leak Scanner Pro v6.0</title>
 <style>
 :root{
   --bg:#0f0f1a; --bg2:#16213e; --bg3:#1a1a2e; --border:#2d3561;
@@ -1012,7 +1154,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 </head>
 <body>
 <nav class="navbar">
-  <div class="nav-brand"><span>🔒</span><span>Web Leak Scanner <span class="version">v5.0</span></span></div>
+  <div class="nav-brand"><span>🔒</span><span>Web Leak Scanner <span class="version">v6.0</span></span></div>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" title="Đổi theme">🌙</button>
   </div>
@@ -1022,7 +1164,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 <!-- Form -->
 <div class="card">
   <h1>🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle">Async scanner: leak paths · ports · tech fingerprint · WAF/CDN · security headers · cookies · JS secrets · forms · severity scoring</p>
+  <p class="subtitle">Async scanner: leak paths · ports · tech · WAF/CDN · security headers · cookies · JS secrets · forms · soft-404 filter · elapsed timer · ETA · cancel</p>
   <form id="scanForm" method="post" action="/scan">
     <div class="form-group"><label>🌐 URL mục tiêu</label><input type="text" name="target" placeholder="https://example.com" required></div>
     <div class="form-row">
@@ -1052,7 +1194,15 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 
 <!-- Progress -->
 <div id="progressPanel" class="card progress-card hidden">
-  <h3>📡 Tiến trình quét</h3>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+    <h3 style="margin:0">📡 Tiến trình quét</h3>
+    <div style="display:flex;gap:6px;align-items:center">
+      <span class="badge badge-time" id="elapsedBadge" title="Thời gian đã trôi qua">⏱️ 00:00</span>
+      <span class="badge" id="etaBadge" style="background:rgba(254,202,87,.12);color:#feca57;display:none" title="Còn lại (ước tính)">⌛ ETA --:--</span>
+      <span class="badge" id="rateBadge" style="background:rgba(84,160,255,.12);color:#54a0ff;display:none" title="Tốc độ">⚡ -- req/s</span>
+      <button class="btn btn-ghost" id="cancelBtn" style="padding:4px 10px;font-size:12px">🛑 Huỷ</button>
+    </div>
+  </div>
   <div class="progress-info"><span id="progressPhase">Khởi tạo...</span><span id="progressCount"></span></div>
   <div class="progress-bar-bg"><div id="progressBar" class="progress-bar-fill"></div></div>
   <div id="progressMessage" class="progress-msg"></div>
@@ -1063,7 +1213,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v5.0 – Async Security Scanner · 16+ feature improvements</footer>
+<footer class="footer">Web Leak Scanner Pro v6.0 – Async Security Scanner · elapsed timer · ETA · cancel · soft-404 filter</footer>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -1133,23 +1283,86 @@ function initTabs(){
 function initFilter(){
   const f = $('#filterInput');
   if(!f) return;
-  f.addEventListener('input', ()=>{
+  function applyFilter(){
     const q = f.value.toLowerCase();
     const sev = $('#filterSev').value;
+    const hideS404 = $('#hideSoft404') ? $('#hideSoft404').checked : false;
     $$('.leak-item[data-sev]').forEach(el=>{
-      const path = el.dataset.path.toLowerCase();
+      const path = (el.dataset.path || '').toLowerCase();
       const s = el.dataset.sev;
+      const isSoft = el.dataset.soft404 === 'true';
       const matchQ = !q || path.includes(q);
-      const matchS = sev === 'all' || s === sev;
-      el.style.display = (matchQ && matchS) ? '' : 'none';
+      let matchS = sev === 'all' || s === sev;
+      // Nếu chọn info -> chỉ hiện soft-404
+      if(sev === 'info') matchS = isSoft;
+      // Ẩn soft-404 nếu user tick
+      const matchHide = !(hideS404 && isSoft);
+      el.style.display = (matchQ && matchS && matchHide) ? '' : 'none';
     });
-  });
-  $('#filterSev').addEventListener('change', ()=>{
-    $('#filterInput').dispatchEvent(new Event('input'));
-  });
+  }
+  f.addEventListener('input', applyFilter);
+  $('#filterSev').addEventListener('change', applyFilter);
+  const hideChk = $('#hideSoft404');
+  if(hideChk) hideChk.addEventListener('change', applyFilter);
+  // Apply ngay lần đầu
+  applyFilter();
 }
 
 // Submit scan
+let timerInterval = null;
+let scanStartTs = 0;
+
+function fmtTime(s){
+  s = Math.max(0, Math.floor(s));
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+function startTimer(){
+  scanStartTs = Date.now();
+  const elapsed = $('#elapsedBadge');
+  const eta = $('#etaBadge');
+  const rate = $('#rateBadge');
+  elapsed.style.display = '';
+  eta.style.display = 'none';
+  rate.style.display = 'none';
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    const e = (Date.now() - scanStartTs) / 1000;
+    elapsed.textContent = '⏱️ ' + fmtTime(e);
+  }, 250);
+}
+
+function stopTimer(){
+  if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
+}
+
+// Phase translation fallback (dùng nếu backend không gửi phase_display)
+const PHASE_FALLBACK = {
+  'main_page':'🌐 Tải trang chính',
+  'security_headers':'📜 Phân tích security headers',
+  'fingerprint':'🛠️ Nhận diện công nghệ',
+  'waf':'🛡️ Phát hiện WAF',
+  'ssl':'🔒 Kiểm tra SSL/TLS',
+  'ports':'🔌 Quét cổng',
+  'ports_done':'✅ Xong quét cổng',
+  'leak_scan':'📁 Quét leak paths',
+  'robots':'🤖 Phân tích robots.txt',
+  'links':'🔗 Trích xuất links/JS/forms',
+  'secrets':'🔐 Quét secret trong HTML',
+  'secrets_js':'📜 Quét secret trong JS files',
+  'dirs':'📂 Kiểm tra directory listing',
+  'brute':'🔍 Brute-force common files',
+  'completed':'✅ Hoàn thành',
+  'error':'❌ Lỗi',
+  'cancelling':'🛑 Đang huỷ',
+  'cancelled':'🛑 Đã huỷ',
+};
+
+// Phases internal — KHÔNG hiển thị cho user
+const INTERNAL_PHASES = new Set(['connected', 'keepalive']);
+
 $('#scanForm').addEventListener('submit', async function(e){
   e.preventDefault();
   const btn = $('#scanBtn');
@@ -1160,47 +1373,110 @@ $('#scanForm').addEventListener('submit', async function(e){
   const count = $('#progressCount');
   const msg = $('#progressMessage');
   const found = $('#progressFound');
+  const cancelBtn = $('#cancelBtn');
 
   btn.disabled = true;
   $('.btn-text').classList.add('hidden');
   $('.btn-loading').classList.remove('hidden');
+  cancelBtn.disabled = false;
   progressPanel.classList.remove('hidden');
   resultsArea.innerHTML = '';
   bar.style.width = '0%';
   phase.textContent = 'Đang khởi tạo...';
+  startTimer();
+
+  let currentScanId = null;
+
+  // Cancel button handler
+  cancelBtn.onclick = async ()=>{
+    if(!currentScanId) return;
+    cancelBtn.disabled = true;
+    cancelBtn.textContent = '⏳ Đang huỷ...';
+    try{
+      await fetch('/cancel/' + currentScanId, {method:'POST'});
+      toast('🛑 Đã gửi yêu cầu huỷ');
+    }catch(err){ toast('Lỗi huỷ: ' + err.message); }
+  };
 
   const formData = new FormData(this);
   try{
     const resp = await fetch('/scan', {method:'POST', body:formData});
     const data = await resp.json();
-    if(data.error){ toast('❌ ' + data.error); resetBtn(); return; }
+    if(data.error){ toast('❌ ' + data.error); resetBtn(); stopTimer(); return; }
     const scanId = data.scan_id;
+    currentScanId = scanId;
 
     const evtSource = new EventSource('/progress/' + scanId);
     evtSource.onmessage = function(e){
       try{
         const d = JSON.parse(e.data);
-        if(d.phase) phase.textContent = d.phase;
-        if(d.total > 0){ bar.style.width = Math.round((d.current/d.total)*100)+'%'; count.textContent = d.current+'/'+d.total; }
-        else { count.textContent = ''; }
+        // Bỏ qua internal heartbeats
+        if(d.phase && INTERNAL_PHASES.has(d.phase)) return;
+
+        // Phase display — ưu tiên phase_display từ backend, fallback translation
+        if(d.phase || d.phase_display){
+          const display = d.phase_display || PHASE_FALLBACK[d.phase] || d.phase || '';
+          if(display) phase.textContent = display;
+        }
+
+        // Progress bar + count
+        if(d.total > 0){
+          const pct = Math.round((d.current/d.total)*100);
+          bar.style.width = pct + '%';
+          count.textContent = d.current + '/' + d.total + ' (' + pct + '%)';
+        } else {
+          count.textContent = '';
+        }
+
+        // Message
         if(d.message) msg.textContent = d.message;
+
+        // Found counter
         if(d.found !== undefined && d.found > 0){
           found.classList.remove('hidden');
           found.textContent = '🔍 Tìm thấy: ' + d.found;
         }
-        if(d.phase === 'completed' || d.phase === 'error'){
+
+        // Elapsed (từ backend, chính xác hơn timer local)
+        const elapsedBadge = $('#elapsedBadge');
+        const etaBadge = $('#etaBadge');
+        const rateBadge = $('#rateBadge');
+        if(d.elapsed !== undefined){
+          elapsedBadge.textContent = '⏱️ ' + fmtTime(d.elapsed);
+          // Hiện eta + rate nếu có
+          if(d.eta !== null && d.eta !== undefined && d.total > 0){
+            etaBadge.style.display = '';
+            etaBadge.textContent = '⌛ ETA ' + fmtTime(d.eta);
+          }
+          if(d.rate !== undefined && d.rate > 0){
+            rateBadge.style.display = '';
+            rateBadge.textContent = '⚡ ' + d.rate + ' req/s';
+          }
+        }
+
+        // Terminal phases
+        if(d.phase === 'completed' || d.phase === 'error' || d.phase === 'cancelled'){
           evtSource.close();
-          loadResult(scanId).then(loadHistory);
+          stopTimer();
+          cancelBtn.style.display = 'none';
+          if(d.phase === 'cancelled'){
+            // vẫn load result để xem partial
+            setTimeout(()=>loadResult(scanId).then(loadHistory), 200);
+          } else {
+            loadResult(scanId).then(loadHistory);
+          }
         }
       }catch(err){}
     };
     evtSource.onerror = function(){
       evtSource.close();
+      stopTimer();
       loadResult(scanId).then(loadHistory);
     };
   }catch(err){
     toast('❌ Lỗi mạng: ' + err.message);
     resetBtn();
+    stopTimer();
   }
 });
 
@@ -1208,6 +1484,9 @@ function resetBtn(){
   $('#scanBtn').disabled = false;
   $('.btn-text').classList.remove('hidden');
   $('.btn-loading').classList.add('hidden');
+  $('#cancelBtn').style.display = '';
+  $('#cancelBtn').disabled = false;
+  $('#cancelBtn').textContent = '🛑 Huỷ';
 }
 
 async function loadResult(scanId){
@@ -1235,6 +1514,8 @@ RESULT_HTML = r"""
   <h2 style="margin:0">📊 Kết quả cho {{ result.target }}</h2>
   <div>
     {% if result.duration_seconds %}<span class="badge badge-time">⏱️ {{ result.duration_seconds }}s</span>{% endif %}
+    {% if result.cancelled %}<span class="badge" style="background:rgba(255,107,107,.15);color:#ff6b6b">🛑 Đã huỷ</span>{% endif %}
+    {% if result.stats and result.stats.soft_404_filtered %}<span class="badge" style="background:rgba(160,160,176,.15);color:#a0a0b0">🎯 Soft-404 filter: {{ result.stats.soft_404_filtered }}</span>{% endif %}
     {% if result.waf.detected %}<span class="badge badge-waf">🛡️ WAF: {{ result.waf.detected|join(", ") }}</span>{% endif %}
     {% if result.cdn %}<span class="badge" style="background:rgba(254,202,87,.12);color:#feca57">☁️ CDN: {{ result.cdn|join(", ") }}</span>{% endif %}
     {% if result.ssl %}
@@ -1352,15 +1633,20 @@ RESULT_HTML = r"""
       <option value="high">🟠 High</option>
       <option value="medium">🟡 Medium</option>
       <option value="low">🟢 Low</option>
+      <option value="info">⚪ Info (soft-404)</option>
     </select>
+    <label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer">
+      <input type="checkbox" id="hideSoft404" checked> Ẩn soft-404
+    </label>
   </div>
   {% if result.leak %}
     {% for item in result.leak %}
     {% set sev_class = 'crit' if item.severity == 'critical' else ('high' if item.severity == 'high' else ('med' if item.severity == 'medium' else '')) %}
-    <div class="leak-item {{ sev_class }}" data-path="{{ item.path }}" data-sev="{{ item.severity }}">
+    <div class="leak-item {{ sev_class }} {% if item.soft_404 %}soft404{% endif %}" data-path="{{ item.path }}" data-sev="{{ item.severity }}" data-soft404="{{ 'true' if item.soft_404 else 'false' }}" {% if item.soft_404 %}style="opacity:.5"{% endif %}>
       <div class="leak-header">
         <span class="code-badge code-{{ item.code }}">{{ item.code }}</span>
         <span class="sev-badge sev-{{ item.severity }}">{{ item.severity }}</span>
+        {% if item.soft_404 %}<span class="sev-badge sev-info">SOFT-404</span>{% endif %}
         <span class="leak-path">{{ item.path }}</span>
         {% if item.size > 0 %}<span class="leak-size">{{ item.size }} bytes</span>{% endif %}
         {% if item.response_time_ms %}<span class="leak-rt">{{ item.response_time_ms }}ms</span>{% endif %}
@@ -1567,6 +1853,7 @@ def scan():
 
     with prog_lock:
         progress_queues[scan_id] = queue.Queue(maxsize=500)
+        scan_starts[scan_id] = time.time()
 
     push_history({
         "scan_id": scan_id,
@@ -1586,19 +1873,22 @@ def scan():
             asyncio.set_event_loop(loop)
             result = loop.run_until_complete(deep_scan(
                 target, custom_headers, proxy, timeout,
-                allow_redirects, progress_cb, scan_js
+                allow_redirects, progress_cb, scan_js, scan_id
             ))
             scan_results[scan_id] = result
             # update history
             with prog_lock:
                 for h in scan_history:
                     if h["scan_id"] == scan_id:
-                        h["status"] = "done"
-                        h["leak_count"] = len(result.get("leak", []))
+                        h["status"] = "cancelled" if result.get("cancelled") else "done"
+                        h["leak_count"] = result.get("stats", {}).get("real_leak_count", 0)
                         h["duration_seconds"] = result.get("duration_seconds", 0)
                         break
-            send_prog(scan_id, {"phase": "completed",
-                                "message": f"Done in {result['duration_seconds']}s · {len(result['leak'])} leaks"})
+            send_prog(scan_id, {
+                "phase": "cancelled" if result.get("cancelled") else "completed",
+                "phase_display": "🛑 Đã huỷ" if result.get("cancelled") else "✅ Hoàn thành",
+                "message": f"Done in {result['duration_seconds']}s · {result.get('stats',{}).get('real_leak_count',0)} real leaks (soft-404 filter: {result.get('soft_404_filtered',0)})",
+            })
         except Exception as e:
             scan_results[scan_id] = {
                 "target": target, "error": str(e),
@@ -1621,6 +1911,8 @@ def scan():
             time.sleep(120)
             with prog_lock:
                 progress_queues.pop(scan_id, None)
+                scan_cancels.discard(scan_id)
+                scan_starts.pop(scan_id, None)
             scan_results.pop(scan_id, None)
 
     threading.Thread(target=do_scan, daemon=True).start()
@@ -1668,6 +1960,18 @@ def history():
                   "status": h.get("status", "")} for h in scan_history]
     return jsonify({"history": items})
 
+@app.route("/cancel/<int:scan_id>", methods=["POST"])
+def cancel_scan(scan_id):
+    with prog_lock:
+        scan_cancels.add(scan_id)
+    # Push ngay 1 event để UI thấy ngay
+    send_prog(scan_id, {
+        "phase": "cancelling",
+        "phase_display": "🛑 Đang huỷ...",
+        "message": "Đã nhận yêu cầu huỷ, sẽ dừng ở phase tiếp theo",
+    })
+    return jsonify({"ok": True, "scan_id": scan_id, "status": "cancelling"})
+
 @app.route("/download_json", methods=["POST"])
 def download_json():
     d = request.form.get("json_data")
@@ -1676,11 +1980,11 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v5.0"
+    data["scanner"] = "Web Leak Scanner Pro v6.0"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
-                    headers={"Content-Disposition": "attachment; filename=scan_result_v5.json"})
+                    headers={"Content-Disposition": "attachment; filename=scan_result_v6.json"})
 
 @app.route("/download_csv", methods=["POST"])
 def download_csv():
@@ -1728,7 +2032,7 @@ def download_csv():
         w.writerow(["form", f.get("type"), f"{f.get('method')} {f.get('action')} (inputs: {f.get('input_count')})"])
     payload = out.getvalue().encode("utf-8")
     return Response(payload, mimetype="text/csv",
-                    headers={"Content-Disposition": "attachment; filename=scan_result_v5.csv"})
+                    headers={"Content-Disposition": "attachment; filename=scan_result_v6.csv"})
 
 @app.route("/download_html", methods=["POST"])
 def download_html():
@@ -1752,22 +2056,24 @@ h2{{background:linear-gradient(90deg,#00d4aa,#54a0affff);-webkit-background-clip
 code,pre{{font-family:monospace;background:#0a0a12;padding:8px;border-radius:6px;display:block;white-space:pre-wrap;word-break:break-all}}
 </style>
 </head><body>
-<h1>🔒 Web Leak Scanner Pro v5.0 — Standalone Report</h1>
+<h1>🔒 Web Leak Scanner Pro v6.0 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
 {html}
 </body></html>"""
     return Response(full.encode("utf-8"), mimetype="text/html",
-                    headers={"Content-Disposition": "attachment; filename=scan_report_v5.html"})
+                    headers={"Content-Disposition": "attachment; filename=scan_report_v6.html"})
 
 # ── Main ──
 if __name__ == "__main__":
     print("=" * 60)
-    print(f"🔒 Web Leak Scanner Pro v5.0 – Web Edition")
+    print(f"🔒 Web Leak Scanner Pro v6.0 – Web Edition")
     print(f"   URL: http://{HOST}:{PORT}")
     print(f"   Mở trình duyệt vào địa chỉ trên (Ctrl+C để dừng)")
-    print(f"   New: Security Headers · Cookies · SSL · JS secrets")
-    print(f"   New: Forms · CDN · Severity scoring · Tabs UI · CSV/HTML export")
+    print(f"   v5.0: Security Headers · Cookies · SSL · JS secrets")
+    print(f"   v5.0: Forms · CDN · Severity scoring · Tabs UI · CSV/HTML export")
+    print(f"   v6.0: Elapsed timer · ETA · Cancel · Soft-404 filter")
+    print(f"   v6.0: Phase human-readable · Concurrency boost · Brute timeout")
     print("=" * 60)
     app.run(host=HOST, port=PORT, debug=False, threaded=True)
