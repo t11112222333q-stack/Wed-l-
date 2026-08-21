@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v10.8 — Deep Recon Edition
+Web Leak Scanner Pro v11.0 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v10.8 (so với v6.0):
+Changelog v11.0 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -198,7 +198,7 @@ LEAK_PATHS = [
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
 
-    # ── v10.8 additions: K8s / container / monitoring ──
+    # ── v11.0 additions: K8s / container / monitoring ──
     "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
     "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
     "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
@@ -217,7 +217,7 @@ LEAK_PATHS = [
     "/.well-known/revocation",
     "/.well-known/introspection",
 
-    # ── v10.8: Source maps & debug bundles ──
+    # ── v11.0: Source maps & debug bundles ──
     "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
     "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
     "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
@@ -226,7 +226,7 @@ LEAK_PATHS = [
     "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
     "/dist/build.js.map", "/dist/main.js.map",
 
-    # ── v10.8: GraphQL / WebSocket / API ──
+    # ── v11.0: GraphQL / WebSocket / API ──
     "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
     "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
@@ -241,7 +241,7 @@ LEAK_PATHS = [
     "/rest/users", "/rest/admin", "/rest/config",
     "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
 
-    # ── v10.8: Spring Boot Actuator deep ──
+    # ── v11.0: Spring Boot Actuator deep ──
     "/actuator/", "/actuator/info", "/actuator/health",
     "/actuator/env", "/actuator/configprops", "/actuator/beans",
     "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
@@ -252,21 +252,21 @@ LEAK_PATHS = [
     "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
     "/actuator/bus-refresh", "/actuator/gateway/routes",
 
-    # ── v10.8: Java / JVM specific ──
+    # ── v11.0: Java / JVM specific ──
     "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
     "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
     "/META-INF/maven/", "/META-INF/spring.factories",
     "/struts/web.xml", "/struts.xml", "/struts-config.xml",
     "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
 
-    # ── v10.8: .NET / IIS specific ──
+    # ── v11.0: .NET / IIS specific ──
     "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
     "/web.config.bak", "/web.config.old", "/web.config.txt",
     "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
     "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
     "/Reserved.ReportViewerWebControl.axd", "/Reports/",
 
-    # ── v10.8: PHP / Laravel specific ──
+    # ── v11.0: PHP / Laravel specific ──
     "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
     "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
     "/storage/framework/cache/", "/storage/framework/sessions/",
@@ -274,7 +274,7 @@ LEAK_PATHS = [
     "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
     "/artisan", "/server.php", "/package.json",
 
-    # ── v10.8: Ruby / Rails specific ──
+    # ── v11.0: Ruby / Rails specific ──
     "/config/database.yml", "/config/secrets.yml", "/config/master.key",
     "/config/credentials.yml.enc", "/config/credentials.yml",
     "/config/initializers/", "/config/environments/",
@@ -282,13 +282,13 @@ LEAK_PATHS = [
     "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
     "/log/production.log", "/log/development.log",
 
-    # ── v10.8: Python / Django specific ──
+    # ── v11.0: Python / Django specific ──
     "/settings.py", "/local_settings.py", "/config/settings.py",
     "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
     "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
     "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
 
-    # ── v10.8: WordPress deep ──
+    # ── v11.0: WordPress deep ──
     "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
     "/wp-content/backup-db/", "/wp-content/updraft/",
     "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
@@ -303,7 +303,7 @@ LEAK_PATHS = [
     "/wp-admin/install.php", "/wp-admin/setup-config.php",
     "/wp-content/uploads/index.php", "/wp-includes/version.php",
 
-    # ── v10.8: CMS-specific deep ──
+    # ── v11.0: CMS-specific deep ──
     "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
     "/sites/default/settings.php", "/sites/default/files/",
     "/sites/default/private/", "/sites/default/config/",
@@ -315,7 +315,7 @@ LEAK_PATHS = [
     "/administrator/components/com_config/", "/administrator/cache/",
     "/installation/index.php", "/installation/configuration.php",
 
-    # ── v10.8: Node.js / npm specific ──
+    # ── v11.0: Node.js / npm specific ──
     "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
     "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
     "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
@@ -323,7 +323,7 @@ LEAK_PATHS = [
     "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
     "/.netlify/", "/.cache/", "/.turbo/",
 
-    # ── v10.8: Cloud / DevOps deep ──
+    # ── v11.0: Cloud / DevOps deep ──
     "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
     "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
     "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
@@ -336,14 +336,14 @@ LEAK_PATHS = [
     "/google-services.json", "/GoogleService-Info.plist",
     "/firebase.json", "/firebase-config.json", "/.firebaserc",
 
-    # ── v10.8: CI/CD configs ──
+    # ── v11.0: CI/CD configs ──
     "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
     "/.github/workflows/", "/.github/workflows/ci.yml",
     "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
     "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
     "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
 
-    # ── v10.8: API documentation ──
+    # ── v11.0: API documentation ──
     "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
     "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
     "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
@@ -351,14 +351,14 @@ LEAK_PATHS = [
     "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
     "/api/swagger", "/api/rapidoc", "/api/redoc",
 
-    # ── v10.8: WebSocket / SSE endpoints ──
+    # ── v11.0: WebSocket / SSE endpoints ──
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
     "/signalr", "/signalr/negotiate", "/signalr/hubs",
     "/hub", "/realtime", "/events", "/sse", "/stream",
     "/api/ws", "/api/websocket", "/api/realtime",
     "/_ws", "/_websocket", "/_realtime",
 
-    # ── v10.8: Common config backups / temporaries ──
+    # ── v11.0: Common config backups / temporaries ──
     "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
     "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
     "/config.json.bak", "/config.json.old", "/config.json.orig",
@@ -369,7 +369,7 @@ LEAK_PATHS = [
     "/.env.production.local", "/.env.development.local",
     "/.env.staging.local", "/.env.test.local",
 
-    # ── v10.8: CVE / known vuln paths ──
+    # ── v11.0: CVE / known vuln paths ──
     "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
     "/test.jsp", "/test.html",
     "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
@@ -382,7 +382,7 @@ LEAK_PATHS = [
     "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
     "/redis/", "/memcached/", "/var/log/redis/redis.log",
 
-    # ── v10.8: Misc / random secrets ──
+    # ── v11.0: Misc / random secrets ──
     "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
     "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
     "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
@@ -391,13 +391,13 @@ LEAK_PATHS = [
     "/.prettierrc", "/.eslintrc", "/.babelrc",
     "/.docker/registry", "/registry/", "/docker/registry",
 
-    # ── v10.8: Source code & build artifacts ──
+    # ── v11.0: Source code & build artifacts ──
     "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
     "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
     "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
     "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
 
-    # ── v10.8: Logs & debug ──
+    # ── v11.0: Logs & debug ──
     "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
     "/laravel.log", "/storage/logs/laravel.log",
     "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
@@ -408,7 +408,7 @@ LEAK_PATHS = [
     "/_internal/", "/_hidden/", "/_private/", "/_secret/",
     "/server-status", "/server-info", "/status?full", "/status?auto",
 
-    # ── v10.8: Backup & database dumps ──
+    # ── v11.0: Backup & database dumps ──
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
     "/backup.bak", "/backup.dump", "/backup.json",
     "/backup-2024.zip", "/backup-2025.zip",
@@ -421,7 +421,7 @@ LEAK_PATHS = [
     "/mysql.sql", "/postgres.sql", "/pgdump.sql",
     "/mongodump.json", "/mongodump.bson",
 
-    # ── v10.8: Admin / management panels ──
+    # ── v11.0: Admin / management panels ──
     "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
     "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
     "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
@@ -432,7 +432,7 @@ LEAK_PATHS = [
     "/manager/html", "/manager/status", "/manager/jmxproxy",
     "/host-manager/html", "/host-manager/status",
 
-    # ── v10.8: User-uploaded content ──
+    # ── v11.0: User-uploaded content ──
     "/uploads/", "/uploads/files/", "/uploads/images/",
     "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
     "/media/", "/assets/", "/static/", "/public/",
@@ -794,7 +794,7 @@ CORS_TEST_ORIGINS = [
 # HTTP methods to fuzz (test OPTIONS to discover allowed methods)
 HTTP_METHODS_TO_FUZZ = ["OPTIONS", "PUT", "DELETE", "PATCH", "PROPFIND", "TRACE"]
 
-# v10.8 WAF bypass modes
+# v11.0 WAF bypass modes
 WAF_BYPASS_MODES = ["auto", "stealth", "aggressive", "turbo"]
 WAF_BYPASS_PROFILES = {
     "auto":      {"concurrency": 30, "delay_min": 0,    "delay_max": 0.3,  "rotate_ua": True,  "rotate_xff": False, "retry": 2},
@@ -927,7 +927,7 @@ DEFAULT_CREDS = [
     ("demo", "demo"),
 ]
 
-# v10.8: EXPANDED leak paths — admin panels, framework configs, API, cloud, database, CI/CD
+# v11.0: EXPANDED leak paths — admin panels, framework configs, API, cloud, database, CI/CD
 LEAK_PATHS_V2 = [
     # ── Admin panels (expanded) ──
     "/admin/", "/admin/login", "/admin/index.php", "/admin/index.html",
@@ -1193,7 +1193,7 @@ LEAK_PATHS_V2 = [
     "/s3/", "/s3-bucket/", "/s3-buckets/",
 ]
 
-# v10.8: EXPANDED secret patterns
+# v11.0: EXPANDED secret patterns
 SECRET_PATTERNS_V2 = [
     # Cloud providers
     ("AWS Access Key ID", r'AKIA[0-9A-Z]{16}', "critical", "AWS Access Key"),
@@ -1268,7 +1268,7 @@ SECRET_PATTERNS_V2 = [
     ("US Phone", r'\+1\s?\(?[2-9]\d{2}\)?[\s.-]?[2-9]\d{2}[\s.-]?\d{4}', "info", "US phone"),
 ]
 
-# v10.8: EXPANDED brute-force wordlist
+# v11.0: EXPANDED brute-force wordlist
 BRUTE_NAMES_V2 = [
     # Basic
     "index", "default", "main", "home", "start", "page", "view", "app",
@@ -1334,7 +1334,7 @@ BRUTE_NAMES_V2 = [
     "webconfig", "configuration", "settings.php", "config.php",
 ]
 
-# v10.8: EXPANDED brute extensions
+# v11.0: EXPANDED brute extensions
 BRUTE_EXTS_V2 = [".php", ".html", ".htm", ".txt", ".json", ".xml", ".yaml", ".yml",
                  ".ini", ".toml", ".bak", ".old", ".orig", ".save", ".swp", "~",
                  ".zip", ".tar.gz", ".tar", ".gz", ".sql", ".db", ".sqlite",
@@ -1461,7 +1461,7 @@ def get_activity(scan_id, since=0):
 
 async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2, bypass_mode="auto"):
     """Fetch với auto-retry khi gặp 429/timeout, xoay User-Agent mỗi retry.
-    v10.8: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
+    v11.0: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
     if not HAS_AIOHTTP:
         return "", 0, {}, 0
     last_err = None
@@ -2264,7 +2264,7 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-# ── v10.8 helper functions: deep recon capabilities ──
+# ── v11.0 helper functions: deep recon capabilities ──
 
 def extract_js_endpoints(js_text, base_url):
     """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
@@ -2635,7 +2635,7 @@ async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
     except Exception:
         return []
 
-# ── v10.8 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
+# ── v11.0 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
 
 async def fetch_ct_logs(session, domain, log_fn=None):
     """Query crt.sh Certificate Transparency logs để lấy tất cả subdomains đã từng được cert.
@@ -2813,11 +2813,11 @@ async def deep_crawl(session, base, main_text, custom_headers, proxy, timeout, s
     return depth_0_results, all_secrets
 
 def extract_js_strings(js_text, min_length=15, max_strings=30):
-    """Extract string literals from JS source code. v10.8: optimized for speed —
+    """Extract string literals from JS source code. v11.0: optimized for speed —
     limit input size, use simpler regex, cap output."""
     if not js_text:
         return []
-    # v10.8: Truncate input to 100KB max to prevent regex hangs on large JS files
+    # v11.0: Truncate input to 100KB max to prevent regex hangs on large JS files
     if len(js_text) > 100000:
         js_text = js_text[:100000]
     strings = set()
@@ -3012,6 +3012,123 @@ async def test_http_methods(session, url, custom_headers, proxy, timeout):
             findings.append(r)
     return findings
 
+def iter_tree(node):
+    """Recursively yield all file-type nodes in a tree (DFS)."""
+    if not isinstance(node, dict):
+        return
+    if node.get("type") == "file":
+        yield node
+    for child in node.get("children", []) or []:
+        yield from iter_tree(child)
+
+
+def _norm_path(p):
+    """Normalize a path/URL string into a list of path segments."""
+    if not p:
+        return []
+    s = str(p).strip()
+    if "://" in s:
+        try:
+            from urllib.parse import urlsplit
+            parts = urlsplit(s)
+            s = parts.path or ""
+        except Exception:
+            # strip protocol crudely
+            s = s.split("://", 1)[1]
+            if "/" in s:
+                s = "/" + s.split("/", 1)[1]
+            else:
+                s = "/"
+    s = s.lstrip("/").rstrip("/")
+    if not s:
+        return []
+    return [seg for seg in s.split("/") if seg]
+
+
+def _extract_finding(item):
+    """Extract (path, status, size, severity, url) from a finding dict/str."""
+    if isinstance(item, str):
+        return item, None, None, None, item
+    if not isinstance(item, dict):
+        return None, None, None, None, None
+    url = item.get("url") or ""
+    path = (item.get("path") or item.get("file") or item.get("name")
+            or item.get("endpoint") or "")
+    if not path:
+        path = url
+    status = (item.get("status") or item.get("status_code")
+              or item.get("code") or item.get("http_status"))
+    size = (item.get("size") or item.get("length") or item.get("content_length")
+            or item.get("bytes") or item.get("size_bytes"))
+    severity = item.get("severity") or item.get("level") or item.get("risk")
+    return path, status, size, severity, url
+
+
+def build_file_tree(leak_items, dirs, brute_findings, js_links, source_maps, api_endpoints):
+    """Build hierarchical file tree từ tất cả discovered paths.
+    Trả về dict structure: {name, type, children, status, size, url}
+    """
+    root = {"name": "/", "type": "dir", "children": {}}
+
+    def insert(segments, meta):
+        if not segments:
+            return
+        node = root["children"]
+        for i, seg in enumerate(segments):
+            is_leaf = (i == len(segments) - 1)
+            if seg not in node:
+                node[seg] = {"name": seg, "type": "dir", "children": {}}
+            entry = node[seg]
+            if is_leaf:
+                # If never seen as a parent, treat as a file
+                if not entry["children"]:
+                    entry["type"] = "file"
+                if meta.get("status") is not None:
+                    entry["status"] = meta["status"]
+                if meta.get("size") is not None:
+                    entry["size"] = meta["size"]
+                if meta.get("severity") is not None:
+                    entry["severity"] = meta["severity"]
+                if meta.get("url"):
+                    entry["url"] = meta["url"]
+                entry.setdefault("sources", []).append(meta.get("source", "unknown"))
+            else:
+                entry["type"] = "dir"
+                node = entry["children"]
+
+    sources = [
+        ("leak", leak_items),
+        ("brute", brute_findings),
+        ("dir", dirs),
+        ("js", js_links),
+        ("sourcemap", source_maps),
+        ("api", api_endpoints),
+    ]
+    for src_name, items in sources:
+        if not items:
+            continue
+        for item in items:
+            path, status, size, severity, url = _extract_finding(item)
+            segs = _norm_path(path)
+            if not segs:
+                continue
+            insert(segs, {
+                "status": status, "size": size, "severity": severity,
+                "url": url, "source": src_name,
+            })
+
+    def finalize(node):
+        children = node.get("children")
+        if isinstance(children, dict):
+            lst = [finalize(c) for c in children.values()]
+            lst.sort(key=lambda n: (n.get("type") != "dir", n.get("name", "")))
+            node["children"] = lst
+        return node
+
+    finalize(root)
+    return root
+
+
 async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     allow_redirects=False, progress_cb=None, scan_js=True,
                     scan_id=None, bypass_mode="auto"):
@@ -3019,7 +3136,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v10.8",
+        "scanner_version": "v11.0",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
@@ -3029,11 +3146,11 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "takeover_findings": [], "source_maps": [], "graphql_findings": [],
         "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
         "http_method_findings": [], "recursive_brute_findings": [],
-        # v10.8 additions
+        # v11.0 additions
         "ct_subdomains": [], "dns_records": {}, "git_findings": [],
         "crawled_pages": [], "js_strings": [],
         "static_platforms": [], "frameworks_detected": [],
-        # v10.8 additions
+        # v11.0 additions
         "ssti_findings": [], "proto_pollution_findings": [],
         "header_injection_findings": [], "cache_poison_findings": [],
         "default_creds_findings": [],
@@ -3070,7 +3187,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 "rate": round(current / elapsed, 1) if elapsed > 0 else 0,
             })
 
-    # v10.8: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
+    # v11.0: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
     # để UI không bị kẹt "Đang khởi tạo..." khi phase chạy lâu không gửi event
     last_phase = {"phase": "main_page", "msg": "Đang khởi tạo...", "current": 0, "total": 0, "found": 0}
     async def _store_phase(phase, msg, current=0, total=0, found=0):
@@ -3304,7 +3421,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
-            # 3a.5. Static-site specific paths (v10.8)
+            # 3a.5. Static-site specific paths (v11.0)
             # Nếu detect Netlify/Vercel/CF Pages/GH Pages → scan thêm STATIC_SITE_PATHS
             # Nếu detect framework → scan thêm FRAMEWORK_EXTRA_PATHS
             extra_paths = set()
@@ -3583,7 +3700,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
 
-            # 12. Subdomain takeover check (v10.8)
+            # 12. Subdomain takeover check (v11.0)
             if not cancelled() and result["subdomains_resolved"]:
                 await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
                 log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
@@ -3598,7 +3715,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Takeover check failed: {e}")
 
-            # 13. GraphQL introspection (v10.8)
+            # 13. GraphQL introspection (v11.0)
             if not cancelled():
                 await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
                 log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
@@ -3611,7 +3728,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"GraphQL check failed: {e}")
 
-            # 14. CORS misconfiguration (v10.8)
+            # 14. CORS misconfiguration (v11.0)
             if not cancelled():
                 await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
                 log(f"CORS: testing 3 origins × 5 endpoints")
@@ -3624,7 +3741,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CORS check failed: {e}")
 
-            # 15. Open redirect test (v10.8)
+            # 15. Open redirect test (v11.0)
             if not cancelled():
                 await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
                 log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
@@ -3637,7 +3754,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Open redirect check failed: {e}")
 
-            # 16. Source map exposure (v10.8)
+            # 16. Source map exposure (v11.0)
             if not cancelled() and result["js_links"]:
                 await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
                 log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
@@ -3650,7 +3767,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Source map check failed: {e}")
 
-            # 17. JS endpoint extraction + API fuzzing (v10.8)
+            # 17. JS endpoint extraction + API fuzzing (v11.0)
             if not cancelled() and scan_js and result["js_links"]:
                 await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
                 log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
@@ -3712,7 +3829,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"JS endpoint extraction failed: {e}")
 
-            # 18. Swagger/OpenAPI parsing (v10.8)
+            # 18. Swagger/OpenAPI parsing (v11.0)
             if not cancelled():
                 await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
                 log(f"Swagger: testing 6 spec paths")
@@ -3732,7 +3849,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Swagger parsing failed: {e}")
 
-            # 19. Recursive depth-2 brute-force (v10.8)
+            # 19. Recursive depth-2 brute-force (v11.0)
             if not cancelled():
                 found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
                 found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
@@ -3756,7 +3873,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 else:
                     log(f"Recursive brute skipped: no directories found")
 
-            # 20. HTTP method fuzzing (v10.8)
+            # 20. HTTP method fuzzing (v11.0)
             if not cancelled():
                 test_urls = [target]
                 test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
@@ -3776,7 +3893,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"HTTP method fuzz failed: {e}")
 
-            # 21. Wayback Machine integration (v10.8)
+            # 21. Wayback Machine integration (v11.0)
             if not cancelled():
                 await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
                 log(f"Wayback: querying web.archive.org")
@@ -3787,7 +3904,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Wayback lookup failed: {e}")
 
-            # 22. Certificate Transparency logs (v10.8) — crt.sh subdomain enum
+            # 22. Certificate Transparency logs (v11.0) — crt.sh subdomain enum
             if not cancelled():
                 await prog("ct_logs", "Certificate Transparency logs (crt.sh)...", 0, 1, 0)
                 log(f"CT: querying crt.sh for *.{host}")
@@ -3815,7 +3932,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CT logs failed: {e}")
 
-            # 23. DNS records lookup (v10.8)
+            # 23. DNS records lookup (v11.0)
             if not cancelled() and host:
                 await prog("dns_records", "DNS records lookup (A/AAAA/MX/TXT/CNAME)...", 0, 1, 0)
                 log(f"DNS: looking up records for {host}")
@@ -3827,7 +3944,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"DNS lookup failed: {e}")
 
-            # 24. .git directory exposure check (v10.8)
+            # 24. .git directory exposure check (v11.0)
             if not cancelled():
                 await prog("git_exposure", "Check .git directory exposure (HEAD, config, index)...", 0, 1, 0)
                 log(f"Git: checking .git directory exposure")
@@ -3848,7 +3965,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Git exposure check failed: {e}")
 
-            # 25. Deep crawl (v10.8) — crawl links depth-2, extract secrets from all pages
+            # 25. Deep crawl (v11.0) — crawl links depth-2, extract secrets from all pages
             if not cancelled() and main_text and len(main_text) > 100:
                 await prog("deep_crawl", "Deep crawl internal links (depth-2)...", 0, 1, 0)
                 log(f"Deep crawl: collecting internal links depth-2")
@@ -3869,7 +3986,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Deep crawl failed: {e}")
 
-            # 26. JS source string extraction (v10.8)
+            # 26. JS source string extraction (v11.0)
             if not cancelled() and scan_js and result.get("js_links"):
                 target_netloc = parsed.netloc.lower()
                 same_origin_js = [u for u in result["js_links"]
@@ -3900,7 +4017,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     except Exception as e:
                         log(f"JS string extraction failed: {e}")
 
-            # 27. SSTI detection (v10.8)
+            # 27. SSTI detection (v11.0)
             if not cancelled():
                 await prog("ssti", "Server-Side Template Injection test...", 0, 1, 0)
                 log(f"SSTI: testing 8 endpoints × {len(SSTI_PAYLOADS)} payloads × 7 params")
@@ -3911,7 +4028,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"SSTI check failed: {e}")
 
-            # 28. Prototype Pollution (v10.8)
+            # 28. Prototype Pollution (v11.0)
             if not cancelled():
                 await prog("proto_pollution", f"Prototype Pollution test ({len(PROTO_POLLUTION_PAYLOADS)} payloads)...", 0, len(PROTO_POLLUTION_PAYLOADS), 0)
                 log(f"Proto pollution: testing {len(PROTO_POLLUTION_PAYLOADS)} payloads")
@@ -3922,7 +4039,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Proto pollution check failed: {e}")
 
-            # 29. HTTP Header Injection (v10.8) — bypass access control
+            # 29. HTTP Header Injection (v11.0) — bypass access control
             if not cancelled():
                 await prog("header_injection", f"HTTP header injection ({len(HEADER_INJECTION_PAYLOADS)} payloads)...", 0, len(HEADER_INJECTION_PAYLOADS), 0)
                 log(f"Header injection: testing {len(HEADER_INJECTION_PAYLOADS)} headers (X-Forwarded-*, X-Original-URL, etc.)")
@@ -3933,7 +4050,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Header injection check failed: {e}")
 
-            # 30. Cache Poisoning (v10.8)
+            # 30. Cache Poisoning (v11.0)
             if not cancelled():
                 await prog("cache_poison", f"Cache poisoning test ({len(CACHE_POISON_PAYLOADS)} payloads)...", 0, len(CACHE_POISON_PAYLOADS), 0)
                 log(f"Cache poisoning: testing {len(CACHE_POISON_PAYLOADS)} headers")
@@ -3944,7 +4061,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Cache poisoning check failed: {e}")
 
-            # 31. Default Credentials test (v10.8)
+            # 31. Default Credentials test (v11.0)
             if not cancelled() and result.get("forms"):
                 login_count = sum(1 for f in result["forms"] if f.get("type") == "login")
                 if login_count > 0:
@@ -4001,7 +4118,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
-        # v10.8 additions
+        # v11.0 additions
         "takeover_findings": len(result.get("takeover_findings", [])),
         "graphql_findings": len(result.get("graphql_findings", [])),
         "cors_findings": len(result.get("cors_findings", [])),
@@ -4013,13 +4130,13 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "wayback_urls": len(result.get("wayback_urls", [])),
         "http_method_findings": len(result.get("http_method_findings", [])),
         "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
-        # v10.8 additions
+        # v11.0 additions
         "ct_subdomains": len(result.get("ct_subdomains", [])),
         "dns_records": len(result.get("dns_records", {})),
         "git_findings": len(result.get("git_findings", [])),
         "crawled_pages": len(result.get("crawled_pages", [])),
         "js_strings": len(result.get("js_strings", [])),
-        # v10.8 additions
+        # v11.0 additions
         "ssti_findings": len(result.get("ssti_findings", [])),
         "proto_pollution_findings": len(result.get("proto_pollution_findings", [])),
         "header_injection_findings": len(result.get("header_injection_findings", [])),
@@ -4080,7 +4197,7 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
-    # v10.8 phases
+    # v11.0 phases
     "takeover": "💀 Subdomain takeover check",
     "graphql": "⚡ GraphQL introspection",
     "cors": "🌐 CORS misconfiguration",
@@ -4092,13 +4209,13 @@ PHASE_NAMES = {
     "recursive_brute": "🔁 Recursive depth-2 brute",
     "http_methods": "🔧 HTTP method fuzzing",
     "wayback": "🕰️ Wayback Machine lookup",
-    # v10.8 phases
+    # v11.0 phases
     "ct_logs": "📜 Certificate Transparency (crt.sh)",
     "dns_records": "🌐 DNS records lookup",
     "git_exposure": "📂 .git directory exposure",
     "deep_crawl": "🕷️ Deep crawl (depth-2)",
     "js_strings": "📜 JS source string extraction",
-    # v10.8 phases
+    # v11.0 phases
     "ssti": "🧪 SSTI (template injection)",
     "proto_pollution": "💀 Prototype Pollution",
     "header_injection": "🛡️ HTTP Header Injection (bypass)",
@@ -4116,7 +4233,7 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── v10.8 Risk Score Calculator ──
+# ── v11.0 Risk Score Calculator ──
 def calculate_risk_score(stats):
     """Calculate overall risk score (0-100) and letter grade from scan stats.
     Lower score = safer. Higher score = more vulnerable."""
@@ -4180,16 +4297,16 @@ def calculate_risk_score(stats):
         "counts": {"critical": critical, "high": high, "medium": medium, "low": low, "info": info},
     }
 
-# ── HTML Template (PAGE) – v10.8 Deep Recon Edition ──
+# ── HTML Template (PAGE) – v11.0 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v10.8 — Recon Beast</title>
+<title>Web Leak Scanner Pro v11.0 — Recon Beast</title>
 <style>
-/* ─────────  v10.8 Theme variables  ───────── */
+/* ─────────  v11.0 Theme variables  ───────── */
 :root{
   --bg:#050509; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
   --border:rgba(0,212,170,.18); --border-hi:rgba(0,212,170,.45);
@@ -4324,7 +4441,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .theme-toggle:hover{transform:translateY(-1px) rotate(8deg);border-color:var(--accent);
   box-shadow:0 4px 12px rgba(0,212,170,.25)}
 
-/* ─────────  Container / Cards — v10.8 with 3D holographic effects  ───────── */
+/* ─────────  Container / Cards — v11.0 with 3D holographic effects  ───────── */
 .container{max-width:1200px;margin:0 auto;padding:20px;perspective:1500px}
 .card{
   background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
@@ -4412,7 +4529,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,212,170,.5)}
 .btn-primary:hover::after{transform:translateX(100%)}
 .btn-primary:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
-/* v10.8: Ensure disabled buttons still respond to clicks for re-enable */
+/* v11.0: Ensure disabled buttons still respond to clicks for re-enable */
 .btn:disabled{pointer-events:auto}
 .btn-ghost:disabled, .btn-secondary:disabled{opacity:.7;cursor:not-allowed}
 /* Force enable after reset */
@@ -4693,7 +4810,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   border-radius:8px;height:14px;margin:8px 0}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
-/* ───────── v10.8 Guide Modal + i18n + Templates  ───────── */
+/* ───────── v11.0 Guide Modal + i18n + Templates  ───────── */
 .modal-overlay{
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
@@ -4795,7 +4912,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .template-btn[data-tpl="static"]{border-color:rgba(254,202,87,.4)}
 .template-btn[data-tpl="static"]:hover{background:var(--warn);color:#0a0a12}
 
-/* ═════════ v10.8 Enterprise: Risk Score + Charts + Command Palette ═════════ */
+/* ═════════ v11.0 Enterprise: Risk Score + Charts + Command Palette ═════════ */
 
 /* Risk Score Dashboard */
 .risk-dashboard{
@@ -5042,6 +5159,28 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   background-size:200% 100%; animation:shimmer 1.5s ease-in-out infinite;
 }
 
+/* v11: File Tree */
+.file-tree-container{max-height:600px;overflow-y:auto;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:ui-monospace,'JetBrains Mono',monospace;font-size:13px}
+.tree-node{padding:3px 0;cursor:pointer;transition:background .15s;border-radius:4px;padding-left:4px}
+.tree-node:hover{background:rgba(0,212,170,.08)}
+.tree-node .tree-icon{display:inline-block;width:20px;text-align:center;margin-right:4px}
+.tree-node .tree-name{color:var(--text);font-weight:600}
+.tree-node .tree-meta{font-size:11px;color:var(--dim);margin-left:8px}
+.tree-node .tree-sev-critical{color:var(--danger)}
+.tree-node .tree-sev-high{color:var(--warn)}
+.tree-node .tree-sev-medium{color:#ff9f43}
+.tree-node .tree-sev-low{color:var(--accent)}
+.tree-children{margin-left:24px;border-left:1px dashed var(--border);padding-left:4px}
+.tree-toggle{display:inline-block;width:16px;cursor:pointer;color:var(--dim);user-select:none}
+.tree-toggle:hover{color:var(--accent)}
+
+/* v11: Source Code Viewer */
+.source-code-container{max-height:600px;overflow:auto;background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.5;white-space:pre;tab-size:2}
+.source-file-list{margin-bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+.source-file-btn{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;background:var(--bg3);border:1px solid var(--border);color:var(--muted);transition:all .2s;font-family:monospace}
+.source-file-btn:hover{background:var(--accent);color:#0a0a12;border-color:var(--accent)}
+.source-file-btn.active{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+
 /* Empty state with personality */
 .empty-state-fancy{
   text-align:center; padding:48px 20px;
@@ -5060,7 +5199,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 </style>
 </head>
 <body>
-<!-- v10.8: Noscript warning -->
+<!-- v11.0: Noscript warning -->
 <noscript>
   <div style="position:fixed;inset:0;z-index:9999;background:#0f0f1a;color:#e8eef5;display:flex;align-items:center;justify-content:center;font-family:sans-serif;text-align:center;padding:20px">
     <div>
@@ -5069,7 +5208,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     </div>
   </div>
 </noscript>
-<!-- v10.8: Inline safety script — chạy trước tất cả JS khác -->
+<!-- v11.0: Inline safety script — chạy trước tất cả JS khác -->
 <script>
 (function() {
   // Nếu page detect body chỉ chứa JSON (raw response), tự redirect về /
@@ -5091,7 +5230,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v10.8</span></span>
+    <span>Web Leak Scanner <span class="version">v11.0</span></span>
   </div>
   <div class="nav-right">
     <div class="lang-switcher">
@@ -5108,7 +5247,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1 data-i18n="hero_title">🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v10.8 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
+  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v11.0 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
 
   <!-- Quick Templates -->
   <div class="templates-bar">
@@ -5207,7 +5346,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v10.8 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v11.0 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
 
 <!-- Guide Modal -->
 <div class="modal-overlay" id="guideModal">
@@ -5291,12 +5430,12 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     <p data-i18n="guide_legal">Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.</p>
 
     <p style="text-align:center;margin-top:20px;color:var(--dim);font-size:12px">
-      <span data-i18n="guide_footer">v10.8 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
+      <span data-i18n="guide_footer">v11.0 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
     </p>
   </div>
 </div>
 
-<!-- v10.8 Command Palette -->
+<!-- v11.0 Command Palette -->
 <div class="cmd-palette-overlay" id="cmdPalette">
   <div class="cmd-palette">
     <div class="cmd-input-wrap">
@@ -5313,7 +5452,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   </div>
 </div>
 
-<!-- v10.8 Mobile Bottom Nav -->
+<!-- v11.0 Mobile Bottom Nav -->
 <nav class="mobile-nav">
   <a class="mobile-nav-item active" onclick="scrollToTop()">
     <span class="icon">🏠</span><span>Home</span>
@@ -5334,7 +5473,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="toast" class="toast"></div>
 
 <script>
-// ───────── v10.8 Particle background canvas ─────────
+// ───────── v11.0 Particle background canvas ─────────
 const particleCanvas = document.getElementById('particleCanvas');
 const pctx = particleCanvas.getContext('2d');
 let particles = [];
@@ -5433,7 +5572,7 @@ function animateParticles(){
 }
 animateParticles();
 
-// ───────── v10.8 Confetti effect for critical findings ─────────
+// ───────── v11.0 Confetti effect for critical findings ─────────
 const confettiCanvas = document.getElementById('confettiCanvas');
 const cctx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
@@ -5506,7 +5645,7 @@ function checkAndFireConfetti(){
 </script>
 
 <script>
-// ═════════ v10.8 BULLETPROOF INIT ═════════
+// ═════════ v11.0 BULLETPROOF INIT ═════════
 // Define helpers FIRST — everything depends on these
 const $ = (s) => { try { return document.querySelector(s); } catch(e) { return null; } };
 const $$ = (s) => { try { return document.querySelectorAll(s); } catch(e) { return []; } };
@@ -5561,7 +5700,7 @@ const $$ = (s) => { try { return document.querySelectorAll(s); } catch(e) { retu
   attach();
 })();
 
-// v10.8: Simplified scan handler — uses .then() chains instead of async/await
+// v11.0: Simplified scan handler — uses .then() chains instead of async/await
 // Every path guaranteed to call resetButtons() when done/fail
 function handleScanSubmit(e) {
   // Get elements
@@ -5739,7 +5878,7 @@ function handleScanSubmit(e) {
     });
 }
 
-// v10.8: Universal button reset — called from EVERY path (success/error/timeout/cancel)
+// v11.0: Universal button reset — called from EVERY path (success/error/timeout/cancel)
 function resetButtons() {
   try {
     var scanBtn = document.getElementById('scanBtn');
@@ -5795,11 +5934,11 @@ try {
   });
 } catch(e) { console.error('themeToggle:', e); }
 
-// ───────── v10.8 i18n (Internationalization: VI/EN) ─────────
+// ───────── v11.0 i18n (Internationalization: VI/EN) ─────────
 const I18N = {
   vi: {
     hero_title: "🕵️ Quét lỗ hổng thông tin rò rỉ",
-    hero_subtitle: "Async deep recon v10.8 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
+    hero_subtitle: "Async deep recon v11.0 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
     guide: "Hướng dẫn",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -5880,12 +6019,12 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report để download kết quả scan.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.",
-    guide_footer: "v10.8 — Recon Beast · Made with",
+    guide_footer: "v11.0 — Recon Beast · Made with",
     guide_close_hint: "Click × hoặc ngoài modal để đóng",
   },
   en: {
     hero_title: "🕵️ Scan Information Leak Vulnerabilities",
-    hero_subtitle: "Async deep recon v10.8 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
+    hero_subtitle: "Async deep recon v11.0 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
     guide: "Guide",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -5966,7 +6105,7 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report to download scan results.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool is for security research and authorized testing only. Only scan targets you have permission to test. Unauthorized scanning may violate laws (Cybersecurity law, GDPR, HIPAA...). Author is not responsible for misuse.",
-    guide_footer: "v10.8 — Recon Beast · Made with",
+    guide_footer: "v11.0 — Recon Beast · Made with",
     guide_close_hint: "Click × or outside modal to close",
   }
 };
@@ -6011,7 +6150,7 @@ $$('.lang-btn').forEach(btn => {
   });
 });
 
-// ───────── v10.8 Guide Modal ─────────
+// ───────── v11.0 Guide Modal ─────────
 function openGuide() {
   $('#guideModal').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -6030,7 +6169,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ───────── v10.8 Quick Templates ─────────
+// ───────── v11.0 Quick Templates ─────────
 function applyTemplate(name) {
   const tpl = {
     quick:    {timeout: 8,  scan_js: 'no',  bypass_mode: 'auto',      intensity: 'quick', vuln_tests: 'no'},
@@ -6238,9 +6377,9 @@ const PHASE_FALLBACK = {
 
 const INTERNAL_PHASES = new Set(['connected', 'keepalive']);
 
-// v10.8: Old resetBtn/forceResetAll REMOVED — replaced by resetButtons() above
+// v11.0: Old resetBtn/forceResetAll REMOVED — replaced by resetButtons() above
 
-// v10.8: Global JS error handler — show banner if any JS error occurs
+// v11.0: Global JS error handler — show banner if any JS error occurs
 window.addEventListener('error', function(e) {
   console.error('Global JS Error:', e.error || e.message);
   const banner = document.getElementById('jsErrorBanner');
@@ -6253,7 +6392,7 @@ window.addEventListener('error', function(e) {
   forceResetAll();
 });
 
-// v10.8: Catch unhandled promise rejections
+// v11.0: Catch unhandled promise rejections
 window.addEventListener('unhandledrejection', function(e) {
   console.error('Unhandled Promise Rejection:', e.reason);
   const banner = document.getElementById('jsErrorBanner');
@@ -6265,7 +6404,7 @@ window.addEventListener('unhandledrejection', function(e) {
   forceResetAll();
 });
 
-// v10.8: Auto-reset safety net — ensure buttons never stay disabled >5min
+// v11.0: Auto-reset safety net — ensure buttons never stay disabled >5min
 let _autoResetTimer = null;
 function startAutoResetWatchdog() {
   if (_autoResetTimer) clearTimeout(_autoResetTimer);
@@ -6289,18 +6428,18 @@ function stopAutoResetWatchdog() {
 }
 
 async function loadResult(scanId){
-  currentScanId = scanId;  // v10.8: store for HTML source viewer
+  currentScanId = scanId;  // v11.0: store for HTML source viewer
   const resp = await fetch('/result/' + scanId);
   const html = await resp.text();
   $('#resultsArea').innerHTML = html;
   resetBtn();
-  stopAutoResetWatchdog();  // v10.8: scan completed, stop watchdog
+  stopAutoResetWatchdog();  // v11.0: scan completed, stop watchdog
   stopActivityPolling();
   initTabs();
   initFilter();
   animateCounters();
-  checkAndFireConfetti();  // v10.8: fire confetti if critical findings
-  // v10.8: draw donut chart + animate risk gauge
+  checkAndFireConfetti();  // v11.0: fire confetti if critical findings
+  // v11.0: draw donut chart + animate risk gauge
   setTimeout(() => {
     drawSeverityDonut();
     animateRiskGauge();
@@ -6330,8 +6469,12 @@ function animateCounters(){
 }
 
 loadHistory();
+} catch(e) { console.error('[Init] Error:', e); }  // v11.0: close init try block EARLY
 
-// ═════════ v10.8 Command Palette ═════════
+// ═════════ v11.0: ALL FUNCTIONS DECLARED AT GLOBAL SCOPE ═════════
+// These MUST be outside any try block so they're always available
+
+// ═════════ v11.0 Command Palette ═════════
 const COMMANDS = [
   {icon:'⚡', title:'Quick Recon', desc:'Fast scan template', kbd:'T+Q', action:()=>{applyTemplate('quick')}},
   {icon:'🔬', title:'Deep Audit', desc:'Full 31-phase scan', kbd:'T+D', action:()=>{applyTemplate('deep')}},
@@ -6416,7 +6559,7 @@ $('#cmdPalette').addEventListener('click', (e) => {
   if (e.target === $('#cmdPalette')) closeCmdPalette();
 });
 
-// ═════════ v10.8 Keyboard Shortcuts ═════════
+// ═════════ v11.0 Keyboard Shortcuts ═════════
 document.addEventListener('keydown', (e) => {
   // Skip if typing in input/textarea
   const tag = e.target.tagName;
@@ -6462,8 +6605,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ═════════ v10.8 Helper functions for results ═════════
-// v10.8: HTML Source viewer
+// ═════════ v11.0 Helper functions for results ═════════
+// v11.0: HTML Source viewer
 // NOTE: currentScanId already declared at line 5427, don't re-declare!
 let htmlSourceCache = null;
 function loadHtmlSource() {
@@ -6529,6 +6672,135 @@ function downloadHtmlSource() {
   URL.revokeObjectURL(url);
   toast('⬇️ Đã download HTML source');
 }
+// v11: File Tree — load + render interactive tree
+function loadFileTree() {
+  if (!currentScanId) { toast('❌ Chưa có scan nào'); return; }
+  fetch('/tree/' + currentScanId)
+    .then(r => r.json())
+    .then(data => {
+      const container = document.getElementById('fileTreeContainer');
+      const empty = document.getElementById('fileTreeEmpty');
+      const info = document.getElementById('treeInfo');
+      if (!data.tree || !data.tree.children || data.tree.children.length === 0) {
+        if (empty) empty.style.display = 'block';
+        if (container) container.style.display = 'none';
+        if (info) info.textContent = 'No files discovered';
+        return;
+      }
+      if (empty) empty.style.display = 'none';
+      if (container) { container.style.display = 'block'; container.innerHTML = renderTreeNode(data.tree, 0); }
+      if (info) info.textContent = `📊 ${data.total_files} files discovered`;
+      toast(`🌳 Loaded ${data.total_files} files`);
+    })
+    .catch(err => toast('❌ Lỗi: ' + err.message));
+}
+
+function renderTreeNode(node, depth) {
+  if (!node) return '';
+  var icon = node.type === 'dir' ? '📁' : '📄';
+  var sevClass = node.severity ? ' tree-sev-' + node.severity : '';
+  var meta = [];
+  if (node.status) meta.push(node.status);
+  if (node.size) meta.push(node.size + 'b');
+  if (node.severity) meta.push(node.severity);
+  var metaStr = meta.length ? '<span class="tree-meta">' + meta.join(' · ') + '</span>' : '';
+  var html = '<div class="tree-node' + sevClass + '">';
+  if (node.type === 'dir' && node.children && node.children.length > 0) {
+    html += '<span class="tree-toggle" onclick="this.parentElement.nextElementSibling.style.display=this.parentElement.nextElementSibling.style.display==\'none\'?\'block\':\'none\';this.textContent=this.textContent==\'▶\'?\'▼\':\'▶\'">▼</span>';
+    html += '<span class="tree-icon">' + icon + '</span>';
+    html += '<span class="tree-name">' + node.name + '</span>' + metaStr;
+    html += '</div>';
+    html += '<div class="tree-children" style="display:block">';
+    for (var i = 0; i < node.children.length; i++) {
+      html += renderTreeNode(node.children[i], depth + 1);
+    }
+    html += '</div>';
+  } else {
+    html += '<span class="tree-toggle">&nbsp;</span>';
+    html += '<span class="tree-icon">' + icon + '</span>';
+    html += '<span class="tree-name">' + node.name + '</span>' + metaStr;
+    if (node.url) {
+      html += ' <a href="' + node.url + '" target="_blank" style="font-size:11px;color:var(--accent2);text-decoration:none">↗</a>';
+    }
+    html += '</div>';
+  }
+  return html;
+}
+
+// v11: Source Code — load list of JS/CSS files, fetch + display source
+function loadSourceCodeList() {
+  if (!currentScanId) { toast('❌ Chưa có scan nào'); return; }
+  // Get JS links + CSS links from result page
+  var jsLinks = [];
+  document.querySelectorAll('.leak-item .leak-url').forEach(function(el) {
+    var url = el.textContent.trim();
+    if (url.endsWith('.js') || url.endsWith('.css') || url.endsWith('.html')) {
+      jsLinks.push(url);
+    }
+  });
+  // Also check js_links section if visible
+  var jsSection = document.getElementById('tab-forms');
+  if (jsSection) {
+    jsSection.querySelectorAll('a[href]').forEach(function(a) {
+      var href = a.href;
+      if (href.endsWith('.js') || href.endsWith('.css')) jsLinks.push(href);
+    });
+  }
+  // Deduplicate
+  jsLinks = jsLinks.filter(function(v, i, a) { return a.indexOf(v) === i; });
+  if (jsLinks.length === 0) {
+    toast('❌ Không tìm thấy JS/CSS files để xem source');
+    return;
+  }
+  var listEl = document.getElementById('sourceFileList');
+  var containerEl = document.getElementById('sourceCodeContainer');
+  var emptyEl = document.getElementById('sourceCodeEmpty');
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (listEl) {
+    listEl.style.display = 'flex';
+    listEl.innerHTML = jsLinks.map(function(url, i) {
+      var name = url.split('/').pop().split('?')[0];
+      return '<button class="source-file-btn" onclick="fetchSourceFile(\'' + url.replace(/'/g, "\\'") + '\', ' + i + ')" id="srcBtn' + i + '">' + name + '</button>';
+    }).join('');
+  }
+  if (containerEl) containerEl.style.display = 'block';
+  // Auto-load first file
+  if (jsLinks.length > 0) fetchSourceFile(jsLinks[0], 0);
+  toast('💻 Loaded ' + jsLinks.length + ' source files');
+}
+
+function fetchSourceFile(url, idx) {
+  var container = document.getElementById('sourceCodeContainer');
+  if (!container) return;
+  container.innerHTML = '<div style="color:var(--dim);padding:20px">⏳ Đang tải ' + url.split('/').pop() + '...</div>';
+  // Highlight active button
+  document.querySelectorAll('.source-file-btn').forEach(function(b) { b.classList.remove('active'); });
+  var btn = document.getElementById('srcBtn' + idx);
+  if (btn) btn.classList.add('active');
+  fetch('/source_file', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({url: url})
+  })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) {
+        container.innerHTML = '<div style="color:var(--danger);padding:20px">❌ Lỗi: ' + data.error + '</div>';
+        return;
+      }
+      // Escape HTML
+      var escaped = data.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      var header = '<div style="color:var(--accent);margin-bottom:8px;font-size:12px">';
+      header += '📄 ' + url.split('/').pop() + ' · ' + data.size + ' bytes · HTTP ' + data.status;
+      if (data.truncated) header += ' · <span style="color:var(--warn)">⚠️ Truncated at 200KB</span>';
+      header += '</div>';
+      container.innerHTML = header + '<pre style="white-space:pre-wrap;word-break:break-all;color:#aed581">' + escaped + '</pre>';
+    })
+    .catch(err => {
+      container.innerHTML = '<div style="color:var(--danger);padding:20px">❌ Network error: ' + err.message + '</div>';
+    });
+}
+
 function copyHtmlSource() {
   if (!htmlSourceCache || !htmlSourceCache.html) return;
   navigator.clipboard.writeText(htmlSourceCache.html).then(() => toast('📋 Đã copy HTML'));
@@ -6602,13 +6874,13 @@ function animateRiskGauge() {
     setTimeout(() => grade.style.animation = 'logoPulse 2s ease', 10);
   }
 }
-} catch(e) { console.error('[Main JS] Error:', e); }  // v10.8: close try block
+// v11.0: no more try block — all functions are global now
 </script>
 </body>
 </html>
 """
 
-# ── HTML Template (RESULT) – v10.8 Deep Recon ──
+# ── HTML Template (RESULT) – v11.0 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -6650,7 +6922,7 @@ RESULT_HTML = r"""
 <div class="alert alert-error"><strong>❌ Lỗi:</strong> {{ result.error }}</div>
 {% else %}
 
-<!-- v10.8 Risk Score Dashboard -->
+<!-- v11.0 Risk Score Dashboard -->
 {% set risk = calculate_risk_score(result.stats) %}
 <div class="risk-dashboard">
   <div class="risk-gauge-wrap">
@@ -6761,6 +7033,8 @@ RESULT_HTML = r"""
   <button class="tab" data-tab="headers">📜 Headers & Cookies</button>
   <button class="tab" data-tab="forms">📝 Forms <span class="count">{{ result.forms|length }}</span></button>
   <button class="tab" data-tab="subs">🌐 Subs <span class="count">{{ result.subdomains_resolved|length }}</span></button>
+  <button class="tab" data-tab="file_tree" onclick="loadFileTree()">🌳 File Tree</button>
+  <button class="tab" data-tab="source_code" onclick="loadSourceCodeList()">💻 Source Code</button>
   <button class="tab" data-tab="html_source">📄 HTML Source</button>
   <button class="tab" data-tab="raw">🔎 Raw</button>
 </div>
@@ -7100,7 +7374,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v10.8 Tabs -->
+<!-- v11.0 Tabs -->
 
 <!-- Tab: API Endpoints (discovered from JS + Swagger) -->
 <div class="tab-panel" id="tab-endpoints">
@@ -7331,7 +7605,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: CT Subdomains (v10.8) -->
+<!-- Tab: CT Subdomains (v11.0) -->
 <div class="tab-panel" id="tab-ct_logs">
   {% if result.ct_subdomains %}
   <div class="alert alert-info">📜 Found <strong>{{ result.ct_subdomains|length }}</strong> subdomains từ Certificate Transparency logs (crt.sh) — đây là subdomains đã từng được issue certificate</div>
@@ -7348,7 +7622,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: DNS Records (v10.8) -->
+<!-- Tab: DNS Records (v11.0) -->
 <div class="tab-panel" id="tab-dns">
   {% if result.dns_records %}
   <div class="section-title">🌐 DNS Records cho {{ result.target }}</div>
@@ -7370,7 +7644,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Git Exposure (v10.8) -->
+<!-- Tab: Git Exposure (v11.0) -->
 <div class="tab-panel" id="tab-git">
   {% if result.git_findings %}
   <div class="alert alert-error">📂 <strong>.git directory EXPOSED!</strong> Phát hiện {{ result.git_findings|length }} file(s) trong .git folder có thể truy cập công khai. Attacker có thể reconstruct toàn bộ source code + history!</div>
@@ -7392,7 +7666,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Crawled Pages (v10.8) -->
+<!-- Tab: Crawled Pages (v11.0) -->
 <div class="tab-panel" id="tab-crawled">
   {% if result.crawled_pages %}
   <div class="alert alert-info">🕷️ Deep crawl đã thu thập <strong>{{ result.crawled_pages|length }}</strong> internal pages (depth-2), extract secrets từ mỗi page</div>
@@ -7414,7 +7688,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: JS Strings (v10.8) -->
+<!-- Tab: JS Strings (v11.0) -->
 <div class="tab-panel" id="tab-js_strings">
   {% if result.js_strings %}
   <div class="alert alert-info">📜 Extracted <strong>{{ result.js_strings|length }}</strong> unique strings từ JS files — check manually cho API keys, endpoints, hardcoded URLs, internal info</div>
@@ -7430,7 +7704,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v10.8 Tabs -->
+<!-- v11.0 Tabs -->
 
 <!-- Tab: SSTI -->
 <div class="tab-panel" id="tab-ssti">
@@ -7533,7 +7807,30 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: HTML Source (v10.8) -->
+<!-- Tab: File Tree (v11) -->
+<div class="tab-panel" id="tab-file_tree">
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <button class="btn btn-secondary" onclick="loadFileTree()">🌳 Load File Tree</button>
+    <span id="treeInfo" style="font-size:12px;color:var(--muted);align-self:center"></span>
+  </div>
+  <div id="fileTreeContainer" class="file-tree-container" style="display:none"></div>
+  <div id="fileTreeEmpty" class="empty-state">
+    <p>🌳 Click "Load File Tree" để xem cấu trúc thư mục/file của website đã scan.</p>
+    <p style="font-size:11px;color:var(--dim);margin-top:6px">Hiển thị tất cả file/thư mục phát hiện được: leak paths, brute results, JS files, API endpoints</p>
+  </div>
+</div>
+
+<!-- Tab: Source Code (v11) -->
+<div class="tab-panel" id="tab-source_code">
+  <div id="sourceFileList" class="source-file-list" style="display:none"></div>
+  <div id="sourceCodeContainer" class="source-code-container" style="display:none"></div>
+  <div id="sourceCodeEmpty" class="empty-state">
+    <p>💻 Click vào tab này để load danh sách source files (JS, CSS, HTML) từ website đã scan.</p>
+    <p style="font-size:11px;color:var(--dim);margin-top:6px">Fetch raw source code của từng file, hiển thị với syntax highlighting</p>
+  </div>
+</div>
+
+<!-- Tab: HTML Source (v11.0) -->
 <div class="tab-panel" id="tab-html_source">
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
     <button class="btn btn-secondary" onclick="loadHtmlSource()" id="loadSourceBtn">📄 Fetch HTML Source</button>
@@ -7586,14 +7883,14 @@ RESULT_HTML = r"""
 def index():
     return render_template_string(PAGE_HTML)
 
-# v10.8: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
+# v11.0: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
 # Đồng thời nếu POST /scan được gọi trực tiếp (không qua JS), trả về HTML page
 # thay vì raw JSON để browser không hiển thị raw JSON
 @app.route("/version")
 def version_info():
     """Version endpoint — user có thể check xem app đã deploy code mới chưa."""
     return jsonify({
-        "version": "v10.8",
+        "version": "v11.0",
         "service": "Web Leak Scanner Pro",
         "features": ["31 phases", "4 WAF bypass modes", "i18n VI/EN", "risk score", 
                      "command palette", "HTML source viewer", "force reset button"],
@@ -7650,7 +7947,7 @@ def scan():
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            # v10.8: Pre-store target in scan_results so /source/ endpoint works during scan
+            # v11.0: Pre-store target in scan_results so /source/ endpoint works during scan
             scan_results[scan_id] = {
                 "target": target, "main": {}, "leak": [], "secrets": [],
                 "ports": [], "dirs": [], "brute": [], "technologies": [],
@@ -7658,7 +7955,7 @@ def scan():
                 "cdn": [], "cookies": [], "security_headers": [],
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "stats": {"in_progress": True}, "duration_seconds": 0,
-                "errors": [], "scanner_version": "v10.8",
+                "errors": [], "scanner_version": "v11.0",
                 "subdomains_resolved": [], "subdomain_hints": [],
                 "takeover_findings": [], "graphql_findings": [], "cors_findings": [],
                 "open_redirect_findings": [], "source_maps": [], "wayback_urls": [],
@@ -7703,7 +8000,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v10.8",
+                "errors": [str(e)], "scanner_version": "v11.0",
             }
             with prog_lock:
                 for h in scan_history:
@@ -7761,12 +8058,48 @@ def activity(scan_id):
     lines = get_activity(scan_id, since)
     return jsonify({"scan_id": scan_id, "lines": lines, "count": len(lines)})
 
+@app.route("/tree/<int:scan_id>")
+def file_tree(scan_id):
+    result = scan_results.get(scan_id, {})
+    tree = build_file_tree(
+        result.get("leak", []),
+        result.get("dirs", []),
+        result.get("brute", []),
+        result.get("js_links", []),
+        result.get("source_maps", []),
+        result.get("api_endpoints", [])
+    )
+    return jsonify({"tree": tree, "total_files": sum(1 for _ in iter_tree(tree))})
+
+
+@app.route("/source_file", methods=["POST"])
+def fetch_source_file():
+    """Fetch raw source code of any URL from target site."""
+    url = request.json.get("url", "")
+    if not url:
+        return jsonify({"error": "No URL"})
+    try:
+        import urllib.request, ssl as ssl_mod
+        ctx = ssl_mod.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl_mod.CERT_NONE
+        req = urllib.request.Request(url, headers={"User-Agent": random.choice(USER_AGENTS)})
+        with urllib.request.urlopen(req, timeout=10, context=ctx) as r:
+            content = r.read().decode("utf-8", errors="replace")[:200000]  # 200KB cap
+            return jsonify({
+                "url": url, "content": content, "size": len(content),
+                "status": r.status, "truncated": len(content) >= 200000
+            })
+    except Exception as e:
+        return jsonify({"error": str(e)[:100]})
+
+
 @app.route("/result/<int:scan_id>")
 def result(scan_id):
     result = scan_results.get(scan_id, {})
     return render_template_string(RESULT_HTML, result=result, calculate_risk_score=calculate_risk_score)
 
-# v10.8: HTML source viewer endpoint
+# v11.0: HTML source viewer endpoint
 @app.route("/source/<int:scan_id>")
 def view_source(scan_id):
     """Return raw HTML source of the scanned target page."""
@@ -7837,7 +8170,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v10.8"
+    data["scanner"] = "Web Leak Scanner Pro v11.0"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -7912,7 +8245,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v10.8 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v11.0 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -7937,7 +8270,7 @@ def health():
         pass
     return jsonify({
         "status": "ok",
-        "service": "Web Leak Scanner Pro v10.8",
+        "service": "Web Leak Scanner Pro v11.0",
         "uptime": round(time.time() - _START_TIME, 1),
         "active_scans": sum(1 for q in progress_queues.values() if q is not None),
         "memory_mb": mem_info.get("rss_mb", 0),
@@ -7956,14 +8289,14 @@ _START_TIME = time.time()
 def run_dev_server(host, port):
     """Run Flask development server (NOT for production)."""
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v10.8 — Development Server")
+    print(f"🛡️  Web Leak Scanner Pro v11.0 — Development Server")
     print(f"   URL: http://{host}:{port}")
     print(f"   ⚠️  DEV SERVER — không phù hợp production!")
-    print(f"   v10.8: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v10.8: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
-    print(f"   v10.8: Source maps · JS endpoints · Swagger · Wayback · .git")
-    print(f"   v10.8: Cache poisoning · Header injection · Default creds")
-    print(f"   v10.8: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+    print(f"   v11.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v11.0: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
+    print(f"   v11.0: Source maps · JS endpoints · Swagger · Wayback · .git")
+    print(f"   v11.0: Cache poisoning · Header injection · Default creds")
+    print(f"   v11.0: 4 WAF bypass modes · Glassmorphism UI · Confetti")
     print("=" * 64)
     app.run(host=host, port=port, debug=False, threaded=True)
 
@@ -7972,12 +8305,12 @@ def run_production_server(host, port):
     try:
         from waitress import serve as waitress_serve
         print("=" * 64)
-        print(f"🛡️  Web Leak Scanner Pro v10.8 — Production Server (waitress)")
+        print(f"🛡️  Web Leak Scanner Pro v11.0 — Production Server (waitress)")
         print(f"   URL: http://{host}:{port}")
         print(f"   🌐 Production WSGI: waitress (multi-threaded, robust)")
         print(f"   🔍 Health endpoint: /health, /ping")
-        print(f"   v10.8: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-        print(f"   v10.8: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+        print(f"   v11.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+        print(f"   v11.0: 4 WAF bypass modes · Glassmorphism UI · Confetti")
         print("=" * 64)
         # Waitress with reasonable defaults for cloud deploy
         # threads=8 — enough for scanner + UI + health checks
