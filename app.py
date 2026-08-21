@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v10.0 — Deep Recon Edition
+Web Leak Scanner Pro v10.1 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v10.0 (so với v6.0):
+Changelog v10.1 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -198,7 +198,7 @@ LEAK_PATHS = [
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
 
-    # ── v10.0 additions: K8s / container / monitoring ──
+    # ── v10.1 additions: K8s / container / monitoring ──
     "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
     "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
     "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
@@ -217,7 +217,7 @@ LEAK_PATHS = [
     "/.well-known/revocation",
     "/.well-known/introspection",
 
-    # ── v10.0: Source maps & debug bundles ──
+    # ── v10.1: Source maps & debug bundles ──
     "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
     "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
     "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
@@ -226,7 +226,7 @@ LEAK_PATHS = [
     "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
     "/dist/build.js.map", "/dist/main.js.map",
 
-    # ── v10.0: GraphQL / WebSocket / API ──
+    # ── v10.1: GraphQL / WebSocket / API ──
     "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
     "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
@@ -241,7 +241,7 @@ LEAK_PATHS = [
     "/rest/users", "/rest/admin", "/rest/config",
     "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
 
-    # ── v10.0: Spring Boot Actuator deep ──
+    # ── v10.1: Spring Boot Actuator deep ──
     "/actuator/", "/actuator/info", "/actuator/health",
     "/actuator/env", "/actuator/configprops", "/actuator/beans",
     "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
@@ -252,21 +252,21 @@ LEAK_PATHS = [
     "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
     "/actuator/bus-refresh", "/actuator/gateway/routes",
 
-    # ── v10.0: Java / JVM specific ──
+    # ── v10.1: Java / JVM specific ──
     "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
     "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
     "/META-INF/maven/", "/META-INF/spring.factories",
     "/struts/web.xml", "/struts.xml", "/struts-config.xml",
     "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
 
-    # ── v10.0: .NET / IIS specific ──
+    # ── v10.1: .NET / IIS specific ──
     "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
     "/web.config.bak", "/web.config.old", "/web.config.txt",
     "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
     "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
     "/Reserved.ReportViewerWebControl.axd", "/Reports/",
 
-    # ── v10.0: PHP / Laravel specific ──
+    # ── v10.1: PHP / Laravel specific ──
     "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
     "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
     "/storage/framework/cache/", "/storage/framework/sessions/",
@@ -274,7 +274,7 @@ LEAK_PATHS = [
     "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
     "/artisan", "/server.php", "/package.json",
 
-    # ── v10.0: Ruby / Rails specific ──
+    # ── v10.1: Ruby / Rails specific ──
     "/config/database.yml", "/config/secrets.yml", "/config/master.key",
     "/config/credentials.yml.enc", "/config/credentials.yml",
     "/config/initializers/", "/config/environments/",
@@ -282,13 +282,13 @@ LEAK_PATHS = [
     "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
     "/log/production.log", "/log/development.log",
 
-    # ── v10.0: Python / Django specific ──
+    # ── v10.1: Python / Django specific ──
     "/settings.py", "/local_settings.py", "/config/settings.py",
     "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
     "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
     "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
 
-    # ── v10.0: WordPress deep ──
+    # ── v10.1: WordPress deep ──
     "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
     "/wp-content/backup-db/", "/wp-content/updraft/",
     "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
@@ -303,7 +303,7 @@ LEAK_PATHS = [
     "/wp-admin/install.php", "/wp-admin/setup-config.php",
     "/wp-content/uploads/index.php", "/wp-includes/version.php",
 
-    # ── v10.0: CMS-specific deep ──
+    # ── v10.1: CMS-specific deep ──
     "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
     "/sites/default/settings.php", "/sites/default/files/",
     "/sites/default/private/", "/sites/default/config/",
@@ -315,7 +315,7 @@ LEAK_PATHS = [
     "/administrator/components/com_config/", "/administrator/cache/",
     "/installation/index.php", "/installation/configuration.php",
 
-    # ── v10.0: Node.js / npm specific ──
+    # ── v10.1: Node.js / npm specific ──
     "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
     "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
     "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
@@ -323,7 +323,7 @@ LEAK_PATHS = [
     "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
     "/.netlify/", "/.cache/", "/.turbo/",
 
-    # ── v10.0: Cloud / DevOps deep ──
+    # ── v10.1: Cloud / DevOps deep ──
     "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
     "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
     "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
@@ -336,14 +336,14 @@ LEAK_PATHS = [
     "/google-services.json", "/GoogleService-Info.plist",
     "/firebase.json", "/firebase-config.json", "/.firebaserc",
 
-    # ── v10.0: CI/CD configs ──
+    # ── v10.1: CI/CD configs ──
     "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
     "/.github/workflows/", "/.github/workflows/ci.yml",
     "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
     "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
     "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
 
-    # ── v10.0: API documentation ──
+    # ── v10.1: API documentation ──
     "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
     "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
     "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
@@ -351,14 +351,14 @@ LEAK_PATHS = [
     "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
     "/api/swagger", "/api/rapidoc", "/api/redoc",
 
-    # ── v10.0: WebSocket / SSE endpoints ──
+    # ── v10.1: WebSocket / SSE endpoints ──
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
     "/signalr", "/signalr/negotiate", "/signalr/hubs",
     "/hub", "/realtime", "/events", "/sse", "/stream",
     "/api/ws", "/api/websocket", "/api/realtime",
     "/_ws", "/_websocket", "/_realtime",
 
-    # ── v10.0: Common config backups / temporaries ──
+    # ── v10.1: Common config backups / temporaries ──
     "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
     "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
     "/config.json.bak", "/config.json.old", "/config.json.orig",
@@ -369,7 +369,7 @@ LEAK_PATHS = [
     "/.env.production.local", "/.env.development.local",
     "/.env.staging.local", "/.env.test.local",
 
-    # ── v10.0: CVE / known vuln paths ──
+    # ── v10.1: CVE / known vuln paths ──
     "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
     "/test.jsp", "/test.html",
     "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
@@ -382,7 +382,7 @@ LEAK_PATHS = [
     "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
     "/redis/", "/memcached/", "/var/log/redis/redis.log",
 
-    # ── v10.0: Misc / random secrets ──
+    # ── v10.1: Misc / random secrets ──
     "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
     "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
     "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
@@ -391,13 +391,13 @@ LEAK_PATHS = [
     "/.prettierrc", "/.eslintrc", "/.babelrc",
     "/.docker/registry", "/registry/", "/docker/registry",
 
-    # ── v10.0: Source code & build artifacts ──
+    # ── v10.1: Source code & build artifacts ──
     "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
     "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
     "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
     "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
 
-    # ── v10.0: Logs & debug ──
+    # ── v10.1: Logs & debug ──
     "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
     "/laravel.log", "/storage/logs/laravel.log",
     "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
@@ -408,7 +408,7 @@ LEAK_PATHS = [
     "/_internal/", "/_hidden/", "/_private/", "/_secret/",
     "/server-status", "/server-info", "/status?full", "/status?auto",
 
-    # ── v10.0: Backup & database dumps ──
+    # ── v10.1: Backup & database dumps ──
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
     "/backup.bak", "/backup.dump", "/backup.json",
     "/backup-2024.zip", "/backup-2025.zip",
@@ -421,7 +421,7 @@ LEAK_PATHS = [
     "/mysql.sql", "/postgres.sql", "/pgdump.sql",
     "/mongodump.json", "/mongodump.bson",
 
-    # ── v10.0: Admin / management panels ──
+    # ── v10.1: Admin / management panels ──
     "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
     "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
     "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
@@ -432,7 +432,7 @@ LEAK_PATHS = [
     "/manager/html", "/manager/status", "/manager/jmxproxy",
     "/host-manager/html", "/host-manager/status",
 
-    # ── v10.0: User-uploaded content ──
+    # ── v10.1: User-uploaded content ──
     "/uploads/", "/uploads/files/", "/uploads/images/",
     "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
     "/media/", "/assets/", "/static/", "/public/",
@@ -794,7 +794,7 @@ CORS_TEST_ORIGINS = [
 # HTTP methods to fuzz (test OPTIONS to discover allowed methods)
 HTTP_METHODS_TO_FUZZ = ["OPTIONS", "PUT", "DELETE", "PATCH", "PROPFIND", "TRACE"]
 
-# v10.0 WAF bypass modes
+# v10.1 WAF bypass modes
 WAF_BYPASS_MODES = ["auto", "stealth", "aggressive", "turbo"]
 WAF_BYPASS_PROFILES = {
     "auto":      {"concurrency": 30, "delay_min": 0,    "delay_max": 0.3,  "rotate_ua": True,  "rotate_xff": False, "retry": 2},
@@ -1030,7 +1030,7 @@ def get_activity(scan_id, since=0):
 
 async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2, bypass_mode="auto"):
     """Fetch với auto-retry khi gặp 429/timeout, xoay User-Agent mỗi retry.
-    v10.0: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
+    v10.1: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
     if not HAS_AIOHTTP:
         return "", 0, {}, 0
     last_err = None
@@ -1833,7 +1833,7 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-# ── v10.0 helper functions: deep recon capabilities ──
+# ── v10.1 helper functions: deep recon capabilities ──
 
 def extract_js_endpoints(js_text, base_url):
     """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
@@ -2204,7 +2204,7 @@ async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
     except Exception:
         return []
 
-# ── v10.0 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
+# ── v10.1 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
 
 async def fetch_ct_logs(session, domain, log_fn=None):
     """Query crt.sh Certificate Transparency logs để lấy tất cả subdomains đã từng được cert.
@@ -2381,31 +2381,60 @@ async def deep_crawl(session, base, main_text, custom_headers, proxy, timeout, s
 
     return depth_0_results, all_secrets
 
-def extract_js_strings(js_text, min_length=12, max_strings=100):
-    """Extract all string literals từ JS source code (string interpolation, single/double quote, template).
-    Filter ra URLs, paths, possible API keys, possible JWT, etc."""
+def extract_js_strings(js_text, min_length=15, max_strings=30):
+    """Extract string literals from JS source code. v10.1: optimized for speed —
+    limit input size, use simpler regex, cap output."""
     if not js_text:
         return []
+    # v10.1: Truncate input to 100KB max to prevent regex hangs on large JS files
+    if len(js_text) > 100000:
+        js_text = js_text[:100000]
     strings = set()
-    # Match single/double quoted strings
-    for pat in [
-        r'"((?:[^"\\]|\\.){%d,})"' % min_length,
-        r"'((?:[^'\\]|\\.){%d,})'" % min_length,
-        r'`((?:[^`\\]|\\.){%d,})`' % min_length,
-    ]:
-        for m in re.finditer(pat, js_text):
+    # Simpler patterns — faster than alternations
+    try:
+        # Single/double quoted: 15-200 chars
+        for m in re.finditer(r'"([^"\\]{15,200})"', js_text):
             s = m.group(1)
-            # Filter out common noise
-            if not s or len(s) > 500:
+            if not s or len(s) > 200:
                 continue
-            # Skip CSS, hex colors, base64 data URLs, common boilerplate
-            skip_patterns = [r'^#[0-9a-f]{3,8}$', r'^data:', r'^\s*$', r'^[a-z]+(-[a-z]+)+$',
-                           r'^\.\w', r'^\s*\{', r'^[0-9]+$', r'^\s*function',
-                           r'^[a-z]+(?:[A-Z][a-z]+)+$']  # camelCase identifiers
-            if any(re.match(p, s, re.I) for p in skip_patterns):
+            # Skip noise: hex colors, data URLs, pure numbers, camelCase, css
+            if s.startswith('#') or s.startswith('data:') or s.startswith('.') or \
+               s.startswith('{') or s.startswith('function') or s.isdigit():
+                continue
+            if re.match(r'^[a-z]+(?:[A-Z][a-z]+)+$', s):  # camelCase identifiers
+                continue
+            if re.match(r'^[a-z]+(-[a-z]+)+$', s):  # kebab-case CSS classes
                 continue
             strings.add(s)
-    # Dedup and limit
+            if len(strings) >= max_strings:
+                break
+        if len(strings) < max_strings:
+            for m in re.finditer(r"'([^'\\]{15,200})'", js_text):
+                s = m.group(1)
+                if not s or len(s) > 200:
+                    continue
+                if s.startswith('#') or s.startswith('data:') or s.startswith('.') or \
+                   s.startswith('{') or s.startswith('function') or s.isdigit():
+                    continue
+                if re.match(r'^[a-z]+(?:[A-Z][a-z]+)+$', s):
+                    continue
+                strings.add(s)
+                if len(strings) >= max_strings:
+                    break
+        if len(strings) < max_strings:
+            # Template literals (backticks)
+            for m in re.finditer(r'`([^`\\]{15,200})`', js_text):
+                s = m.group(1)
+                if not s or len(s) > 200:
+                    continue
+                if s.startswith('#') or s.startswith('data:') or s.startswith('.') or \
+                   s.startswith('{') or s.startswith('function') or s.isdigit():
+                    continue
+                strings.add(s)
+                if len(strings) >= max_strings:
+                    break
+    except Exception:
+        pass  # Regex timeout/overflow protection
     return list(strings)[:max_strings]
 
 async def check_git_exposure(session, base, custom_headers, proxy, timeout, log_fn):
@@ -2559,7 +2588,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v10.0",
+        "scanner_version": "v10.1",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
@@ -2569,11 +2598,11 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "takeover_findings": [], "source_maps": [], "graphql_findings": [],
         "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
         "http_method_findings": [], "recursive_brute_findings": [],
-        # v10.0 additions
+        # v10.1 additions
         "ct_subdomains": [], "dns_records": {}, "git_findings": [],
         "crawled_pages": [], "js_strings": [],
         "static_platforms": [], "frameworks_detected": [],
-        # v10.0 additions
+        # v10.1 additions
         "ssti_findings": [], "proto_pollution_findings": [],
         "header_injection_findings": [], "cache_poison_findings": [],
         "default_creds_findings": [],
@@ -2609,6 +2638,33 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 "eta": eta,
                 "rate": round(current / elapsed, 1) if elapsed > 0 else 0,
             })
+
+    # v10.1: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
+    # để UI không bị kẹt "Đang khởi tạo..." khi phase chạy lâu không gửi event
+    last_phase = {"phase": "main_page", "msg": "Đang khởi tạo...", "current": 0, "total": 0, "found": 0}
+    async def _store_phase(phase, msg, current=0, total=0, found=0):
+        last_phase["phase"] = phase
+        last_phase["msg"] = msg
+        last_phase["current"] = current
+        last_phase["total"] = total
+        last_phase["found"] = found
+
+    # Wrap prog to also store last phase
+    _original_prog = prog
+    async def prog(phase, msg, current=0, total=0, found=0):
+        await _store_phase(phase, msg, current, total, found)
+        await _original_prog(phase, msg, current, total, found)
+
+    # Start heartbeat in background
+    async def heartbeat():
+        while True:
+            await asyncio.sleep(3)
+            if cancelled():
+                break
+            # Re-send last phase to keep UI alive
+            await _original_prog(last_phase["phase"], last_phase["msg"],
+                                  last_phase["current"], last_phase["total"], last_phase["found"])
+    heartbeat_task = asyncio.create_task(heartbeat())
 
     if HAS_AIOHTTP:
         conn = aiohttp.TCPConnector(limit=100, limit_per_host=40, ssl=False)
@@ -2817,7 +2873,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
-            # 3a.5. Static-site specific paths (v10.0)
+            # 3a.5. Static-site specific paths (v10.1)
             # Nếu detect Netlify/Vercel/CF Pages/GH Pages → scan thêm STATIC_SITE_PATHS
             # Nếu detect framework → scan thêm FRAMEWORK_EXTRA_PATHS
             extra_paths = set()
@@ -3096,7 +3152,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
 
-            # 12. Subdomain takeover check (v10.0)
+            # 12. Subdomain takeover check (v10.1)
             if not cancelled() and result["subdomains_resolved"]:
                 await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
                 log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
@@ -3111,7 +3167,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Takeover check failed: {e}")
 
-            # 13. GraphQL introspection (v10.0)
+            # 13. GraphQL introspection (v10.1)
             if not cancelled():
                 await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
                 log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
@@ -3124,7 +3180,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"GraphQL check failed: {e}")
 
-            # 14. CORS misconfiguration (v10.0)
+            # 14. CORS misconfiguration (v10.1)
             if not cancelled():
                 await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
                 log(f"CORS: testing 3 origins × 5 endpoints")
@@ -3137,7 +3193,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CORS check failed: {e}")
 
-            # 15. Open redirect test (v10.0)
+            # 15. Open redirect test (v10.1)
             if not cancelled():
                 await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
                 log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
@@ -3150,7 +3206,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Open redirect check failed: {e}")
 
-            # 16. Source map exposure (v10.0)
+            # 16. Source map exposure (v10.1)
             if not cancelled() and result["js_links"]:
                 await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
                 log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
@@ -3163,7 +3219,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Source map check failed: {e}")
 
-            # 17. JS endpoint extraction + API fuzzing (v10.0)
+            # 17. JS endpoint extraction + API fuzzing (v10.1)
             if not cancelled() and scan_js and result["js_links"]:
                 await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
                 log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
@@ -3225,7 +3281,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"JS endpoint extraction failed: {e}")
 
-            # 18. Swagger/OpenAPI parsing (v10.0)
+            # 18. Swagger/OpenAPI parsing (v10.1)
             if not cancelled():
                 await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
                 log(f"Swagger: testing 6 spec paths")
@@ -3245,7 +3301,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Swagger parsing failed: {e}")
 
-            # 19. Recursive depth-2 brute-force (v10.0)
+            # 19. Recursive depth-2 brute-force (v10.1)
             if not cancelled():
                 found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
                 found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
@@ -3269,7 +3325,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 else:
                     log(f"Recursive brute skipped: no directories found")
 
-            # 20. HTTP method fuzzing (v10.0)
+            # 20. HTTP method fuzzing (v10.1)
             if not cancelled():
                 test_urls = [target]
                 test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
@@ -3289,7 +3345,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"HTTP method fuzz failed: {e}")
 
-            # 21. Wayback Machine integration (v10.0)
+            # 21. Wayback Machine integration (v10.1)
             if not cancelled():
                 await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
                 log(f"Wayback: querying web.archive.org")
@@ -3300,7 +3356,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Wayback lookup failed: {e}")
 
-            # 22. Certificate Transparency logs (v10.0) — crt.sh subdomain enum
+            # 22. Certificate Transparency logs (v10.1) — crt.sh subdomain enum
             if not cancelled():
                 await prog("ct_logs", "Certificate Transparency logs (crt.sh)...", 0, 1, 0)
                 log(f"CT: querying crt.sh for *.{host}")
@@ -3328,7 +3384,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CT logs failed: {e}")
 
-            # 23. DNS records lookup (v10.0)
+            # 23. DNS records lookup (v10.1)
             if not cancelled() and host:
                 await prog("dns_records", "DNS records lookup (A/AAAA/MX/TXT/CNAME)...", 0, 1, 0)
                 log(f"DNS: looking up records for {host}")
@@ -3340,7 +3396,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"DNS lookup failed: {e}")
 
-            # 24. .git directory exposure check (v10.0)
+            # 24. .git directory exposure check (v10.1)
             if not cancelled():
                 await prog("git_exposure", "Check .git directory exposure (HEAD, config, index)...", 0, 1, 0)
                 log(f"Git: checking .git directory exposure")
@@ -3361,7 +3417,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Git exposure check failed: {e}")
 
-            # 25. Deep crawl (v10.0) — crawl links depth-2, extract secrets from all pages
+            # 25. Deep crawl (v10.1) — crawl links depth-2, extract secrets from all pages
             if not cancelled() and main_text and len(main_text) > 100:
                 await prog("deep_crawl", "Deep crawl internal links (depth-2)...", 0, 1, 0)
                 log(f"Deep crawl: collecting internal links depth-2")
@@ -3382,7 +3438,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Deep crawl failed: {e}")
 
-            # 26. JS source string extraction (v10.0)
+            # 26. JS source string extraction (v10.1)
             if not cancelled() and scan_js and result.get("js_links"):
                 target_netloc = parsed.netloc.lower()
                 same_origin_js = [u for u in result["js_links"]
@@ -3413,7 +3469,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     except Exception as e:
                         log(f"JS string extraction failed: {e}")
 
-            # 27. SSTI detection (v10.0)
+            # 27. SSTI detection (v10.1)
             if not cancelled():
                 await prog("ssti", "Server-Side Template Injection test...", 0, 1, 0)
                 log(f"SSTI: testing 8 endpoints × {len(SSTI_PAYLOADS)} payloads × 7 params")
@@ -3424,7 +3480,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"SSTI check failed: {e}")
 
-            # 28. Prototype Pollution (v10.0)
+            # 28. Prototype Pollution (v10.1)
             if not cancelled():
                 await prog("proto_pollution", f"Prototype Pollution test ({len(PROTO_POLLUTION_PAYLOADS)} payloads)...", 0, len(PROTO_POLLUTION_PAYLOADS), 0)
                 log(f"Proto pollution: testing {len(PROTO_POLLUTION_PAYLOADS)} payloads")
@@ -3435,7 +3491,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Proto pollution check failed: {e}")
 
-            # 29. HTTP Header Injection (v10.0) — bypass access control
+            # 29. HTTP Header Injection (v10.1) — bypass access control
             if not cancelled():
                 await prog("header_injection", f"HTTP header injection ({len(HEADER_INJECTION_PAYLOADS)} payloads)...", 0, len(HEADER_INJECTION_PAYLOADS), 0)
                 log(f"Header injection: testing {len(HEADER_INJECTION_PAYLOADS)} headers (X-Forwarded-*, X-Original-URL, etc.)")
@@ -3446,7 +3502,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Header injection check failed: {e}")
 
-            # 30. Cache Poisoning (v10.0)
+            # 30. Cache Poisoning (v10.1)
             if not cancelled():
                 await prog("cache_poison", f"Cache poisoning test ({len(CACHE_POISON_PAYLOADS)} payloads)...", 0, len(CACHE_POISON_PAYLOADS), 0)
                 log(f"Cache poisoning: testing {len(CACHE_POISON_PAYLOADS)} headers")
@@ -3457,7 +3513,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Cache poisoning check failed: {e}")
 
-            # 31. Default Credentials test (v10.0)
+            # 31. Default Credentials test (v10.1)
             if not cancelled() and result.get("forms"):
                 login_count = sum(1 for f in result["forms"] if f.get("type") == "login")
                 if login_count > 0:
@@ -3514,7 +3570,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
-        # v10.0 additions
+        # v10.1 additions
         "takeover_findings": len(result.get("takeover_findings", [])),
         "graphql_findings": len(result.get("graphql_findings", [])),
         "cors_findings": len(result.get("cors_findings", [])),
@@ -3526,13 +3582,13 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "wayback_urls": len(result.get("wayback_urls", [])),
         "http_method_findings": len(result.get("http_method_findings", [])),
         "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
-        # v10.0 additions
+        # v10.1 additions
         "ct_subdomains": len(result.get("ct_subdomains", [])),
         "dns_records": len(result.get("dns_records", {})),
         "git_findings": len(result.get("git_findings", [])),
         "crawled_pages": len(result.get("crawled_pages", [])),
         "js_strings": len(result.get("js_strings", [])),
-        # v10.0 additions
+        # v10.1 additions
         "ssti_findings": len(result.get("ssti_findings", [])),
         "proto_pollution_findings": len(result.get("proto_pollution_findings", [])),
         "header_injection_findings": len(result.get("header_injection_findings", [])),
@@ -3593,7 +3649,7 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
-    # v10.0 phases
+    # v10.1 phases
     "takeover": "💀 Subdomain takeover check",
     "graphql": "⚡ GraphQL introspection",
     "cors": "🌐 CORS misconfiguration",
@@ -3605,13 +3661,13 @@ PHASE_NAMES = {
     "recursive_brute": "🔁 Recursive depth-2 brute",
     "http_methods": "🔧 HTTP method fuzzing",
     "wayback": "🕰️ Wayback Machine lookup",
-    # v10.0 phases
+    # v10.1 phases
     "ct_logs": "📜 Certificate Transparency (crt.sh)",
     "dns_records": "🌐 DNS records lookup",
     "git_exposure": "📂 .git directory exposure",
     "deep_crawl": "🕷️ Deep crawl (depth-2)",
     "js_strings": "📜 JS source string extraction",
-    # v10.0 phases
+    # v10.1 phases
     "ssti": "🧪 SSTI (template injection)",
     "proto_pollution": "💀 Prototype Pollution",
     "header_injection": "🛡️ HTTP Header Injection (bypass)",
@@ -3629,7 +3685,7 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── v10.0 Risk Score Calculator ──
+# ── v10.1 Risk Score Calculator ──
 def calculate_risk_score(stats):
     """Calculate overall risk score (0-100) and letter grade from scan stats.
     Lower score = safer. Higher score = more vulnerable."""
@@ -3693,16 +3749,16 @@ def calculate_risk_score(stats):
         "counts": {"critical": critical, "high": high, "medium": medium, "low": low, "info": info},
     }
 
-# ── HTML Template (PAGE) – v10.0 Deep Recon Edition ──
+# ── HTML Template (PAGE) – v10.1 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v10.0 — Recon Beast</title>
+<title>Web Leak Scanner Pro v10.1 — Recon Beast</title>
 <style>
-/* ─────────  v10.0 Theme variables  ───────── */
+/* ─────────  v10.1 Theme variables  ───────── */
 :root{
   --bg:#050509; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
   --border:rgba(0,212,170,.18); --border-hi:rgba(0,212,170,.45);
@@ -3837,7 +3893,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .theme-toggle:hover{transform:translateY(-1px) rotate(8deg);border-color:var(--accent);
   box-shadow:0 4px 12px rgba(0,212,170,.25)}
 
-/* ─────────  Container / Cards — v10.0 with 3D holographic effects  ───────── */
+/* ─────────  Container / Cards — v10.1 with 3D holographic effects  ───────── */
 .container{max-width:1200px;margin:0 auto;padding:20px;perspective:1500px}
 .card{
   background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
@@ -4201,7 +4257,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   border-radius:8px;height:14px;margin:8px 0}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
-/* ───────── v10.0 Guide Modal + i18n + Templates  ───────── */
+/* ───────── v10.1 Guide Modal + i18n + Templates  ───────── */
 .modal-overlay{
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
@@ -4303,7 +4359,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .template-btn[data-tpl="static"]{border-color:rgba(254,202,87,.4)}
 .template-btn[data-tpl="static"]:hover{background:var(--warn);color:#0a0a12}
 
-/* ═════════ v10.0 Enterprise: Risk Score + Charts + Command Palette ═════════ */
+/* ═════════ v10.1 Enterprise: Risk Score + Charts + Command Palette ═════════ */
 
 /* Risk Score Dashboard */
 .risk-dashboard{
@@ -4571,7 +4627,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v10.0</span></span>
+    <span>Web Leak Scanner <span class="version">v10.1</span></span>
   </div>
   <div class="nav-right">
     <div class="lang-switcher">
@@ -4588,7 +4644,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1 data-i18n="hero_title">🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v10.0 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
+  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v10.1 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
 
   <!-- Quick Templates -->
   <div class="templates-bar">
@@ -4676,7 +4732,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v10.0 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v10.1 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
 
 <!-- Guide Modal -->
 <div class="modal-overlay" id="guideModal">
@@ -4760,12 +4816,12 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     <p data-i18n="guide_legal">Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.</p>
 
     <p style="text-align:center;margin-top:20px;color:var(--dim);font-size:12px">
-      <span data-i18n="guide_footer">v10.0 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
+      <span data-i18n="guide_footer">v10.1 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
     </p>
   </div>
 </div>
 
-<!-- v10.0 Command Palette -->
+<!-- v10.1 Command Palette -->
 <div class="cmd-palette-overlay" id="cmdPalette">
   <div class="cmd-palette">
     <div class="cmd-input-wrap">
@@ -4782,7 +4838,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   </div>
 </div>
 
-<!-- v10.0 Mobile Bottom Nav -->
+<!-- v10.1 Mobile Bottom Nav -->
 <nav class="mobile-nav">
   <a class="mobile-nav-item active" onclick="scrollToTop()">
     <span class="icon">🏠</span><span>Home</span>
@@ -4803,7 +4859,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="toast" class="toast"></div>
 
 <script>
-// ───────── v10.0 Particle background canvas ─────────
+// ───────── v10.1 Particle background canvas ─────────
 const particleCanvas = document.getElementById('particleCanvas');
 const pctx = particleCanvas.getContext('2d');
 let particles = [];
@@ -4902,7 +4958,7 @@ function animateParticles(){
 }
 animateParticles();
 
-// ───────── v10.0 Confetti effect for critical findings ─────────
+// ───────── v10.1 Confetti effect for critical findings ─────────
 const confettiCanvas = document.getElementById('confettiCanvas');
 const cctx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
@@ -4990,11 +5046,11 @@ $('#themeToggle').addEventListener('click', ()=>{
   applyTheme(cur === 'dark' ? 'light' : 'dark');
 });
 
-// ───────── v10.0 i18n (Internationalization: VI/EN) ─────────
+// ───────── v10.1 i18n (Internationalization: VI/EN) ─────────
 const I18N = {
   vi: {
     hero_title: "🕵️ Quét lỗ hổng thông tin rò rỉ",
-    hero_subtitle: "Async deep recon v10.0 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
+    hero_subtitle: "Async deep recon v10.1 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
     guide: "Hướng dẫn",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -5075,12 +5131,12 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report để download kết quả scan.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.",
-    guide_footer: "v10.0 — Recon Beast · Made with",
+    guide_footer: "v10.1 — Recon Beast · Made with",
     guide_close_hint: "Click × hoặc ngoài modal để đóng",
   },
   en: {
     hero_title: "🕵️ Scan Information Leak Vulnerabilities",
-    hero_subtitle: "Async deep recon v10.0 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
+    hero_subtitle: "Async deep recon v10.1 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
     guide: "Guide",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -5161,7 +5217,7 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report to download scan results.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool is for security research and authorized testing only. Only scan targets you have permission to test. Unauthorized scanning may violate laws (Cybersecurity law, GDPR, HIPAA...). Author is not responsible for misuse.",
-    guide_footer: "v10.0 — Recon Beast · Made with",
+    guide_footer: "v10.1 — Recon Beast · Made with",
     guide_close_hint: "Click × or outside modal to close",
   }
 };
@@ -5206,7 +5262,7 @@ $$('.lang-btn').forEach(btn => {
   });
 });
 
-// ───────── v10.0 Guide Modal ─────────
+// ───────── v10.1 Guide Modal ─────────
 function openGuide() {
   $('#guideModal').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -5225,7 +5281,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ───────── v10.0 Quick Templates ─────────
+// ───────── v10.1 Quick Templates ─────────
 function applyTemplate(name) {
   const tpl = {
     quick:    {timeout: 8,  scan_js: 'no',  bypass_mode: 'auto',      intensity: 'quick', vuln_tests: 'no'},
@@ -5568,6 +5624,7 @@ function resetBtn(){
 }
 
 async function loadResult(scanId){
+  currentScanId = scanId;  // v10.1: store for HTML source viewer
   const resp = await fetch('/result/' + scanId);
   const html = await resp.text();
   $('#resultsArea').innerHTML = html;
@@ -5576,8 +5633,8 @@ async function loadResult(scanId){
   initTabs();
   initFilter();
   animateCounters();
-  checkAndFireConfetti();  // v10.0: fire confetti if critical findings
-  // v10.0: draw donut chart + animate risk gauge
+  checkAndFireConfetti();  // v10.1: fire confetti if critical findings
+  // v10.1: draw donut chart + animate risk gauge
   setTimeout(() => {
     drawSeverityDonut();
     animateRiskGauge();
@@ -5608,7 +5665,7 @@ function animateCounters(){
 
 loadHistory();
 
-// ═════════ v10.0 Command Palette ═════════
+// ═════════ v10.1 Command Palette ═════════
 const COMMANDS = [
   {icon:'⚡', title:'Quick Recon', desc:'Fast scan template', kbd:'T+Q', action:()=>{applyTemplate('quick')}},
   {icon:'🔬', title:'Deep Audit', desc:'Full 31-phase scan', kbd:'T+D', action:()=>{applyTemplate('deep')}},
@@ -5693,7 +5750,7 @@ $('#cmdPalette').addEventListener('click', (e) => {
   if (e.target === $('#cmdPalette')) closeCmdPalette();
 });
 
-// ═════════ v10.0 Keyboard Shortcuts ═════════
+// ═════════ v10.1 Keyboard Shortcuts ═════════
 document.addEventListener('keydown', (e) => {
   // Skip if typing in input/textarea
   const tag = e.target.tagName;
@@ -5739,7 +5796,78 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ═════════ v10.0 Helper functions for results ═════════
+// ═════════ v10.1 Helper functions for results ═════════
+// v10.1: HTML Source viewer
+let currentScanId = null;
+let htmlSourceCache = null;
+function loadHtmlSource() {
+  if (!currentScanId) {
+    toast('❌ Chưa có scan nào. Hãy scan một URL trước.');
+    return;
+  }
+  const loading = document.getElementById('htmlSourceLoading');
+  const content = document.getElementById('htmlSourceContent');
+  const info = document.getElementById('htmlSourceInfo');
+  const empty = document.getElementById('htmlSourceEmpty');
+  if (loading) loading.style.display = 'block';
+  if (content) content.style.display = 'none';
+  if (empty) empty.style.display = 'none';
+  fetch('/source/' + currentScanId)
+    .then(r => r.json())
+    .then(data => {
+      htmlSourceCache = data;
+      if (loading) loading.style.display = 'none';
+      if (data.error) {
+        if (info) {
+          info.style.display = 'block';
+          info.innerHTML = `❌ <strong>Lỗi fetch HTML:</strong> ${data.error}<br>Target: <code>${data.target}</code>`;
+        }
+        return;
+      }
+      if (content) {
+        // Escape HTML để hiển thị as text (không render)
+        const escaped = data.html
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        content.innerHTML = escaped;
+        content.style.display = 'block';
+      }
+      if (info) {
+        info.style.display = 'block';
+        info.innerHTML = `
+          📄 <strong>${data.size.toLocaleString()} bytes</strong> · HTTP ${data.status_code}
+          ${data.truncated ? ' · <span style="color:var(--warn)">⚠️ Truncated at 500KB</span>' : ''}
+          · Target: <code>${data.target}</code>
+        `;
+      }
+      document.getElementById('downloadSourceBtn').style.display = 'inline-flex';
+      document.getElementById('copySourceBtn').style.display = 'inline-flex';
+      toast(`📄 Đã tải ${data.size.toLocaleString()} bytes HTML`);
+    })
+    .catch(err => {
+      if (loading) loading.style.display = 'none';
+      toast('❌ Lỗi: ' + err.message);
+    });
+}
+function downloadHtmlSource() {
+  if (!htmlSourceCache || !htmlSourceCache.html) return;
+  const blob = new Blob([htmlSourceCache.html], {type: 'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'source_' + (htmlSourceCache.target || 'unknown').replace(/^https?:\/\//, '').split('/')[0] + '.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('⬇️ Đã download HTML source');
+}
+function copyHtmlSource() {
+  if (!htmlSourceCache || !htmlSourceCache.html) return;
+  navigator.clipboard.writeText(htmlSourceCache.html).then(() => toast('📋 Đã copy HTML'));
+}
+
 function filterBySeverity(sev) {
   const select = $('#filterSev');
   if (select) {
@@ -5813,7 +5941,7 @@ function animateRiskGauge() {
 </html>
 """
 
-# ── HTML Template (RESULT) – v10.0 Deep Recon ──
+# ── HTML Template (RESULT) – v10.1 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -5855,7 +5983,7 @@ RESULT_HTML = r"""
 <div class="alert alert-error"><strong>❌ Lỗi:</strong> {{ result.error }}</div>
 {% else %}
 
-<!-- v10.0 Risk Score Dashboard -->
+<!-- v10.1 Risk Score Dashboard -->
 {% set risk = calculate_risk_score(result.stats) %}
 <div class="risk-dashboard">
   <div class="risk-gauge-wrap">
@@ -5966,6 +6094,7 @@ RESULT_HTML = r"""
   <button class="tab" data-tab="headers">📜 Headers & Cookies</button>
   <button class="tab" data-tab="forms">📝 Forms <span class="count">{{ result.forms|length }}</span></button>
   <button class="tab" data-tab="subs">🌐 Subs <span class="count">{{ result.subdomains_resolved|length }}</span></button>
+  <button class="tab" data-tab="html_source">📄 HTML Source</button>
   <button class="tab" data-tab="raw">🔎 Raw</button>
 </div>
 
@@ -6300,7 +6429,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v10.0 Tabs -->
+<!-- v10.1 Tabs -->
 
 <!-- Tab: API Endpoints (discovered from JS + Swagger) -->
 <div class="tab-panel" id="tab-endpoints">
@@ -6531,7 +6660,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: CT Subdomains (v10.0) -->
+<!-- Tab: CT Subdomains (v10.1) -->
 <div class="tab-panel" id="tab-ct_logs">
   {% if result.ct_subdomains %}
   <div class="alert alert-info">📜 Found <strong>{{ result.ct_subdomains|length }}</strong> subdomains từ Certificate Transparency logs (crt.sh) — đây là subdomains đã từng được issue certificate</div>
@@ -6548,7 +6677,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: DNS Records (v10.0) -->
+<!-- Tab: DNS Records (v10.1) -->
 <div class="tab-panel" id="tab-dns">
   {% if result.dns_records %}
   <div class="section-title">🌐 DNS Records cho {{ result.target }}</div>
@@ -6570,7 +6699,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Git Exposure (v10.0) -->
+<!-- Tab: Git Exposure (v10.1) -->
 <div class="tab-panel" id="tab-git">
   {% if result.git_findings %}
   <div class="alert alert-error">📂 <strong>.git directory EXPOSED!</strong> Phát hiện {{ result.git_findings|length }} file(s) trong .git folder có thể truy cập công khai. Attacker có thể reconstruct toàn bộ source code + history!</div>
@@ -6592,7 +6721,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Crawled Pages (v10.0) -->
+<!-- Tab: Crawled Pages (v10.1) -->
 <div class="tab-panel" id="tab-crawled">
   {% if result.crawled_pages %}
   <div class="alert alert-info">🕷️ Deep crawl đã thu thập <strong>{{ result.crawled_pages|length }}</strong> internal pages (depth-2), extract secrets từ mỗi page</div>
@@ -6614,7 +6743,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: JS Strings (v10.0) -->
+<!-- Tab: JS Strings (v10.1) -->
 <div class="tab-panel" id="tab-js_strings">
   {% if result.js_strings %}
   <div class="alert alert-info">📜 Extracted <strong>{{ result.js_strings|length }}</strong> unique strings từ JS files — check manually cho API keys, endpoints, hardcoded URLs, internal info</div>
@@ -6630,7 +6759,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v10.0 Tabs -->
+<!-- v10.1 Tabs -->
 
 <!-- Tab: SSTI -->
 <div class="tab-panel" id="tab-ssti">
@@ -6733,6 +6862,24 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
+<!-- Tab: HTML Source (v10.1) -->
+<div class="tab-panel" id="tab-html_source">
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <button class="btn btn-secondary" onclick="loadHtmlSource()" id="loadSourceBtn">📄 Fetch HTML Source</button>
+    <button class="btn btn-ghost" onclick="downloadHtmlSource()" id="downloadSourceBtn" style="display:none">⬇️ Download .html</button>
+    <button class="btn btn-ghost" onclick="copyHtmlSource()" id="copySourceBtn" style="display:none">📋 Copy</button>
+  </div>
+  <div id="htmlSourceInfo" style="font-size:12px;color:var(--muted);margin-bottom:10px;display:none"></div>
+  <pre class="robots-content" id="htmlSourceContent" style="max-height:600px;white-space:pre-wrap;word-break:break-all;display:none"></pre>
+  <div id="htmlSourceLoading" class="empty-state" style="display:none">
+    <p>⏳ Đang tải HTML source...</p>
+  </div>
+  <div id="htmlSourceEmpty" class="empty-state">
+    <p>📄 Click "Fetch HTML Source" để lấy raw HTML của trang web đã scan.</p>
+    <p style="font-size:11px;color:var(--dim);margin-top:6px">Tool sẽ fetch URL mục tiêu và hiển thị HTML gốc (có syntax highlighting, copy, download)</p>
+  </div>
+</div>
+
 <!-- Tab: Raw -->
 <div class="tab-panel" id="tab-raw">
   <details>
@@ -6813,6 +6960,31 @@ def scan():
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
+            # v10.1: Pre-store target in scan_results so /source/ endpoint works during scan
+            scan_results[scan_id] = {
+                "target": target, "main": {}, "leak": [], "secrets": [],
+                "ports": [], "dirs": [], "brute": [], "technologies": [],
+                "waf": {"detected": [], "recommendations": [], "should_slow_down": False},
+                "cdn": [], "cookies": [], "security_headers": [],
+                "links": [], "js_links": [], "forms": [], "robots": [],
+                "stats": {"in_progress": True}, "duration_seconds": 0,
+                "errors": [], "scanner_version": "v10.1",
+                "subdomains_resolved": [], "subdomain_hints": [],
+                "takeover_findings": [], "graphql_findings": [], "cors_findings": [],
+                "open_redirect_findings": [], "source_maps": [], "wayback_urls": [],
+                "http_method_findings": [], "recursive_brute_findings": [],
+                "backup_findings": [], "param_findings": [],
+                "js_endpoints": [], "api_endpoints": [], "swagger_endpoints": [],
+                "ct_subdomains": [], "dns_records": {}, "git_findings": [],
+                "crawled_pages": [], "js_strings": [],
+                "ssti_findings": [], "proto_pollution_findings": [],
+                "header_injection_findings": [], "cache_poison_findings": [],
+                "default_creds_findings": [], "page_summary": "",
+                "static_platforms": [], "frameworks_detected": [],
+                "bypass_mode": bypass_mode,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "cancelled": False, "soft_404_filtered": 0,
+            }
             result = loop.run_until_complete(deep_scan(
                 target, custom_headers, proxy, timeout,
                 allow_redirects, progress_cb, scan_js, scan_id, bypass_mode
@@ -6841,7 +7013,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v10.0",
+                "errors": [str(e)], "scanner_version": "v10.1",
             }
             with prog_lock:
                 for h in scan_history:
@@ -6904,6 +7076,49 @@ def result(scan_id):
     result = scan_results.get(scan_id, {})
     return render_template_string(RESULT_HTML, result=result, calculate_risk_score=calculate_risk_score)
 
+# v10.1: HTML source viewer endpoint
+@app.route("/source/<int:scan_id>")
+def view_source(scan_id):
+    """Return raw HTML source of the scanned target page."""
+    result = scan_results.get(scan_id, {})
+    main = result.get("main", {}) or {}
+    target = result.get("target", "")
+    # Try to fetch the actual HTML if we don't have it stored
+    # (we stored main_text in deep_scan but didn't expose it; let's re-fetch)
+    html_content = ""
+    fetch_error = ""
+    if target:
+        try:
+            import urllib.request, ssl as ssl_mod
+            ctx = ssl_mod.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl_mod.CERT_NONE
+            req = urllib.request.Request(target, headers={
+                "User-Agent": random.choice(USER_AGENTS)
+            })
+            with urllib.request.urlopen(req, timeout=10, context=ctx) as r:
+                html_content = r.read().decode("utf-8", errors="replace")[:500000]  # 500KB cap
+                status_code = r.status
+                resp_headers = dict(r.headers)
+        except Exception as e:
+            fetch_error = f"{type(e).__name__}: {str(e)[:100]}"
+            status_code = 0
+            resp_headers = {}
+    else:
+        fetch_error = "No target URL available"
+        status_code = 0
+        resp_headers = {}
+    # Return as JSON
+    return jsonify({
+        "target": target,
+        "status_code": status_code if 'status_code' in dir() else main.get("code", 0),
+        "html": html_content,
+        "size": len(html_content),
+        "truncated": len(html_content) >= 500000,
+        "error": fetch_error,
+        "response_headers": resp_headers if 'resp_headers' in dir() else {},
+    })
+
 @app.route("/history")
 def history():
     with prog_lock:
@@ -6932,7 +7147,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v10.0"
+    data["scanner"] = "Web Leak Scanner Pro v10.1"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -7007,7 +7222,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v10.0 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v10.1 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -7032,7 +7247,7 @@ def health():
         pass
     return jsonify({
         "status": "ok",
-        "service": "Web Leak Scanner Pro v10.0",
+        "service": "Web Leak Scanner Pro v10.1",
         "uptime": round(time.time() - _START_TIME, 1),
         "active_scans": sum(1 for q in progress_queues.values() if q is not None),
         "memory_mb": mem_info.get("rss_mb", 0),
@@ -7051,14 +7266,14 @@ _START_TIME = time.time()
 def run_dev_server(host, port):
     """Run Flask development server (NOT for production)."""
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v10.0 — Development Server")
+    print(f"🛡️  Web Leak Scanner Pro v10.1 — Development Server")
     print(f"   URL: http://{host}:{port}")
     print(f"   ⚠️  DEV SERVER — không phù hợp production!")
-    print(f"   v10.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v10.0: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
-    print(f"   v10.0: Source maps · JS endpoints · Swagger · Wayback · .git")
-    print(f"   v10.0: Cache poisoning · Header injection · Default creds")
-    print(f"   v10.0: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+    print(f"   v10.1: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v10.1: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
+    print(f"   v10.1: Source maps · JS endpoints · Swagger · Wayback · .git")
+    print(f"   v10.1: Cache poisoning · Header injection · Default creds")
+    print(f"   v10.1: 4 WAF bypass modes · Glassmorphism UI · Confetti")
     print("=" * 64)
     app.run(host=host, port=port, debug=False, threaded=True)
 
@@ -7067,12 +7282,12 @@ def run_production_server(host, port):
     try:
         from waitress import serve as waitress_serve
         print("=" * 64)
-        print(f"🛡️  Web Leak Scanner Pro v10.0 — Production Server (waitress)")
+        print(f"🛡️  Web Leak Scanner Pro v10.1 — Production Server (waitress)")
         print(f"   URL: http://{host}:{port}")
         print(f"   🌐 Production WSGI: waitress (multi-threaded, robust)")
         print(f"   🔍 Health endpoint: /health, /ping")
-        print(f"   v10.0: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-        print(f"   v10.0: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+        print(f"   v10.1: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+        print(f"   v10.1: 4 WAF bypass modes · Glassmorphism UI · Confetti")
         print("=" * 64)
         # Waitress with reasonable defaults for cloud deploy
         # threads=8 — enough for scanner + UI + health checks
