@@ -4629,6 +4629,34 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 </style>
 </head>
 <body>
+<!-- v10.5: Noscript warning -->
+<noscript>
+  <div style="position:fixed;inset:0;z-index:9999;background:#0f0f1a;color:#e8eef5;display:flex;align-items:center;justify-content:center;font-family:sans-serif;text-align:center;padding:20px">
+    <div>
+      <h1 style="font-size:24px;color:#ff5b6b;margin-bottom:12px">⚠️ JavaScript Required</h1>
+      <p style="font-size:14px;color:#9aa3b8">Web Leak Scanner cần JavaScript để hoạt động.<br>Vui lòng bật JavaScript trong trình duyệt.</p>
+    </div>
+  </div>
+</noscript>
+<!-- v10.5: Inline safety script — chạy trước tất cả JS khác -->
+<script>
+(function() {
+  // Nếu page detect body chỉ chứa JSON (raw response), tự redirect về /
+  try {
+    var text = document.body.textContent || document.body.innerText || '';
+    if (text.trim().startsWith('{"scan_id"') || text.trim().startsWith('{"error"')) {
+      window.location.href = '/';
+      return;
+    }
+  } catch(e) {}
+  // Global error capture
+  window.__errors = [];
+  window.addEventListener('error', function(e) {
+    window.__errors.push(e.message);
+    console.error('[FATAL JS Error]', e.message);
+  });
+})();
+</script>
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
@@ -7033,6 +7061,17 @@ def index():
 # v10.5: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
 # Đồng thời nếu POST /scan được gọi trực tiếp (không qua JS), trả về HTML page
 # thay vì raw JSON để browser không hiển thị raw JSON
+@app.route("/version")
+def version_info():
+    """Version endpoint — user có thể check xem app đã deploy code mới chưa."""
+    return jsonify({
+        "version": "v10.5",
+        "service": "Web Leak Scanner Pro",
+        "features": ["31 phases", "4 WAF bypass modes", "i18n VI/EN", "risk score", 
+                     "command palette", "HTML source viewer", "force reset button"],
+        "endpoints": ["/", "/scan", "/health", "/ping", "/version", "/source/<id>"],
+    })
+
 @app.route("/scan", methods=["GET"])
 def scan_get_redirect():
     from flask import redirect
