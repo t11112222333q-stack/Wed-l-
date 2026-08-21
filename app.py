@@ -5937,7 +5937,7 @@ document.addEventListener('keydown', (e) => {
 
 // ═════════ v10.5 Helper functions for results ═════════
 // v10.5: HTML Source viewer
-let currentScanId = null;
+// NOTE: currentScanId already declared at line 5427, don't re-declare!
 let htmlSourceCache = null;
 function loadHtmlSource() {
   if (!currentScanId) {
