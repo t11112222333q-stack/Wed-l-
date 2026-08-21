@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v10.5 — Deep Recon Edition
+Web Leak Scanner Pro v10.8 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v10.5 (so với v6.0):
+Changelog v10.8 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -198,7 +198,7 @@ LEAK_PATHS = [
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
 
-    # ── v10.5 additions: K8s / container / monitoring ──
+    # ── v10.8 additions: K8s / container / monitoring ──
     "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
     "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
     "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
@@ -217,7 +217,7 @@ LEAK_PATHS = [
     "/.well-known/revocation",
     "/.well-known/introspection",
 
-    # ── v10.5: Source maps & debug bundles ──
+    # ── v10.8: Source maps & debug bundles ──
     "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
     "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
     "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
@@ -226,7 +226,7 @@ LEAK_PATHS = [
     "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
     "/dist/build.js.map", "/dist/main.js.map",
 
-    # ── v10.5: GraphQL / WebSocket / API ──
+    # ── v10.8: GraphQL / WebSocket / API ──
     "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
     "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
@@ -241,7 +241,7 @@ LEAK_PATHS = [
     "/rest/users", "/rest/admin", "/rest/config",
     "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
 
-    # ── v10.5: Spring Boot Actuator deep ──
+    # ── v10.8: Spring Boot Actuator deep ──
     "/actuator/", "/actuator/info", "/actuator/health",
     "/actuator/env", "/actuator/configprops", "/actuator/beans",
     "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
@@ -252,21 +252,21 @@ LEAK_PATHS = [
     "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
     "/actuator/bus-refresh", "/actuator/gateway/routes",
 
-    # ── v10.5: Java / JVM specific ──
+    # ── v10.8: Java / JVM specific ──
     "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
     "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
     "/META-INF/maven/", "/META-INF/spring.factories",
     "/struts/web.xml", "/struts.xml", "/struts-config.xml",
     "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
 
-    # ── v10.5: .NET / IIS specific ──
+    # ── v10.8: .NET / IIS specific ──
     "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
     "/web.config.bak", "/web.config.old", "/web.config.txt",
     "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
     "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
     "/Reserved.ReportViewerWebControl.axd", "/Reports/",
 
-    # ── v10.5: PHP / Laravel specific ──
+    # ── v10.8: PHP / Laravel specific ──
     "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
     "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
     "/storage/framework/cache/", "/storage/framework/sessions/",
@@ -274,7 +274,7 @@ LEAK_PATHS = [
     "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
     "/artisan", "/server.php", "/package.json",
 
-    # ── v10.5: Ruby / Rails specific ──
+    # ── v10.8: Ruby / Rails specific ──
     "/config/database.yml", "/config/secrets.yml", "/config/master.key",
     "/config/credentials.yml.enc", "/config/credentials.yml",
     "/config/initializers/", "/config/environments/",
@@ -282,13 +282,13 @@ LEAK_PATHS = [
     "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
     "/log/production.log", "/log/development.log",
 
-    # ── v10.5: Python / Django specific ──
+    # ── v10.8: Python / Django specific ──
     "/settings.py", "/local_settings.py", "/config/settings.py",
     "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
     "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
     "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
 
-    # ── v10.5: WordPress deep ──
+    # ── v10.8: WordPress deep ──
     "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
     "/wp-content/backup-db/", "/wp-content/updraft/",
     "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
@@ -303,7 +303,7 @@ LEAK_PATHS = [
     "/wp-admin/install.php", "/wp-admin/setup-config.php",
     "/wp-content/uploads/index.php", "/wp-includes/version.php",
 
-    # ── v10.5: CMS-specific deep ──
+    # ── v10.8: CMS-specific deep ──
     "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
     "/sites/default/settings.php", "/sites/default/files/",
     "/sites/default/private/", "/sites/default/config/",
@@ -315,7 +315,7 @@ LEAK_PATHS = [
     "/administrator/components/com_config/", "/administrator/cache/",
     "/installation/index.php", "/installation/configuration.php",
 
-    # ── v10.5: Node.js / npm specific ──
+    # ── v10.8: Node.js / npm specific ──
     "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
     "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
     "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
@@ -323,7 +323,7 @@ LEAK_PATHS = [
     "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
     "/.netlify/", "/.cache/", "/.turbo/",
 
-    # ── v10.5: Cloud / DevOps deep ──
+    # ── v10.8: Cloud / DevOps deep ──
     "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
     "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
     "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
@@ -336,14 +336,14 @@ LEAK_PATHS = [
     "/google-services.json", "/GoogleService-Info.plist",
     "/firebase.json", "/firebase-config.json", "/.firebaserc",
 
-    # ── v10.5: CI/CD configs ──
+    # ── v10.8: CI/CD configs ──
     "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
     "/.github/workflows/", "/.github/workflows/ci.yml",
     "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
     "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
     "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
 
-    # ── v10.5: API documentation ──
+    # ── v10.8: API documentation ──
     "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
     "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
     "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
@@ -351,14 +351,14 @@ LEAK_PATHS = [
     "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
     "/api/swagger", "/api/rapidoc", "/api/redoc",
 
-    # ── v10.5: WebSocket / SSE endpoints ──
+    # ── v10.8: WebSocket / SSE endpoints ──
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
     "/signalr", "/signalr/negotiate", "/signalr/hubs",
     "/hub", "/realtime", "/events", "/sse", "/stream",
     "/api/ws", "/api/websocket", "/api/realtime",
     "/_ws", "/_websocket", "/_realtime",
 
-    # ── v10.5: Common config backups / temporaries ──
+    # ── v10.8: Common config backups / temporaries ──
     "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
     "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
     "/config.json.bak", "/config.json.old", "/config.json.orig",
@@ -369,7 +369,7 @@ LEAK_PATHS = [
     "/.env.production.local", "/.env.development.local",
     "/.env.staging.local", "/.env.test.local",
 
-    # ── v10.5: CVE / known vuln paths ──
+    # ── v10.8: CVE / known vuln paths ──
     "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
     "/test.jsp", "/test.html",
     "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
@@ -382,7 +382,7 @@ LEAK_PATHS = [
     "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
     "/redis/", "/memcached/", "/var/log/redis/redis.log",
 
-    # ── v10.5: Misc / random secrets ──
+    # ── v10.8: Misc / random secrets ──
     "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
     "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
     "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
@@ -391,13 +391,13 @@ LEAK_PATHS = [
     "/.prettierrc", "/.eslintrc", "/.babelrc",
     "/.docker/registry", "/registry/", "/docker/registry",
 
-    # ── v10.5: Source code & build artifacts ──
+    # ── v10.8: Source code & build artifacts ──
     "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
     "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
     "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
     "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
 
-    # ── v10.5: Logs & debug ──
+    # ── v10.8: Logs & debug ──
     "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
     "/laravel.log", "/storage/logs/laravel.log",
     "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
@@ -408,7 +408,7 @@ LEAK_PATHS = [
     "/_internal/", "/_hidden/", "/_private/", "/_secret/",
     "/server-status", "/server-info", "/status?full", "/status?auto",
 
-    # ── v10.5: Backup & database dumps ──
+    # ── v10.8: Backup & database dumps ──
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
     "/backup.bak", "/backup.dump", "/backup.json",
     "/backup-2024.zip", "/backup-2025.zip",
@@ -421,7 +421,7 @@ LEAK_PATHS = [
     "/mysql.sql", "/postgres.sql", "/pgdump.sql",
     "/mongodump.json", "/mongodump.bson",
 
-    # ── v10.5: Admin / management panels ──
+    # ── v10.8: Admin / management panels ──
     "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
     "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
     "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
@@ -432,7 +432,7 @@ LEAK_PATHS = [
     "/manager/html", "/manager/status", "/manager/jmxproxy",
     "/host-manager/html", "/host-manager/status",
 
-    # ── v10.5: User-uploaded content ──
+    # ── v10.8: User-uploaded content ──
     "/uploads/", "/uploads/files/", "/uploads/images/",
     "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
     "/media/", "/assets/", "/static/", "/public/",
@@ -794,7 +794,7 @@ CORS_TEST_ORIGINS = [
 # HTTP methods to fuzz (test OPTIONS to discover allowed methods)
 HTTP_METHODS_TO_FUZZ = ["OPTIONS", "PUT", "DELETE", "PATCH", "PROPFIND", "TRACE"]
 
-# v10.5 WAF bypass modes
+# v10.8 WAF bypass modes
 WAF_BYPASS_MODES = ["auto", "stealth", "aggressive", "turbo"]
 WAF_BYPASS_PROFILES = {
     "auto":      {"concurrency": 30, "delay_min": 0,    "delay_max": 0.3,  "rotate_ua": True,  "rotate_xff": False, "retry": 2},
@@ -927,6 +927,437 @@ DEFAULT_CREDS = [
     ("demo", "demo"),
 ]
 
+# v10.8: EXPANDED leak paths — admin panels, framework configs, API, cloud, database, CI/CD
+LEAK_PATHS_V2 = [
+    # ── Admin panels (expanded) ──
+    "/admin/", "/admin/login", "/admin/index.php", "/admin/index.html",
+    "/admin/dashboard", "/admin/console", "/admin/config", "/admin/settings",
+    "/admin/users", "/admin/accounts", "/admin/profile", "/admin/panel",
+    "/admin/manage", "/admin/system", "/admin/tools", "/admin/files",
+    "/admin/upload", "/admin/download", "/admin/export", "/admin/import",
+    "/admin/api", "/admin/db", "/admin/sql", "/admin/cache",
+    "/admin/logs", "/admin/stats", "/admin/monitor", "/admin/health",
+    "/administrator/", "/administrator/index.php", "/administrator/login.php",
+    "/administrator/config.php", "/administrator/settings.php",
+    "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel/",
+    "/manage/", "/manager/", "/panel/", "/dashboard/", "/console/",
+    "/cpanel", "/whm", "/directadmin", "/vesta", "/webmin",
+    "/wp-admin/", "/wp-admin/login.php", "/wp-admin/admin.php",
+    "/wp-admin/options.php", "/wp-admin/tools.php", "/wp-admin/plugins.php",
+    "/wp-admin/themes.php", "/wp-admin/users.php", "/wp-admin/export.php",
+    "/wp-admin/import.php", "/wp-admin/admin-ajax.php",
+    "/phpmyadmin/", "/phpmyadmin/index.php", "/phpmyadmin/config.inc.php",
+    "/adminer.php", "/adminer/", "/pma/", "/pma/index.php",
+    "/sqladmin/", "/mysql-admin/", "/dbadmin/", "/dba/",
+    "/manager/html", "/manager/status", "/manager/jmxproxy",
+    "/host-manager/html", "/host-manager/status",
+
+    # ── Framework configs (expanded) ──
+    "/.env", "/.env.local", "/.env.production", "/.env.development",
+    "/.env.staging", "/.env.test", "/.env.example", "/.env.dev",
+    "/.env.prod", "/.env.stage", "/.env.qa", "/.env.live",
+    "/.env.master", "/.env.backup", "/.env.save", "/.env.swp",
+    "/.env.bak", "/.env.old", "/.env.orig", "/.env~",
+    "/.env.production.local", "/.env.development.local",
+    "/config.php", "/config.json", "/config.yaml", "/config.yml",
+    "/config.ini", "/config.toml", "/config.xml", "/config.js",
+    "/config/settings.php", "/config/database.php", "/config/app.php",
+    "/config/credentials", "/config/secrets.yml", "/config/master.key",
+    "/config/database.yml", "/config/credentials.yml.enc",
+    "/appsettings.json", "/appsettings.Development.json", "/appsettings.Production.json",
+    "/settings.json", "/settings.php", "/settings.py", "/settings.ini",
+    "/local_settings.py", "/settings_local.php",
+    "/wp-config.php", "/wp-config.php.bak", "/wp-config.php.old",
+    "/wp-config.php.save", "/wp-config.php~", "/wp-config.php.swp",
+    "/configuration.php", "/configuration.php.bak",
+    "/web.config", "/web.config.bak", "/web.config.old",
+    "/.htaccess", "/.htaccess.bak", "/.htaccess.old", "/.htpasswd",
+    "/.htpasswd.bak", "/.htpasswd.old",
+    "/conf/config.php", "/conf/settings.php", "/conf/database.php",
+    "/include/config.php", "/includes/config.php", "/inc/config.php",
+    "/system/config.php", "/system/settings.php",
+    "/application/config/config.php", "/application/config/database.php",
+    "/application/config/settings.php",
+
+    # ── Cloud credentials (expanded) ──
+    "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
+    "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
+    "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
+    "/.ssh/config", "/.ssh/environment",
+    "/.dockerenv", "/.dockercfg", "/.docker/config.json",
+    "/.gitlab-ci.yml", "/.github/workflows/", "/.circleci/config.yml",
+    "/.travis.yml", "/bitbucket-pipelines.yml", "/Jenkinsfile",
+    "/.vault-token", "/.vault-pass", "/vault.json",
+    "/.terraform.tfvars", "/terraform.tfstate", "/terraform.tfstate.backup",
+    "/.kube/config", "/.kube/token", "/.kube/certificate",
+    "/.gcp/credentials.json", "/.azure/credentials",
+    "/service-account.json", "/service-account-key.json",
+    "/firebase.json", "/firebase-config.json", "/.firebaserc",
+    "/google-services.json", "/GoogleService-Info.plist",
+    "/.netrc", "/.npmrc", "/.pypirc", "/.yarnrc",
+    "/.docker/registry", "/registry/",
+    "/heroku.yml", "/Procfile",
+
+    # ── API endpoints (expanded) ──
+    "/api/", "/api/v1/", "/api/v2/", "/api/v3/",
+    "/api/users", "/api/user", "/api/admin", "/api/config",
+    "/api/auth", "/api/login", "/api/logout", "/api/register",
+    "/api/me", "/api/profile", "/api/account", "/api/settings",
+    "/api/health", "/api/status", "/api/version", "/api/info",
+    "/api/upload", "/api/download", "/api/files", "/api/list",
+    "/api/search", "/api/query", "/api/debug", "/api/test",
+    "/api/swagger.json", "/api/openapi.json", "/api/docs",
+    "/api/internal/", "/api/private/", "/api/secret/",
+    "/rest/", "/rest/users", "/rest/admin", "/rest/config",
+    "/v1/", "/v1/users", "/v1/admin", "/v1/config",
+    "/v2/", "/v2/users", "/v2/admin", "/v2/config",
+    "/graphql", "/graphql.json", "/graphiql", "/playground",
+    "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
+    "/openapi.json", "/openapi.yaml", "/redoc", "/rapidoc",
+    "/api-docs", "/api/docs", "/v1/api-docs", "/v2/api-docs",
+    "/internal/api/", "/internal/users", "/internal/config",
+    "/debug/api/", "/dev/api/", "/test/api/",
+    "/_api/", "/_internal/", "/_debug/", "/_private/",
+
+    # ── Backup & database dumps (expanded) ──
+    "/backup/", "/backup.zip", "/backup.tar.gz", "/backup.tar",
+    "/backup.sql", "/backup.json", "/backup.bak",
+    "/backup-2023.zip", "/backup-2024.zip", "/backup-2025.zip",
+    "/backups/", "/bak/", "/archive/", "/archives/",
+    "/db.sql", "/db.sqlite", "/db.sqlite3", "/db.bak",
+    "/database.sql", "/database.bak", "/database.dump",
+    "/dump.sql", "/dump.bak", "/dump.json",
+    "/www.zip", "/www.tar.gz", "www.rar", "/www.7z",
+    "/site.zip", "/site.tar.gz", "/site.bak",
+    "/website.zip", "/website.tar.gz",
+    "/data.sql", "/data.bak", "/data.json", "/data.zip",
+    "/mysql.sql", "/postgres.sql", "/pgdump.sql",
+    "/mongodump.json", "/mongodump.bson",
+    "/sql/dump.sql", "/sql/backup.sql", "/sql/database.sql",
+    "/database/backup.sql", "/database/dump.sql",
+    "/tmp/backup.sql", "/tmp/database.sql", "/tmp/dump.sql",
+    "/old/", "/old/backup.sql", "/old/config.php",
+    "/test/", "/test/database.sql", "/test/config.php",
+
+    # ── Source code & build artifacts ──
+    "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
+    "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
+    "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
+    "/node_modules/", "/node_modules/.env",
+    "/.next/", "/.nuxt/", "/.svelte-kit/", "/.output/",
+    "/.vercel/", "/.netlify/", "/.turbo/",
+    "/package.json", "/package-lock.json", "/yarn.lock", "/pnpm-lock.yaml",
+    "/composer.json", "/composer.lock",
+    "/Dockerfile", "/docker-compose.yml", "/docker-compose.yaml",
+    "/Containerfile", "/Pipfile", "/Pipfile.lock",
+    "/requirements.txt", "/poetry.lock", "/pyproject.toml",
+    "/Gemfile", "/Gemfile.lock", "/Rakefile",
+    "/go.mod", "/go.sum", "/pom.xml", "/build.gradle",
+    "/Cargo.toml", "/Cargo.lock", "/mix.exs",
+    "/tsconfig.json", "/webpack.config.js", "/vite.config.js",
+    "/.babelrc", "/.eslintrc", "/.prettierrc",
+    "/.editorconfig", "/.flake8", "/.pylintrc",
+    "/Makefile", "/CMakeLists.txt",
+    "/README.md", "/README.txt", "/CHANGELOG.md", "/LICENSE",
+
+    # ── Logs & debug (expanded) ──
+    "/error.log", "/access.log", "/debug.log", "/app.log",
+    "/out.log", "/laravel.log", "/storage/logs/laravel.log",
+    "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
+    "/var/log/auth.log", "/var/log/syslog", "/var/log/messages",
+    "/logs/", "/log/", "/_logs/",
+    "/.bash_history", "/.mysql_history", "/.psql_history", "/.viminfo",
+    "/phpinfo.php", "/info.php", "/test.php", "/debug.php",
+    "/_profiler/", "/_debugbar/", "/symfony/_profiler/",
+    "/actuator/", "/actuator/env", "/actuator/heapdump",
+    "/actuator/loggers", "/actuator/beans", "/actuator/configprops",
+    "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
+    "/actuator/httptrace", "/actuator/health", "/actuator/info",
+    "/server-status", "/server-info", "/status?full",
+
+    # ── Git/SVN exposure ──
+    "/.git/HEAD", "/.git/config", "/.git/index",
+    "/.git/objects/info/packs", "/.git/logs/HEAD",
+    "/.git/refs/heads/master", "/.git/refs/heads/main",
+    "/.git/COMMIT_EDITMSG", "/.git/packed-refs",
+    "/.git/description", "/.git/info/refs",
+    "/.svn/entries", "/.svn/wc.db", "/.svn/props/",
+    "/.hg/store", "/.bzr/", "/CVS/Root", "/CVS/Entries",
+
+    # ── CMS specific (expanded) ──
+    "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
+    "/wp-content/backup-db/", "/wp-content/updraft/",
+    "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
+    "/wp-json/wp/v2/users", "/wp-json/wp/v2/posts",
+    "/wp-cron.php", "/wp-login.php", "/wp-mail.php",
+    "/xmlrpc.php", "/wp-signup.php", "/wp-register.php",
+    "/sites/default/settings.php", "/sites/default/files/",
+    "/user/register", "/admin/structure", "/admin/reports",
+    "/app/etc/local.xml", "/var/log/exception.log", "/var/log/system.log",
+    "/media/jui/", "/components/com_users/",
+    "/installation/index.php", "/installation/configuration.php",
+
+    # ── Common config & dotfiles ──
+    "/.gitignore", "/.gitattributes", "/.dockerignore",
+    "/.well-known/security.txt", "/.well-known/openid-configuration",
+    "/.well-known/jwks.json", "/.well-known/assetlinks.json",
+    "/robots.txt", "/sitemap.xml", "/sitemap-index.xml",
+    "/crossdomain.xml", "/clientaccesspolicy.xml",
+    "/humans.txt", "/security.txt", "/manifest.json",
+    "/.DS_Store", "/Thumbs.db", "/desktop.ini",
+    "/.idea/", "/.idea/workspace.xml", "/.vscode/",
+    "/.vscode/settings.json", "/.vscode/launch.json",
+    "/.DS_Store", "/._.DS_Store", "/.DS_Store.bak",
+
+    # ── Static site / JAMstack ──
+    "/_headers", "/_redirects", "/netlify.toml", "/vercel.json",
+    "/_next/static/", "/_next/data/", "/_nuxt/",
+    "/_app/", "/_astro/", "/.svelte-kit/",
+    "/service-worker.js", "/sw.js",
+    "/manifest.webmanifest", "/site.webmanifest",
+    "/buildManifest.json", "/react-loadable-manifest.json",
+    "/page-data.json", "/page-data/", "/gatsby-data.json",
+
+    # ── Database & cache endpoints ──
+    "/redis/", "/memcached/", "/mongodb/", "/elasticsearch/",
+    "/_cat/indices", "/_cluster/health", "/_search",
+    "/solr/", "/solr/admin/",
+    "/couchdb/", "/couchdb/_all_dbs",
+    "/influxdb/", "/prometheus/", "/-/metrics",
+
+    # ── Dev/CI/CD endpoints ──
+    "/jenkins/", "/jenkins/script", "/jenkins/login",
+    "/gitlab/", "/gitlab/api/v4/projects",
+    "/grafana/", "/grafana/api/health",
+    "/kibana/", "/kibana/app/kibana",
+    "/consul/", "/consul/v1/agent/members",
+    "/nomad/", "/rancher/",
+    "/drone/", "/drone/api/user",
+    "/teamcity/", "/teamcity/httpAuth/app/rest/server",
+    "/gocd/", "/gocd/api/config/pipelines",
+
+    # ── Common dev/test paths ──
+    "/test/", "/dev/", "/debug/", "/temp/", "/tmp/",
+    "/old/", "/new/", "/beta/", "/demo/", "/preview/",
+    "/staging/", "/production/", "/qa/", "/sandbox/",
+    "/internal/", "/intranet/", "/private/", "/secret/",
+    "/.test", "/.dev", "/.debug", "/.internal",
+
+    # ── PHP specific (expanded) ──
+    "/index.php", "/index.php.bak", "/index.php~",
+    "/info.php", "/info.php.bak", "/phpinfo.php",
+    "/test.php", "/test.php.bak", "/debug.php",
+    "/shell.php", "/cmd.php", "/exec.php", "/system.php",
+    "/upload.php", "/download.php", "/delete.php",
+    "/config.php", "/config.php.bak", "/config.php~",
+    "/db.php", "/database.php", "/connect.php",
+    "/functions.php", "/include.php", "/require.php",
+    "/wp-config.php", "/wp-settings.php", "/wp-load.php",
+    "/wp-blog-header.php", "/wp-mail.php",
+
+    # ── Python/Django specific ──
+    "/manage.py", "/settings.py", "/wsgi.py", "/asgi.py",
+    "/local_settings.py", "/config/settings.py",
+    "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
+    "/admin/login/", "/admin/logout/", "/admin/auth/",
+    "/media/", "/static/", "/staticfiles/",
+
+    # ── Ruby/Rails specific ──
+    "/Gemfile", "/Gemfile.lock", "/Rakefile", "/config.ru",
+    "/config/database.yml", "/config/secrets.yml",
+    "/config/master.key", "/config/credentials.yml.enc",
+    "/config/initializers/", "/config/environments/",
+    "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
+    "/log/production.log", "/log/development.log",
+
+    # ── Java/Spring specific ──
+    "/WEB-INF/web.xml", "/WEB-INF/classes/",
+    "/WEB-INF/lib/", "/WEB-INF/config/",
+    "/META-INF/MANIFEST.MF", "/META-INF/maven/",
+    "/struts.xml", "/struts-config.xml",
+    "/application.properties", "/application.yml",
+    "/application-dev.properties", "/application-prod.properties",
+
+    # ── .NET specific ──
+    "/trace.axd", "/trace.axd?id=1",
+    "/elmah.axd", "/elmah/elmah.axd",
+    "/web.config.bak", "/web.config.old",
+    "/App_Data/", "/App_Data/Logs/",
+    "/bin/", "/App_Code/",
+    "/Reserved.ReportViewerWebControl.axd",
+
+    # ── Cloud storage ──
+    "/.aws/", "/.gcp/", "/.azure/",
+    "/storage/", "/storage/logs/", "/storage/framework/",
+    "/bucket/", "/buckets/",
+    "/s3/", "/s3-bucket/", "/s3-buckets/",
+]
+
+# v10.8: EXPANDED secret patterns
+SECRET_PATTERNS_V2 = [
+    # Cloud providers
+    ("AWS Access Key ID", r'AKIA[0-9A-Z]{16}', "critical", "AWS Access Key"),
+    ("AWS Secret Key", r'aws_secret_access_key["\']?\s*[:=]\s*["\']?[A-Za-z0-9/+=]{40}', "critical", "AWS Secret Key"),
+    ("AWS STS Token", r'ASIA[0-9A-Z]{16}', "critical", "AWS STS Token"),
+    ("Google API Key", r'AIza[0-9A-Za-z_\-]{35}', "high", "Google API Key"),
+    ("Google OAuth", r'ya29\.[0-9A-Za-z_\-]+', "high", "Google OAuth Token"),
+    ("Azure Key", r'[A-Za-z0-9_\-]{86}', "medium", "Possible Azure key (86 chars)"),
+
+    # Payment / Crypto
+    ("Stripe Secret", r'sk_live_[0-9A-Za-z]{24,}', "critical", "Stripe secret key (live)"),
+    ("Stripe Restricted", r'rk_live_[0-9A-Za-z]{24,}', "critical", "Stripe restricted key"),
+    ("Coinbase API", r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', "high", "Possible Coinbase API key"),
+    ("Binance API", r'[A-Za-z0-9]{64}', "medium", "Possible Binance API key (64 chars)"),
+
+    # AI / LLM
+    ("OpenAI API Key", r'sk-[A-Za-z0-9]{20}T3BlbkFJ[A-Za-z0-9]{16}', "critical", "OpenAI API key"),
+    ("OpenAI Project Key", r'sk-proj-[A-Za-z0-9_\-]{40,}', "critical", "OpenAI project API key"),
+    ("Anthropic API Key", r'sk-ant-[A-Za-z0-9_\-]{60,}', "critical", "Anthropic Claude API key"),
+    ("HuggingFace Token", r'hf_[A-Za-z0-9]{34,}', "high", "HuggingFace token"),
+    ("Replicate Token", r'r8_[A-Za-z0-9]{37}', "high", "Replicate API token"),
+    ("Together AI Key", r'[a-f0-9]{64}', "medium", "Possible Together AI key"),
+
+    # Communication
+    ("Slack Token", r'xox[abprs]-[0-9A-Za-z-]{10,}', "high", "Slack token"),
+    ("Slack Webhook", r'https://hooks\.slack\.com/services/T[A-Z0-9]+', "high", "Slack webhook"),
+    ("Discord Bot Token", r'[MN][A-Za-z0-9_\-]{22,}\.[A-Za-z0-9_\-]{4,}\.[A-Za-z0-9_\-]{20,}', "high", "Discord bot token"),
+    ("Discord Webhook", r'https://discord(?:app)?\.com/api/webhooks/\d+/[A-Za-z0-9_\-]+', "high", "Discord webhook"),
+    ("Telegram Bot Token", r'[0-9]{6,10}:[A-Za-z0-9_\-]{30,}', "high", "Telegram bot token"),
+    ("Teams Webhook", r'https://[a-z0-9]+\.webhook\.office\.com/webhookb2/[a-f0-9\-]+', "high", "MS Teams webhook"),
+
+    # Dev platforms
+    ("GitHub Token", r'gh[pousr]_[A-Za-z0-9]{36,}', "critical", "GitHub token"),
+    ("GitHub Fine-grained", r'github_pat_[a-zA-Z0-9_]{22,}', "critical", "GitHub fine-grained PAT"),
+    ("GitLab Token", r'glpat-[A-Za-z0-9_\-]{20}', "high", "GitLab PAT"),
+    ("Heroku API Key", r'(?:heroku_api_key|heroku_api_token)["\']?\s*[:=]\s*["\']?[0-9a-fA-F]{32}', "high", "Heroku API key"),
+    ("Linear API Token", r'lin_api_[A-Za-z0-9_\-]{30,}', "high", "Linear API token"),
+    ("Notion Token", r'(?:secret_)?ntn_[A-Za-z0-9]{40,}', "high", "Notion integration token"),
+    ("Jira Token", r'[A-Za-z0-9]{24}ATATT3[A-Za-z0-9_\-]{100,}', "high", "Jira API token"),
+    ("Asana Token", r'[0-9]/[a-f0-9]{32,}:', "high", "Asana PAT"),
+
+    # SaaS
+    ("Shopify Token", r'shpat_[A-Fa-f0-9]{32}', "critical", "Shopify access token"),
+    ("Shopify App Secret", r'shssa_[A-Fa-f0-9]{32}', "high", "Shopify app secret"),
+    ("Twilio SID", r'AC[a-z0-9]{32}', "high", "Twilio Account SID"),
+    ("SendGrid API Key", r'SG\.[A-Za-z0-9_\-]{16,}\.[A-Za-z0-9_\-]{16,}', "high", "SendGrid API key"),
+    ("Mailgun API Key", r'key-[0-9a-zA-Z]{32}', "high", "Mailgun API key"),
+    ("Mailchimp Key", r'[0-9a-f]{32}-us[0-9]{1,2}', "high", "Mailchimp API key"),
+    ("Square OAuth Secret", r'sq0csp-[0-9A-Za-z_\-]{43}', "high", "Square OAuth secret"),
+    ("CircleCI Token", r'CCIPRJ_[A-Za-z0-9_\-]{22,}', "high", "CircleCI project token"),
+    ("Datadog API Key", r'(?:DD_API_KEY|DATADOG_API_KEY)["\']?\s*[:=]\s*["\']?[a-f0-9]{32}', "high", "Datadog API key"),
+    ("HashiCorp Vault Token", r'(?:hvs\.[A-Za-z0-9_\-]{60,})', "critical", "Vault service token"),
+    ("Tencent SecretId", r'AKID[A-Za-z0-9]{13,}', "high", "Tencent Cloud SecretId"),
+
+    # Database connection strings
+    ("MongoDB URI", r'mongodb(?:\+srv)?://[^\s"\']+:[^\s"\']+@[^\s"\']+', "high", "MongoDB connection string"),
+    ("PostgreSQL URI", r'postgres(?:ql)?://[^\s"\']+:[^\s"\']+@[^\s"\']+', "high", "PostgreSQL connection string"),
+    ("MySQL URI", r'mysql://[^\s"\']+:[^\s"\']+@[^\s"\']+', "high", "MySQL connection string"),
+    ("Redis URI", r'redis://:[^\s"\']+@[^\s"\']+', "high", "Redis connection string"),
+    ("Firebase URL", r'https?://[a-z0-9\-]+\.firebaseio\.com', "high", "Firebase DB URL"),
+
+    # Generic secrets
+    ("JWT Token", r'eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}', "high", "JWT token"),
+    ("Private Key PEM", r'-----BEGIN (RSA|EC|DSA|OPENSSH|PGP) PRIVATE KEY-----', "critical", "Private key PEM"),
+    ("Generic Secret", r'(?:secret|api[_-]?key|token|passwd|password)["\']?\s*[:=]\s*["\']?[A-Za-z0-9+/=_\-]{20,}', "medium", "Generic secret"),
+    ("Bearer Token", r'Bearer\s+[A-Za-z0-9_\-\.]{20,}', "medium", "Bearer token"),
+    ("Basic Auth", r'Basic\s+[A-Za-z0-9+/=]{16,}', "medium", "Basic auth header"),
+
+    # PII
+    ("Email Address", r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', "low", "Email address"),
+    ("Internal IPv4", r'\b(?:10|172\.(?:1[6-9]|2[0-9]|3[01])|192\.168)\.\d{1,3}\.\d{1,3}\b', "info", "Private IPv4"),
+    ("US Phone", r'\+1\s?\(?[2-9]\d{2}\)?[\s.-]?[2-9]\d{2}[\s.-]?\d{4}', "info", "US phone"),
+]
+
+# v10.8: EXPANDED brute-force wordlist
+BRUTE_NAMES_V2 = [
+    # Basic
+    "index", "default", "main", "home", "start", "page", "view", "app",
+    "config", "settings", "setup", "init", "configure", "options", "prefs",
+    # Admin
+    "admin", "administrator", "adminpanel", "admincp", "adminarea",
+    "manage", "manager", "panel", "dashboard", "console", "controlpanel",
+    "cp", "cpadmin", "webadmin", "siteadmin", "sysadmin",
+    # Auth
+    "login", "signin", "logout", "signout", "register", "signup",
+    "auth", "authenticate", "oauth", "sso", "saml", "token", "session",
+    "forgot", "reset", "verify", "confirm", "activate",
+    # Users
+    "user", "users", "account", "accounts", "profile", "profiles",
+    "member", "members", "people", "staff", "employee", "employees",
+    "customer", "customers", "client", "clients",
+    # Database
+    "db", "database", "sql", "mysql", "postgres", "mongodb", "redis",
+    "data", "dump", "backup", "bak", "export", "import", "migrate",
+    "schema", "table", "tables", "record", "records", "entry", "entries",
+    # API
+    "api", "rest", "graphql", "rpc", "soap", "json", "xml", "yaml",
+    "endpoint", "endpoints", "route", "routes", "callback", "webhook",
+    "v1", "v2", "v3", "v4", "latest", "stable", "beta", "alpha",
+    # Files
+    "file", "files", "upload", "uploads", "download", "downloads",
+    "document", "documents", "doc", "docs", "image", "images",
+    "media", "asset", "assets", "static", "public", "private",
+    # Content
+    "post", "posts", "article", "articles", "blog", "blogs",
+    "news", "event", "events", "page", "pages",
+    "product", "products", "item", "items", "order", "orders",
+    "cart", "checkout", "payment", "payments", "invoice", "invoices",
+    # System
+    "system", "sys", "server", "service", "services", "health",
+    "status", "info", "version", "ping", "pong", "heartbeat",
+    "monitor", "metrics", "stats", "statistics", "analytics",
+    "log", "logs", "error", "errors", "debug", "trace", "profile",
+    # Dev/test
+    "test", "testing", "dev", "development", "prod", "production",
+    "stage", "staging", "qa", "sandbox", "demo", "preview",
+    "beta", "internal", "external", "private", "secret", "hidden",
+    # Security
+    "security", "secure", "protected", "private", "secret",
+    "key", "keys", "token", "tokens", "cert", "certificate",
+    "ssh", "rsa", "ecdsa", "pgp", "jwt",
+    # Tools
+    "tool", "tools", "utility", "utilities", "helper", "helpers",
+    "script", "scripts", "cron", "job", "jobs", "task", "tasks",
+    "worker", "workers", "queue", "queues", "batch", "batchs",
+    # Misc
+    "old", "new", "tmp", "temp", "cache", "cache_clear",
+    "archive", "archives", "backup", "backups", "history",
+    "search", "find", "query", "filter", "sort", "list",
+    "about", "contact", "help", "support", "faq", "terms",
+    "privacy", "policy", "legal", "license", "copyright",
+    # WordPress specific
+    "wp-config", "wp-login", "wp-admin", "wp-content", "wp-includes",
+    "wp-json", "wp-cron", "wp-mail", "wp-signup", "wp-register",
+    "xmlrpc", "wp-blog-header", "wp-load", "wp-settings",
+    # Common CMS
+    "phpinfo", "info", "php", "test", "shell", "cmd", "exec",
+    "webconfig", "configuration", "settings.php", "config.php",
+]
+
+# v10.8: EXPANDED brute extensions
+BRUTE_EXTS_V2 = [".php", ".html", ".htm", ".txt", ".json", ".xml", ".yaml", ".yml",
+                 ".ini", ".toml", ".bak", ".old", ".orig", ".save", ".swp", "~",
+                 ".zip", ".tar.gz", ".tar", ".gz", ".sql", ".db", ".sqlite",
+                 ".log", ".md", ".env", ".config", ".conf", ".dist", ".sample"]
+
+# Merge old + new
+LEAK_PATHS.extend(LEAK_PATHS_V2)
+# Deduplicate while preserving order
+_seen_leak = set()
+LEAK_PATHS = [x for x in LEAK_PATHS if not (x in _seen_leak or _seen_leak.add(x))]
+
+# Merge secret patterns
+SECRET_PATTERNS.extend(SECRET_PATTERNS_V2)
+_seen_secret = set()
+SECRET_PATTERNS = [x for x in SECRET_PATTERNS if not (x[0] in _seen_secret or _seen_secret.add(x[0]))]
+
+# Merge brute names
+BRUTE_NAMES.extend(BRUTE_NAMES_V2)
+BRUTE_NAMES = list(dict.fromkeys(BRUTE_NAMES))  # dedupe preserve order
+
+# Use expanded extensions
+BRUTE_EXTS_EXPANDED = BRUTE_EXTS_V2
+
 # Skip these file extensions when brute-forcing (binary files we can't parse)
 SKIP_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".ico",
                   ".mp4", ".webm", ".mp3", ".wav", ".pdf", ".woff", ".woff2",
@@ -1030,7 +1461,7 @@ def get_activity(scan_id, since=0):
 
 async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2, bypass_mode="auto"):
     """Fetch với auto-retry khi gặp 429/timeout, xoay User-Agent mỗi retry.
-    v10.5: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
+    v10.8: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
     if not HAS_AIOHTTP:
         return "", 0, {}, 0
     last_err = None
@@ -1833,7 +2264,7 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-# ── v10.5 helper functions: deep recon capabilities ──
+# ── v10.8 helper functions: deep recon capabilities ──
 
 def extract_js_endpoints(js_text, base_url):
     """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
@@ -2204,7 +2635,7 @@ async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
     except Exception:
         return []
 
-# ── v10.5 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
+# ── v10.8 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
 
 async def fetch_ct_logs(session, domain, log_fn=None):
     """Query crt.sh Certificate Transparency logs để lấy tất cả subdomains đã từng được cert.
@@ -2382,11 +2813,11 @@ async def deep_crawl(session, base, main_text, custom_headers, proxy, timeout, s
     return depth_0_results, all_secrets
 
 def extract_js_strings(js_text, min_length=15, max_strings=30):
-    """Extract string literals from JS source code. v10.5: optimized for speed —
+    """Extract string literals from JS source code. v10.8: optimized for speed —
     limit input size, use simpler regex, cap output."""
     if not js_text:
         return []
-    # v10.5: Truncate input to 100KB max to prevent regex hangs on large JS files
+    # v10.8: Truncate input to 100KB max to prevent regex hangs on large JS files
     if len(js_text) > 100000:
         js_text = js_text[:100000]
     strings = set()
@@ -2588,7 +3019,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v10.5",
+        "scanner_version": "v10.8",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
@@ -2598,11 +3029,11 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "takeover_findings": [], "source_maps": [], "graphql_findings": [],
         "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
         "http_method_findings": [], "recursive_brute_findings": [],
-        # v10.5 additions
+        # v10.8 additions
         "ct_subdomains": [], "dns_records": {}, "git_findings": [],
         "crawled_pages": [], "js_strings": [],
         "static_platforms": [], "frameworks_detected": [],
-        # v10.5 additions
+        # v10.8 additions
         "ssti_findings": [], "proto_pollution_findings": [],
         "header_injection_findings": [], "cache_poison_findings": [],
         "default_creds_findings": [],
@@ -2639,7 +3070,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 "rate": round(current / elapsed, 1) if elapsed > 0 else 0,
             })
 
-    # v10.5: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
+    # v10.8: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
     # để UI không bị kẹt "Đang khởi tạo..." khi phase chạy lâu không gửi event
     last_phase = {"phase": "main_page", "msg": "Đang khởi tạo...", "current": 0, "total": 0, "found": 0}
     async def _store_phase(phase, msg, current=0, total=0, found=0):
@@ -2873,7 +3304,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
-            # 3a.5. Static-site specific paths (v10.5)
+            # 3a.5. Static-site specific paths (v10.8)
             # Nếu detect Netlify/Vercel/CF Pages/GH Pages → scan thêm STATIC_SITE_PATHS
             # Nếu detect framework → scan thêm FRAMEWORK_EXTRA_PATHS
             extra_paths = set()
@@ -3081,9 +3512,9 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
 
             # 9. Brute-force common names — gửi progress liên tục
             if not cancelled():
-                brute_total = len(BRUTE_NAMES) * 9
+                brute_total = len(BRUTE_NAMES) * len(BRUTE_EXTS_EXPANDED)
                 await prog("brute", "Brute-force common files...", 0, brute_total, 0)
-                exts = [".php", ".html", ".txt", ".json", ".xml", ".bak", ".old", ".save", ".orig"]
+                exts = BRUTE_EXTS_EXPANDED
                 bsem = asyncio.Semaphore(15)
                 brute_timeout = min(timeout, 4)
                 b_done = 0
@@ -3152,7 +3583,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
 
-            # 12. Subdomain takeover check (v10.5)
+            # 12. Subdomain takeover check (v10.8)
             if not cancelled() and result["subdomains_resolved"]:
                 await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
                 log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
@@ -3167,7 +3598,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Takeover check failed: {e}")
 
-            # 13. GraphQL introspection (v10.5)
+            # 13. GraphQL introspection (v10.8)
             if not cancelled():
                 await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
                 log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
@@ -3180,7 +3611,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"GraphQL check failed: {e}")
 
-            # 14. CORS misconfiguration (v10.5)
+            # 14. CORS misconfiguration (v10.8)
             if not cancelled():
                 await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
                 log(f"CORS: testing 3 origins × 5 endpoints")
@@ -3193,7 +3624,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CORS check failed: {e}")
 
-            # 15. Open redirect test (v10.5)
+            # 15. Open redirect test (v10.8)
             if not cancelled():
                 await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
                 log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
@@ -3206,7 +3637,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Open redirect check failed: {e}")
 
-            # 16. Source map exposure (v10.5)
+            # 16. Source map exposure (v10.8)
             if not cancelled() and result["js_links"]:
                 await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
                 log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
@@ -3219,7 +3650,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Source map check failed: {e}")
 
-            # 17. JS endpoint extraction + API fuzzing (v10.5)
+            # 17. JS endpoint extraction + API fuzzing (v10.8)
             if not cancelled() and scan_js and result["js_links"]:
                 await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
                 log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
@@ -3281,7 +3712,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"JS endpoint extraction failed: {e}")
 
-            # 18. Swagger/OpenAPI parsing (v10.5)
+            # 18. Swagger/OpenAPI parsing (v10.8)
             if not cancelled():
                 await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
                 log(f"Swagger: testing 6 spec paths")
@@ -3301,7 +3732,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Swagger parsing failed: {e}")
 
-            # 19. Recursive depth-2 brute-force (v10.5)
+            # 19. Recursive depth-2 brute-force (v10.8)
             if not cancelled():
                 found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
                 found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
@@ -3325,7 +3756,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 else:
                     log(f"Recursive brute skipped: no directories found")
 
-            # 20. HTTP method fuzzing (v10.5)
+            # 20. HTTP method fuzzing (v10.8)
             if not cancelled():
                 test_urls = [target]
                 test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
@@ -3345,7 +3776,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"HTTP method fuzz failed: {e}")
 
-            # 21. Wayback Machine integration (v10.5)
+            # 21. Wayback Machine integration (v10.8)
             if not cancelled():
                 await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
                 log(f"Wayback: querying web.archive.org")
@@ -3356,7 +3787,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Wayback lookup failed: {e}")
 
-            # 22. Certificate Transparency logs (v10.5) — crt.sh subdomain enum
+            # 22. Certificate Transparency logs (v10.8) — crt.sh subdomain enum
             if not cancelled():
                 await prog("ct_logs", "Certificate Transparency logs (crt.sh)...", 0, 1, 0)
                 log(f"CT: querying crt.sh for *.{host}")
@@ -3384,7 +3815,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CT logs failed: {e}")
 
-            # 23. DNS records lookup (v10.5)
+            # 23. DNS records lookup (v10.8)
             if not cancelled() and host:
                 await prog("dns_records", "DNS records lookup (A/AAAA/MX/TXT/CNAME)...", 0, 1, 0)
                 log(f"DNS: looking up records for {host}")
@@ -3396,7 +3827,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"DNS lookup failed: {e}")
 
-            # 24. .git directory exposure check (v10.5)
+            # 24. .git directory exposure check (v10.8)
             if not cancelled():
                 await prog("git_exposure", "Check .git directory exposure (HEAD, config, index)...", 0, 1, 0)
                 log(f"Git: checking .git directory exposure")
@@ -3417,7 +3848,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Git exposure check failed: {e}")
 
-            # 25. Deep crawl (v10.5) — crawl links depth-2, extract secrets from all pages
+            # 25. Deep crawl (v10.8) — crawl links depth-2, extract secrets from all pages
             if not cancelled() and main_text and len(main_text) > 100:
                 await prog("deep_crawl", "Deep crawl internal links (depth-2)...", 0, 1, 0)
                 log(f"Deep crawl: collecting internal links depth-2")
@@ -3438,7 +3869,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Deep crawl failed: {e}")
 
-            # 26. JS source string extraction (v10.5)
+            # 26. JS source string extraction (v10.8)
             if not cancelled() and scan_js and result.get("js_links"):
                 target_netloc = parsed.netloc.lower()
                 same_origin_js = [u for u in result["js_links"]
@@ -3469,7 +3900,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     except Exception as e:
                         log(f"JS string extraction failed: {e}")
 
-            # 27. SSTI detection (v10.5)
+            # 27. SSTI detection (v10.8)
             if not cancelled():
                 await prog("ssti", "Server-Side Template Injection test...", 0, 1, 0)
                 log(f"SSTI: testing 8 endpoints × {len(SSTI_PAYLOADS)} payloads × 7 params")
@@ -3480,7 +3911,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"SSTI check failed: {e}")
 
-            # 28. Prototype Pollution (v10.5)
+            # 28. Prototype Pollution (v10.8)
             if not cancelled():
                 await prog("proto_pollution", f"Prototype Pollution test ({len(PROTO_POLLUTION_PAYLOADS)} payloads)...", 0, len(PROTO_POLLUTION_PAYLOADS), 0)
                 log(f"Proto pollution: testing {len(PROTO_POLLUTION_PAYLOADS)} payloads")
@@ -3491,7 +3922,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Proto pollution check failed: {e}")
 
-            # 29. HTTP Header Injection (v10.5) — bypass access control
+            # 29. HTTP Header Injection (v10.8) — bypass access control
             if not cancelled():
                 await prog("header_injection", f"HTTP header injection ({len(HEADER_INJECTION_PAYLOADS)} payloads)...", 0, len(HEADER_INJECTION_PAYLOADS), 0)
                 log(f"Header injection: testing {len(HEADER_INJECTION_PAYLOADS)} headers (X-Forwarded-*, X-Original-URL, etc.)")
@@ -3502,7 +3933,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Header injection check failed: {e}")
 
-            # 30. Cache Poisoning (v10.5)
+            # 30. Cache Poisoning (v10.8)
             if not cancelled():
                 await prog("cache_poison", f"Cache poisoning test ({len(CACHE_POISON_PAYLOADS)} payloads)...", 0, len(CACHE_POISON_PAYLOADS), 0)
                 log(f"Cache poisoning: testing {len(CACHE_POISON_PAYLOADS)} headers")
@@ -3513,7 +3944,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Cache poisoning check failed: {e}")
 
-            # 31. Default Credentials test (v10.5)
+            # 31. Default Credentials test (v10.8)
             if not cancelled() and result.get("forms"):
                 login_count = sum(1 for f in result["forms"] if f.get("type") == "login")
                 if login_count > 0:
@@ -3570,7 +4001,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
-        # v10.5 additions
+        # v10.8 additions
         "takeover_findings": len(result.get("takeover_findings", [])),
         "graphql_findings": len(result.get("graphql_findings", [])),
         "cors_findings": len(result.get("cors_findings", [])),
@@ -3582,13 +4013,13 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "wayback_urls": len(result.get("wayback_urls", [])),
         "http_method_findings": len(result.get("http_method_findings", [])),
         "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
-        # v10.5 additions
+        # v10.8 additions
         "ct_subdomains": len(result.get("ct_subdomains", [])),
         "dns_records": len(result.get("dns_records", {})),
         "git_findings": len(result.get("git_findings", [])),
         "crawled_pages": len(result.get("crawled_pages", [])),
         "js_strings": len(result.get("js_strings", [])),
-        # v10.5 additions
+        # v10.8 additions
         "ssti_findings": len(result.get("ssti_findings", [])),
         "proto_pollution_findings": len(result.get("proto_pollution_findings", [])),
         "header_injection_findings": len(result.get("header_injection_findings", [])),
@@ -3649,7 +4080,7 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
-    # v10.5 phases
+    # v10.8 phases
     "takeover": "💀 Subdomain takeover check",
     "graphql": "⚡ GraphQL introspection",
     "cors": "🌐 CORS misconfiguration",
@@ -3661,13 +4092,13 @@ PHASE_NAMES = {
     "recursive_brute": "🔁 Recursive depth-2 brute",
     "http_methods": "🔧 HTTP method fuzzing",
     "wayback": "🕰️ Wayback Machine lookup",
-    # v10.5 phases
+    # v10.8 phases
     "ct_logs": "📜 Certificate Transparency (crt.sh)",
     "dns_records": "🌐 DNS records lookup",
     "git_exposure": "📂 .git directory exposure",
     "deep_crawl": "🕷️ Deep crawl (depth-2)",
     "js_strings": "📜 JS source string extraction",
-    # v10.5 phases
+    # v10.8 phases
     "ssti": "🧪 SSTI (template injection)",
     "proto_pollution": "💀 Prototype Pollution",
     "header_injection": "🛡️ HTTP Header Injection (bypass)",
@@ -3685,7 +4116,7 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── v10.5 Risk Score Calculator ──
+# ── v10.8 Risk Score Calculator ──
 def calculate_risk_score(stats):
     """Calculate overall risk score (0-100) and letter grade from scan stats.
     Lower score = safer. Higher score = more vulnerable."""
@@ -3749,16 +4180,16 @@ def calculate_risk_score(stats):
         "counts": {"critical": critical, "high": high, "medium": medium, "low": low, "info": info},
     }
 
-# ── HTML Template (PAGE) – v10.5 Deep Recon Edition ──
+# ── HTML Template (PAGE) – v10.8 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v10.5 — Recon Beast</title>
+<title>Web Leak Scanner Pro v10.8 — Recon Beast</title>
 <style>
-/* ─────────  v10.5 Theme variables  ───────── */
+/* ─────────  v10.8 Theme variables  ───────── */
 :root{
   --bg:#050509; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
   --border:rgba(0,212,170,.18); --border-hi:rgba(0,212,170,.45);
@@ -3893,7 +4324,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .theme-toggle:hover{transform:translateY(-1px) rotate(8deg);border-color:var(--accent);
   box-shadow:0 4px 12px rgba(0,212,170,.25)}
 
-/* ─────────  Container / Cards — v10.5 with 3D holographic effects  ───────── */
+/* ─────────  Container / Cards — v10.8 with 3D holographic effects  ───────── */
 .container{max-width:1200px;margin:0 auto;padding:20px;perspective:1500px}
 .card{
   background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
@@ -3981,7 +4412,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,212,170,.5)}
 .btn-primary:hover::after{transform:translateX(100%)}
 .btn-primary:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
-/* v10.5: Ensure disabled buttons still respond to clicks for re-enable */
+/* v10.8: Ensure disabled buttons still respond to clicks for re-enable */
 .btn:disabled{pointer-events:auto}
 .btn-ghost:disabled, .btn-secondary:disabled{opacity:.7;cursor:not-allowed}
 /* Force enable after reset */
@@ -4262,7 +4693,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   border-radius:8px;height:14px;margin:8px 0}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
-/* ───────── v10.5 Guide Modal + i18n + Templates  ───────── */
+/* ───────── v10.8 Guide Modal + i18n + Templates  ───────── */
 .modal-overlay{
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
@@ -4364,7 +4795,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .template-btn[data-tpl="static"]{border-color:rgba(254,202,87,.4)}
 .template-btn[data-tpl="static"]:hover{background:var(--warn);color:#0a0a12}
 
-/* ═════════ v10.5 Enterprise: Risk Score + Charts + Command Palette ═════════ */
+/* ═════════ v10.8 Enterprise: Risk Score + Charts + Command Palette ═════════ */
 
 /* Risk Score Dashboard */
 .risk-dashboard{
@@ -4629,7 +5060,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 </style>
 </head>
 <body>
-<!-- v10.5: Noscript warning -->
+<!-- v10.8: Noscript warning -->
 <noscript>
   <div style="position:fixed;inset:0;z-index:9999;background:#0f0f1a;color:#e8eef5;display:flex;align-items:center;justify-content:center;font-family:sans-serif;text-align:center;padding:20px">
     <div>
@@ -4638,7 +5069,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     </div>
   </div>
 </noscript>
-<!-- v10.5: Inline safety script — chạy trước tất cả JS khác -->
+<!-- v10.8: Inline safety script — chạy trước tất cả JS khác -->
 <script>
 (function() {
   // Nếu page detect body chỉ chứa JSON (raw response), tự redirect về /
@@ -4660,7 +5091,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v10.5</span></span>
+    <span>Web Leak Scanner <span class="version">v10.8</span></span>
   </div>
   <div class="nav-right">
     <div class="lang-switcher">
@@ -4677,7 +5108,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1 data-i18n="hero_title">🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v10.5 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
+  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v10.8 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
 
   <!-- Quick Templates -->
   <div class="templates-bar">
@@ -4776,7 +5207,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v10.5 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v10.8 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
 
 <!-- Guide Modal -->
 <div class="modal-overlay" id="guideModal">
@@ -4860,12 +5291,12 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     <p data-i18n="guide_legal">Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.</p>
 
     <p style="text-align:center;margin-top:20px;color:var(--dim);font-size:12px">
-      <span data-i18n="guide_footer">v10.5 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
+      <span data-i18n="guide_footer">v10.8 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
     </p>
   </div>
 </div>
 
-<!-- v10.5 Command Palette -->
+<!-- v10.8 Command Palette -->
 <div class="cmd-palette-overlay" id="cmdPalette">
   <div class="cmd-palette">
     <div class="cmd-input-wrap">
@@ -4882,7 +5313,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   </div>
 </div>
 
-<!-- v10.5 Mobile Bottom Nav -->
+<!-- v10.8 Mobile Bottom Nav -->
 <nav class="mobile-nav">
   <a class="mobile-nav-item active" onclick="scrollToTop()">
     <span class="icon">🏠</span><span>Home</span>
@@ -4903,7 +5334,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="toast" class="toast"></div>
 
 <script>
-// ───────── v10.5 Particle background canvas ─────────
+// ───────── v10.8 Particle background canvas ─────────
 const particleCanvas = document.getElementById('particleCanvas');
 const pctx = particleCanvas.getContext('2d');
 let particles = [];
@@ -5002,7 +5433,7 @@ function animateParticles(){
 }
 animateParticles();
 
-// ───────── v10.5 Confetti effect for critical findings ─────────
+// ───────── v10.8 Confetti effect for critical findings ─────────
 const confettiCanvas = document.getElementById('confettiCanvas');
 const cctx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
@@ -5075,26 +5506,300 @@ function checkAndFireConfetti(){
 </script>
 
 <script>
-const $ = (s)=>document.querySelector(s);
-const $$ = (s)=>document.querySelectorAll(s);
+// ═════════ v10.8 BULLETPROOF INIT ═════════
+// Define helpers FIRST — everything depends on these
+const $ = (s) => { try { return document.querySelector(s); } catch(e) { return null; } };
+const $$ = (s) => { try { return document.querySelectorAll(s); } catch(e) { return []; } };
 
+// ═════════ FORM SUBMIT HANDLER — attach IMMEDIATELY, before any other code ═════════
+// This MUST run first so even if other JS fails, form submit is intercepted
+(function attachFormHandler() {
+  function safeResetBtn() {
+    try {
+      const scanBtn = document.getElementById('scanBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+      if (scanBtn) {
+        scanBtn.disabled = false;
+        scanBtn.style.pointerEvents = 'auto';
+        scanBtn.style.opacity = '1';
+        scanBtn.style.cursor = 'pointer';
+      }
+      const btnText = document.querySelector('.btn-text');
+      const btnLoading = document.querySelector('.btn-loading');
+      if (btnText) btnText.classList.remove('hidden');
+      if (btnLoading) btnLoading.classList.add('hidden');
+      if (cancelBtn) {
+        cancelBtn.style.display = '';
+        cancelBtn.disabled = false;
+        cancelBtn.style.pointerEvents = 'auto';
+        cancelBtn.style.opacity = '1';
+        cancelBtn.style.cursor = 'pointer';
+        cancelBtn.textContent = '🛑 Huỷ';
+      }
+    } catch(e) { console.error('resetBtn error:', e); }
+  }
+  window.safeResetBtn = safeResetBtn;
+
+  function attach() {
+    const form = document.getElementById('scanForm');
+    if (!form) {
+      // DOM not ready, retry
+      setTimeout(attach, 50);
+      return;
+    }
+    // Use capture:true so our handler runs BEFORE any native submit
+    form.addEventListener('submit', function(e) {
+      // CRITICAL: prevent default IMMEDIATELY
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('[Form] Submit intercepted by JS');
+      // Then call the async handler
+      handleScanSubmit(e);
+      return false;
+    }, true);  // capture phase
+  }
+  attach();
+})();
+
+// v10.8: Simplified scan handler — uses .then() chains instead of async/await
+// Every path guaranteed to call resetButtons() when done/fail
+function handleScanSubmit(e) {
+  // Get elements
+  var form = e.target;
+  var formData = new FormData(form);
+  var target = formData.get('target');
+  if (!target) return;
+
+  var btn = document.getElementById('scanBtn');
+  var progressPanel = document.getElementById('progressPanel');
+  var resultsArea = document.getElementById('resultsArea');
+  var bar = document.getElementById('progressBar');
+  var phaseEl = document.getElementById('progressPhase');
+  var countEl = document.getElementById('progressCount');
+  var msgEl = document.getElementById('progressMessage');
+  var foundEl = document.getElementById('progressFound');
+  var cancelBtn = document.getElementById('cancelBtn');
+  var term = document.getElementById('activityLog');
+
+  // Disable scan button, show loading
+  if (btn) {
+    btn.disabled = true;
+    var btnText = btn.querySelector('.btn-text');
+    var btnLoading = btn.querySelector('.btn-loading');
+    if (btnText) btnText.classList.add('hidden');
+    if (btnLoading) btnLoading.classList.remove('hidden');
+  }
+
+  // Show progress panel
+  if (progressPanel) progressPanel.classList.remove('hidden');
+  if (resultsArea) resultsArea.innerHTML = '';
+  if (bar) bar.style.width = '0%';
+  if (phaseEl) phaseEl.textContent = 'Đang khởi tạo...';
+  if (msgEl) msgEl.textContent = '';
+  if (foundEl) foundEl.classList.add('hidden');
+  if (countEl) countEl.textContent = '';
+
+  // Reset terminal
+  if (term) {
+    term.innerHTML = '<div style="color:#6a7388;margin-top:14px">// Khởi tạo scan...<span class="cursor"></span></div>';
+  }
+  if (progressPanel) progressPanel.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Start timer
+  try { startTimer(); } catch(e) {}
+
+  // Fetch /scan with 30s timeout using AbortController
+  var controller = new AbortController();
+  var timeoutId = setTimeout(function() { controller.abort(); }, 30000);
+
+  fetch('/scan', {method: 'POST', body: formData, signal: controller.signal})
+    .then(function(resp) {
+      clearTimeout(timeoutId);
+      return resp.json();
+    })
+    .then(function(data) {
+      if (data.error) {
+        toast('❌ ' + data.error);
+        resetButtons();
+        try { stopTimer(); } catch(e) {}
+        return;
+      }
+      var scanId = data.scan_id;
+      try { currentScanId = scanId; } catch(e) {}
+      try { startActivityPolling(scanId); } catch(e) {}
+
+      // Cancel button
+      if (cancelBtn) {
+        cancelBtn.style.display = '';
+        cancelBtn.disabled = false;
+        cancelBtn.textContent = '🛑 Huỷ';
+        cancelBtn.onclick = function() {
+          cancelBtn.disabled = true;
+          cancelBtn.textContent = '⏳ Đang huỷ...';
+          fetch('/cancel/' + scanId, {method:'POST'}).then(function() {
+            toast('🛑 Đã gửi yêu cầu huỷ');
+          }).catch(function() { toast('Lỗi huỷ'); });
+        };
+      }
+
+      // SSE progress
+      var evtSource = new EventSource('/progress/' + scanId);
+      evtSource.onmessage = function(ev) {
+        try {
+          var d = JSON.parse(ev.data);
+          if (d.phase === 'connected' || d.phase === 'keepalive') return;
+
+          // Update phase text
+          if ((d.phase || d.phase_display) && phaseEl) {
+            var display = d.phase_display || (typeof PHASE_FALLBACK !== 'undefined' ? PHASE_FALLBACK[d.phase] : '') || d.phase || '';
+            if (display) phaseEl.textContent = display;
+          }
+
+          // Update progress bar
+          if (d.total > 0) {
+            var pct = Math.round((d.current/d.total)*100);
+            if (bar) bar.style.width = pct + '%';
+            if (countEl) countEl.textContent = d.current + '/' + d.total + ' (' + pct + '%)';
+          } else if (countEl) {
+            countEl.textContent = '';
+          }
+
+          // Update message
+          if (d.message && msgEl) msgEl.textContent = d.message;
+
+          // Update found counter
+          if (d.found !== undefined) {
+            if (d.found > 0) {
+              if (foundEl) { foundEl.classList.remove('hidden'); foundEl.textContent = '🔍 Tìm thấy: ' + d.found; }
+            } else {
+              if (foundEl) { foundEl.classList.add('hidden'); foundEl.textContent = ''; }
+            }
+          }
+
+          // Update elapsed/ETA/rate
+          var elapsedBadge = document.getElementById('elapsedBadge');
+          var etaBadge = document.getElementById('etaBadge');
+          var rateBadge = document.getElementById('rateBadge');
+          if (d.elapsed !== undefined && elapsedBadge) {
+            elapsedBadge.textContent = '⏱️ ' + (typeof fmtTime === 'function' ? fmtTime(d.elapsed) : d.elapsed + 's');
+            if (d.eta !== null && d.eta !== undefined && d.total > 0 && etaBadge) {
+              etaBadge.style.display = '';
+              etaBadge.textContent = '⌛ ETA ' + (typeof fmtTime === 'function' ? fmtTime(d.eta) : d.eta + 's');
+            }
+            if (d.rate !== undefined && d.rate > 0 && rateBadge) {
+              rateBadge.style.display = '';
+              rateBadge.textContent = '⚡ ' + d.rate + ' req/s';
+            }
+          }
+
+          // Terminal phases
+          if (d.phase === 'completed' || d.phase === 'error' || d.phase === 'cancelled') {
+            evtSource.close();
+            try { stopTimer(); } catch(e) {}
+            try { stopActivityPolling(); } catch(e) {}
+            if (cancelBtn) cancelBtn.style.display = 'none';
+            if (term) { var cur = term.querySelector('.cursor'); if (cur) cur.style.display = 'none'; }
+
+            // Load result
+            var delay = d.phase === 'cancelled' ? 300 : 0;
+            setTimeout(function() {
+              loadResult(scanId).then(function() {
+                resetButtons();  // ALWAYS reset after result loaded
+                loadHistory();
+              }).catch(function() {
+                resetButtons();  // Reset even if loadResult fails
+              });
+            }, delay);
+          }
+        } catch(err) { /* ignore parse errors */ }
+      };
+      evtSource.onerror = function() {
+        evtSource.close();
+        try { stopTimer(); } catch(e) {}
+        try { stopActivityPolling(); } catch(e) {}
+        loadResult(scanId).then(function() {
+          resetButtons();
+          loadHistory();
+        }).catch(function() {
+          resetButtons();
+        });
+      };
+    })
+    .catch(function(err) {
+      clearTimeout(timeoutId);
+      console.error('[Scan] Error:', err);
+      if (err.name === 'AbortError') {
+        toast('⏱️ Timeout — server không respond sau 30s. Thử lại.');
+      } else {
+        toast('❌ Lỗi mạng: ' + err.message);
+      }
+      resetButtons();
+      try { stopTimer(); } catch(e) {}
+      try { stopActivityPolling(); } catch(e) {}
+    });
+}
+
+// v10.8: Universal button reset — called from EVERY path (success/error/timeout/cancel)
+function resetButtons() {
+  try {
+    var scanBtn = document.getElementById('scanBtn');
+    var cancelBtn = document.getElementById('cancelBtn');
+    if (scanBtn) {
+      scanBtn.disabled = false;
+      scanBtn.style.pointerEvents = 'auto';
+      scanBtn.style.opacity = '1';
+      scanBtn.style.cursor = 'pointer';
+    }
+    var btnText = document.querySelector('.btn-text');
+    var btnLoading = document.querySelector('.btn-loading');
+    if (btnText) btnText.classList.remove('hidden');
+    if (btnLoading) btnLoading.classList.add('hidden');
+    if (cancelBtn) {
+      cancelBtn.style.display = '';
+      cancelBtn.disabled = false;
+      cancelBtn.style.pointerEvents = 'auto';
+      cancelBtn.style.opacity = '1';
+      cancelBtn.style.cursor = 'pointer';
+      cancelBtn.textContent = '🛑 Huỷ';
+    }
+  } catch(e) { console.error('resetButtons error:', e); }
+}
+
+// Make functions globally available
+window.resetBtn = resetButtons;
+window.safeResetBtn = resetButtons;
+window.forceResetAll = function() {
+  resetButtons();
+  try { stopTimer(); } catch(e) {}
+  try { stopActivityPolling(); } catch(e) {}
+  var pp = document.getElementById('progressPanel');
+  if (pp) pp.classList.add('hidden');
+  toast('🔄 Đã reset. Bạn có thể scan lại.');
+};
+
+// ═════════ ALL OTHER CODE — wrapped in try-catch so it can't break form handler ═════════
+try {
 const THEME_KEY = 'wlsv7_theme';
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
-  $('#themeToggle').textContent = t === 'dark' ? '🌙' : '☀️';
-  localStorage.setItem(THEME_KEY, t);
+  const toggle = document.getElementById('themeToggle');
+  if (toggle) toggle.textContent = t === 'dark' ? '🌙' : '☀️';
+  try { localStorage.setItem(THEME_KEY, t); } catch(e) {}
 }
-applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-$('#themeToggle').addEventListener('click', ()=>{
-  const cur = document.documentElement.getAttribute('data-theme');
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-});
+try { applyTheme(localStorage.getItem(THEME_KEY) || 'dark'); } catch(e) { console.error('applyTheme:', e); }
+try {
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) themeToggle.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+} catch(e) { console.error('themeToggle:', e); }
 
-// ───────── v10.5 i18n (Internationalization: VI/EN) ─────────
+// ───────── v10.8 i18n (Internationalization: VI/EN) ─────────
 const I18N = {
   vi: {
     hero_title: "🕵️ Quét lỗ hổng thông tin rò rỉ",
-    hero_subtitle: "Async deep recon v10.5 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
+    hero_subtitle: "Async deep recon v10.8 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
     guide: "Hướng dẫn",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -5175,12 +5880,12 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report để download kết quả scan.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.",
-    guide_footer: "v10.5 — Recon Beast · Made with",
+    guide_footer: "v10.8 — Recon Beast · Made with",
     guide_close_hint: "Click × hoặc ngoài modal để đóng",
   },
   en: {
     hero_title: "🕵️ Scan Information Leak Vulnerabilities",
-    hero_subtitle: "Async deep recon v10.5 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
+    hero_subtitle: "Async deep recon v10.8 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
     guide: "Guide",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -5261,7 +5966,7 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report to download scan results.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool is for security research and authorized testing only. Only scan targets you have permission to test. Unauthorized scanning may violate laws (Cybersecurity law, GDPR, HIPAA...). Author is not responsible for misuse.",
-    guide_footer: "v10.5 — Recon Beast · Made with",
+    guide_footer: "v10.8 — Recon Beast · Made with",
     guide_close_hint: "Click × or outside modal to close",
   }
 };
@@ -5306,7 +6011,7 @@ $$('.lang-btn').forEach(btn => {
   });
 });
 
-// ───────── v10.5 Guide Modal ─────────
+// ───────── v10.8 Guide Modal ─────────
 function openGuide() {
   $('#guideModal').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -5325,7 +6030,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ───────── v10.5 Quick Templates ─────────
+// ───────── v10.8 Quick Templates ─────────
 function applyTemplate(name) {
   const tpl = {
     quick:    {timeout: 8,  scan_js: 'no',  bypass_mode: 'auto',      intensity: 'quick', vuln_tests: 'no'},
@@ -5533,187 +6238,9 @@ const PHASE_FALLBACK = {
 
 const INTERNAL_PHASES = new Set(['connected', 'keepalive']);
 
-$('#scanForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  e.stopPropagation();  // v10.5: ensure no native submit
-  try {
-    const btn = $('#scanBtn');
-    const progressPanel = $('#progressPanel');
-    const resultsArea = $('#resultsArea');
-    const bar = $('#progressBar');
-    const phase = $('#progressPhase');
-    const count = $('#progressCount');
-    const msg = $('#progressMessage');
-    const found = $('#progressFound');
-    const cancelBtn = $('#cancelBtn');
-    const term = $('#activityLog');
+// v10.8: Old resetBtn/forceResetAll REMOVED — replaced by resetButtons() above
 
-    btn.disabled = true;
-    $('.btn-text').classList.add('hidden');
-  $('.btn-loading').classList.remove('hidden');
-  cancelBtn.disabled = false;
-  startAutoResetWatchdog();  // v10.5: ensure buttons reset even if scan hangs
-  progressPanel.classList.remove('hidden');
-  resultsArea.innerHTML = '';
-  bar.style.width = '0%';
-  phase.textContent = 'Đang khởi tạo...';
-  msg.textContent = '';
-  found.classList.add('hidden');
-  count.textContent = '';
-  // Reset terminal
-  term.innerHTML = '<div style="color:#6a7388;margin-top:14px">// Khởi tạo scan...<span class="cursor"></span></div>';
-  startTimer();
-  progressPanel.scrollIntoView({behavior:'smooth', block:'start'});
-
-  const formData = new FormData(this);
-  try{
-    const resp = await fetch('/scan', {method:'POST', body:formData});
-    const data = await resp.json();
-    if(data.error){ toast('❌ ' + data.error); resetBtn(); stopTimer(); return; }
-    const scanId = data.scan_id;
-    currentScanId = scanId;
-    startActivityPolling(scanId);
-
-    cancelBtn.onclick = async ()=>{
-      if(!currentScanId) return;
-      cancelBtn.disabled = true;
-      cancelBtn.textContent = '⏳ Đang huỷ...';
-      try{
-        await fetch('/cancel/' + currentScanId, {method:'POST'});
-        toast('🛑 Đã gửi yêu cầu huỷ');
-      }catch(err){ toast('Lỗi huỷ: ' + err.message); }
-    };
-
-    const evtSource = new EventSource('/progress/' + scanId);
-    evtSource.onmessage = function(e){
-      try{
-        const d = JSON.parse(e.data);
-        if(d.phase && INTERNAL_PHASES.has(d.phase)) return;
-
-        if(d.phase || d.phase_display){
-          const display = d.phase_display || PHASE_FALLBACK[d.phase] || d.phase || '';
-          if(display) phase.textContent = display;
-        }
-
-        if(d.total > 0){
-          const pct = Math.round((d.current/d.total)*100);
-          bar.style.width = pct + '%';
-          count.textContent = d.current + '/' + d.total + ' (' + pct + '%)';
-        } else {
-          count.textContent = '';
-        }
-
-        if(d.message) msg.textContent = d.message;
-
-        // Found counter — luôn cập nhật, ẩn nếu = 0 (tránh hiển thị số cũ)
-        if(d.found !== undefined){
-          if(d.found > 0){
-            found.classList.remove('hidden');
-            found.textContent = '🔍 Tìm thấy: ' + d.found;
-          } else {
-            found.classList.add('hidden');
-            found.textContent = '';
-          }
-        }
-
-        const elapsedBadge = $('#elapsedBadge');
-        const etaBadge = $('#etaBadge');
-        const rateBadge = $('#rateBadge');
-        if(d.elapsed !== undefined){
-          elapsedBadge.textContent = '⏱️ ' + fmtTime(d.elapsed);
-          if(d.eta !== null && d.eta !== undefined && d.total > 0){
-            etaBadge.style.display = '';
-            etaBadge.textContent = '⌛ ETA ' + fmtTime(d.eta);
-          }
-          if(d.rate !== undefined && d.rate > 0){
-            rateBadge.style.display = '';
-            rateBadge.textContent = '⚡ ' + d.rate + ' req/s';
-          }
-        }
-
-        if(d.phase === 'completed' || d.phase === 'error' || d.phase === 'cancelled'){
-          evtSource.close();
-          stopTimer();
-          stopActivityPolling();
-          cancelBtn.style.display = 'none';
-          // Ẩn cursor khi scan xong
-          const cur = term.querySelector('.cursor');
-          if(cur) cur.style.display = 'none';
-          if(d.phase === 'cancelled'){
-            setTimeout(()=>loadResult(scanId).then(loadHistory), 300);
-          } else {
-            loadResult(scanId).then(loadHistory);
-          }
-        }
-      }catch(err){}
-    };
-    evtSource.onerror = function(){
-      evtSource.close();
-      stopTimer();
-      stopActivityPolling();
-      loadResult(scanId).then(loadHistory);
-    };
-  }catch(err){
-    toast('❌ Lỗi mạng: ' + err.message);
-    resetBtn();
-    stopTimer();
-    stopActivityPolling();
-  }
-  } catch(outerErr) {
-    // v10.5: Catch any JS error in form submit
-    console.error('Form submit error:', outerErr);
-    toast('❌ JS Error: ' + outerErr.message + '. Refresh page và thử lại.');
-    resetBtn();
-    stopTimer();
-    stopActivityPolling();
-  }
-  return false;  // v10.5: ensure form doesn't submit natively
-});
-
-function resetBtn(){
-  // v10.5: Robust reset — null-check each element, force re-enable
-  const scanBtn = $('#scanBtn');
-  const cancelBtn = $('#cancelBtn');
-  const btnText = $('.btn-text');
-  const btnLoading = $('.btn-loading');
-  if (scanBtn) {
-    scanBtn.disabled = false;
-    scanBtn.style.pointerEvents = 'auto';
-    scanBtn.style.opacity = '1';
-    scanBtn.style.cursor = 'pointer';
-    scanBtn.classList.add('force-enabled');
-    setTimeout(() => scanBtn.classList.remove('force-enabled'), 1000);
-  }
-  if (btnText) btnText.classList.remove('hidden');
-  if (btnLoading) btnLoading.classList.add('hidden');
-  if (cancelBtn) {
-    cancelBtn.style.display = '';
-    cancelBtn.disabled = false;
-    cancelBtn.style.pointerEvents = 'auto';
-    cancelBtn.style.opacity = '1';
-    cancelBtn.style.cursor = 'pointer';
-    cancelBtn.textContent = '🛑 Huỷ';
-  }
-}
-
-// v10.5: Force reset ALL buttons — user can click "🔄 Reset" button anytime
-function forceResetAll() {
-  // Reset scan button
-  resetBtn();
-  // Stop all timers and polling
-  stopTimer();
-  stopActivityPolling();
-  stopAutoResetWatchdog();
-  // Hide progress panel
-  const pp = $('#progressPanel');
-  if (pp) pp.classList.add('hidden');
-  // Clear results area
-  // Don't clear results — keep them visible
-  toast('🔄 Đã reset tất cả nút. Bạn có thể scan lại.');
-  console.log('[forceResetAll] All buttons force-reset by user');
-}
-
-// v10.5: Global JS error handler — show banner if any JS error occurs
+// v10.8: Global JS error handler — show banner if any JS error occurs
 window.addEventListener('error', function(e) {
   console.error('Global JS Error:', e.error || e.message);
   const banner = document.getElementById('jsErrorBanner');
@@ -5726,7 +6253,7 @@ window.addEventListener('error', function(e) {
   forceResetAll();
 });
 
-// v10.5: Catch unhandled promise rejections
+// v10.8: Catch unhandled promise rejections
 window.addEventListener('unhandledrejection', function(e) {
   console.error('Unhandled Promise Rejection:', e.reason);
   const banner = document.getElementById('jsErrorBanner');
@@ -5738,7 +6265,7 @@ window.addEventListener('unhandledrejection', function(e) {
   forceResetAll();
 });
 
-// v10.5: Auto-reset safety net — ensure buttons never stay disabled >5min
+// v10.8: Auto-reset safety net — ensure buttons never stay disabled >5min
 let _autoResetTimer = null;
 function startAutoResetWatchdog() {
   if (_autoResetTimer) clearTimeout(_autoResetTimer);
@@ -5762,18 +6289,18 @@ function stopAutoResetWatchdog() {
 }
 
 async function loadResult(scanId){
-  currentScanId = scanId;  // v10.5: store for HTML source viewer
+  currentScanId = scanId;  // v10.8: store for HTML source viewer
   const resp = await fetch('/result/' + scanId);
   const html = await resp.text();
   $('#resultsArea').innerHTML = html;
   resetBtn();
-  stopAutoResetWatchdog();  // v10.5: scan completed, stop watchdog
+  stopAutoResetWatchdog();  // v10.8: scan completed, stop watchdog
   stopActivityPolling();
   initTabs();
   initFilter();
   animateCounters();
-  checkAndFireConfetti();  // v10.5: fire confetti if critical findings
-  // v10.5: draw donut chart + animate risk gauge
+  checkAndFireConfetti();  // v10.8: fire confetti if critical findings
+  // v10.8: draw donut chart + animate risk gauge
   setTimeout(() => {
     drawSeverityDonut();
     animateRiskGauge();
@@ -5804,7 +6331,7 @@ function animateCounters(){
 
 loadHistory();
 
-// ═════════ v10.5 Command Palette ═════════
+// ═════════ v10.8 Command Palette ═════════
 const COMMANDS = [
   {icon:'⚡', title:'Quick Recon', desc:'Fast scan template', kbd:'T+Q', action:()=>{applyTemplate('quick')}},
   {icon:'🔬', title:'Deep Audit', desc:'Full 31-phase scan', kbd:'T+D', action:()=>{applyTemplate('deep')}},
@@ -5889,7 +6416,7 @@ $('#cmdPalette').addEventListener('click', (e) => {
   if (e.target === $('#cmdPalette')) closeCmdPalette();
 });
 
-// ═════════ v10.5 Keyboard Shortcuts ═════════
+// ═════════ v10.8 Keyboard Shortcuts ═════════
 document.addEventListener('keydown', (e) => {
   // Skip if typing in input/textarea
   const tag = e.target.tagName;
@@ -5935,8 +6462,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ═════════ v10.5 Helper functions for results ═════════
-// v10.5: HTML Source viewer
+// ═════════ v10.8 Helper functions for results ═════════
+// v10.8: HTML Source viewer
 // NOTE: currentScanId already declared at line 5427, don't re-declare!
 let htmlSourceCache = null;
 function loadHtmlSource() {
@@ -6075,12 +6602,13 @@ function animateRiskGauge() {
     setTimeout(() => grade.style.animation = 'logoPulse 2s ease', 10);
   }
 }
+} catch(e) { console.error('[Main JS] Error:', e); }  // v10.8: close try block
 </script>
 </body>
 </html>
 """
 
-# ── HTML Template (RESULT) – v10.5 Deep Recon ──
+# ── HTML Template (RESULT) – v10.8 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -6122,7 +6650,7 @@ RESULT_HTML = r"""
 <div class="alert alert-error"><strong>❌ Lỗi:</strong> {{ result.error }}</div>
 {% else %}
 
-<!-- v10.5 Risk Score Dashboard -->
+<!-- v10.8 Risk Score Dashboard -->
 {% set risk = calculate_risk_score(result.stats) %}
 <div class="risk-dashboard">
   <div class="risk-gauge-wrap">
@@ -6572,7 +7100,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v10.5 Tabs -->
+<!-- v10.8 Tabs -->
 
 <!-- Tab: API Endpoints (discovered from JS + Swagger) -->
 <div class="tab-panel" id="tab-endpoints">
@@ -6803,7 +7331,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: CT Subdomains (v10.5) -->
+<!-- Tab: CT Subdomains (v10.8) -->
 <div class="tab-panel" id="tab-ct_logs">
   {% if result.ct_subdomains %}
   <div class="alert alert-info">📜 Found <strong>{{ result.ct_subdomains|length }}</strong> subdomains từ Certificate Transparency logs (crt.sh) — đây là subdomains đã từng được issue certificate</div>
@@ -6820,7 +7348,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: DNS Records (v10.5) -->
+<!-- Tab: DNS Records (v10.8) -->
 <div class="tab-panel" id="tab-dns">
   {% if result.dns_records %}
   <div class="section-title">🌐 DNS Records cho {{ result.target }}</div>
@@ -6842,7 +7370,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Git Exposure (v10.5) -->
+<!-- Tab: Git Exposure (v10.8) -->
 <div class="tab-panel" id="tab-git">
   {% if result.git_findings %}
   <div class="alert alert-error">📂 <strong>.git directory EXPOSED!</strong> Phát hiện {{ result.git_findings|length }} file(s) trong .git folder có thể truy cập công khai. Attacker có thể reconstruct toàn bộ source code + history!</div>
@@ -6864,7 +7392,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Crawled Pages (v10.5) -->
+<!-- Tab: Crawled Pages (v10.8) -->
 <div class="tab-panel" id="tab-crawled">
   {% if result.crawled_pages %}
   <div class="alert alert-info">🕷️ Deep crawl đã thu thập <strong>{{ result.crawled_pages|length }}</strong> internal pages (depth-2), extract secrets từ mỗi page</div>
@@ -6886,7 +7414,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: JS Strings (v10.5) -->
+<!-- Tab: JS Strings (v10.8) -->
 <div class="tab-panel" id="tab-js_strings">
   {% if result.js_strings %}
   <div class="alert alert-info">📜 Extracted <strong>{{ result.js_strings|length }}</strong> unique strings từ JS files — check manually cho API keys, endpoints, hardcoded URLs, internal info</div>
@@ -6902,7 +7430,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v10.5 Tabs -->
+<!-- v10.8 Tabs -->
 
 <!-- Tab: SSTI -->
 <div class="tab-panel" id="tab-ssti">
@@ -7005,7 +7533,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: HTML Source (v10.5) -->
+<!-- Tab: HTML Source (v10.8) -->
 <div class="tab-panel" id="tab-html_source">
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
     <button class="btn btn-secondary" onclick="loadHtmlSource()" id="loadSourceBtn">📄 Fetch HTML Source</button>
@@ -7058,14 +7586,14 @@ RESULT_HTML = r"""
 def index():
     return render_template_string(PAGE_HTML)
 
-# v10.5: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
+# v10.8: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
 # Đồng thời nếu POST /scan được gọi trực tiếp (không qua JS), trả về HTML page
 # thay vì raw JSON để browser không hiển thị raw JSON
 @app.route("/version")
 def version_info():
     """Version endpoint — user có thể check xem app đã deploy code mới chưa."""
     return jsonify({
-        "version": "v10.5",
+        "version": "v10.8",
         "service": "Web Leak Scanner Pro",
         "features": ["31 phases", "4 WAF bypass modes", "i18n VI/EN", "risk score", 
                      "command palette", "HTML source viewer", "force reset button"],
@@ -7122,7 +7650,7 @@ def scan():
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            # v10.5: Pre-store target in scan_results so /source/ endpoint works during scan
+            # v10.8: Pre-store target in scan_results so /source/ endpoint works during scan
             scan_results[scan_id] = {
                 "target": target, "main": {}, "leak": [], "secrets": [],
                 "ports": [], "dirs": [], "brute": [], "technologies": [],
@@ -7130,7 +7658,7 @@ def scan():
                 "cdn": [], "cookies": [], "security_headers": [],
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "stats": {"in_progress": True}, "duration_seconds": 0,
-                "errors": [], "scanner_version": "v10.5",
+                "errors": [], "scanner_version": "v10.8",
                 "subdomains_resolved": [], "subdomain_hints": [],
                 "takeover_findings": [], "graphql_findings": [], "cors_findings": [],
                 "open_redirect_findings": [], "source_maps": [], "wayback_urls": [],
@@ -7175,7 +7703,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v10.5",
+                "errors": [str(e)], "scanner_version": "v10.8",
             }
             with prog_lock:
                 for h in scan_history:
@@ -7238,7 +7766,7 @@ def result(scan_id):
     result = scan_results.get(scan_id, {})
     return render_template_string(RESULT_HTML, result=result, calculate_risk_score=calculate_risk_score)
 
-# v10.5: HTML source viewer endpoint
+# v10.8: HTML source viewer endpoint
 @app.route("/source/<int:scan_id>")
 def view_source(scan_id):
     """Return raw HTML source of the scanned target page."""
@@ -7309,7 +7837,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v10.5"
+    data["scanner"] = "Web Leak Scanner Pro v10.8"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -7384,7 +7912,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v10.5 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v10.8 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -7409,7 +7937,7 @@ def health():
         pass
     return jsonify({
         "status": "ok",
-        "service": "Web Leak Scanner Pro v10.5",
+        "service": "Web Leak Scanner Pro v10.8",
         "uptime": round(time.time() - _START_TIME, 1),
         "active_scans": sum(1 for q in progress_queues.values() if q is not None),
         "memory_mb": mem_info.get("rss_mb", 0),
@@ -7428,14 +7956,14 @@ _START_TIME = time.time()
 def run_dev_server(host, port):
     """Run Flask development server (NOT for production)."""
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v10.5 — Development Server")
+    print(f"🛡️  Web Leak Scanner Pro v10.8 — Development Server")
     print(f"   URL: http://{host}:{port}")
     print(f"   ⚠️  DEV SERVER — không phù hợp production!")
-    print(f"   v10.5: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v10.5: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
-    print(f"   v10.5: Source maps · JS endpoints · Swagger · Wayback · .git")
-    print(f"   v10.5: Cache poisoning · Header injection · Default creds")
-    print(f"   v10.5: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+    print(f"   v10.8: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v10.8: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
+    print(f"   v10.8: Source maps · JS endpoints · Swagger · Wayback · .git")
+    print(f"   v10.8: Cache poisoning · Header injection · Default creds")
+    print(f"   v10.8: 4 WAF bypass modes · Glassmorphism UI · Confetti")
     print("=" * 64)
     app.run(host=host, port=port, debug=False, threaded=True)
 
@@ -7444,12 +7972,12 @@ def run_production_server(host, port):
     try:
         from waitress import serve as waitress_serve
         print("=" * 64)
-        print(f"🛡️  Web Leak Scanner Pro v10.5 — Production Server (waitress)")
+        print(f"🛡️  Web Leak Scanner Pro v10.8 — Production Server (waitress)")
         print(f"   URL: http://{host}:{port}")
         print(f"   🌐 Production WSGI: waitress (multi-threaded, robust)")
         print(f"   🔍 Health endpoint: /health, /ping")
-        print(f"   v10.5: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-        print(f"   v10.5: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+        print(f"   v10.8: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+        print(f"   v10.8: 4 WAF bypass modes · Glassmorphism UI · Confetti")
         print("=" * 64)
         # Waitress with reasonable defaults for cloud deploy
         # threads=8 — enough for scanner + UI + health checks
