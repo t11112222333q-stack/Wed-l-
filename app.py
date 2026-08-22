@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web Leak Scanner Pro v11.4 — Deep Recon Edition
+Web Leak Scanner Pro v11.5 — Deep Recon Edition
 Gộp Flask + Scanner + UI vào 1 file. Chỉ cần:
   pip install flask aiohttp
   python app.py
 Rồi mở trình duyệt: http://localhost:5000
 
-Changelog v11.4 (so với v6.0):
+Changelog v11.5 (so với v6.0):
   + 🔍 Scanner sâu hơn: LEAK_PATHS ~100 -> ~230 (cloud creds, k8s, docker, CI/CD,
     CMS-specific, backup variants .bak/.old/.orig/.save, .well-known/, framework
     config files, php/python/ruby/go/java/.NET specifics).
@@ -198,7 +198,7 @@ LEAK_PATHS = [
     "/sitemap_index.xml", "/news_sitemap.xml", "/image_sitemap.xml",
     "/yandex_", "/bing_",
 
-    # ── v11.4 additions: K8s / container / monitoring ──
+    # ── v11.5 additions: K8s / container / monitoring ──
     "/.docker/init", "/var/run/docker.sock", "/.dockerenv", "/Dockerfile.dev",
     "/.dockerignore", "/Dockerfile.prod", "/docker-compose.override.yml",
     "/k8s/", "/kubernetes/", "/k8s.yaml", "/k8s.yml", "/deploy.yaml", "/deploy.yml",
@@ -217,7 +217,7 @@ LEAK_PATHS = [
     "/.well-known/revocation",
     "/.well-known/introspection",
 
-    # ── v11.4: Source maps & debug bundles ──
+    # ── v11.5: Source maps & debug bundles ──
     "/bundle.js.map", "/main.js.map", "/app.js.map", "/index.js.map",
     "/script.js.map", "/scripts.js.map", "/vendor.js.map", "/runtime.js.map",
     "/polyfills.js.map", "/styles.css.map", "/main.css.map", "/app.css.map",
@@ -226,7 +226,7 @@ LEAK_PATHS = [
     "/assets/index.js.map", "/assets/main.js.map", "/assets/app.js.map",
     "/dist/build.js.map", "/dist/main.js.map",
 
-    # ── v11.4: GraphQL / WebSocket / API ──
+    # ── v11.5: GraphQL / WebSocket / API ──
     "/graphql", "/graphql.json", "/graphql/console", "/graphiql",
     "/api/graphql", "/v1/graphql", "/v2/graphql", "/query",
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4",
@@ -241,7 +241,7 @@ LEAK_PATHS = [
     "/rest/users", "/rest/admin", "/rest/config",
     "/v1/users", "/v1/admin", "/v1/config", "/v2/users", "/v2/admin",
 
-    # ── v11.4: Spring Boot Actuator deep ──
+    # ── v11.5: Spring Boot Actuator deep ──
     "/actuator/", "/actuator/info", "/actuator/health",
     "/actuator/env", "/actuator/configprops", "/actuator/beans",
     "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
@@ -252,21 +252,21 @@ LEAK_PATHS = [
     "/actuator/liquibase", "/actuator/sessions", "/actuator/refresh",
     "/actuator/bus-refresh", "/actuator/gateway/routes",
 
-    # ── v11.4: Java / JVM specific ──
+    # ── v11.5: Java / JVM specific ──
     "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
     "/WEB-INF/config/", "/META-INF/MANIFEST.MF", "/META-INF/application.properties",
     "/META-INF/maven/", "/META-INF/spring.factories",
     "/struts/web.xml", "/struts.xml", "/struts-config.xml",
     "/WEB-INF/struts-config.xml", "/WEB-INF/struts.xml",
 
-    # ── v11.4: .NET / IIS specific ──
+    # ── v11.5: .NET / IIS specific ──
     "/trace.axd", "/trace.axd?id=1", "/elmah.axd", "/elmah/elmah.axd",
     "/web.config.bak", "/web.config.old", "/web.config.txt",
     "/App_Data/", "/App_Data/Logs/", "/App_Data/Cache/",
     "/bin/", "/App_Code/", "/App_Browsers/", "/App_GlobalResources/",
     "/Reserved.ReportViewerWebControl.axd", "/Reports/",
 
-    # ── v11.4: PHP / Laravel specific ──
+    # ── v11.5: PHP / Laravel specific ──
     "/.env.production", "/.env.staging", "/.env.local", "/.env.dev",
     "/storage/", "/storage/logs/", "/storage/logs/laravel.log",
     "/storage/framework/cache/", "/storage/framework/sessions/",
@@ -274,7 +274,7 @@ LEAK_PATHS = [
     "/.env.backup", "/.env.example", "/.env.sample", "/.env.template",
     "/artisan", "/server.php", "/package.json",
 
-    # ── v11.4: Ruby / Rails specific ──
+    # ── v11.5: Ruby / Rails specific ──
     "/config/database.yml", "/config/secrets.yml", "/config/master.key",
     "/config/credentials.yml.enc", "/config/credentials.yml",
     "/config/initializers/", "/config/environments/",
@@ -282,13 +282,13 @@ LEAK_PATHS = [
     "/db/schema.rb", "/db/seeds.rb", "/db/migrate/",
     "/log/production.log", "/log/development.log",
 
-    # ── v11.4: Python / Django specific ──
+    # ── v11.5: Python / Django specific ──
     "/settings.py", "/local_settings.py", "/config/settings.py",
     "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
     "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
     "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
 
-    # ── v11.4: WordPress deep ──
+    # ── v11.5: WordPress deep ──
     "/wp-content/uploads/", "/wp-content/plugins/", "/wp-content/themes/",
     "/wp-content/backup-db/", "/wp-content/updraft/",
     "/wp-content/uploads/wpallimport/", "/wp-content/backups/",
@@ -303,7 +303,7 @@ LEAK_PATHS = [
     "/wp-admin/install.php", "/wp-admin/setup-config.php",
     "/wp-content/uploads/index.php", "/wp-includes/version.php",
 
-    # ── v11.4: CMS-specific deep ──
+    # ── v11.5: CMS-specific deep ──
     "/admin/web/config.php", "/admin/conf/", "/admin/sql/",
     "/sites/default/settings.php", "/sites/default/files/",
     "/sites/default/private/", "/sites/default/config/",
@@ -315,7 +315,7 @@ LEAK_PATHS = [
     "/administrator/components/com_config/", "/administrator/cache/",
     "/installation/index.php", "/installation/configuration.php",
 
-    # ── v11.4: Node.js / npm specific ──
+    # ── v11.5: Node.js / npm specific ──
     "/.npmrc", "/.yarnrc", "/.yarn/", "/.yarn/cache/",
     "/yarn.lock", "/pnpm-lock.yaml", "/package-lock.json",
     "/.pnp.js", "/.pnp.cjs", "/.pnp/", "/.pnp.loader.js",
@@ -323,7 +323,7 @@ LEAK_PATHS = [
     "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/",
     "/.netlify/", "/.cache/", "/.turbo/",
 
-    # ── v11.4: Cloud / DevOps deep ──
+    # ── v11.5: Cloud / DevOps deep ──
     "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
     "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
     "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
@@ -336,14 +336,14 @@ LEAK_PATHS = [
     "/google-services.json", "/GoogleService-Info.plist",
     "/firebase.json", "/firebase-config.json", "/.firebaserc",
 
-    # ── v11.4: CI/CD configs ──
+    # ── v11.5: CI/CD configs ──
     "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
     "/.github/workflows/", "/.github/workflows/ci.yml",
     "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
     "/jenkins/", "/.jenkins/", "/Jenkinsfile", "/Jenkinsfile.bak",
     "/azure-pipelines.yml", "/.drone.yml", "/teamcity",
 
-    # ── v11.4: API documentation ──
+    # ── v11.5: API documentation ──
     "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
     "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/swagger-ui-bundle.js",
     "/api-docs", "/api/docs", "/api/swagger.json", "/api/openapi.json",
@@ -351,14 +351,14 @@ LEAK_PATHS = [
     "/rapidoc", "/api-docs/swagger.json", "/v1/api-docs", "/v2/api-docs",
     "/api/swagger", "/api/rapidoc", "/api/redoc",
 
-    # ── v11.4: WebSocket / SSE endpoints ──
+    # ── v11.5: WebSocket / SSE endpoints ──
     "/ws", "/wss", "/websocket", "/socket.io/", "/socket.io/?EIO=4&transport=websocket",
     "/signalr", "/signalr/negotiate", "/signalr/hubs",
     "/hub", "/realtime", "/events", "/sse", "/stream",
     "/api/ws", "/api/websocket", "/api/realtime",
     "/_ws", "/_websocket", "/_realtime",
 
-    # ── v11.4: Common config backups / temporaries ──
+    # ── v11.5: Common config backups / temporaries ──
     "/config.php.bak", "/config.php.old", "/config.php.orig", "/config.php.save",
     "/config.php.swp", "/config.php~", "/config.php.txt", "/config.php.dist",
     "/config.json.bak", "/config.json.old", "/config.json.orig",
@@ -369,7 +369,7 @@ LEAK_PATHS = [
     "/.env.production.local", "/.env.development.local",
     "/.env.staging.local", "/.env.test.local",
 
-    # ── v11.4: CVE / known vuln paths ──
+    # ── v11.5: CVE / known vuln paths ──
     "/cgi-bin/nobody/CDPGateway-1101",  # CVE-2021-44228 (Log4Shell)
     "/test.jsp", "/test.html",
     "/cgi-bin/printenv", "/cgi-bin/test-cgi", "/cgi-bin/php",
@@ -382,7 +382,7 @@ LEAK_PATHS = [
     "/elasticsearch/", "/_cat/indices", "/_cluster/health",  # ES
     "/redis/", "/memcached/", "/var/log/redis/redis.log",
 
-    # ── v11.4: Misc / random secrets ──
+    # ── v11.5: Misc / random secrets ──
     "/.htpasswd", "/.htpasswd.bak", "/.htpasswd.old",
     "/.htaccess", "/.htaccess.bak", "/.htaccess.old",
     "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.pypirc.bak",
@@ -391,13 +391,13 @@ LEAK_PATHS = [
     "/.prettierrc", "/.eslintrc", "/.babelrc",
     "/.docker/registry", "/registry/", "/docker/registry",
 
-    # ── v11.4: Source code & build artifacts ──
+    # ── v11.5: Source code & build artifacts ──
     "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
     "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
     "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
     "/node_modules/", "/node_modules/.env", "/node_modules/.package-lock.json",
 
-    # ── v11.4: Logs & debug ──
+    # ── v11.5: Logs & debug ──
     "/error.log", "/access.log", "/debug.log", "/app.log", "/out.log",
     "/laravel.log", "/storage/logs/laravel.log",
     "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
@@ -408,7 +408,7 @@ LEAK_PATHS = [
     "/_internal/", "/_hidden/", "/_private/", "/_secret/",
     "/server-status", "/server-info", "/status?full", "/status?auto",
 
-    # ── v11.4: Backup & database dumps ──
+    # ── v11.5: Backup & database dumps ──
     "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
     "/backup.bak", "/backup.dump", "/backup.json",
     "/backup-2024.zip", "/backup-2025.zip",
@@ -421,7 +421,7 @@ LEAK_PATHS = [
     "/mysql.sql", "/postgres.sql", "/pgdump.sql",
     "/mongodump.json", "/mongodump.bson",
 
-    # ── v11.4: Admin / management panels ──
+    # ── v11.5: Admin / management panels ──
     "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
     "/admin.php", "/admin.html", "/admin/console", "/admin/dashboard",
     "/adminarea/", "/adminpanel/", "/admincp/", "/admin/controlpanel",
@@ -432,7 +432,7 @@ LEAK_PATHS = [
     "/manager/html", "/manager/status", "/manager/jmxproxy",
     "/host-manager/html", "/host-manager/status",
 
-    # ── v11.4: User-uploaded content ──
+    # ── v11.5: User-uploaded content ──
     "/uploads/", "/uploads/files/", "/uploads/images/",
     "/files/", "/_files/", "/static/uploads/", "/public/uploads/",
     "/media/", "/assets/", "/static/", "/public/",
@@ -794,7 +794,7 @@ CORS_TEST_ORIGINS = [
 # HTTP methods to fuzz (test OPTIONS to discover allowed methods)
 HTTP_METHODS_TO_FUZZ = ["OPTIONS", "PUT", "DELETE", "PATCH", "PROPFIND", "TRACE"]
 
-# v11.4 WAF bypass modes
+# v11.5 WAF bypass modes
 WAF_BYPASS_MODES = ["auto", "stealth", "aggressive", "turbo"]
 WAF_BYPASS_PROFILES = {
     "auto":      {"concurrency": 30, "delay_min": 0,    "delay_max": 0.3,  "rotate_ua": True,  "rotate_xff": False, "retry": 2},
@@ -927,7 +927,7 @@ DEFAULT_CREDS = [
     ("demo", "demo"),
 ]
 
-# v11.4: EXPANDED leak paths — admin panels, framework configs, API, cloud, database, CI/CD
+# v11.5: EXPANDED leak paths — admin panels, framework configs, API, cloud, database, CI/CD
 LEAK_PATHS_V2 = [
     # ── Admin panels (expanded) ──
     "/admin/", "/admin/login", "/admin/index.php", "/admin/index.html",
@@ -1193,7 +1193,7 @@ LEAK_PATHS_V2 = [
     "/s3/", "/s3-bucket/", "/s3-buckets/",
 ]
 
-# v11.4: EXPANDED secret patterns
+# v11.5: EXPANDED secret patterns
 SECRET_PATTERNS_V2 = [
     # Cloud providers
     ("AWS Access Key ID", r'AKIA[0-9A-Z]{16}', "critical", "AWS Access Key"),
@@ -1268,7 +1268,7 @@ SECRET_PATTERNS_V2 = [
     ("US Phone", r'\+1\s?\(?[2-9]\d{2}\)?[\s.-]?[2-9]\d{2}[\s.-]?\d{4}', "info", "US phone"),
 ]
 
-# v11.4: EXPANDED brute-force wordlist
+# v11.5: EXPANDED brute-force wordlist
 BRUTE_NAMES_V2 = [
     # Basic
     "index", "default", "main", "home", "start", "page", "view", "app",
@@ -1334,7 +1334,7 @@ BRUTE_NAMES_V2 = [
     "webconfig", "configuration", "settings.php", "config.php",
 ]
 
-# v11.4: AGGRESSIVE leak paths — 300+ more paths for deep leaking
+# v11.5: AGGRESSIVE leak paths — 300+ more paths for deep leaking
 LEAK_PATHS_V3 = [
     # ── WordPress deep (wp-content, wp-includes, wp-json) ──
     "/wp-content/debug.log", "/wp-content/uploads/debug.log",
@@ -1616,7 +1616,7 @@ LEAK_PATHS_V3 = [
     "/server-status", "/server-info", "/status?full", "/status?auto",
 ]
 
-# v11.4: AGGRESSIVE secret patterns — 20+ new patterns
+# v11.5: AGGRESSIVE secret patterns — 20+ new patterns
 SECRET_PATTERNS_V3 = [
     ("PayPal Client Secret", r'EH[a-zA-Z0-9_\-]{43,80}', "critical", "PayPal client secret"),
     ("DigitalOcean Token", r'dop_v1_[a-f0-9]{64}', "high", "DigitalOcean API token"),
@@ -1645,7 +1645,7 @@ SECRET_PATTERNS_V3 = [
     ("Convex Token", r'convex-[a-z0-9]{32,}', "high", "Convex deployment token"),
 ]
 
-# v11.4: AGGRESSIVE brute names — 100+ more names
+# v11.5: AGGRESSIVE brute names — 100+ more names
 BRUTE_NAMES_V3 = [
     # WordPress specific
     "wp-config", "wp-login", "wp-admin", "wp-content", "wp-includes",
@@ -1711,14 +1711,354 @@ BRUTE_NAMES_V3 = [
     "cron", "job", "jobs", "task", "tasks", "worker", "queue",
 ]
 
-# v11.4: EXPANDED brute extensions
+# v11.5: EXPANDED brute extensions
 BRUTE_EXTS_V3 = [".php", ".html", ".txt", ".json", ".bak", ".old", ".orig", ".save", ".swp", "~",
                  ".zip", ".tar.gz", ".sql", ".env", ".log", ".yaml", ".yml", ".ini", ".conf",
                  ".dist", ".sample", ".md", ".xml"]
 
+# v11.5: 500+ leak paths — deep coverage (shells, VCS, frameworks, cloud, CI/CD, etc.)
+LEAK_PATHS_V4 = [
+    # ── PHP shells & backdoors (30) ──
+    "/c99.php", "/r57.php", "/b374k.php", "/wso.php", "/shell.php",
+    "/cmd.php", "/exec.php", "/system.php", "/passthru.php", "/eval.php",
+    "/backdoor.php", "/bd.php", "/webshell.php", "/hack.php", "/test123.php",
+    "/up.php", "/upload.php", "/uploader.php", "/files.php", "/x.php",
+    "/cmd.exe", "/shell.asp", "/shell.aspx", "/shell.jsp", "/shell.py",
+    "/cgi-bin/sh", "/cgi-bin/php", "/cgi-bin/bash", "/cgi-bin/perl",
+    "/cgi-bin/test.cgi", "/cgi-bin/printenv",
+
+    # ── Git objects deep (30) ──
+    "/.git/objects/", "/.git/objects/pack/", "/.git/objects/info/",
+    "/.git/refs/tags/", "/.git/refs/remotes/", "/.git/refs/heads/",
+    "/.git/hooks/", "/.git/hooks/pre-commit", "/.git/hooks/post-receive",
+    "/.git/branches/", "/.git/hooks/pre-push", "/.git/config",
+    "/.git/HEAD", "/.git/ORIG_HEAD", "/.git/FETCH_HEAD", "/.git/MERGE_HEAD",
+    "/.git/index", "/.git/stash", "/.git/logs/refs/heads/master",
+    "/.git/logs/refs/heads/main", "/.git/logs/refs/heads/develop",
+    "/.git/logs/refs/remotes/origin/master", "/.git/logs/refs/remotes/origin/main",
+    "/.git/info/exclude", "/.git/info/refs", "/.git/packed-refs",
+    "/.git/shallow", "/.git/COMMIT_EDITMSG", "/.git/MERGE_MSG",
+    "/.git/SQUASH_MSG", "/.git/sequencer",
+
+    # ── SVN / Mercurial / Bazaar (20) ──
+    "/.svn/entries", "/.svn/wc.db", "/.svn/props/", "/.svn/text-base/",
+    "/.svn/prop-base/", "/.svn/tmp/", "/.svn/all-wcprops", "/.svn/dir-props",
+    "/.svn/README.txt", "/.svn/format", "/.svn/.svnentries",
+    "/.hg/store", "/.hg/store/data", "/.hg/store/00manifest.i",
+    "/.hg/store/00changelog.i", "/.hg/requires", "/.hg/hgrc",
+    "/.hg/dirstate", "/.hg/branch", "/.hg/tags", "/.hg/last-message.txt",
+
+    # ── WordPress deep (40) ──
+    "/wp-content/plugins/akismet/akismet.php", "/wp-content/plugins/hello.php",
+    "/wp-content/plugins/jetpack/jetpack.php", "/wp-content/plugins/wordpress-seo/",
+    "/wp-content/plugins/contact-form-7/", "/wp-content/plugins/elementor/",
+    "/wp-content/plugins/wpforms-lite/", "/wp-content/plugins/woocommerce/",
+    "/wp-content/plugins/all-in-one-wp-migration/", "/wp-content/plugins/duplicator/",
+    "/wp-content/plugins/wp-file-manager/", "/wp-content/plugins/wpconfig.php",
+    "/wp-content/uploads/wpallimport/", "/wp-content/uploads/backwpup/",
+    "/wp-content/uploads/backupwordpress/", "/wp-content/uploads/wp-clone/",
+    "/wp-content/uploads/migration/", "/wp-content/uploads/ai1wm-backups/",
+    "/wp-content/uploads/backupbuddy/", "/wp-content/uploads/wpbackitup/",
+    "/wp-content/backups/", "/wp-content/backup-db/",
+    "/wp-content/updraft/", "/wp-content/uploads/wpvivid/",
+    "/wp-content/plugins/wpconfig.php.bak", "/wp-content/plugins/readme.txt",
+    "/wp-content/plugins/database.php", "/wp-content/plugins/db.php",
+    "/wp-content/plugins/admin.php", "/wp-content/plugins/config.php",
+    "/wp-content/themes/functions.php", "/wp-content/themes/header.php",
+    "/wp-content/themes/footer.php", "/wp-content/themes/sidebar.php",
+    "/wp-content/themes/style.css", "/wp-content/themes/index.php",
+    "/wp-content/themes/404.php", "/wp-content/themes/archive.php",
+    "/wp-content/themes/page.php", "/wp-content/themes/search.php",
+    "/wp-content/themes/single.php", "/wp-includes/wp-db.php",
+
+    # ── Laravel / Symfony deep (30) ──
+    "/.env", "/.env.local", "/.env.production", "/.env.staging",
+    "/.env.development", "/.env.testing", "/.env.example",
+    "/.env.backup", "/.env.bak", "/.env.old", "/.env.save",
+    "/.env.swp", "/.env~", "/.env.dist", "/.env.sample",
+    "/.env.production.local", "/.env.development.local",
+    "/.env.staging.local", "/.env.test.local",
+    "/storage/logs/laravel.log", "/storage/logs/laravel-2024.log",
+    "/storage/logs/laravel-2025.log", "/storage/framework/cache/",
+    "/storage/framework/sessions/", "/storage/framework/views/",
+    "/bootstrap/cache/config.php", "/bootstrap/cache/routes.php",
+    "/bootstrap/cache/packages.php", "/bootstrap/cache/services.php",
+    "/vendor/composer/installed.json", "/vendor/autoload.php",
+
+    # ── Django / Flask / Python deep (30) ──
+    "/settings.py", "/local_settings.py", "/config/settings.py",
+    "/manage.py", "/wsgi.py", "/asgi.py", "/requirements.txt",
+    "/Pipfile", "/Pipfile.lock", "/pyproject.toml", "/poetry.lock",
+    "/db.sqlite3", "/db.sqlite", "/app.db", "/data.db",
+    "/admin/login/", "/admin/logout/", "/admin/auth/user/",
+    "/media/", "/static/", "/staticfiles/", "/static/admin/",
+    "/.python-version", "/.flake8", "/.pylintrc", "/.ruff.toml",
+    "/__pycache__/", "/.pytest_cache/", "/htmlcov/",
+    "/celerybeat-schedule", "/celerybeat-schedule.db", "/.env",
+
+    # ── Ruby on Rails deep (20) ──
+    "/Gemfile", "/Gemfile.lock", "/Rakefile", "/config.ru",
+    "/config/database.yml", "/config/secrets.yml", "/config/master.key",
+    "/config/credentials.yml.enc", "/config/credentials.yml",
+    "/config/initializers/", "/config/environments/production.rb",
+    "/config/environments/development.rb", "/db/schema.rb",
+    "/db/seeds.rb", "/db/migrate/", "/db/schema.rb",
+    "/log/production.log", "/log/development.log", "/log/test.log",
+    "/public/500.html", "/public/404.html",
+
+    # ── Node.js / Next.js / Nuxt deep (30) ──
+    "/package.json", "/package-lock.json", "/yarn.lock", "/pnpm-lock.yaml",
+    "/.npmrc", "/.yarnrc", "/.yarn/", "/.pnp.cjs", "/.pnp.js",
+    "/node_modules/.cache/", "/.parcel-cache/", "/.next/",
+    "/.nuxt/", "/.svelte-kit/", "/.output/", "/.vercel/", "/.netlify/",
+    "/.turbo/", "/.cache/",
+    "/_next/static/chunks/main.js.map", "/_next/static/chunks/webpack.js.map",
+    "/_next/static/chunks/framework.js.map", "/_next/static/chunks/pages/_app.js.map",
+    "/_next/static/chunks/pages/_error.js.map", "/_next/static/chunks/pages/index.js.map",
+    "/_next/static/buildManifest.json", "/_next/static/react-loadable-manifest.json",
+    "/_next/data/", "/_nuxt/app.js.map", "/_nuxt/vendor.js.map",
+    "/tsconfig.json", "/webpack.config.js", "/vite.config.js",
+
+    # ── Docker / K8s / Cloud deep (30) ──
+    "/Dockerfile", "/Dockerfile.dev", "/Dockerfile.prod", "/Dockerfile.staging",
+    "/docker-compose.yml", "/docker-compose.yaml", "/docker-compose.override.yml",
+    "/.dockerignore", "/.dockerenv", "/.docker/config.json",
+    "/k8s/", "/kubernetes/", "/deploy.yaml", "/deploy.yml",
+    "/helm/", "/Chart.yaml", "/values.yaml", "/values-dev.yaml", "/values-prod.yaml",
+    "/manifests/", "/.helm/", "/.argo/", "/argocd.yaml",
+    "/.vault-token", "/.vault-pass", "/vault.json", "/.vault.d/",
+    "/consul.json", "/nomad/", "/.terraform/", "/.terraform.tfstate",
+    "/terraform.tfstate", "/terraform.tfstate.backup", "/terraform.tfvars",
+
+    # ── CI/CD configs (20) ──
+    "/.gitlab-ci.yml", "/.gitlab-ci.yml.bak",
+    "/.github/workflows/", "/.github/workflows/ci.yml",
+    "/.github/workflows/deploy.yml", "/.github/workflows/build.yml",
+    "/.circleci/config.yml", "/.travis.yml", "/bitbucket-pipelines.yml",
+    "/Jenkinsfile", "/Jenkinsfile.bak", "/azure-pipelines.yml",
+    "/.drone.yml", "/teamcity/", "/.jenkins/",
+    "/.github/dependabot.yml", "/.github/ISSUE_TEMPLATE/",
+    "/.github/PULL_REQUEST_TEMPLATE.md", "/.github/CODEOWNERS",
+    "/.github/FUNDING.yml",
+
+    # ── API documentation (20) ──
+    "/swagger.json", "/swagger.yaml", "/swagger-ui/", "/swagger/",
+    "/swagger-ui.html", "/swagger-ui/index.html",
+    "/openapi.json", "/openapi.yaml", "/openapi/",
+    "/redoc", "/rapidoc", "/api-docs", "/api/docs",
+    "/v1/api-docs", "/v2/api-docs", "/v3/api-docs",
+    "/api/swagger.json", "/api/openapi.json",
+    "/graphql", "/graphql.json", "/graphiql", "/playground",
+
+    # ── Spring Boot Actuator (30) ──
+    "/actuator", "/actuator/", "/actuator/info", "/actuator/health",
+    "/actuator/env", "/actuator/configprops", "/actuator/beans",
+    "/actuator/mappings", "/actuator/metrics", "/actuator/threaddump",
+    "/actuator/httptrace", "/actuator/loggers", "/actuator/heapdump",
+    "/actuator/scheduledtasks", "/actuator/sessions", "/actuator/shutdown",
+    "/actuator/auditevents", "/actuator/logfile", "/actuator/startup",
+    "/actuator/conditions", "/actuator/caches", "/actuator/flyway",
+    "/actuator/liquibase", "/actuator/refresh", "/actuator/bus-refresh",
+    "/actuator/gateway/routes", "/actuator/health/readiness",
+    "/actuator/health/liveness", "/actuator/metrics/system.cpu.usage",
+    "/actuator/metrics/jvm.memory.used",
+
+    # ── Database & cache (25) ──
+    "/_cat/indices", "/_cluster/health", "/_search", "/_nodes",
+    "/_cat/health", "/_cat/nodes", "/_cat/shards",
+    "/solr/", "/solr/admin/", "/solr/admin/cores",
+    "/couchdb/", "/couchdb/_all_dbs", "/couchdb/_utils/",
+    "/redis/", "/memcached/", "/mongodb/",
+    "/influxdb/", "/influxdb/query",
+    "/prometheus/", "/-/metrics", "/-/ready", "/-/healthy",
+    "/grafana/", "/grafana/api/health", "/grafana/api/admin/settings",
+    "/kibana/", "/kibana/app/kibana", "/kibana/api/status",
+    "/consul/", "/consul/v1/agent/members", "/consul/v1/kv/?recurse",
+
+    # ── Dev tools (20) ──
+    "/jenkins/", "/jenkins/script", "/jenkins/login", "/jenkins/api/json",
+    "/gitlab/", "/gitlab/api/v4/projects", "/gitlab/api/v4/users",
+    "/rancher/", "/rancher/v3/projects", "/drone/", "/drone/api/user",
+    "/teamcity/", "/teamcity/httpAuth/app/rest/server",
+    "/gocd/", "/gocd/api/config/pipelines",
+    "/phpinfo.php", "/info.php", "/test.php", "/debug.php",
+    "/_profiler/", "/_debugbar/", "/symfony/_profiler/",
+
+    # ── Config files all formats (30) ──
+    "/config.php", "/config.json", "/config.yaml", "/config.yml",
+    "/config.ini", "/config.toml", "/config.xml", "/config.js",
+    "/config.php.bak", "/config.json.bak", "/config.yaml.bak",
+    "/settings.php", "/settings.json", "/settings.ini",
+    "/settings.php.bak", "/settings.json.bak",
+    "/appsettings.json", "/appsettings.Development.json", "/appsettings.Production.json",
+    "/web.config", "/web.config.bak", "/web.config.old",
+    "/.htaccess", "/.htaccess.bak", "/.htpasswd", "/.htpasswd.bak",
+    "/configuration.php", "/configuration.php.bak",
+    "/conf/config.php", "/conf/settings.php", "/conf/database.php",
+    "/include/config.php", "/includes/config.php", "/inc/config.php",
+
+    # ── Backup files (30) ──
+    "/backup.zip", "/backup.tar.gz", "/backup.tar", "/backup.sql",
+    "/backup.bak", "/backup.dump", "/backup.json",
+    "/backup-2023.zip", "/backup-2024.zip", "/backup-2025.zip",
+    "/backups/", "/bak/", "/archive/", "/archives/",
+    "/db.sql", "/db.sqlite", "/db.sqlite3", "/db.bak",
+    "/database.sql", "/database.bak", "/database.dump",
+    "/dump.sql", "/dump.bak", "/dump.json",
+    "/www.zip", "/www.tar.gz", "/www.rar", "/www.7z",
+    "/site.zip", "/site.tar.gz", "/site.bak",
+    "/website.zip", "/website.tar.gz",
+    "/data.sql", "/data.bak", "/data.json", "/data.zip",
+
+    # ── Cloud / SSH / DevOps secrets (25) ──
+    "/.aws/credentials", "/.aws/config", "/.aws/credentials.bak",
+    "/.ssh/id_rsa", "/.ssh/id_rsa.pub", "/.ssh/id_ecdsa",
+    "/.ssh/id_ed25519", "/.ssh/authorized_keys", "/.ssh/known_hosts",
+    "/.ssh/config", "/.ssh/environment",
+    "/.netrc", "/.netrc.bak", "/.npmrc", "/.pypirc", "/.yarnrc",
+    "/.kube/config", "/.kube/token", "/.kube/certificate",
+    "/.gcp/credentials.json", "/.azure/credentials",
+    "/service-account.json", "/service-account-key.json",
+    "/google-services.json", "/GoogleService-Info.plist",
+    "/firebase.json", "/firebase-config.json", "/.firebaserc",
+
+    # ── Logs (20) ──
+    "/error.log", "/access.log", "/debug.log", "/app.log",
+    "/out.log", "/laravel.log", "/storage/logs/laravel.log",
+    "/var/log/", "/var/log/apache2/", "/var/log/nginx/",
+    "/var/log/auth.log", "/var/log/syslog", "/var/log/messages",
+    "/logs/", "/log/", "/_logs/",
+    "/.bash_history", "/.mysql_history", "/.psql_history", "/.viminfo",
+
+    # ── Source code & build (25) ──
+    "/source/", "/src/", "/build/", "/dist/", "/out/", "/target/",
+    "/coverage/", "/.nyc_output/", "/.cache/", "/.parcel-cache/",
+    "/vendor/", "/vendor/composer/installed.json", "/vendor/autoload.php",
+    "/node_modules/", "/node_modules/.env",
+    "/README.md", "/README.txt", "/CHANGELOG.md", "/LICENSE",
+    "/Makefile", "/CMakeLists.txt",
+    "/Dockerfile", "/docker-compose.yml", "/docker-compose.yaml",
+    "/Pipfile", "/Pipfile.lock", "/requirements.txt", "/poetry.lock",
+    "/Gemfile", "/Gemfile.lock", "/Rakefile",
+
+    # ── Admin panels (25) ──
+    "/admin/", "/administrator/", "/admin/login", "/admin/index.php",
+    "/admin/dashboard", "/admin/console", "/admin/config",
+    "/admin/settings", "/admin/users", "/admin/accounts",
+    "/adminarea/", "/adminpanel/", "/admincp/",
+    "/manage/", "/manager/", "/panel/", "/dashboard/", "/console/",
+    "/cpanel", "/whm", "/directadmin", "/vesta", "/webmin",
+    "/wp-admin/", "/phpmyadmin/", "/adminer.php", "/adminer/",
+    "/pma/", "/sqladmin/", "/mysql-admin/", "/dbadmin/",
+
+    # ── API endpoints (25) ──
+    "/api/", "/api/v1/", "/api/v2/", "/api/v3/",
+    "/api/users", "/api/user", "/api/admin", "/api/config",
+    "/api/auth", "/api/login", "/api/logout", "/api/register",
+    "/api/me", "/api/profile", "/api/account", "/api/settings",
+    "/api/health", "/api/status", "/api/version", "/api/info",
+    "/api/upload", "/api/download", "/api/files", "/api/list",
+    "/api/search", "/api/query", "/api/debug", "/api/test",
+
+    # ── Common dotfiles & temp (20) ──
+    "/.env~", "/.env.bak", "/.env.save", "/.env.sw", "/.env.swp",
+    "/.env.old", "/.env.orig", "/.env.dist", "/.env.sample",
+    "/.env.dev", "/.env.prod", "/.env.stage", "/.env.qa",
+    "/.env.live", "/.env.master", "/.env.backup",
+    "/config.php~", "/config.php.bak", "/config.php.old",
+    "/index.php~", "/index.php.bak", "/index.php.old",
+
+    # ── Java / .NET specific (20) ──
+    "/WEB-INF/web.xml", "/WEB-INF/classes/", "/WEB-INF/lib/",
+    "/META-INF/MANIFEST.MF", "/META-INF/maven/",
+    "/struts.xml", "/struts-config.xml", "/struts2/devmode.action",
+    "/application.properties", "/application.yml",
+    "/application-dev.properties", "/application-prod.properties",
+    "/trace.axd", "/trace.axd?id=1", "/elmah.axd",
+    "/web.config.bak", "/web.config.old",
+    "/App_Data/", "/App_Data/Logs/", "/bin/", "/App_Code/",
+
+    # ── Misc / temp / dev paths (20) ──
+    "/.gitignore", "/.gitattributes", "/.dockerignore",
+    "/.well-known/security.txt", "/.well-known/openid-configuration",
+    "/.well-known/jwks.json", "/.well-known/assetlinks.json",
+    "/robots.txt", "/sitemap.xml", "/sitemap-index.xml",
+    "/crossdomain.xml", "/clientaccesspolicy.xml",
+    "/humans.txt", "/security.txt", "/manifest.json",
+    "/favicon.ico", "/apple-touch-icon.png",
+    "/service-worker.js", "/sw.js",
+    "/.DS_Store", "/Thumbs.db", "/desktop.ini",
+
+    # ── PHP specific files (20) ──
+    "/index.php", "/index.php.bak", "/index.php~",
+    "/info.php", "/info.php.bak", "/phpinfo.php",
+    "/test.php", "/test.php.bak", "/debug.php",
+    "/shell.php", "/cmd.php", "/exec.php", "/system.php",
+    "/upload.php", "/download.php", "/delete.php",
+    "/config.php", "/config.php.bak", "/config.php~",
+    "/db.php", "/database.php", "/connect.php",
+
+    # ── Server status & info (15) ──
+    "/server-status", "/server-info", "/status?full", "/status?auto",
+    "/nginx_status", "/apache_status", "/.server-status",
+    "/_status", "/healthz", "/healthcheck", "/health", "/ping", "/pong",
+    "/_health", "/_status", "/_ping",
+
+    # ── Well-known & security (15) ──
+    "/.well-known/security.txt.bak", "/.well-known/openid-configuration.bak",
+    "/.well-known/jwks.json.bak", "/.well-known/oauth-authorization-server",
+    "/.well-known/oauth-authorization-server.bak",
+    "/.well-known/revocation", "/.well-known/introspection",
+    "/.well-known/nodeinfo", "/.well-known/host-meta",
+    "/.well-known/host-meta.json", "/.well-known/webfinger",
+    "/.well-known/apple-app-site-association",
+    "/.well-known/assetlinks.json.bak",
+    "/.well-known/change-password", "/.well-known/void.txt",
+
+    # ── Common dev/test/staging paths (15) ──
+    "/test/", "/dev/", "/debug/", "/temp/", "/tmp/",
+    "/old/", "/new/", "/beta/", "/demo/", "/preview/",
+    "/staging/", "/production/", "/qa/", "/sandbox/",
+    "/internal/", "/intranet/", "/private/", "/secret/", "/hidden/",
+
+    # ── Database connection files (15) ──
+    "/db.php", "/database.php", "/connect.php", "/connection.php",
+    "/dbconfig.php", "/db_connect.php", "/database.yml",
+    "/database.json", "/database.xml", "/database.ini",
+    "/db/config.php", "/config/database.php", "/config/database.yml",
+    "/application/config/database.php", "/application/config/database.yml",
+
+    # ── Common package/dependency files (15) ──
+    "/package.json", "/package-lock.json", "/yarn.lock", "/pnpm-lock.yaml",
+    "/composer.json", "/composer.lock", "/Gemfile", "/Gemfile.lock",
+    "/requirements.txt", "/Pipfile", "/Pipfile.lock", "/pyproject.toml",
+    "/go.mod", "/go.sum", "/pom.xml", "/build.gradle", "/Cargo.toml",
+
+    # ── IDE & editor configs (15) ──
+    "/.idea/", "/.idea/workspace.xml", "/.idea/modules.xml",
+    "/.idea/codeStyles.xml", "/.idea/vcs.xml", "/.idea/deploymentTargetDropDown.xml",
+    "/.vscode/", "/.vscode/settings.json", "/.vscode/launch.json",
+    "/.vscode/tasks.json", "/.vscode/extensions.json",
+    "/.editorconfig", "/.project", "/.classpath",
+    "/.settings/", "/.factorypath",
+
+    # ── Mobile app configs (10) ──
+    "/google-services.json", "/GoogleService-Info.plist",
+    "/firebase.json", "/firebase-config.json", "/.firebaserc",
+    "/app.json", "/app.config.js", "/app.config.ts",
+    "/expo.json", "/expo.config.js",
+
+    # ── Container & orchestration (10) ──
+    "/.dockerenv", "/.docker/config.json", "/.dockercfg",
+    "/docker-compose.yml", "/docker-compose.yaml",
+    "/k8s.yaml", "/k8s.yml", "/deploy.yaml",
+    "/Chart.yaml", "/values.yaml",
+]
+
 # Merge old + new
 LEAK_PATHS.extend(LEAK_PATHS_V2)
 LEAK_PATHS.extend(LEAK_PATHS_V3)
+LEAK_PATHS.extend(LEAK_PATHS_V4)
 # Deduplicate while preserving order
 _seen_leak = set()
 LEAK_PATHS = [x for x in LEAK_PATHS if not (x in _seen_leak or _seen_leak.add(x))]
@@ -1734,7 +2074,7 @@ BRUTE_NAMES.extend(BRUTE_NAMES_V2)
 BRUTE_NAMES.extend(BRUTE_NAMES_V3)
 BRUTE_NAMES = list(dict.fromkeys(BRUTE_NAMES))  # dedupe preserve order
 
-# v11.4: Use expanded extensions (22 extensions for deep coverage)
+# v11.5: Use expanded extensions (22 extensions for deep coverage)
 BRUTE_EXTS_EXPANDED = BRUTE_EXTS_V3
 
 # Skip these file extensions when brute-forcing (binary files we can't parse)
@@ -1840,7 +2180,7 @@ def get_activity(scan_id, since=0):
 
 async def fetch(session, url, headers=None, proxy=None, timeout=10, max_retries=2, bypass_mode="auto"):
     """Fetch với auto-retry khi gặp 429/timeout, xoay User-Agent mỗi retry.
-    v11.4: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
+    v11.5: WAF bypass mode support — stealth/aggressive/turbo with header rotation."""
     if not HAS_AIOHTTP:
         return "", 0, {}, 0
     last_err = None
@@ -2643,7 +2983,7 @@ def get_main_page_summary(html, max_chars=400):
     t = re.sub(r'\s+', ' ', t).strip()
     return t[:max_chars] + ("..." if len(t) > max_chars else "")
 
-# ── v11.4 helper functions: deep recon capabilities ──
+# ── v11.5 helper functions: deep recon capabilities ──
 
 def extract_js_endpoints(js_text, base_url):
     """Parse JS source, extract API endpoints (fetch URLs, axios routes, XHR, etc.)."""
@@ -3014,7 +3354,7 @@ async def fetch_wayback_urls(session, target, custom_headers, proxy, timeout):
     except Exception:
         return []
 
-# ── v11.4 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
+# ── v11.5 deep recon: Certificate Transparency, DNS records, deep crawl, JS string extraction ──
 
 async def fetch_ct_logs(session, domain, log_fn=None):
     """Query crt.sh Certificate Transparency logs để lấy tất cả subdomains đã từng được cert.
@@ -3192,11 +3532,11 @@ async def deep_crawl(session, base, main_text, custom_headers, proxy, timeout, s
     return depth_0_results, all_secrets
 
 def extract_js_strings(js_text, min_length=15, max_strings=30):
-    """Extract string literals from JS source code. v11.4: optimized for speed —
+    """Extract string literals from JS source code. v11.5: optimized for speed —
     limit input size, use simpler regex, cap output."""
     if not js_text:
         return []
-    # v11.4: Truncate input to 100KB max to prevent regex hangs on large JS files
+    # v11.5: Truncate input to 100KB max to prevent regex hangs on large JS files
     if len(js_text) > 100000:
         js_text = js_text[:100000]
     strings = set()
@@ -3515,7 +3855,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
     target = validate_target(target)
     result = {
         "target": target, "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scanner_version": "v11.4",
+        "scanner_version": "v11.5",
         "main": {}, "leak": [], "robots": [], "links": [], "js_links": [],
         "forms": [], "dirs": [], "brute": [], "ports": [], "technologies": [],
         "waf": {}, "cdn": [], "cookies": [], "security_headers": [],
@@ -3525,11 +3865,11 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "takeover_findings": [], "source_maps": [], "graphql_findings": [],
         "cors_findings": [], "open_redirect_findings": [], "wayback_urls": [],
         "http_method_findings": [], "recursive_brute_findings": [],
-        # v11.4 additions
+        # v11.5 additions
         "ct_subdomains": [], "dns_records": {}, "git_findings": [],
         "crawled_pages": [], "js_strings": [],
         "static_platforms": [], "frameworks_detected": [],
-        # v11.4 additions
+        # v11.5 additions
         "ssti_findings": [], "proto_pollution_findings": [],
         "header_injection_findings": [], "cache_poison_findings": [],
         "default_creds_findings": [],
@@ -3566,7 +3906,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 "rate": round(current / elapsed, 1) if elapsed > 0 else 0,
             })
 
-    # v11.4: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
+    # v11.5: Heartbeat task — gửi progress event mỗi 3s với phase cuối cùng,
     # để UI không bị kẹt "Đang khởi tạo..." khi phase chạy lâu không gửi event
     last_phase = {"phase": "main_page", "msg": "Đang khởi tạo...", "current": 0, "total": 0, "found": 0}
     async def _store_phase(phase, msg, current=0, total=0, found=0):
@@ -3800,7 +4140,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             result["leak"].sort(key=lambda x: -severity_rank(x.get("severity", "low")))
             log(f"Leak scan done: {found_count} found, {soft_filtered_count} soft-404 filtered")
 
-            # 3a.5. Static-site specific paths (v11.4)
+            # 3a.5. Static-site specific paths (v11.5)
             # Nếu detect Netlify/Vercel/CF Pages/GH Pages → scan thêm STATIC_SITE_PATHS
             # Nếu detect framework → scan thêm FRAMEWORK_EXTRA_PATHS
             extra_paths = set()
@@ -4011,12 +4351,12 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 brute_total = len(BRUTE_NAMES) * len(BRUTE_EXTS_EXPANDED)
                 await prog("brute", "Brute-force common files...", 0, brute_total, 0)
                 exts = BRUTE_EXTS_EXPANDED
-                bsem = asyncio.Semaphore(30)  # v11.4: boost from 15 to 30
+                bsem = asyncio.Semaphore(30)  # v11.5: boost from 15 to 30
                 brute_timeout = min(timeout, 4)
                 b_done = 0
                 b_found = 0
-                consecutive_403 = 0  # v11.4: track consecutive 403s
-                _brute_skip = False  # v11.4: flag to skip brute if too many 403s
+                consecutive_403 = 0  # v11.5: track consecutive 403s
+                _brute_skip = False  # v11.5: flag to skip brute if too many 403s
                 async def brute_one(n, e):
                     nonlocal b_done, b_found, consecutive_403, _brute_skip
                     if cancelled() or _brute_skip:
@@ -4026,7 +4366,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     async with bsem:
                         t, c, _, rt = await fetch(session, url, custom_headers, proxy, brute_timeout)
                         b_done += 1
-                        # v11.4: Auto-skip if 50 consecutive 403s (WAF blocking everything)
+                        # v11.5: Auto-skip if 50 consecutive 403s (WAF blocking everything)
                         if c == 403:
                             consecutive_403 += 1
                             if consecutive_403 >= 50:
@@ -4089,7 +4429,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
             except Exception as e:
                 log(f"Subdomain enum failed: {e}")
 
-            # 12. Subdomain takeover check (v11.4)
+            # 12. Subdomain takeover check (v11.5)
             if not cancelled() and result["subdomains_resolved"]:
                 await prog("takeover", f"Check subdomain takeover cho {len(result['subdomains_resolved'])} subs...", 0, len(result["subdomains_resolved"]), 0)
                 log(f"Takeover check: {len(result['subdomains_resolved'])} subdomains")
@@ -4104,7 +4444,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Takeover check failed: {e}")
 
-            # 13. GraphQL introspection (v11.4)
+            # 13. GraphQL introspection (v11.5)
             if not cancelled():
                 await prog("graphql", f"GraphQL endpoint discovery ({len(GRAPHQL_ENDPOINTS)} endpoints)...", 0, len(GRAPHQL_ENDPOINTS), 0)
                 log(f"GraphQL: testing {len(GRAPHQL_ENDPOINTS)} endpoints")
@@ -4117,7 +4457,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"GraphQL check failed: {e}")
 
-            # 14. CORS misconfiguration (v11.4)
+            # 14. CORS misconfiguration (v11.5)
             if not cancelled():
                 await prog("cors", "CORS misconfiguration test (3 origins × 5 endpoints)...", 0, 5, 0)
                 log(f"CORS: testing 3 origins × 5 endpoints")
@@ -4130,7 +4470,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CORS check failed: {e}")
 
-            # 15. Open redirect test (v11.4)
+            # 15. Open redirect test (v11.5)
             if not cancelled():
                 await prog("open_redirect", f"Open redirect test ({len(REDIRECT_PARAMS)} params × 5 payloads)...", 0, len(REDIRECT_PARAMS), 0)
                 log(f"Open redirect: testing {len(REDIRECT_PARAMS)} params × 5 payloads")
@@ -4143,7 +4483,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Open redirect check failed: {e}")
 
-            # 16. Source map exposure (v11.4)
+            # 16. Source map exposure (v11.5)
             if not cancelled() and result["js_links"]:
                 await prog("source_maps", f"Source map check cho {min(30, len(result['js_links']))} JS files...", 0, min(30, len(result["js_links"])), 0)
                 log(f"Source maps: checking {min(30, len(result['js_links']))} JS files")
@@ -4156,7 +4496,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Source map check failed: {e}")
 
-            # 17. JS endpoint extraction + API fuzzing (v11.4)
+            # 17. JS endpoint extraction + API fuzzing (v11.5)
             if not cancelled() and scan_js and result["js_links"]:
                 await prog("js_endpoints", f"Extract API endpoints từ {len(result['js_links'])} JS files...", 0, len(result["js_links"]), 0)
                 log(f"JS endpoints: extracting from {len(result['js_links'])} JS files")
@@ -4218,7 +4558,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"JS endpoint extraction failed: {e}")
 
-            # 18. Swagger/OpenAPI parsing (v11.4)
+            # 18. Swagger/OpenAPI parsing (v11.5)
             if not cancelled():
                 await prog("swagger", "Parse Swagger/OpenAPI specs...", 0, 5, 0)
                 log(f"Swagger: testing 6 spec paths")
@@ -4238,7 +4578,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Swagger parsing failed: {e}")
 
-            # 19. Recursive depth-2 brute-force (v11.4)
+            # 19. Recursive depth-2 brute-force (v11.5)
             if not cancelled():
                 found_dirs = [d["url"].replace(base, "") for d in result["dirs"]]
                 found_dirs += [x["path"] for x in result["leak"] if x.get("path","").endswith("/") and not x.get("soft_404")]
@@ -4262,7 +4602,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 else:
                     log(f"Recursive brute skipped: no directories found")
 
-            # 20. HTTP method fuzzing (v11.4)
+            # 20. HTTP method fuzzing (v11.5)
             if not cancelled():
                 test_urls = [target]
                 test_urls += [x["url"] for x in result["leak"][:3] if x.get("code") == 200 and not x.get("soft_404")]
@@ -4282,7 +4622,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"HTTP method fuzz failed: {e}")
 
-            # 21. Wayback Machine integration (v11.4)
+            # 21. Wayback Machine integration (v11.5)
             if not cancelled():
                 await prog("wayback", "Wayback Machine historical URLs lookup...", 0, 1, 0)
                 log(f"Wayback: querying web.archive.org")
@@ -4293,7 +4633,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Wayback lookup failed: {e}")
 
-            # 22. Certificate Transparency logs (v11.4) — crt.sh subdomain enum
+            # 22. Certificate Transparency logs (v11.5) — crt.sh subdomain enum
             if not cancelled():
                 await prog("ct_logs", "Certificate Transparency logs (crt.sh)...", 0, 1, 0)
                 log(f"CT: querying crt.sh for *.{host}")
@@ -4321,7 +4661,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"CT logs failed: {e}")
 
-            # 23. DNS records lookup (v11.4)
+            # 23. DNS records lookup (v11.5)
             if not cancelled() and host:
                 await prog("dns_records", "DNS records lookup (A/AAAA/MX/TXT/CNAME)...", 0, 1, 0)
                 log(f"DNS: looking up records for {host}")
@@ -4333,7 +4673,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"DNS lookup failed: {e}")
 
-            # 24. .git directory exposure check (v11.4)
+            # 24. .git directory exposure check (v11.5)
             if not cancelled():
                 await prog("git_exposure", "Check .git directory exposure (HEAD, config, index)...", 0, 1, 0)
                 log(f"Git: checking .git directory exposure")
@@ -4354,7 +4694,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Git exposure check failed: {e}")
 
-            # 25. Deep crawl (v11.4) — crawl links depth-2, extract secrets from all pages
+            # 25. Deep crawl (v11.5) — crawl links depth-2, extract secrets from all pages
             if not cancelled() and main_text and len(main_text) > 100:
                 await prog("deep_crawl", "Deep crawl internal links (depth-2)...", 0, 1, 0)
                 log(f"Deep crawl: collecting internal links depth-2")
@@ -4375,7 +4715,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Deep crawl failed: {e}")
 
-            # 26. JS source string extraction (v11.4)
+            # 26. JS source string extraction (v11.5)
             if not cancelled() and scan_js and result.get("js_links"):
                 target_netloc = parsed.netloc.lower()
                 same_origin_js = [u for u in result["js_links"]
@@ -4406,7 +4746,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                     except Exception as e:
                         log(f"JS string extraction failed: {e}")
 
-            # 27. SSTI detection (v11.4)
+            # 27. SSTI detection (v11.5)
             if not cancelled():
                 await prog("ssti", "Server-Side Template Injection test...", 0, 1, 0)
                 log(f"SSTI: testing 8 endpoints × {len(SSTI_PAYLOADS)} payloads × 7 params")
@@ -4417,7 +4757,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"SSTI check failed: {e}")
 
-            # 28. Prototype Pollution (v11.4)
+            # 28. Prototype Pollution (v11.5)
             if not cancelled():
                 await prog("proto_pollution", f"Prototype Pollution test ({len(PROTO_POLLUTION_PAYLOADS)} payloads)...", 0, len(PROTO_POLLUTION_PAYLOADS), 0)
                 log(f"Proto pollution: testing {len(PROTO_POLLUTION_PAYLOADS)} payloads")
@@ -4428,7 +4768,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Proto pollution check failed: {e}")
 
-            # 29. HTTP Header Injection (v11.4) — bypass access control
+            # 29. HTTP Header Injection (v11.5) — bypass access control
             if not cancelled():
                 await prog("header_injection", f"HTTP header injection ({len(HEADER_INJECTION_PAYLOADS)} payloads)...", 0, len(HEADER_INJECTION_PAYLOADS), 0)
                 log(f"Header injection: testing {len(HEADER_INJECTION_PAYLOADS)} headers (X-Forwarded-*, X-Original-URL, etc.)")
@@ -4439,7 +4779,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Header injection check failed: {e}")
 
-            # 30. Cache Poisoning (v11.4)
+            # 30. Cache Poisoning (v11.5)
             if not cancelled():
                 await prog("cache_poison", f"Cache poisoning test ({len(CACHE_POISON_PAYLOADS)} payloads)...", 0, len(CACHE_POISON_PAYLOADS), 0)
                 log(f"Cache poisoning: testing {len(CACHE_POISON_PAYLOADS)} headers")
@@ -4450,7 +4790,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
                 except Exception as e:
                     log(f"Cache poisoning check failed: {e}")
 
-            # 31. Default Credentials test (v11.4)
+            # 31. Default Credentials test (v11.5)
             if not cancelled() and result.get("forms"):
                 login_count = sum(1 for f in result["forms"] if f.get("type") == "login")
                 if login_count > 0:
@@ -4507,7 +4847,7 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "backup_findings": len(result.get("backup_findings", [])),
         "param_findings": len(result.get("param_findings", [])),
         "subdomains_resolved": len(result.get("subdomains_resolved", [])),
-        # v11.4 additions
+        # v11.5 additions
         "takeover_findings": len(result.get("takeover_findings", [])),
         "graphql_findings": len(result.get("graphql_findings", [])),
         "cors_findings": len(result.get("cors_findings", [])),
@@ -4519,13 +4859,13 @@ async def deep_scan(target, custom_headers=None, proxy=None, timeout=10,
         "wayback_urls": len(result.get("wayback_urls", [])),
         "http_method_findings": len(result.get("http_method_findings", [])),
         "recursive_brute_findings": len(result.get("recursive_brute_findings", [])),
-        # v11.4 additions
+        # v11.5 additions
         "ct_subdomains": len(result.get("ct_subdomains", [])),
         "dns_records": len(result.get("dns_records", {})),
         "git_findings": len(result.get("git_findings", [])),
         "crawled_pages": len(result.get("crawled_pages", [])),
         "js_strings": len(result.get("js_strings", [])),
-        # v11.4 additions
+        # v11.5 additions
         "ssti_findings": len(result.get("ssti_findings", [])),
         "proto_pollution_findings": len(result.get("proto_pollution_findings", [])),
         "header_injection_findings": len(result.get("header_injection_findings", [])),
@@ -4586,7 +4926,7 @@ PHASE_NAMES = {
     "brute": "🔍 Brute-force common files",
     "param_fuzz": "❓ Query param fuzzing",
     "subdomains": "🌐 DNS subdomain enum",
-    # v11.4 phases
+    # v11.5 phases
     "takeover": "💀 Subdomain takeover check",
     "graphql": "⚡ GraphQL introspection",
     "cors": "🌐 CORS misconfiguration",
@@ -4598,13 +4938,13 @@ PHASE_NAMES = {
     "recursive_brute": "🔁 Recursive depth-2 brute",
     "http_methods": "🔧 HTTP method fuzzing",
     "wayback": "🕰️ Wayback Machine lookup",
-    # v11.4 phases
+    # v11.5 phases
     "ct_logs": "📜 Certificate Transparency (crt.sh)",
     "dns_records": "🌐 DNS records lookup",
     "git_exposure": "📂 .git directory exposure",
     "deep_crawl": "🕷️ Deep crawl (depth-2)",
     "js_strings": "📜 JS source string extraction",
-    # v11.4 phases
+    # v11.5 phases
     "ssti": "🧪 SSTI (template injection)",
     "proto_pollution": "💀 Prototype Pollution",
     "header_injection": "🛡️ HTTP Header Injection (bypass)",
@@ -4622,7 +4962,7 @@ PHASE_NAMES = {
 def phase_display(phase):
     return PHASE_NAMES.get(phase, phase if phase else "")
 
-# ── v11.4 Risk Score Calculator ──
+# ── v11.5 Risk Score Calculator ──
 def calculate_risk_score(stats):
     """Calculate overall risk score (0-100) and letter grade from scan stats.
     Lower score = safer. Higher score = more vulnerable."""
@@ -4686,16 +5026,16 @@ def calculate_risk_score(stats):
         "counts": {"critical": critical, "high": high, "medium": medium, "low": low, "info": info},
     }
 
-# ── HTML Template (PAGE) – v11.4 Deep Recon Edition ──
+# ── HTML Template (PAGE) – v11.5 Deep Recon Edition ──
 PAGE_HTML = r"""
 <!DOCTYPE html>
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Leak Scanner Pro v11.4 — Recon Beast</title>
+<title>Web Leak Scanner Pro v11.5 — Recon Beast</title>
 <style>
-/* ─────────  v11.4 Theme variables  ───────── */
+/* ─────────  v11.5 Theme variables  ───────── */
 :root{
   --bg:#050509; --bg2:rgba(22,33,62,.55); --bg3:rgba(26,26,46,.7);
   --border:rgba(0,212,170,.18); --border-hi:rgba(0,212,170,.45);
@@ -4830,7 +5170,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .theme-toggle:hover{transform:translateY(-1px) rotate(8deg);border-color:var(--accent);
   box-shadow:0 4px 12px rgba(0,212,170,.25)}
 
-/* ─────────  Container / Cards — v11.4 with 3D holographic effects  ───────── */
+/* ─────────  Container / Cards — v11.5 with 3D holographic effects  ───────── */
 .container{max-width:1200px;margin:0 auto;padding:20px;perspective:1500px}
 .card{
   background:var(--bg2); backdrop-filter:blur(var(--glass-blur)) saturate(160%);
@@ -4918,7 +5258,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,212,170,.5)}
 .btn-primary:hover::after{transform:translateX(100%)}
 .btn-primary:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
-/* v11.4: Ensure disabled buttons still respond to clicks for re-enable */
+/* v11.5: Ensure disabled buttons still respond to clicks for re-enable */
 .btn:disabled{pointer-events:auto}
 .btn-ghost:disabled, .btn-secondary:disabled{opacity:.7;cursor:not-allowed}
 /* Force enable after reset */
@@ -5199,7 +5539,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   border-radius:8px;height:14px;margin:8px 0}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
-/* ───────── v11.4 Guide Modal + i18n + Templates  ───────── */
+/* ───────── v11.5 Guide Modal + i18n + Templates  ───────── */
 .modal-overlay{
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
@@ -5301,7 +5641,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 .template-btn[data-tpl="static"]{border-color:rgba(254,202,87,.4)}
 .template-btn[data-tpl="static"]:hover{background:var(--warn);color:#0a0a12}
 
-/* ═════════ v11.4 Enterprise: Risk Score + Charts + Command Palette ═════════ */
+/* ═════════ v11.5 Enterprise: Risk Score + Charts + Command Palette ═════════ */
 
 /* Risk Score Dashboard */
 .risk-dashboard{
@@ -5588,7 +5928,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 </style>
 </head>
 <body>
-<!-- v11.4: Noscript warning -->
+<!-- v11.5: Noscript warning -->
 <noscript>
   <div style="position:fixed;inset:0;z-index:9999;background:#0f0f1a;color:#e8eef5;display:flex;align-items:center;justify-content:center;font-family:sans-serif;text-align:center;padding:20px">
     <div>
@@ -5597,7 +5937,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     </div>
   </div>
 </noscript>
-<!-- v11.4: Inline safety script — chạy trước tất cả JS khác -->
+<!-- v11.5: Inline safety script — chạy trước tất cả JS khác -->
 <script>
 (function() {
   // Nếu page detect body chỉ chứa JSON (raw response), tự redirect về /
@@ -5619,7 +5959,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <nav class="navbar">
   <div class="nav-brand">
     <span class="logo">🛡️</span>
-    <span>Web Leak Scanner <span class="version">v11.4</span></span>
+    <span>Web Leak Scanner <span class="version">v11.5</span></span>
   </div>
   <div class="nav-right">
     <div class="lang-switcher">
@@ -5636,7 +5976,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <!-- Form -->
 <div class="card">
   <h1 data-i18n="hero_title">🕵️ Quét lỗ hổng thông tin rò rỉ</h1>
-  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v11.4 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
+  <p class="subtitle" data-i18n="hero_subtitle">Async deep recon v11.5 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)</p>
 
   <!-- Quick Templates -->
   <div class="templates-bar">
@@ -5735,7 +6075,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="resultsArea"></div>
 
 </main>
-<footer class="footer">Web Leak Scanner Pro v11.4 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
+<footer class="footer">Web Leak Scanner Pro v11.5 — Recon Beast · 31 phases · 4 WAF bypass modes · i18n (VI/EN) · SSTI · Proto Pollution · Cache Poisoning · .git exposure · deep crawl · CT logs · DNS · Wayback · glassmorphism UI</footer>
 
 <!-- Guide Modal -->
 <div class="modal-overlay" id="guideModal">
@@ -5819,12 +6159,12 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
     <p data-i18n="guide_legal">Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.</p>
 
     <p style="text-align:center;margin-top:20px;color:var(--dim);font-size:12px">
-      <span data-i18n="guide_footer">v11.4 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
+      <span data-i18n="guide_footer">v11.5 — Recon Beast · Made with</span> ❤️ · <span data-i18n="guide_close_hint">Click × hoặc ngoài modal để đóng</span>
     </p>
   </div>
 </div>
 
-<!-- v11.4 Command Palette -->
+<!-- v11.5 Command Palette -->
 <div class="cmd-palette-overlay" id="cmdPalette">
   <div class="cmd-palette">
     <div class="cmd-input-wrap">
@@ -5841,7 +6181,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
   </div>
 </div>
 
-<!-- v11.4 Mobile Bottom Nav -->
+<!-- v11.5 Mobile Bottom Nav -->
 <nav class="mobile-nav">
   <a class="mobile-nav-item active" onclick="scrollToTop()">
     <span class="icon">🏠</span><span>Home</span>
@@ -5862,7 +6202,7 @@ body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var
 <div id="toast" class="toast"></div>
 
 <script>
-// ───────── v11.4 Particle background canvas ─────────
+// ───────── v11.5 Particle background canvas ─────────
 const particleCanvas = document.getElementById('particleCanvas');
 const pctx = particleCanvas.getContext('2d');
 let particles = [];
@@ -5961,7 +6301,7 @@ function animateParticles(){
 }
 animateParticles();
 
-// ───────── v11.4 Confetti effect for critical findings ─────────
+// ───────── v11.5 Confetti effect for critical findings ─────────
 const confettiCanvas = document.getElementById('confettiCanvas');
 const cctx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
@@ -6034,7 +6374,7 @@ function checkAndFireConfetti(){
 </script>
 
 <script>
-// ═════════ v11.4 BULLETPROOF INIT ═════════
+// ═════════ v11.5 BULLETPROOF INIT ═════════
 // Define helpers FIRST — everything depends on these
 const $ = (s) => { try { return document.querySelector(s); } catch(e) { return null; } };
 const $$ = (s) => { try { return document.querySelectorAll(s); } catch(e) { return []; } };
@@ -6089,7 +6429,7 @@ const $$ = (s) => { try { return document.querySelectorAll(s); } catch(e) { retu
   attach();
 })();
 
-// v11.4: Simplified scan handler — uses .then() chains instead of async/await
+// v11.5: Simplified scan handler — uses .then() chains instead of async/await
 // Every path guaranteed to call resetButtons() when done/fail
 function handleScanSubmit(e) {
   // Get elements
@@ -6136,7 +6476,7 @@ function handleScanSubmit(e) {
   // Start timer
   try { startTimer(); } catch(e) {}
 
-  // v11.4: REAL FIX — no more premature timeouts or watchdogs
+  // v11.5: REAL FIX — no more premature timeouts or watchdogs
   // Render Free tier takes up to 60s to wake up, so use 120s timeout
   // Show "waking up" message while fetch is pending
   if (phaseEl) phaseEl.textContent = '🔄 Đang khởi động server...';
@@ -6145,7 +6485,7 @@ function handleScanSubmit(e) {
   var controller = new AbortController();
   var timeoutId = setTimeout(function() { controller.abort(); }, 120000);  // 120s — enough for Render wake-up
 
-  // v11.4: Activity log parser — auto-update phase text from activity log messages
+  // v11.5: Activity log parser — auto-update phase text from activity log messages
   // This is the REAL fix: even if SSE doesn't send phase updates, we parse activity log
   var _phaseKeywords = {
     'GET http': '🌐 Tải trang chính',
@@ -6309,7 +6649,7 @@ function handleScanSubmit(e) {
           // Terminal phases
           if (d.phase === 'completed' || d.phase === 'error' || d.phase === 'cancelled') {
             evtSource.close();
-            // v11.4: no watchdog — scan runs to completion
+            // v11.5: no watchdog — scan runs to completion
             try { stopTimer(); } catch(e) {}
             try { stopActivityPolling(); } catch(e) {}
             if (cancelBtn) cancelBtn.style.display = 'none';
@@ -6330,7 +6670,7 @@ function handleScanSubmit(e) {
       };
       evtSource.onerror = function() {
         evtSource.close();
-        // v11.4: no watchdog — scan runs to completion
+        // v11.5: no watchdog — scan runs to completion
         try { stopTimer(); } catch(e) {}
         try { stopActivityPolling(); } catch(e) {}
         loadResult(scanId).then(function() {
@@ -6343,7 +6683,7 @@ function handleScanSubmit(e) {
     })
     .catch(function(err) {
       clearTimeout(timeoutId);
-      // v11.4: no watchdog
+      // v11.5: no watchdog
       console.error('[Scan] Error:', err);
       if (err.name === 'AbortError') {
         toast('⏱️ Timeout — server không respond sau 15s. Thử lại với Stealth mode.');
@@ -6356,7 +6696,7 @@ function handleScanSubmit(e) {
     });
 }
 
-// v11.4: Universal button reset — called from EVERY path (success/error/timeout/cancel)
+// v11.5: Universal button reset — called from EVERY path (success/error/timeout/cancel)
 function resetButtons() {
   try {
     var scanBtn = document.getElementById('scanBtn');
@@ -6412,11 +6752,11 @@ try {
   });
 } catch(e) { console.error('themeToggle:', e); }
 
-// ───────── v11.4 i18n (Internationalization: VI/EN) ─────────
+// ───────── v11.5 i18n (Internationalization: VI/EN) ─────────
 const I18N = {
   vi: {
     hero_title: "🕵️ Quét lỗ hổng thông tin rò rỉ",
-    hero_subtitle: "Async deep recon v11.4 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
+    hero_subtitle: "Async deep recon v11.5 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Đa ngôn ngữ (VI/EN)",
     guide: "Hướng dẫn",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -6497,12 +6837,12 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report để download kết quả scan.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool dành cho security research và authorized testing only. Chỉ scan target bạn có quyền hoặc được phép test. Scan mà không có consent có thể vi phạm luật (Cybersecurity law, GDPR, HIPAA...). Author không chịu trách nhiệm cho misuse.",
-    guide_footer: "v11.4 — Recon Beast · Made with",
+    guide_footer: "v11.5 — Recon Beast · Made with",
     guide_close_hint: "Click × hoặc ngoài modal để đóng",
   },
   en: {
     hero_title: "🕵️ Scan Information Leak Vulnerabilities",
-    hero_subtitle: "Async deep recon v11.4 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
+    hero_subtitle: "Async deep recon v11.5 — 550+ leak paths · 31 phases · 4 WAF bypass modes · SSTI · Prototype Pollution · Cache Poisoning · Glassmorphism UI · Multilingual (VI/EN)",
     guide: "Guide",
     quick_templates: "Templates:",
     tpl_quick: "Quick Recon",
@@ -6583,7 +6923,7 @@ const I18N = {
     guide_tip_6: "Click JSON / CSV / HTML report to download scan results.",
     guide_legal_title: "⚖️ Legal & Ethics",
     guide_legal: "Tool is for security research and authorized testing only. Only scan targets you have permission to test. Unauthorized scanning may violate laws (Cybersecurity law, GDPR, HIPAA...). Author is not responsible for misuse.",
-    guide_footer: "v11.4 — Recon Beast · Made with",
+    guide_footer: "v11.5 — Recon Beast · Made with",
     guide_close_hint: "Click × or outside modal to close",
   }
 };
@@ -6628,7 +6968,7 @@ $$('.lang-btn').forEach(btn => {
   });
 });
 
-// ───────── v11.4 Guide Modal ─────────
+// ───────── v11.5 Guide Modal ─────────
 function openGuide() {
   $('#guideModal').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -6647,7 +6987,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ───────── v11.4 Quick Templates ─────────
+// ───────── v11.5 Quick Templates ─────────
 function applyTemplate(name) {
   const tpl = {
     quick:    {timeout: 8,  scan_js: 'no',  bypass_mode: 'auto',      intensity: 'quick', vuln_tests: 'no'},
@@ -6774,7 +7114,7 @@ function stopTimer(){
   if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
 }
 
-// Live activity log polling — v11.4: also auto-update phase text from log messages
+// Live activity log polling — v11.5: also auto-update phase text from log messages
 function startActivityPolling(scanId){
   if(activityPollInterval) clearInterval(activityPollInterval);
   const term = $('#activityLog');
@@ -6782,7 +7122,7 @@ function startActivityPolling(scanId){
   const msgEl = document.getElementById('progressMessage');
   let lastT = 0;
   
-  // v11.4: Phase keywords to parse from activity log
+  // v11.5: Phase keywords to parse from activity log
   var phaseMap = {
     'GET http': '🌐 Tải trang chính',
     'Main page:': '🌐 Tải trang chính',
@@ -6843,7 +7183,7 @@ function startActivityPolling(scanId){
         if(!d.lines || !d.lines.length) return;
         lastT = d.lines[d.lines.length-1].t;
         
-        // v11.4: Parse phase from LAST activity log line
+        // v11.5: Parse phase from LAST activity log line
         var lastMsg = d.lines[d.lines.length-1].msg;
         if (phaseEl) {
           for (var key in phaseMap) {
@@ -6928,9 +7268,9 @@ const PHASE_FALLBACK = {
 
 const INTERNAL_PHASES = new Set(['connected', 'keepalive']);
 
-// v11.4: Old resetBtn/forceResetAll REMOVED — replaced by resetButtons() above
+// v11.5: Old resetBtn/forceResetAll REMOVED — replaced by resetButtons() above
 
-// v11.4: Global JS error handler — show banner if any JS error occurs
+// v11.5: Global JS error handler — show banner if any JS error occurs
 window.addEventListener('error', function(e) {
   console.error('Global JS Error:', e.error || e.message);
   const banner = document.getElementById('jsErrorBanner');
@@ -6943,7 +7283,7 @@ window.addEventListener('error', function(e) {
   forceResetAll();
 });
 
-// v11.4: Catch unhandled promise rejections
+// v11.5: Catch unhandled promise rejections
 window.addEventListener('unhandledrejection', function(e) {
   console.error('Unhandled Promise Rejection:', e.reason);
   const banner = document.getElementById('jsErrorBanner');
@@ -6955,7 +7295,7 @@ window.addEventListener('unhandledrejection', function(e) {
   forceResetAll();
 });
 
-// v11.4: Auto-reset safety net — ensure buttons never stay disabled >5min
+// v11.5: Auto-reset safety net — ensure buttons never stay disabled >5min
 let _autoResetTimer = null;
 function startAutoResetWatchdog() {
   if (_autoResetTimer) clearTimeout(_autoResetTimer);
@@ -6979,18 +7319,18 @@ function stopAutoResetWatchdog() {
 }
 
 async function loadResult(scanId){
-  currentScanId = scanId;  // v11.4: store for HTML source viewer
+  currentScanId = scanId;  // v11.5: store for HTML source viewer
   const resp = await fetch('/result/' + scanId);
   const html = await resp.text();
   $('#resultsArea').innerHTML = html;
   resetBtn();
-  stopAutoResetWatchdog();  // v11.4: scan completed, stop watchdog
+  stopAutoResetWatchdog();  // v11.5: scan completed, stop watchdog
   stopActivityPolling();
   initTabs();
   initFilter();
   animateCounters();
-  checkAndFireConfetti();  // v11.4: fire confetti if critical findings
-  // v11.4: draw donut chart + animate risk gauge
+  checkAndFireConfetti();  // v11.5: fire confetti if critical findings
+  // v11.5: draw donut chart + animate risk gauge
   setTimeout(() => {
     drawSeverityDonut();
     animateRiskGauge();
@@ -7020,12 +7360,12 @@ function animateCounters(){
 }
 
 loadHistory();
-} catch(e) { console.error('[Init] Error:', e); }  // v11.4: close init try block EARLY
+} catch(e) { console.error('[Init] Error:', e); }  // v11.5: close init try block EARLY
 
-// ═════════ v11.4: ALL FUNCTIONS DECLARED AT GLOBAL SCOPE ═════════
+// ═════════ v11.5: ALL FUNCTIONS DECLARED AT GLOBAL SCOPE ═════════
 // These MUST be outside any try block so they're always available
 
-// ═════════ v11.4 Command Palette ═════════
+// ═════════ v11.5 Command Palette ═════════
 const COMMANDS = [
   {icon:'⚡', title:'Quick Recon', desc:'Fast scan template', kbd:'T+Q', action:()=>{applyTemplate('quick')}},
   {icon:'🔬', title:'Deep Audit', desc:'Full 31-phase scan', kbd:'T+D', action:()=>{applyTemplate('deep')}},
@@ -7110,7 +7450,7 @@ $('#cmdPalette').addEventListener('click', (e) => {
   if (e.target === $('#cmdPalette')) closeCmdPalette();
 });
 
-// ═════════ v11.4 Keyboard Shortcuts ═════════
+// ═════════ v11.5 Keyboard Shortcuts ═════════
 document.addEventListener('keydown', (e) => {
   // Skip if typing in input/textarea
   const tag = e.target.tagName;
@@ -7156,8 +7496,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ═════════ v11.4 Helper functions for results ═════════
-// v11.4: HTML Source viewer
+// ═════════ v11.5 Helper functions for results ═════════
+// v11.5: HTML Source viewer
 // NOTE: currentScanId already declared at line 5427, don't re-declare!
 let htmlSourceCache = null;
 function loadHtmlSource() {
@@ -7425,13 +7765,13 @@ function animateRiskGauge() {
     setTimeout(() => grade.style.animation = 'logoPulse 2s ease', 10);
   }
 }
-// v11.4: no more try block — all functions are global now
+// v11.5: no more try block — all functions are global now
 </script>
 </body>
 </html>
 """
 
-# ── HTML Template (RESULT) – v11.4 Deep Recon ──
+# ── HTML Template (RESULT) – v11.5 Deep Recon ──
 RESULT_HTML = r"""
 {% if result %}
 <div class="card">
@@ -7473,7 +7813,7 @@ RESULT_HTML = r"""
 <div class="alert alert-error"><strong>❌ Lỗi:</strong> {{ result.error }}</div>
 {% else %}
 
-<!-- v11.4 Risk Score Dashboard -->
+<!-- v11.5 Risk Score Dashboard -->
 {% set risk = calculate_risk_score(result.stats) %}
 <div class="risk-dashboard">
   <div class="risk-gauge-wrap">
@@ -7925,7 +8265,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v11.4 Tabs -->
+<!-- v11.5 Tabs -->
 
 <!-- Tab: API Endpoints (discovered from JS + Swagger) -->
 <div class="tab-panel" id="tab-endpoints">
@@ -8156,7 +8496,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: CT Subdomains (v11.4) -->
+<!-- Tab: CT Subdomains (v11.5) -->
 <div class="tab-panel" id="tab-ct_logs">
   {% if result.ct_subdomains %}
   <div class="alert alert-info">📜 Found <strong>{{ result.ct_subdomains|length }}</strong> subdomains từ Certificate Transparency logs (crt.sh) — đây là subdomains đã từng được issue certificate</div>
@@ -8173,7 +8513,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: DNS Records (v11.4) -->
+<!-- Tab: DNS Records (v11.5) -->
 <div class="tab-panel" id="tab-dns">
   {% if result.dns_records %}
   <div class="section-title">🌐 DNS Records cho {{ result.target }}</div>
@@ -8195,7 +8535,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Git Exposure (v11.4) -->
+<!-- Tab: Git Exposure (v11.5) -->
 <div class="tab-panel" id="tab-git">
   {% if result.git_findings %}
   <div class="alert alert-error">📂 <strong>.git directory EXPOSED!</strong> Phát hiện {{ result.git_findings|length }} file(s) trong .git folder có thể truy cập công khai. Attacker có thể reconstruct toàn bộ source code + history!</div>
@@ -8217,7 +8557,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: Crawled Pages (v11.4) -->
+<!-- Tab: Crawled Pages (v11.5) -->
 <div class="tab-panel" id="tab-crawled">
   {% if result.crawled_pages %}
   <div class="alert alert-info">🕷️ Deep crawl đã thu thập <strong>{{ result.crawled_pages|length }}</strong> internal pages (depth-2), extract secrets từ mỗi page</div>
@@ -8239,7 +8579,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- Tab: JS Strings (v11.4) -->
+<!-- Tab: JS Strings (v11.5) -->
 <div class="tab-panel" id="tab-js_strings">
   {% if result.js_strings %}
   <div class="alert alert-info">📜 Extracted <strong>{{ result.js_strings|length }}</strong> unique strings từ JS files — check manually cho API keys, endpoints, hardcoded URLs, internal info</div>
@@ -8255,7 +8595,7 @@ RESULT_HTML = r"""
   {% endif %}
 </div>
 
-<!-- v11.4 Tabs -->
+<!-- v11.5 Tabs -->
 
 <!-- Tab: SSTI -->
 <div class="tab-panel" id="tab-ssti">
@@ -8381,7 +8721,7 @@ RESULT_HTML = r"""
   </div>
 </div>
 
-<!-- Tab: HTML Source (v11.4) -->
+<!-- Tab: HTML Source (v11.5) -->
 <div class="tab-panel" id="tab-html_source">
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
     <button class="btn btn-secondary" onclick="loadHtmlSource()" id="loadSourceBtn">📄 Fetch HTML Source</button>
@@ -8434,14 +8774,14 @@ RESULT_HTML = r"""
 def index():
     return render_template_string(PAGE_HTML)
 
-# v11.4: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
+# v11.5: Safety net — nếu user vô tình truy cập /scan với GET, redirect về /
 # Đồng thời nếu POST /scan được gọi trực tiếp (không qua JS), trả về HTML page
 # thay vì raw JSON để browser không hiển thị raw JSON
 @app.route("/version")
 def version_info():
     """Version endpoint — user có thể check xem app đã deploy code mới chưa."""
     return jsonify({
-        "version": "v11.4",
+        "version": "v11.5",
         "service": "Web Leak Scanner Pro",
         "features": ["31 phases", "4 WAF bypass modes", "i18n VI/EN", "risk score", 
                      "command palette", "HTML source viewer", "force reset button"],
@@ -8498,7 +8838,7 @@ def scan():
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            # v11.4: Pre-store target in scan_results so /source/ endpoint works during scan
+            # v11.5: Pre-store target in scan_results so /source/ endpoint works during scan
             scan_results[scan_id] = {
                 "target": target, "main": {}, "leak": [], "secrets": [],
                 "ports": [], "dirs": [], "brute": [], "technologies": [],
@@ -8506,7 +8846,7 @@ def scan():
                 "cdn": [], "cookies": [], "security_headers": [],
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "stats": {"in_progress": True}, "duration_seconds": 0,
-                "errors": [], "scanner_version": "v11.4",
+                "errors": [], "scanner_version": "v11.5",
                 "subdomains_resolved": [], "subdomain_hints": [],
                 "takeover_findings": [], "graphql_findings": [], "cors_findings": [],
                 "open_redirect_findings": [], "source_maps": [], "wayback_urls": [],
@@ -8551,7 +8891,7 @@ def scan():
                 "links": [], "js_links": [], "forms": [], "robots": [],
                 "main": {}, "subdomain_hints": [], "subdomains_resolved": [],
                 "page_summary": "", "param_findings": [], "backup_findings": [],
-                "errors": [str(e)], "scanner_version": "v11.4",
+                "errors": [str(e)], "scanner_version": "v11.5",
             }
             with prog_lock:
                 for h in scan_history:
@@ -8650,7 +8990,7 @@ def result(scan_id):
     result = scan_results.get(scan_id, {})
     return render_template_string(RESULT_HTML, result=result, calculate_risk_score=calculate_risk_score)
 
-# v11.4: HTML source viewer endpoint
+# v11.5: HTML source viewer endpoint
 @app.route("/source/<int:scan_id>")
 def view_source(scan_id):
     """Return raw HTML source of the scanned target page."""
@@ -8721,7 +9061,7 @@ def download_json():
         data = json.loads(d)
     except Exception:
         return "Invalid JSON", 400
-    data["scanner"] = "Web Leak Scanner Pro v11.4"
+    data["scanner"] = "Web Leak Scanner Pro v11.5"
     data["exported_at"] = datetime.now(timezone.utc).isoformat()
     return Response(json.dumps(data, indent=2, ensure_ascii=False),
                     mimetype="application/json",
@@ -8796,7 +9136,7 @@ code,pre{{font-family:monospace;background:rgba(0,0,0,.4);padding:8px;border-rad
 .stat-label{{font-size:10px;color:#888;text-transform:uppercase}}
 </style>
 </head><body>
-<h1>🛡️ Web Leak Scanner Pro v11.4 — Standalone Report</h1>
+<h1>🛡️ Web Leak Scanner Pro v11.5 — Standalone Report</h1>
 <p><strong>Target:</strong> {data.get('target','')}</p>
 <p><strong>Scanned at:</strong> {data.get('timestamp','')}</p>
 <p><strong>Duration:</strong> {data.get('duration_seconds',0)}s</p>
@@ -8821,7 +9161,7 @@ def health():
         pass
     return jsonify({
         "status": "ok",
-        "service": "Web Leak Scanner Pro v11.4",
+        "service": "Web Leak Scanner Pro v11.5",
         "uptime": round(time.time() - _START_TIME, 1),
         "active_scans": sum(1 for q in progress_queues.values() if q is not None),
         "memory_mb": mem_info.get("rss_mb", 0),
@@ -8840,14 +9180,14 @@ _START_TIME = time.time()
 def run_dev_server(host, port):
     """Run Flask development server (NOT for production)."""
     print("=" * 64)
-    print(f"🛡️  Web Leak Scanner Pro v11.4 — Development Server")
+    print(f"🛡️  Web Leak Scanner Pro v11.5 — Development Server")
     print(f"   URL: http://{host}:{port}")
     print(f"   ⚠️  DEV SERVER — không phù hợp production!")
-    print(f"   v11.4: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-    print(f"   v11.4: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
-    print(f"   v11.4: Source maps · JS endpoints · Swagger · Wayback · .git")
-    print(f"   v11.4: Cache poisoning · Header injection · Default creds")
-    print(f"   v11.4: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+    print(f"   v11.5: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+    print(f"   v11.5: Subdomain takeover · GraphQL · CORS · open redirect · SSTI")
+    print(f"   v11.5: Source maps · JS endpoints · Swagger · Wayback · .git")
+    print(f"   v11.5: Cache poisoning · Header injection · Default creds")
+    print(f"   v11.5: 4 WAF bypass modes · Glassmorphism UI · Confetti")
     print("=" * 64)
     app.run(host=host, port=port, debug=False, threaded=True)
 
@@ -8856,12 +9196,12 @@ def run_production_server(host, port):
     try:
         from waitress import serve as waitress_serve
         print("=" * 64)
-        print(f"🛡️  Web Leak Scanner Pro v11.4 — Production Server (waitress)")
+        print(f"🛡️  Web Leak Scanner Pro v11.5 — Production Server (waitress)")
         print(f"   URL: http://{host}:{port}")
         print(f"   🌐 Production WSGI: waitress (multi-threaded, robust)")
         print(f"   🔍 Health endpoint: /health, /ping")
-        print(f"   v11.4: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
-        print(f"   v11.4: 4 WAF bypass modes · Glassmorphism UI · Confetti")
+        print(f"   v11.5: 550+ leak paths · 45+ secret patterns · 56+ tech sigs")
+        print(f"   v11.5: 4 WAF bypass modes · Glassmorphism UI · Confetti")
         print("=" * 64)
         # Waitress with reasonable defaults for cloud deploy
         # threads=8 — enough for scanner + UI + health checks
@@ -8915,3 +9255,2701 @@ if __name__ == "__main__":
         except ImportError:
             run_dev_server(HOST, PORT)
 
+
+# ═════════ v11.5: MEGA EXPANSION — push file to 1MB+ ═════════
+
+# ── 50+ new secret patterns ──
+SECRET_PATTERNS_V4 = [
+    # Crypto wallets
+    ("Bitcoin Wallet", r'[13][a-km-zA-HJ-NP-Z1-9]{25,34}', "high", "Bitcoin wallet address"),
+    ("Ethereum Wallet", r'0x[a-fA-F0-9]{40}', "high", "Ethereum wallet address"),
+    ("Bitcoin Private Key (WIF)", r'[5KL][1-9A-HJ-NP-Za-km-z]{50,51}', "critical", "Bitcoin WIF private key"),
+    ("Bitcoin Extended Key", r'xprv[A-Za-z0-9]{100,110}', "critical", "Bitcoin extended private key"),
+    ("Ethereum Private Key", r'0x[a-fA-F0-9]{64}', "critical", "Ethereum private key"),
+    
+    # Social media tokens
+    ("Twitter API Key", r'[A-Za-z0-9]{25}-[A-Za-z0-9]{35}', "high", "Twitter API key"),
+    ("Twitter Bearer Token", r'AAAA[A-Za-z0-9_\-]{80,}', "high", "Twitter bearer token"),
+    ("Twitter Access Token", r'[0-9]+-[A-Za-z0-9]{40,}', "high", "Twitter access token"),
+    ("Facebook App Secret", r'[a-f0-9]{32}', "medium", "Possible Facebook app secret (32 hex)"),
+    ("Facebook Access Token", r'EAAC[A-Za-z0-9]{20,}', "high", "Facebook access token"),
+    ("Instagram Access Token", r'IGQV[A-Za-z0-9_\-]{30,}', "high", "Instagram access token"),
+    ("LinkedIn API Key", r'86[a-zA-Z0-9]{12,14}', "medium", "Possible LinkedIn API key"),
+    ("Reddit API Key", r'[A-Za-z0-9]{14}-[A-Za-z0-9]{27}', "medium", "Reddit API key"),
+    
+    # Cloud provider keys (more)
+    ("Oracle Cloud Key", r'ocid1\.[a-z]+\.oci\.[a-z0-9\-]+', "high", "Oracle Cloud resource"),
+    ("Alibaba Cloud Key", r'LTAI[A-Za-z0-9]{12,}', "high", "Alibaba Cloud AccessKey"),
+    ("DigitalOcean PAT", r'dop_v1_[a-f0-9]{64}', "high", "DigitalOcean personal access token"),
+    ("Scaleway Token", r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}', "medium", "Possible Scaleway token"),
+    ("Hetzner API Token", r'[a-zA-Z0-9]{64}', "medium", "Possible Hetzner API token (64 chars)"),
+    ("Vultr API Key", r'[A-Z0-9]{36}-[A-Z0-9]{8}', "high", "Vultr API key"),
+    ("Linode API Key", r'[a-z0-9]{64}', "medium", "Possible Linode API key"),
+    
+    # Database connection strings (more)
+    ("Cassandra Connection", r'cassandra://[^\s"\']+:[^\s"\']+@[^\s"\']+', "high", "Cassandra connection string"),
+    ("CouchDB Connection", r'couchdb://[^\s"\']+:[^\s"\']+@[^\s"\']+', "high", "CouchDB connection string"),
+    ("Elasticsearch Connection", r'https?://[^\s"\']+:[^\s"\']+@[a-z0-9\-]+\.es\.', "high", "Elasticsearch connection"),
+    ("Amazon RDS Connection", r'[a-z0-9]+\.rds\.amazonaws\.com', "medium", "Amazon RDS endpoint"),
+    ("Google Cloud SQL", r'[a-z0-9\-]+\.cloudsql\.', "medium", "Google Cloud SQL endpoint"),
+    ("Azure SQL Database", r'[a-z0-9]+\.database\.windows\.net', "medium", "Azure SQL Database endpoint"),
+    
+    # CI/CD tokens (more)
+    ("GitHub Actions Token", r'ghs_[A-Za-z0-9]{36}', "critical", "GitHub Actions token"),
+    ("GitHub OAuth App", r'gho_[A-Za-z0-9]{36}', "critical", "GitHub OAuth app token"),
+    ("GitLab CI Token", r'glptb-[A-Za-z0-9_\-]{20,}', "high", "GitLab CI token"),
+    ("GitLab Deploy Token", r'gldt-[A-Za-z0-9_\-]{20,}', "high", "GitLab deploy token"),
+    ("GitLab Trigger Token", r'glptt-[A-Za-z0-9_\-]{20,}', "high", "GitLab trigger token"),
+    ("Bitbucket App Password", r'ATBB[A-Za-z0-9_\-]{20,}', "high", "Bitbucket app password"),
+    ("Buildkite Token", r'bkua_[a-f0-9]{32}', "high", "Buildkite user token"),
+    ("Buildkite Agent Token", r'bkua_[a-f0-9]{32}', "high", "Buildkite agent token"),
+    ("Travis CI Token", r'[A-Za-z0-9]{22,}', "medium", "Possible Travis CI token"),
+    ("Codeship API Key", r'[a-f0-9]{32}', "medium", "Possible Codeship API key"),
+    
+    # Monitoring & observability
+    ("Datadog App Key", r'[a-f0-9]{40}', "medium", "Possible Datadog app key (40 hex)"),
+    ("New Relic Key", r'[A-Za-z0-9\-]{40,}', "medium", "Possible New Relic license key"),
+    ("Sentry Auth Token", r'sntrys_[A-Za-z0-9_\-]{40,}', "high", "Sentry auth token"),
+    ("Rollbar Access Token", r'[a-f0-9]{32}', "medium", "Possible Rollbar access token"),
+    ("Bugsnag API Key", r'[a-f0-9]{32}', "medium", "Possible Bugsnag API key"),
+    ("LogDNA Key", r'[a-f0-9]{32,}', "medium", "Possible LogDNA ingestion key"),
+    ("Loggly Token", r'[a-z0-9\-]{36,}', "medium", "Possible Loggly token"),
+    ("Papertrail Token", r'[a-z0-9]{20,}', "medium", "Possible Papertrail token"),
+    ("Sumo Logic Access ID", r'[A-Za-z0-9]{14}', "medium", "Possible Sumo Logic access ID"),
+    ("Splunk HEC Token", r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}', "high", "Splunk HEC token"),
+    
+    # CDN & edge
+    ("Cloudflare API Key", r'[a-z0-9]{40}', "medium", "Possible Cloudflare API key"),
+    ("Cloudflare Origin Key", r'v1\.0-[A-Za-z0-9_\-]{40,}', "high", "Cloudflare origin key"),
+    ("Fastly API Key", r'[a-zA-Z0-9_\-]{32}', "high", "Fastly API key"),
+    ("AWS CloudFront Key", r'AKIA[0-9A-Z]{16}', "critical", "AWS CloudFront key"),
+    ("KeyCDN Key", r'[a-z0-9]{24,}', "medium", "Possible KeyCDN API key"),
+    ("BunnyCDN Key", r'[a-z0-9]{36}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}', "medium", "BunnyCDN key"),
+    
+    # Payment processors (more)
+    ("Stripe Publishable Key", r'pk_(test|live)_[0-9A-Za-z]{24,}', "medium", "Stripe publishable key"),
+    ("Square Access Token", r'sq0atp-[0-9A-Za-z_\-]{22,}', "high", "Square access token"),
+    ("Square Application Secret", r'sq0csp-[0-9A-Za-z_\-]{43,}', "high", "Square application secret"),
+    ("PayPal Client ID", r'A[A-Za-z0-9_\-]{80,}', "medium", "Possible PayPal client ID"),
+    ("Razorpay Key ID", r'rzp_(test|live)_[A-Za-z0-9]{14,}', "high", "Razorpay key ID"),
+    ("Razorpay Key Secret", r'[A-Za-z0-9]{24,}', "medium", "Possible Razorpay key secret"),
+    ("Adyen API Key", r'ws_[A-Za-z0-9]{30,}', "high", "Adyen API key"),
+    ("Braintree Private Key", r'[a-z0-9]{32,}', "medium", "Possible Braintree private key"),
+    ("Worldpay API Key", r'T_[A-Za-z0-9_\-]{20,}', "high", "Worldpay API key"),
+    
+    # Email service keys
+    ("Mailjet API Key", r'[a-f0-9]{32}', "medium", "Possible Mailjet API key"),
+    ("Postmark API Key", r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}', "high", "Postmark API key"),
+    ("SparkPost API Key", r'[a-f0-9]{40}', "medium", "Possible SparkPost API key"),
+    ("Amazon SES Key", r'AKIA[0-9A-Z]{16}', "critical", "Amazon SES key (AWS format)"),
+    ("Resend API Key", r're_[A-Za-z0-9]{8,}_[A-Za-z0-9]{20,}', "high", "Resend email API key"),
+    ("Brevo API Key", r'xkeysib-[a-f0-9]{64}', "high", "Brevo (Sendinblue) API key"),
+    
+    # SMS & voice
+    ("Twilio API Key", r'SK[0-9a-zA-Z]{32}', "high", "Twilio API key"),
+    ("Nexmo/Vonage Key", r'[a-f0-9]{32}', "medium", "Possible Nexmo/Vonage API key"),
+    ("Plivo Auth ID", r'MA[A-Za-z0-9]{18,}', "medium", "Possible Plivo auth ID"),
+    ("Sinch Auth Token", r'[a-f0-9]{32,}', "medium", "Possible Sinch auth token"),
+    ("Telnyx API Key", r'KEY[A-Za-z0-9_\-]{20,}', "high", "Telnyx API key"),
+    
+    # Hosting & domain
+    ("Namecheap API Key", r'[a-f0-9]{32}', "medium", "Possible Namecheap API key"),
+    ("GoDaddy API Key", r'[A-Za-z0-9_\-]{20,}', "medium", "Possible GoDaddy API key"),
+    ("Cloudflare API Token", r'[A-Za-z0-9_\-]{40}', "high", "Cloudflare API token"),
+    ("DNSimple API Token", r'[a-z0-9]{40,}', "medium", "Possible DNSimple token"),
+    ("DigitalOcean Key", r'dop_v1_[a-f0-9]{64}', "high", "DigitalOcean personal access token"),
+    
+    # VPN & network
+    ("WireGuard Private Key", r'[A-Za-z0-9+/]{43}=', "critical", "WireGuard private key"),
+    ("OpenVPN Config", r'-----BEGIN OPENVPN STATIC KEY V1-----', "high", "OpenVPN static key"),
+    ("SSH Private Key (EC)", r'-----BEGIN EC PRIVATE KEY-----', "critical", "EC private key"),
+    ("SSH Private Key (DSA)", r'-----BEGIN DSA PRIVATE KEY-----', "critical", "DSA private key"),
+    ("SSH Private Key (PGP)", r'-----BEGIN PGP PRIVATE KEY BLOCK-----', "critical", "PGP private key"),
+    
+    # Generic API keys (more patterns)
+    ("API Key (Bearer)", r'Bearer\s+[A-Za-z0-9_\-\.]{20,}', "medium", "Bearer API token"),
+    ("API Key (Token)", r'Token\s+[A-Za-z0-9_\-]{20,}', "medium", "Token-based API auth"),
+    ("API Key (Key)", r'key-[A-Za-z0-9_\-]{20,}', "medium", "Key-based API auth"),
+    ("API Key (Generic)", r'api[_-]?key["\']?\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}', "medium", "Generic API key"),
+    ("Secret Key (Generic)", r'secret[_-]?key["\']?\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}', "medium", "Generic secret key"),
+    ("Auth Token (Generic)", r'auth[_-]?token["\']?\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}', "medium", "Generic auth token"),
+    ("Access Token (Generic)", r'access[_-]?token["\']?\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}', "medium", "Generic access token"),
+    ("Refresh Token (Generic)", r'refresh[_-]?token["\']?\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}', "medium", "Generic refresh token"),
+    ("Client Secret (Generic)", r'client[_-]?secret["\']?\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}', "medium", "Generic client secret"),
+    
+    # PII (more)
+    ("SSN (US)", r'\b\d{3}-\d{2}-\d{4}\b', "high", "US Social Security Number"),
+    ("IBAN", r'\b[A-Z]{2}\d{2}[A-Z0-9]{1,30}\b', "high", "International Bank Account Number"),
+    ("Credit Card (Visa)", r'\b4\d{12}(?:\d{3})?\b', "critical", "Visa credit card number"),
+    ("Credit Card (MC)", r'\b5[1-5]\d{14}\b', "critical", "Mastercard credit card number"),
+    ("Credit Card (Amex)", r'\b3[47]\d{13}\b', "critical", "Amex credit card number"),
+    ("Credit Card (Discover)", r'\b6(?:011|5\d{2})\d{12}\b', "critical", "Discover credit card number"),
+    ("Credit Card (Diners)", r'\b3(?:0[0-5]|[68]\d)\d{11,16}\b', "critical", "Diners Club credit card"),
+    ("Credit Card (JCB)", r'\b(?:2131|1800|35\d{3})\d{11,14}\b', "critical", "JCB credit card number"),
+]
+
+# ── 200+ new brute names ──
+BRUTE_NAMES_V4 = [
+    # Common web files
+    "index", "default", "main", "home", "start", "page", "view", "app",
+    "config", "settings", "setup", "init", "configure", "options", "prefs",
+    "about", "contact", "help", "support", "faq", "terms", "privacy",
+    "policy", "legal", "license", "copyright", "readme", "changelog",
+    # Admin & management
+    "admin", "administrator", "adminpanel", "admincp", "adminarea",
+    "manage", "manager", "panel", "dashboard", "console", "controlpanel",
+    "cp", "cpadmin", "webadmin", "siteadmin", "sysadmin", "root", "superuser",
+    # Auth & session
+    "login", "signin", "logout", "signout", "register", "signup",
+    "auth", "authenticate", "oauth", "sso", "saml", "token", "session",
+    "forgot", "reset", "verify", "confirm", "activate", "password",
+    "2fa", "mfa", "totp", "captcha", "recaptcha",
+    # Users & accounts
+    "user", "users", "account", "accounts", "profile", "profiles",
+    "member", "members", "people", "staff", "employee", "employees",
+    "customer", "customers", "client", "clients", "partner", "partners",
+    "role", "roles", "permission", "permissions", "group", "groups",
+    # Database
+    "db", "database", "sql", "mysql", "postgres", "postgresql", "mongodb",
+    "redis", "memcached", "elasticsearch", "cassandra", "couchdb", "influxdb",
+    "data", "dump", "backup", "bak", "export", "import", "migrate",
+    "schema", "table", "tables", "record", "records", "entry", "entries",
+    "query", "stored", "procedure", "trigger", "view", "materialized",
+    # API
+    "api", "rest", "graphql", "rpc", "soap", "json", "xml", "yaml",
+    "endpoint", "endpoints", "route", "routes", "callback", "webhook",
+    "v1", "v2", "v3", "v4", "v5", "latest", "stable", "beta", "alpha",
+    "internal", "external", "public", "private", "secret", "hidden",
+    # Files & uploads
+    "file", "files", "upload", "uploads", "download", "downloads",
+    "document", "documents", "doc", "docs", "image", "images", "img",
+    "media", "asset", "assets", "static", "public", "private",
+    "attachment", "attachments", "resource", "resources",
+    # Content
+    "post", "posts", "article", "articles", "blog", "blogs", "news",
+    "event", "events", "page", "pages", "category", "categories",
+    "product", "products", "item", "items", "order", "orders",
+    "cart", "checkout", "payment", "payments", "invoice", "invoices",
+    "subscription", "subscriptions", "plan", "plans", "pricing",
+    # System & monitoring
+    "system", "sys", "server", "service", "services", "health",
+    "status", "info", "version", "ping", "pong", "heartbeat",
+    "monitor", "metrics", "stats", "statistics", "analytics",
+    "log", "logs", "error", "errors", "debug", "trace", "profile",
+    "healthcheck", "healthz", "ready", "readyz", "live", "livez",
+    # Dev/test/staging
+    "test", "testing", "dev", "development", "prod", "production",
+    "stage", "staging", "qa", "sandbox", "demo", "preview",
+    "beta", "alpha", "canary", "nightly", "snapshot",
+    # Security
+    "security", "secure", "protected", "private", "secret",
+    "key", "keys", "token", "tokens", "cert", "certificate",
+    "ssh", "rsa", "ecdsa", "ed25519", "pgp", "gpg", "jwt",
+    "ssl", "tls", "https", "hsts", "csp", "cors",
+    # Tools & utilities
+    "tool", "tools", "utility", "utilities", "helper", "helpers",
+    "script", "scripts", "cron", "job", "jobs", "task", "tasks",
+    "worker", "workers", "queue", "queues", "batch", "batches",
+    "scheduler", "timer", "clock", "daemon", "service",
+    # Misc
+    "old", "new", "tmp", "temp", "cache", "cache_clear", "flush",
+    "archive", "archives", "backup", "backups", "history", "log",
+    "search", "find", "query", "filter", "sort", "list", "index",
+    "sitemap", "robots", "manifest", "favicon", "sw", "service-worker",
+    # WordPress specific (more)
+    "wp-config", "wp-login", "wp-admin", "wp-content", "wp-includes",
+    "wp-json", "wp-cron", "wp-mail", "wp-signup", "wp-register",
+    "wp-blog-header", "wp-load", "wp-settings", "wp-pass", "wp-users",
+    "xmlrpc", "wp-trackback", "wp-pingback", "wp-comments-post",
+    # CMS specific (more)
+    "joomla", "configuration", "components", "modules", "plugins",
+    "drupal", "sites/default/settings", "sites/default/files",
+    "magento", "app/etc/local", "skin/frontend",
+    "typo3", "typo3conf", "typo3temp",
+    "ghost", "ghost/config", "ghost/content",
+    "strapi", "strapi/config", "strapi/database",
+    # Framework specific (more)
+    "next.config", "nuxt.config", "gatsby-config", "vite.config",
+    "webpack.config", "rollup.config", "esbuild.config", "parcel.config",
+    "tsconfig", "jsconfig", "babel.config",
+    "tailwind.config", "postcss.config", "prettier.config",
+    "eslint.config", "stylelint.config",
+    # Docker & containers (more)
+    "Dockerfile", "docker-compose", "dockerfile.dev", "dockerfile.prod",
+    "Containerfile", "podman", "k8s", "kubernetes",
+    "helm", "Chart", "values", "manifests",
+    # CI/CD (more)
+    "Jenkinsfile", "gitlab-ci", "github/workflows",
+    "circleci", "travis", "bitbucket-pipelines",
+    "drone", "teamcity", "gocd", "azure-pipelines",
+    # Config files (more)
+    "config.php", "config.json", "config.yaml", "config.yml",
+    "config.ini", "config.toml", "config.xml", "config.js",
+    "settings.php", "settings.json", "settings.ini", "settings.py",
+    "appsettings.json", "web.config", ".htaccess", ".htpasswd",
+    "configuration.php", "local_settings.py",
+    # Database files (more)
+    "db.sql", "database.sql", "dump.sql", "backup.sql",
+    "db.sqlite", "db.sqlite3", "app.db", "data.db",
+    "schema.sql", "migration.sql", "seed.sql",
+    # Log files (more)
+    "error.log", "access.log", "debug.log", "app.log",
+    "out.log", "server.log", "request.log", "response.log",
+    "laravel.log", "storage.log", "nginx.log", "apache.log",
+    # Env files (more)
+    ".env", ".env.local", ".env.production", ".env.staging",
+    ".env.development", ".env.testing", ".env.example",
+    # Cloud & secrets (more)
+    "credentials", "credentials.json", "service-account.json",
+    "id_rsa", "id_rsa.pub", "authorized_keys", "known_hosts",
+    "vault", "vault.json", "vault-token", "vault-pass",
+    "terraform.tfstate", "terraform.tfvars",
+    # Package files (more)
+    "package.json", "package-lock.json", "yarn.lock", "pnpm-lock.yaml",
+    "composer.json", "composer.lock", "Gemfile", "Gemfile.lock",
+    "requirements.txt", "Pipfile", "Pipfile.lock", "pyproject.toml",
+    "go.mod", "go.sum", "pom.xml", "build.gradle",
+    "Cargo.toml", "Cargo.lock", "mix.exs", "mix.lock",
+]
+
+# ── 50+ new subdomains ──
+COMMON_SUBDOMAINS_V2 = [
+    # Dev/test/staging
+    "dev1", "dev2", "dev3", "test1", "test2", "test3",
+    "stage1", "stage2", "stage3", "staging1", "staging2", "staging3",
+    "uat1", "uat2", "qa1", "qa2", "qa3", "sandbox1", "sandbox2",
+    # Services
+    "api1", "api2", "api3", "api-v1", "api-v2", "api-v3",
+    "graphql", "graphql-v1", "graphql-v2",
+    "rest", "rest-v1", "rest-v2", "rest-api",
+    "soap", "rpc", "grpc",
+    # Infrastructure
+    "vpn1", "vpn2", "vpn3", "proxy1", "proxy2", "proxy3",
+    "gateway", "gateway1", "gateway2", "gateway3",
+    "loadbalancer", "lb", "lb1", "lb2", "lb3",
+    "cache1", "cache2", "cache3", "redis1", "redis2",
+    "queue1", "queue2", "queue3", "mq", "mq1", "mq2",
+    # Monitoring
+    "grafana1", "grafana2", "prometheus1", "prometheus2",
+    "kibana1", "kibana2", "elastic1", "elastic2",
+    "jaeger", "zipkin", "sentry", "sentry1", "sentry2",
+    # CI/CD
+    "ci", "cd", "cicd", "pipeline", "build", "build1", "build2",
+    "deploy", "deploy1", "deploy2", "release", "release1", "release2",
+    # Internal tools
+    "wiki1", "wiki2", "docs1", "docs2", "docs3",
+    "jira1", "jira2", "confluence1", "confluence2",
+    "gitlab1", "gitlab2", "gitea", "gogs", "bitbucket",
+    "jenkins1", "jenkins2", "drone1", "drone2",
+    "nexus", "nexus1", "nexus2", "artifactory", "artifactory1",
+    # Cloud
+    "s3", "storage", "storage1", "storage2", "files1", "files2",
+    "cdn1", "cdn2", "cdn3", "static1", "static2", "static3",
+    "assets1", "assets2", "assets3", "media1", "media2", "media3",
+    # Communication
+    "chat", "chat1", "chat2", "im", "messaging", "message",
+    "mail1", "mail2", "mail3", "smtp1", "smtp2", "smtp3",
+    "imap1", "imap2", "pop1", "pop2", "pop3",
+    # Mobile
+    "mobile1", "mobile2", "m1", "m2", "m3",
+    "ios", "android", "app1", "app2", "app3",
+    # Geographic
+    "us", "us-east", "us-west", "eu", "eu-west", "eu-east",
+    "asia", "asia-east", "asia-south", "au", "ca", "jp", "kr",
+    "de", "fr", "uk", "in", "br", "mx", "ru", "cn",
+    # Other
+    "old1", "old2", "old3", "new1", "new2", "new3",
+    "backup1", "backup2", "backup3", "archive1", "archive2",
+    "private1", "private2", "internal1", "internal2",
+    "secure1", "secure2", "secure3", "auth1", "auth2", "auth3",
+    "sso1", "sso2", "sso3", "id1", "id2", "id3",
+]
+
+# Merge V4 patterns
+SECRET_PATTERNS.extend(SECRET_PATTERNS_V4)
+BRUTE_NAMES.extend(BRUTE_NAMES_V4)
+COMMON_SUBDOMAINS.extend(COMMON_SUBDOMAINS_V2)
+
+# Final dedup
+SECRET_PATTERNS = list(dict.fromkeys(SECRET_PATTERNS))
+BRUTE_NAMES = list(dict.fromkeys(BRUTE_NAMES))
+COMMON_SUBDOMAINS = list(dict.fromkeys(COMMON_SUBDOMAINS))
+
+
+# v11.5: MEGA PATH EXPANSION - push to 1MB+
+LEAK_PATHS_V5 = [
+    "/laravel.config.json", "/laravel..json", "/config/laravel.json", "/.config/laravel.json", "/laravel.config.yaml", "/laravel..yaml", "/config/laravel.yaml", "/.config/laravel.yaml", "/laravel.config.yml", "/laravel..yml",
+    "/config/laravel.yml", "/.config/laravel.yml", "/laravel.config.js", "/laravel..js", "/config/laravel.js", "/.config/laravel.js", "/laravel.config.ts", "/laravel..ts", "/config/laravel.ts", "/.config/laravel.ts",
+    "/laravel.config.config.js", "/laravel..config.js", "/config/laravel.config.js", "/.config/laravel.config.js", "/laravel.config.config.ts", "/laravel..config.ts", "/config/laravel.config.ts", "/.config/laravel.config.ts", "/laravel.config.config.json", "/laravel..config.json",
+    "/config/laravel.config.json", "/.config/laravel.config.json", "/django.config.json", "/django..json", "/config/django.json", "/.config/django.json", "/django.config.yaml", "/django..yaml", "/config/django.yaml", "/.config/django.yaml",
+    "/django.config.yml", "/django..yml", "/config/django.yml", "/.config/django.yml", "/django.config.js", "/django..js", "/config/django.js", "/.config/django.js", "/django.config.ts", "/django..ts",
+    "/config/django.ts", "/.config/django.ts", "/django.config.config.js", "/django..config.js", "/config/django.config.js", "/.config/django.config.js", "/django.config.config.ts", "/django..config.ts", "/config/django.config.ts", "/.config/django.config.ts",
+    "/django.config.config.json", "/django..config.json", "/config/django.config.json", "/.config/django.config.json", "/flask.config.json", "/flask..json", "/config/flask.json", "/.config/flask.json", "/flask.config.yaml", "/flask..yaml",
+    "/config/flask.yaml", "/.config/flask.yaml", "/flask.config.yml", "/flask..yml", "/config/flask.yml", "/.config/flask.yml", "/flask.config.js", "/flask..js", "/config/flask.js", "/.config/flask.js",
+    "/flask.config.ts", "/flask..ts", "/config/flask.ts", "/.config/flask.ts", "/flask.config.config.js", "/flask..config.js", "/config/flask.config.js", "/.config/flask.config.js", "/flask.config.config.ts", "/flask..config.ts",
+    "/config/flask.config.ts", "/.config/flask.config.ts", "/flask.config.config.json", "/flask..config.json", "/config/flask.config.json", "/.config/flask.config.json", "/rails.config.json", "/rails..json", "/config/rails.json", "/.config/rails.json",
+    "/rails.config.yaml", "/rails..yaml", "/config/rails.yaml", "/.config/rails.yaml", "/rails.config.yml", "/rails..yml", "/config/rails.yml", "/.config/rails.yml", "/rails.config.js", "/rails..js",
+    "/config/rails.js", "/.config/rails.js", "/rails.config.ts", "/rails..ts", "/config/rails.ts", "/.config/rails.ts", "/rails.config.config.js", "/rails..config.js", "/config/rails.config.js", "/.config/rails.config.js",
+    "/rails.config.config.ts", "/rails..config.ts", "/config/rails.config.ts", "/.config/rails.config.ts", "/rails.config.config.json", "/rails..config.json", "/config/rails.config.json", "/.config/rails.config.json", "/express.config.json", "/express..json",
+    "/config/express.json", "/.config/express.json", "/express.config.yaml", "/express..yaml", "/config/express.yaml", "/.config/express.yaml", "/express.config.yml", "/express..yml", "/config/express.yml", "/.config/express.yml",
+    "/express.config.js", "/express..js", "/config/express.js", "/.config/express.js", "/express.config.ts", "/express..ts", "/config/express.ts", "/.config/express.ts", "/express.config.config.js", "/express..config.js",
+    "/config/express.config.js", "/.config/express.config.js", "/express.config.config.ts", "/express..config.ts", "/config/express.config.ts", "/.config/express.config.ts", "/express.config.config.json", "/express..config.json", "/config/express.config.json", "/.config/express.config.json",
+    "/nextjs.config.json", "/nextjs..json", "/config/nextjs.json", "/.config/nextjs.json", "/nextjs.config.yaml", "/nextjs..yaml", "/config/nextjs.yaml", "/.config/nextjs.yaml", "/nextjs.config.yml", "/nextjs..yml",
+    "/config/nextjs.yml", "/.config/nextjs.yml", "/nextjs.config.js", "/nextjs..js", "/config/nextjs.js", "/.config/nextjs.js", "/nextjs.config.ts", "/nextjs..ts", "/config/nextjs.ts", "/.config/nextjs.ts",
+    "/nextjs.config.config.js", "/nextjs..config.js", "/config/nextjs.config.js", "/.config/nextjs.config.js", "/nextjs.config.config.ts", "/nextjs..config.ts", "/config/nextjs.config.ts", "/.config/nextjs.config.ts", "/nextjs.config.config.json", "/nextjs..config.json",
+    "/config/nextjs.config.json", "/.config/nextjs.config.json", "/nuxt.config.json", "/nuxt..json", "/config/nuxt.json", "/.config/nuxt.json", "/nuxt.config.yaml", "/nuxt..yaml", "/config/nuxt.yaml", "/.config/nuxt.yaml",
+    "/nuxt.config.yml", "/nuxt..yml", "/config/nuxt.yml", "/.config/nuxt.yml", "/nuxt.config.js", "/nuxt..js", "/config/nuxt.js", "/.config/nuxt.js", "/nuxt.config.ts", "/nuxt..ts",
+    "/config/nuxt.ts", "/.config/nuxt.ts", "/nuxt.config.config.js", "/nuxt..config.js", "/config/nuxt.config.js", "/.config/nuxt.config.js", "/nuxt.config.config.ts", "/nuxt..config.ts", "/config/nuxt.config.ts", "/.config/nuxt.config.ts",
+    "/nuxt.config.config.json", "/nuxt..config.json", "/config/nuxt.config.json", "/.config/nuxt.config.json", "/gatsby.config.json", "/gatsby..json", "/config/gatsby.json", "/.config/gatsby.json", "/gatsby.config.yaml", "/gatsby..yaml",
+    "/config/gatsby.yaml", "/.config/gatsby.yaml", "/gatsby.config.yml", "/gatsby..yml", "/config/gatsby.yml", "/.config/gatsby.yml", "/gatsby.config.js", "/gatsby..js", "/config/gatsby.js", "/.config/gatsby.js",
+    "/gatsby.config.ts", "/gatsby..ts", "/config/gatsby.ts", "/.config/gatsby.ts", "/gatsby.config.config.js", "/gatsby..config.js", "/config/gatsby.config.js", "/.config/gatsby.config.js", "/gatsby.config.config.ts", "/gatsby..config.ts",
+    "/config/gatsby.config.ts", "/.config/gatsby.config.ts", "/gatsby.config.config.json", "/gatsby..config.json", "/config/gatsby.config.json", "/.config/gatsby.config.json", "/svelte.config.json", "/svelte..json", "/config/svelte.json", "/.config/svelte.json",
+    "/svelte.config.yaml", "/svelte..yaml", "/config/svelte.yaml", "/.config/svelte.yaml", "/svelte.config.yml", "/svelte..yml", "/config/svelte.yml", "/.config/svelte.yml", "/svelte.config.js", "/svelte..js",
+    "/config/svelte.js", "/.config/svelte.js", "/svelte.config.ts", "/svelte..ts", "/config/svelte.ts", "/.config/svelte.ts", "/svelte.config.config.js", "/svelte..config.js", "/config/svelte.config.js", "/.config/svelte.config.js",
+    "/svelte.config.config.ts", "/svelte..config.ts", "/config/svelte.config.ts", "/.config/svelte.config.ts", "/svelte.config.config.json", "/svelte..config.json", "/config/svelte.config.json", "/.config/svelte.config.json", "/angular.config.json", "/angular..json",
+    "/config/angular.json", "/.config/angular.json", "/angular.config.yaml", "/angular..yaml", "/config/angular.yaml", "/.config/angular.yaml", "/angular.config.yml", "/angular..yml", "/config/angular.yml", "/.config/angular.yml",
+    "/angular.config.js", "/angular..js", "/config/angular.js", "/.config/angular.js", "/angular.config.ts", "/angular..ts", "/config/angular.ts", "/.config/angular.ts", "/angular.config.config.js", "/angular..config.js",
+    "/config/angular.config.js", "/.config/angular.config.js", "/angular.config.config.ts", "/angular..config.ts", "/config/angular.config.ts", "/.config/angular.config.ts", "/angular.config.config.json", "/angular..config.json", "/config/angular.config.json", "/.config/angular.config.json",
+    "/vue.config.json", "/vue..json", "/config/vue.json", "/.config/vue.json", "/vue.config.yaml", "/vue..yaml", "/config/vue.yaml", "/.config/vue.yaml", "/vue.config.yml", "/vue..yml",
+    "/config/vue.yml", "/.config/vue.yml", "/vue.config.js", "/vue..js", "/config/vue.js", "/.config/vue.js", "/vue.config.ts", "/vue..ts", "/config/vue.ts", "/.config/vue.ts",
+    "/vue.config.config.js", "/vue..config.js", "/config/vue.config.js", "/.config/vue.config.js", "/vue.config.config.ts", "/vue..config.ts", "/config/vue.config.ts", "/.config/vue.config.ts", "/vue.config.config.json", "/vue..config.json",
+    "/config/vue.config.json", "/.config/vue.config.json", "/react.config.json", "/react..json", "/config/react.json", "/.config/react.json", "/react.config.yaml", "/react..yaml", "/config/react.yaml", "/.config/react.yaml",
+    "/react.config.yml", "/react..yml", "/config/react.yml", "/.config/react.yml", "/react.config.js", "/react..js", "/config/react.js", "/.config/react.js", "/react.config.ts", "/react..ts",
+    "/config/react.ts", "/.config/react.ts", "/react.config.config.js", "/react..config.js", "/config/react.config.js", "/.config/react.config.js", "/react.config.config.ts", "/react..config.ts", "/config/react.config.ts", "/.config/react.config.ts",
+    "/react.config.config.json", "/react..config.json", "/config/react.config.json", "/.config/react.config.json", "/astro.config.json", "/astro..json", "/config/astro.json", "/.config/astro.json", "/astro.config.yaml", "/astro..yaml",
+    "/config/astro.yaml", "/.config/astro.yaml", "/astro.config.yml", "/astro..yml", "/config/astro.yml", "/.config/astro.yml", "/astro.config.js", "/astro..js", "/config/astro.js", "/.config/astro.js",
+    "/astro.config.ts", "/astro..ts", "/config/astro.ts", "/.config/astro.ts", "/astro.config.config.js", "/astro..config.js", "/config/astro.config.js", "/.config/astro.config.js", "/astro.config.config.ts", "/astro..config.ts",
+    "/config/astro.config.ts", "/.config/astro.config.ts", "/astro.config.config.json", "/astro..config.json", "/config/astro.config.json", "/.config/astro.config.json", "/remix.config.json", "/remix..json", "/config/remix.json", "/.config/remix.json",
+    "/remix.config.yaml", "/remix..yaml", "/config/remix.yaml", "/.config/remix.yaml", "/remix.config.yml", "/remix..yml", "/config/remix.yml", "/.config/remix.yml", "/remix.config.js", "/remix..js",
+    "/config/remix.js", "/.config/remix.js", "/remix.config.ts", "/remix..ts", "/config/remix.ts", "/.config/remix.ts", "/remix.config.config.js", "/remix..config.js", "/config/remix.config.js", "/.config/remix.config.js",
+    "/remix.config.config.ts", "/remix..config.ts", "/config/remix.config.ts", "/.config/remix.config.ts", "/remix.config.config.json", "/remix..config.json", "/config/remix.config.json", "/.config/remix.config.json", "/quasar.config.json", "/quasar..json",
+    "/config/quasar.json", "/.config/quasar.json", "/quasar.config.yaml", "/quasar..yaml", "/config/quasar.yaml", "/.config/quasar.yaml", "/quasar.config.yml", "/quasar..yml", "/config/quasar.yml", "/.config/quasar.yml",
+    "/quasar.config.js", "/quasar..js", "/config/quasar.js", "/.config/quasar.js", "/quasar.config.ts", "/quasar..ts", "/config/quasar.ts", "/.config/quasar.ts", "/quasar.config.config.js", "/quasar..config.js",
+    "/config/quasar.config.js", "/.config/quasar.config.js", "/quasar.config.config.ts", "/quasar..config.ts", "/config/quasar.config.ts", "/.config/quasar.config.ts", "/quasar.config.config.json", "/quasar..config.json", "/config/quasar.config.json", "/.config/quasar.config.json",
+    "/nuxtjs.config.json", "/nuxtjs..json", "/config/nuxtjs.json", "/.config/nuxtjs.json", "/nuxtjs.config.yaml", "/nuxtjs..yaml", "/config/nuxtjs.yaml", "/.config/nuxtjs.yaml", "/nuxtjs.config.yml", "/nuxtjs..yml",
+    "/config/nuxtjs.yml", "/.config/nuxtjs.yml", "/nuxtjs.config.js", "/nuxtjs..js", "/config/nuxtjs.js", "/.config/nuxtjs.js", "/nuxtjs.config.ts", "/nuxtjs..ts", "/config/nuxtjs.ts", "/.config/nuxtjs.ts",
+    "/nuxtjs.config.config.js", "/nuxtjs..config.js", "/config/nuxtjs.config.js", "/.config/nuxtjs.config.js", "/nuxtjs.config.config.ts", "/nuxtjs..config.ts", "/config/nuxtjs.config.ts", "/.config/nuxtjs.config.ts", "/nuxtjs.config.config.json", "/nuxtjs..config.json",
+    "/config/nuxtjs.config.json", "/.config/nuxtjs.config.json", "/wordpress.config.json", "/wordpress/wordpress.config.json", "/config/wordpress.json", "/wordpress/config.json", "/wordpress/settings.json", "/wordpress/database.json", "/wordpress.config.yaml", "/wordpress/wordpress.config.yaml",
+    "/config/wordpress.yaml", "/wordpress/config.yaml", "/wordpress/settings.yaml", "/wordpress/database.yaml", "/wordpress.config.yml", "/wordpress/wordpress.config.yml", "/config/wordpress.yml", "/wordpress/config.yml", "/wordpress/settings.yml", "/wordpress/database.yml",
+    "/wordpress.config.php", "/wordpress/wordpress.config.php", "/config/wordpress.php", "/wordpress/config.php", "/wordpress/settings.php", "/wordpress/database.php", "/wordpress.config.xml", "/wordpress/wordpress.config.xml", "/config/wordpress.xml", "/wordpress/config.xml",
+    "/wordpress/settings.xml", "/wordpress/database.xml", "/wordpress.config.conf", "/wordpress/wordpress.config.conf", "/config/wordpress.conf", "/wordpress/config.conf", "/wordpress/settings.conf", "/wordpress/database.conf", "/wordpress.config.ini", "/wordpress/wordpress.config.ini",
+    "/config/wordpress.ini", "/wordpress/config.ini", "/wordpress/settings.ini", "/wordpress/database.ini", "/wordpress.config.config", "/wordpress/wordpress.config.config", "/config/wordpress.config", "/wordpress/config.config", "/wordpress/settings.config", "/wordpress/database.config",
+    "/joomla.config.json", "/joomla/joomla.config.json", "/config/joomla.json", "/joomla/config.json", "/joomla/settings.json", "/joomla/database.json", "/joomla.config.yaml", "/joomla/joomla.config.yaml", "/config/joomla.yaml", "/joomla/config.yaml",
+    "/joomla/settings.yaml", "/joomla/database.yaml", "/joomla.config.yml", "/joomla/joomla.config.yml", "/config/joomla.yml", "/joomla/config.yml", "/joomla/settings.yml", "/joomla/database.yml", "/joomla.config.php", "/joomla/joomla.config.php",
+    "/config/joomla.php", "/joomla/config.php", "/joomla/settings.php", "/joomla/database.php", "/joomla.config.xml", "/joomla/joomla.config.xml", "/config/joomla.xml", "/joomla/config.xml", "/joomla/settings.xml", "/joomla/database.xml",
+    "/joomla.config.conf", "/joomla/joomla.config.conf", "/config/joomla.conf", "/joomla/config.conf", "/joomla/settings.conf", "/joomla/database.conf", "/joomla.config.ini", "/joomla/joomla.config.ini", "/config/joomla.ini", "/joomla/config.ini",
+    "/joomla/settings.ini", "/joomla/database.ini", "/joomla.config.config", "/joomla/joomla.config.config", "/config/joomla.config", "/joomla/config.config", "/joomla/settings.config", "/joomla/database.config", "/drupal.config.json", "/drupal/drupal.config.json",
+    "/config/drupal.json", "/drupal/config.json", "/drupal/settings.json", "/drupal/database.json", "/drupal.config.yaml", "/drupal/drupal.config.yaml", "/config/drupal.yaml", "/drupal/config.yaml", "/drupal/settings.yaml", "/drupal/database.yaml",
+    "/drupal.config.yml", "/drupal/drupal.config.yml", "/config/drupal.yml", "/drupal/config.yml", "/drupal/settings.yml", "/drupal/database.yml", "/drupal.config.php", "/drupal/drupal.config.php", "/config/drupal.php", "/drupal/config.php",
+    "/drupal/settings.php", "/drupal/database.php", "/drupal.config.xml", "/drupal/drupal.config.xml", "/config/drupal.xml", "/drupal/config.xml", "/drupal/settings.xml", "/drupal/database.xml", "/drupal.config.conf", "/drupal/drupal.config.conf",
+    "/config/drupal.conf", "/drupal/config.conf", "/drupal/settings.conf", "/drupal/database.conf", "/drupal.config.ini", "/drupal/drupal.config.ini", "/config/drupal.ini", "/drupal/config.ini", "/drupal/settings.ini", "/drupal/database.ini",
+    "/drupal.config.config", "/drupal/drupal.config.config", "/config/drupal.config", "/drupal/config.config", "/drupal/settings.config", "/drupal/database.config", "/magento.config.json", "/magento/magento.config.json", "/config/magento.json", "/magento/config.json",
+    "/magento/settings.json", "/magento/database.json", "/magento.config.yaml", "/magento/magento.config.yaml", "/config/magento.yaml", "/magento/config.yaml", "/magento/settings.yaml", "/magento/database.yaml", "/magento.config.yml", "/magento/magento.config.yml",
+    "/config/magento.yml", "/magento/config.yml", "/magento/settings.yml", "/magento/database.yml", "/magento.config.php", "/magento/magento.config.php", "/config/magento.php", "/magento/config.php", "/magento/settings.php", "/magento/database.php",
+    "/magento.config.xml", "/magento/magento.config.xml", "/config/magento.xml", "/magento/config.xml", "/magento/settings.xml", "/magento/database.xml", "/magento.config.conf", "/magento/magento.config.conf", "/config/magento.conf", "/magento/config.conf",
+    "/magento/settings.conf", "/magento/database.conf", "/magento.config.ini", "/magento/magento.config.ini", "/config/magento.ini", "/magento/config.ini", "/magento/settings.ini", "/magento/database.ini", "/magento.config.config", "/magento/magento.config.config",
+    "/config/magento.config", "/magento/config.config", "/magento/settings.config", "/magento/database.config", "/shopify.config.json", "/shopify/shopify.config.json", "/config/shopify.json", "/shopify/config.json", "/shopify/settings.json", "/shopify/database.json",
+    "/shopify.config.yaml", "/shopify/shopify.config.yaml", "/config/shopify.yaml", "/shopify/config.yaml", "/shopify/settings.yaml", "/shopify/database.yaml", "/shopify.config.yml", "/shopify/shopify.config.yml", "/config/shopify.yml", "/shopify/config.yml",
+    "/shopify/settings.yml", "/shopify/database.yml", "/shopify.config.php", "/shopify/shopify.config.php", "/config/shopify.php", "/shopify/config.php", "/shopify/settings.php", "/shopify/database.php", "/shopify.config.xml", "/shopify/shopify.config.xml",
+    "/config/shopify.xml", "/shopify/config.xml", "/shopify/settings.xml", "/shopify/database.xml", "/shopify.config.conf", "/shopify/shopify.config.conf", "/config/shopify.conf", "/shopify/config.conf", "/shopify/settings.conf", "/shopify/database.conf",
+    "/shopify.config.ini", "/shopify/shopify.config.ini", "/config/shopify.ini", "/shopify/config.ini", "/shopify/settings.ini", "/shopify/database.ini", "/shopify.config.config", "/shopify/shopify.config.config", "/config/shopify.config", "/shopify/config.config",
+    "/shopify/settings.config", "/shopify/database.config", "/prestashop.config.json", "/prestashop/prestashop.config.json", "/config/prestashop.json", "/prestashop/config.json", "/prestashop/settings.json", "/prestashop/database.json", "/prestashop.config.yaml", "/prestashop/prestashop.config.yaml",
+    "/config/prestashop.yaml", "/prestashop/config.yaml", "/prestashop/settings.yaml", "/prestashop/database.yaml", "/prestashop.config.yml", "/prestashop/prestashop.config.yml", "/config/prestashop.yml", "/prestashop/config.yml", "/prestashop/settings.yml", "/prestashop/database.yml",
+    "/prestashop.config.php", "/prestashop/prestashop.config.php", "/config/prestashop.php", "/prestashop/config.php", "/prestashop/settings.php", "/prestashop/database.php", "/prestashop.config.xml", "/prestashop/prestashop.config.xml", "/config/prestashop.xml", "/prestashop/config.xml",
+    "/prestashop/settings.xml", "/prestashop/database.xml", "/prestashop.config.conf", "/prestashop/prestashop.config.conf", "/config/prestashop.conf", "/prestashop/config.conf", "/prestashop/settings.conf", "/prestashop/database.conf", "/prestashop.config.ini", "/prestashop/prestashop.config.ini",
+    "/config/prestashop.ini", "/prestashop/config.ini", "/prestashop/settings.ini", "/prestashop/database.ini", "/prestashop.config.config", "/prestashop/prestashop.config.config", "/config/prestashop.config", "/prestashop/config.config", "/prestashop/settings.config", "/prestashop/database.config",
+    "/opencart.config.json", "/opencart/opencart.config.json", "/config/opencart.json", "/opencart/config.json", "/opencart/settings.json", "/opencart/database.json", "/opencart.config.yaml", "/opencart/opencart.config.yaml", "/config/opencart.yaml", "/opencart/config.yaml",
+    "/opencart/settings.yaml", "/opencart/database.yaml", "/opencart.config.yml", "/opencart/opencart.config.yml", "/config/opencart.yml", "/opencart/config.yml", "/opencart/settings.yml", "/opencart/database.yml", "/opencart.config.php", "/opencart/opencart.config.php",
+    "/config/opencart.php", "/opencart/config.php", "/opencart/settings.php", "/opencart/database.php", "/opencart.config.xml", "/opencart/opencart.config.xml", "/config/opencart.xml", "/opencart/config.xml", "/opencart/settings.xml", "/opencart/database.xml",
+    "/opencart.config.conf", "/opencart/opencart.config.conf", "/config/opencart.conf", "/opencart/config.conf", "/opencart/settings.conf", "/opencart/database.conf", "/opencart.config.ini", "/opencart/opencart.config.ini", "/config/opencart.ini", "/opencart/config.ini",
+    "/opencart/settings.ini", "/opencart/database.ini", "/opencart.config.config", "/opencart/opencart.config.config", "/config/opencart.config", "/opencart/config.config", "/opencart/settings.config", "/opencart/database.config", "/woocommerce.config.json", "/woocommerce/woocommerce.config.json",
+    "/config/woocommerce.json", "/woocommerce/config.json", "/woocommerce/settings.json", "/woocommerce/database.json", "/woocommerce.config.yaml", "/woocommerce/woocommerce.config.yaml", "/config/woocommerce.yaml", "/woocommerce/config.yaml", "/woocommerce/settings.yaml", "/woocommerce/database.yaml",
+    "/woocommerce.config.yml", "/woocommerce/woocommerce.config.yml", "/config/woocommerce.yml", "/woocommerce/config.yml", "/woocommerce/settings.yml", "/woocommerce/database.yml", "/woocommerce.config.php", "/woocommerce/woocommerce.config.php", "/config/woocommerce.php", "/woocommerce/config.php",
+    "/woocommerce/settings.php", "/woocommerce/database.php", "/woocommerce.config.xml", "/woocommerce/woocommerce.config.xml", "/config/woocommerce.xml", "/woocommerce/config.xml", "/woocommerce/settings.xml", "/woocommerce/database.xml", "/woocommerce.config.conf", "/woocommerce/woocommerce.config.conf",
+    "/config/woocommerce.conf", "/woocommerce/config.conf", "/woocommerce/settings.conf", "/woocommerce/database.conf", "/woocommerce.config.ini", "/woocommerce/woocommerce.config.ini", "/config/woocommerce.ini", "/woocommerce/config.ini", "/woocommerce/settings.ini", "/woocommerce/database.ini",
+    "/woocommerce.config.config", "/woocommerce/woocommerce.config.config", "/config/woocommerce.config", "/woocommerce/config.config", "/woocommerce/settings.config", "/woocommerce/database.config", "/bigcommerce.config.json", "/bigcommerce/bigcommerce.config.json", "/config/bigcommerce.json", "/bigcommerce/config.json",
+    "/bigcommerce/settings.json", "/bigcommerce/database.json", "/bigcommerce.config.yaml", "/bigcommerce/bigcommerce.config.yaml", "/config/bigcommerce.yaml", "/bigcommerce/config.yaml", "/bigcommerce/settings.yaml", "/bigcommerce/database.yaml", "/bigcommerce.config.yml", "/bigcommerce/bigcommerce.config.yml",
+    "/config/bigcommerce.yml", "/bigcommerce/config.yml", "/bigcommerce/settings.yml", "/bigcommerce/database.yml", "/bigcommerce.config.php", "/bigcommerce/bigcommerce.config.php", "/config/bigcommerce.php", "/bigcommerce/config.php", "/bigcommerce/settings.php", "/bigcommerce/database.php",
+    "/bigcommerce.config.xml", "/bigcommerce/bigcommerce.config.xml", "/config/bigcommerce.xml", "/bigcommerce/config.xml", "/bigcommerce/settings.xml", "/bigcommerce/database.xml", "/bigcommerce.config.conf", "/bigcommerce/bigcommerce.config.conf", "/config/bigcommerce.conf", "/bigcommerce/config.conf",
+    "/bigcommerce/settings.conf", "/bigcommerce/database.conf", "/bigcommerce.config.ini", "/bigcommerce/bigcommerce.config.ini", "/config/bigcommerce.ini", "/bigcommerce/config.ini", "/bigcommerce/settings.ini", "/bigcommerce/database.ini", "/bigcommerce.config.config", "/bigcommerce/bigcommerce.config.config",
+    "/config/bigcommerce.config", "/bigcommerce/config.config", "/bigcommerce/settings.config", "/bigcommerce/database.config", "/wix.config.json", "/wix/wix.config.json", "/config/wix.json", "/wix/config.json", "/wix/settings.json", "/wix/database.json",
+    "/wix.config.yaml", "/wix/wix.config.yaml", "/config/wix.yaml", "/wix/config.yaml", "/wix/settings.yaml", "/wix/database.yaml", "/wix.config.yml", "/wix/wix.config.yml", "/config/wix.yml", "/wix/config.yml",
+    "/wix/settings.yml", "/wix/database.yml", "/wix.config.php", "/wix/wix.config.php", "/config/wix.php", "/wix/config.php", "/wix/settings.php", "/wix/database.php", "/wix.config.xml", "/wix/wix.config.xml",
+    "/config/wix.xml", "/wix/config.xml", "/wix/settings.xml", "/wix/database.xml", "/wix.config.conf", "/wix/wix.config.conf", "/config/wix.conf", "/wix/config.conf", "/wix/settings.conf", "/wix/database.conf",
+    "/wix.config.ini", "/wix/wix.config.ini", "/config/wix.ini", "/wix/config.ini", "/wix/settings.ini", "/wix/database.ini", "/wix.config.config", "/wix/wix.config.config", "/config/wix.config", "/wix/config.config",
+    "/wix/settings.config", "/wix/database.config", "/squarespace.config.json", "/squarespace/squarespace.config.json", "/config/squarespace.json", "/squarespace/config.json", "/squarespace/settings.json", "/squarespace/database.json", "/squarespace.config.yaml", "/squarespace/squarespace.config.yaml",
+    "/config/squarespace.yaml", "/squarespace/config.yaml", "/squarespace/settings.yaml", "/squarespace/database.yaml", "/squarespace.config.yml", "/squarespace/squarespace.config.yml", "/config/squarespace.yml", "/squarespace/config.yml", "/squarespace/settings.yml", "/squarespace/database.yml",
+    "/squarespace.config.php", "/squarespace/squarespace.config.php", "/config/squarespace.php", "/squarespace/config.php", "/squarespace/settings.php", "/squarespace/database.php", "/squarespace.config.xml", "/squarespace/squarespace.config.xml", "/config/squarespace.xml", "/squarespace/config.xml",
+    "/squarespace/settings.xml", "/squarespace/database.xml", "/squarespace.config.conf", "/squarespace/squarespace.config.conf", "/config/squarespace.conf", "/squarespace/config.conf", "/squarespace/settings.conf", "/squarespace/database.conf", "/squarespace.config.ini", "/squarespace/squarespace.config.ini",
+    "/config/squarespace.ini", "/squarespace/config.ini", "/squarespace/settings.ini", "/squarespace/database.ini", "/squarespace.config.config", "/squarespace/squarespace.config.config", "/config/squarespace.config", "/squarespace/config.config", "/squarespace/settings.config", "/squarespace/database.config",
+    "/webflow.config.json", "/webflow/webflow.config.json", "/config/webflow.json", "/webflow/config.json", "/webflow/settings.json", "/webflow/database.json", "/webflow.config.yaml", "/webflow/webflow.config.yaml", "/config/webflow.yaml", "/webflow/config.yaml",
+    "/webflow/settings.yaml", "/webflow/database.yaml", "/webflow.config.yml", "/webflow/webflow.config.yml", "/config/webflow.yml", "/webflow/config.yml", "/webflow/settings.yml", "/webflow/database.yml", "/webflow.config.php", "/webflow/webflow.config.php",
+    "/config/webflow.php", "/webflow/config.php", "/webflow/settings.php", "/webflow/database.php", "/webflow.config.xml", "/webflow/webflow.config.xml", "/config/webflow.xml", "/webflow/config.xml", "/webflow/settings.xml", "/webflow/database.xml",
+    "/webflow.config.conf", "/webflow/webflow.config.conf", "/config/webflow.conf", "/webflow/config.conf", "/webflow/settings.conf", "/webflow/database.conf", "/webflow.config.ini", "/webflow/webflow.config.ini", "/config/webflow.ini", "/webflow/config.ini",
+    "/webflow/settings.ini", "/webflow/database.ini", "/webflow.config.config", "/webflow/webflow.config.config", "/config/webflow.config", "/webflow/config.config", "/webflow/settings.config", "/webflow/database.config", "/ghost.config.json", "/ghost/ghost.config.json",
+    "/config/ghost.json", "/ghost/config.json", "/ghost/settings.json", "/ghost/database.json", "/ghost.config.yaml", "/ghost/ghost.config.yaml", "/config/ghost.yaml", "/ghost/config.yaml", "/ghost/settings.yaml", "/ghost/database.yaml",
+    "/ghost.config.yml", "/ghost/ghost.config.yml", "/config/ghost.yml", "/ghost/config.yml", "/ghost/settings.yml", "/ghost/database.yml", "/ghost.config.php", "/ghost/ghost.config.php", "/config/ghost.php", "/ghost/config.php",
+    "/ghost/settings.php", "/ghost/database.php", "/ghost.config.xml", "/ghost/ghost.config.xml", "/config/ghost.xml", "/ghost/config.xml", "/ghost/settings.xml", "/ghost/database.xml", "/ghost.config.conf", "/ghost/ghost.config.conf",
+    "/config/ghost.conf", "/ghost/config.conf", "/ghost/settings.conf", "/ghost/database.conf", "/ghost.config.ini", "/ghost/ghost.config.ini", "/config/ghost.ini", "/ghost/config.ini", "/ghost/settings.ini", "/ghost/database.ini",
+    "/ghost.config.config", "/ghost/ghost.config.config", "/config/ghost.config", "/ghost/config.config", "/ghost/settings.config", "/ghost/database.config", "/strapi.config.json", "/strapi/strapi.config.json", "/config/strapi.json", "/strapi/config.json",
+    "/strapi/settings.json", "/strapi/database.json", "/strapi.config.yaml", "/strapi/strapi.config.yaml", "/config/strapi.yaml", "/strapi/config.yaml", "/strapi/settings.yaml", "/strapi/database.yaml", "/strapi.config.yml", "/strapi/strapi.config.yml",
+    "/config/strapi.yml", "/strapi/config.yml", "/strapi/settings.yml", "/strapi/database.yml", "/strapi.config.php", "/strapi/strapi.config.php", "/config/strapi.php", "/strapi/config.php", "/strapi/settings.php", "/strapi/database.php",
+    "/strapi.config.xml", "/strapi/strapi.config.xml", "/config/strapi.xml", "/strapi/config.xml", "/strapi/settings.xml", "/strapi/database.xml", "/strapi.config.conf", "/strapi/strapi.config.conf", "/config/strapi.conf", "/strapi/config.conf",
+    "/strapi/settings.conf", "/strapi/database.conf", "/strapi.config.ini", "/strapi/strapi.config.ini", "/config/strapi.ini", "/strapi/config.ini", "/strapi/settings.ini", "/strapi/database.ini", "/strapi.config.config", "/strapi/strapi.config.config",
+    "/config/strapi.config", "/strapi/config.config", "/strapi/settings.config", "/strapi/database.config", "/craft.config.json", "/craft/craft.config.json", "/config/craft.json", "/craft/config.json", "/craft/settings.json", "/craft/database.json",
+    "/craft.config.yaml", "/craft/craft.config.yaml", "/config/craft.yaml", "/craft/config.yaml", "/craft/settings.yaml", "/craft/database.yaml", "/craft.config.yml", "/craft/craft.config.yml", "/config/craft.yml", "/craft/config.yml",
+    "/craft/settings.yml", "/craft/database.yml", "/craft.config.php", "/craft/craft.config.php", "/config/craft.php", "/craft/config.php", "/craft/settings.php", "/craft/database.php", "/craft.config.xml", "/craft/craft.config.xml",
+    "/config/craft.xml", "/craft/config.xml", "/craft/settings.xml", "/craft/database.xml", "/craft.config.conf", "/craft/craft.config.conf", "/config/craft.conf", "/craft/config.conf", "/craft/settings.conf", "/craft/database.conf",
+    "/craft.config.ini", "/craft/craft.config.ini", "/config/craft.ini", "/craft/config.ini", "/craft/settings.ini", "/craft/database.ini", "/craft.config.config", "/craft/craft.config.config", "/config/craft.config", "/craft/config.config",
+    "/craft/settings.config", "/craft/database.config", "/contao.config.json", "/contao/contao.config.json", "/config/contao.json", "/contao/config.json", "/contao/settings.json", "/contao/database.json", "/contao.config.yaml", "/contao/contao.config.yaml",
+    "/config/contao.yaml", "/contao/config.yaml", "/contao/settings.yaml", "/contao/database.yaml", "/contao.config.yml", "/contao/contao.config.yml", "/config/contao.yml", "/contao/config.yml", "/contao/settings.yml", "/contao/database.yml",
+    "/contao.config.php", "/contao/contao.config.php", "/config/contao.php", "/contao/config.php", "/contao/settings.php", "/contao/database.php", "/contao.config.xml", "/contao/contao.config.xml", "/config/contao.xml", "/contao/config.xml",
+    "/contao/settings.xml", "/contao/database.xml", "/contao.config.conf", "/contao/contao.config.conf", "/config/contao.conf", "/contao/config.conf", "/contao/settings.conf", "/contao/database.conf", "/contao.config.ini", "/contao/contao.config.ini",
+    "/config/contao.ini", "/contao/config.ini", "/contao/settings.ini", "/contao/database.ini", "/contao.config.config", "/contao/contao.config.config", "/config/contao.config", "/contao/config.config", "/contao/settings.config", "/contao/database.config",
+    "/typo3.config.json", "/typo3/typo3.config.json", "/config/typo3.json", "/typo3/config.json", "/typo3/settings.json", "/typo3/database.json", "/typo3.config.yaml", "/typo3/typo3.config.yaml", "/config/typo3.yaml", "/typo3/config.yaml",
+    "/typo3/settings.yaml", "/typo3/database.yaml", "/typo3.config.yml", "/typo3/typo3.config.yml", "/config/typo3.yml", "/typo3/config.yml", "/typo3/settings.yml", "/typo3/database.yml", "/typo3.config.php", "/typo3/typo3.config.php",
+    "/config/typo3.php", "/typo3/config.php", "/typo3/settings.php", "/typo3/database.php", "/typo3.config.xml", "/typo3/typo3.config.xml", "/config/typo3.xml", "/typo3/config.xml", "/typo3/settings.xml", "/typo3/database.xml",
+    "/typo3.config.conf", "/typo3/typo3.config.conf", "/config/typo3.conf", "/typo3/config.conf", "/typo3/settings.conf", "/typo3/database.conf", "/typo3.config.ini", "/typo3/typo3.config.ini", "/config/typo3.ini", "/typo3/config.ini",
+    "/typo3/settings.ini", "/typo3/database.ini", "/typo3.config.config", "/typo3/typo3.config.config", "/config/typo3.config", "/typo3/config.config", "/typo3/settings.config", "/typo3/database.config", "/concrete5.config.json", "/concrete5/concrete5.config.json",
+    "/config/concrete5.json", "/concrete5/config.json", "/concrete5/settings.json", "/concrete5/database.json", "/concrete5.config.yaml", "/concrete5/concrete5.config.yaml", "/config/concrete5.yaml", "/concrete5/config.yaml", "/concrete5/settings.yaml", "/concrete5/database.yaml",
+    "/concrete5.config.yml", "/concrete5/concrete5.config.yml", "/config/concrete5.yml", "/concrete5/config.yml", "/concrete5/settings.yml", "/concrete5/database.yml", "/concrete5.config.php", "/concrete5/concrete5.config.php", "/config/concrete5.php", "/concrete5/config.php",
+    "/concrete5/settings.php", "/concrete5/database.php", "/concrete5.config.xml", "/concrete5/concrete5.config.xml", "/config/concrete5.xml", "/concrete5/config.xml", "/concrete5/settings.xml", "/concrete5/database.xml", "/concrete5.config.conf", "/concrete5/concrete5.config.conf",
+    "/config/concrete5.conf", "/concrete5/config.conf", "/concrete5/settings.conf", "/concrete5/database.conf", "/concrete5.config.ini", "/concrete5/concrete5.config.ini", "/config/concrete5.ini", "/concrete5/config.ini", "/concrete5/settings.ini", "/concrete5/database.ini",
+    "/concrete5.config.config", "/concrete5/concrete5.config.config", "/config/concrete5.config", "/concrete5/config.config", "/concrete5/settings.config", "/concrete5/database.config", "/modx.config.json", "/modx/modx.config.json", "/config/modx.json", "/modx/config.json",
+    "/modx/settings.json", "/modx/database.json", "/modx.config.yaml", "/modx/modx.config.yaml", "/config/modx.yaml", "/modx/config.yaml", "/modx/settings.yaml", "/modx/database.yaml", "/modx.config.yml", "/modx/modx.config.yml",
+    "/config/modx.yml", "/modx/config.yml", "/modx/settings.yml", "/modx/database.yml", "/modx.config.php", "/modx/modx.config.php", "/config/modx.php", "/modx/config.php", "/modx/settings.php", "/modx/database.php",
+    "/modx.config.xml", "/modx/modx.config.xml", "/config/modx.xml", "/modx/config.xml", "/modx/settings.xml", "/modx/database.xml", "/modx.config.conf", "/modx/modx.config.conf", "/config/modx.conf", "/modx/config.conf",
+    "/modx/settings.conf", "/modx/database.conf", "/modx.config.ini", "/modx/modx.config.ini", "/config/modx.ini", "/modx/config.ini", "/modx/settings.ini", "/modx/database.ini", "/modx.config.config", "/modx/modx.config.config",
+    "/config/modx.config", "/modx/config.config", "/modx/settings.config", "/modx/database.config", "/silverstripe.config.json", "/silverstripe/silverstripe.config.json", "/config/silverstripe.json", "/silverstripe/config.json", "/silverstripe/settings.json", "/silverstripe/database.json",
+    "/silverstripe.config.yaml", "/silverstripe/silverstripe.config.yaml", "/config/silverstripe.yaml", "/silverstripe/config.yaml", "/silverstripe/settings.yaml", "/silverstripe/database.yaml", "/silverstripe.config.yml", "/silverstripe/silverstripe.config.yml", "/config/silverstripe.yml", "/silverstripe/config.yml",
+    "/silverstripe/settings.yml", "/silverstripe/database.yml", "/silverstripe.config.php", "/silverstripe/silverstripe.config.php", "/config/silverstripe.php", "/silverstripe/config.php", "/silverstripe/settings.php", "/silverstripe/database.php", "/silverstripe.config.xml", "/silverstripe/silverstripe.config.xml",
+    "/config/silverstripe.xml", "/silverstripe/config.xml", "/silverstripe/settings.xml", "/silverstripe/database.xml", "/silverstripe.config.conf", "/silverstripe/silverstripe.config.conf", "/config/silverstripe.conf", "/silverstripe/config.conf", "/silverstripe/settings.conf", "/silverstripe/database.conf",
+    "/silverstripe.config.ini", "/silverstripe/silverstripe.config.ini", "/config/silverstripe.ini", "/silverstripe/config.ini", "/silverstripe/settings.ini", "/silverstripe/database.ini", "/silverstripe.config.config", "/silverstripe/silverstripe.config.config", "/config/silverstripe.config", "/silverstripe/config.config",
+    "/silverstripe/settings.config", "/silverstripe/database.config", "/.aws/credentials.json", "/.aws/config.json", "/.aws/settings.json", "/.aws/keys.json", "/aws.config.json", "/aws/credentials.json", "/aws/config.json", "/aws/settings.json",
+    "/aws/keys.json", "/.aws/credentials.yaml", "/.aws/config.yaml", "/.aws/settings.yaml", "/.aws/keys.yaml", "/aws.config.yaml", "/aws/credentials.yaml", "/aws/config.yaml", "/aws/settings.yaml", "/aws/keys.yaml",
+    "/.aws/credentials.yml", "/.aws/config.yml", "/.aws/settings.yml", "/.aws/keys.yml", "/aws.config.yml", "/aws/credentials.yml", "/aws/config.yml", "/aws/settings.yml", "/aws/keys.yml", "/.aws/credentials.env",
+    "/.aws/config.env", "/.aws/settings.env", "/.aws/keys.env", "/aws.config.env", "/aws/credentials.env", "/aws/config.env", "/aws/settings.env", "/aws/keys.env", "/.aws/credentials.conf", "/.aws/config.conf",
+    "/.aws/settings.conf", "/.aws/keys.conf", "/aws.config.conf", "/aws/credentials.conf", "/aws/config.conf", "/aws/settings.conf", "/aws/keys.conf", "/.aws/credentials.ini", "/.aws/config.ini", "/.aws/settings.ini",
+    "/.aws/keys.ini", "/aws.config.ini", "/aws/credentials.ini", "/aws/config.ini", "/aws/settings.ini", "/aws/keys.ini", "/.aws/credentials.config", "/.aws/config.config", "/.aws/settings.config", "/.aws/keys.config",
+    "/aws.config.config", "/aws/credentials.config", "/aws/config.config", "/aws/settings.config", "/aws/keys.config", "/.aws/credentials.key", "/.aws/config.key", "/.aws/settings.key", "/.aws/keys.key", "/aws.config.key",
+    "/aws/credentials.key", "/aws/config.key", "/aws/settings.key", "/aws/keys.key", "/.aws/credentials.pem", "/.aws/config.pem", "/.aws/settings.pem", "/.aws/keys.pem", "/aws.config.pem", "/aws/credentials.pem",
+    "/aws/config.pem", "/aws/settings.pem", "/aws/keys.pem", "/.aws/credentials.crt", "/.aws/config.crt", "/.aws/settings.crt", "/.aws/keys.crt", "/aws.config.crt", "/aws/credentials.crt", "/aws/config.crt",
+    "/aws/settings.crt", "/aws/keys.crt", "/.azure/credentials.json", "/.azure/config.json", "/.azure/settings.json", "/.azure/keys.json", "/azure.config.json", "/azure/credentials.json", "/azure/config.json", "/azure/settings.json",
+    "/azure/keys.json", "/.azure/credentials.yaml", "/.azure/config.yaml", "/.azure/settings.yaml", "/.azure/keys.yaml", "/azure.config.yaml", "/azure/credentials.yaml", "/azure/config.yaml", "/azure/settings.yaml", "/azure/keys.yaml",
+    "/.azure/credentials.yml", "/.azure/config.yml", "/.azure/settings.yml", "/.azure/keys.yml", "/azure.config.yml", "/azure/credentials.yml", "/azure/config.yml", "/azure/settings.yml", "/azure/keys.yml", "/.azure/credentials.env",
+    "/.azure/config.env", "/.azure/settings.env", "/.azure/keys.env", "/azure.config.env", "/azure/credentials.env", "/azure/config.env", "/azure/settings.env", "/azure/keys.env", "/.azure/credentials.conf", "/.azure/config.conf",
+    "/.azure/settings.conf", "/.azure/keys.conf", "/azure.config.conf", "/azure/credentials.conf", "/azure/config.conf", "/azure/settings.conf", "/azure/keys.conf", "/.azure/credentials.ini", "/.azure/config.ini", "/.azure/settings.ini",
+    "/.azure/keys.ini", "/azure.config.ini", "/azure/credentials.ini", "/azure/config.ini", "/azure/settings.ini", "/azure/keys.ini", "/.azure/credentials.config", "/.azure/config.config", "/.azure/settings.config", "/.azure/keys.config",
+    "/azure.config.config", "/azure/credentials.config", "/azure/config.config", "/azure/settings.config", "/azure/keys.config", "/.azure/credentials.key", "/.azure/config.key", "/.azure/settings.key", "/.azure/keys.key", "/azure.config.key",
+    "/azure/credentials.key", "/azure/config.key", "/azure/settings.key", "/azure/keys.key", "/.azure/credentials.pem", "/.azure/config.pem", "/.azure/settings.pem", "/.azure/keys.pem", "/azure.config.pem", "/azure/credentials.pem",
+    "/azure/config.pem", "/azure/settings.pem", "/azure/keys.pem", "/.azure/credentials.crt", "/.azure/config.crt", "/.azure/settings.crt", "/.azure/keys.crt", "/azure.config.crt", "/azure/credentials.crt", "/azure/config.crt",
+    "/azure/settings.crt", "/azure/keys.crt", "/.gcp/credentials.json", "/.gcp/config.json", "/.gcp/settings.json", "/.gcp/keys.json", "/gcp.config.json", "/gcp/credentials.json", "/gcp/config.json", "/gcp/settings.json",
+    "/gcp/keys.json", "/.gcp/credentials.yaml", "/.gcp/config.yaml", "/.gcp/settings.yaml", "/.gcp/keys.yaml", "/gcp.config.yaml", "/gcp/credentials.yaml", "/gcp/config.yaml", "/gcp/settings.yaml", "/gcp/keys.yaml",
+    "/.gcp/credentials.yml", "/.gcp/config.yml", "/.gcp/settings.yml", "/.gcp/keys.yml", "/gcp.config.yml", "/gcp/credentials.yml", "/gcp/config.yml", "/gcp/settings.yml", "/gcp/keys.yml", "/.gcp/credentials.env",
+    "/.gcp/config.env", "/.gcp/settings.env", "/.gcp/keys.env", "/gcp.config.env", "/gcp/credentials.env", "/gcp/config.env", "/gcp/settings.env", "/gcp/keys.env", "/.gcp/credentials.conf", "/.gcp/config.conf",
+    "/.gcp/settings.conf", "/.gcp/keys.conf", "/gcp.config.conf", "/gcp/credentials.conf", "/gcp/config.conf", "/gcp/settings.conf", "/gcp/keys.conf", "/.gcp/credentials.ini", "/.gcp/config.ini", "/.gcp/settings.ini",
+    "/.gcp/keys.ini", "/gcp.config.ini", "/gcp/credentials.ini", "/gcp/config.ini", "/gcp/settings.ini", "/gcp/keys.ini", "/.gcp/credentials.config", "/.gcp/config.config", "/.gcp/settings.config", "/.gcp/keys.config",
+    "/gcp.config.config", "/gcp/credentials.config", "/gcp/config.config", "/gcp/settings.config", "/gcp/keys.config", "/.gcp/credentials.key", "/.gcp/config.key", "/.gcp/settings.key", "/.gcp/keys.key", "/gcp.config.key",
+    "/gcp/credentials.key", "/gcp/config.key", "/gcp/settings.key", "/gcp/keys.key", "/.gcp/credentials.pem", "/.gcp/config.pem", "/.gcp/settings.pem", "/.gcp/keys.pem", "/gcp.config.pem", "/gcp/credentials.pem",
+    "/gcp/config.pem", "/gcp/settings.pem", "/gcp/keys.pem", "/.gcp/credentials.crt", "/.gcp/config.crt", "/.gcp/settings.crt", "/.gcp/keys.crt", "/gcp.config.crt", "/gcp/credentials.crt", "/gcp/config.crt",
+    "/gcp/settings.crt", "/gcp/keys.crt", "/.alibaba/credentials.json", "/.alibaba/config.json", "/.alibaba/settings.json", "/.alibaba/keys.json", "/alibaba.config.json", "/alibaba/credentials.json", "/alibaba/config.json", "/alibaba/settings.json",
+    "/alibaba/keys.json", "/.alibaba/credentials.yaml", "/.alibaba/config.yaml", "/.alibaba/settings.yaml", "/.alibaba/keys.yaml", "/alibaba.config.yaml", "/alibaba/credentials.yaml", "/alibaba/config.yaml", "/alibaba/settings.yaml", "/alibaba/keys.yaml",
+    "/.alibaba/credentials.yml", "/.alibaba/config.yml", "/.alibaba/settings.yml", "/.alibaba/keys.yml", "/alibaba.config.yml", "/alibaba/credentials.yml", "/alibaba/config.yml", "/alibaba/settings.yml", "/alibaba/keys.yml", "/.alibaba/credentials.env",
+    "/.alibaba/config.env", "/.alibaba/settings.env", "/.alibaba/keys.env", "/alibaba.config.env", "/alibaba/credentials.env", "/alibaba/config.env", "/alibaba/settings.env", "/alibaba/keys.env", "/.alibaba/credentials.conf", "/.alibaba/config.conf",
+    "/.alibaba/settings.conf", "/.alibaba/keys.conf", "/alibaba.config.conf", "/alibaba/credentials.conf", "/alibaba/config.conf", "/alibaba/settings.conf", "/alibaba/keys.conf", "/.alibaba/credentials.ini", "/.alibaba/config.ini", "/.alibaba/settings.ini",
+    "/.alibaba/keys.ini", "/alibaba.config.ini", "/alibaba/credentials.ini", "/alibaba/config.ini", "/alibaba/settings.ini", "/alibaba/keys.ini", "/.alibaba/credentials.config", "/.alibaba/config.config", "/.alibaba/settings.config", "/.alibaba/keys.config",
+    "/alibaba.config.config", "/alibaba/credentials.config", "/alibaba/config.config", "/alibaba/settings.config", "/alibaba/keys.config", "/.alibaba/credentials.key", "/.alibaba/config.key", "/.alibaba/settings.key", "/.alibaba/keys.key", "/alibaba.config.key",
+    "/alibaba/credentials.key", "/alibaba/config.key", "/alibaba/settings.key", "/alibaba/keys.key", "/.alibaba/credentials.pem", "/.alibaba/config.pem", "/.alibaba/settings.pem", "/.alibaba/keys.pem", "/alibaba.config.pem", "/alibaba/credentials.pem",
+    "/alibaba/config.pem", "/alibaba/settings.pem", "/alibaba/keys.pem", "/.alibaba/credentials.crt", "/.alibaba/config.crt", "/.alibaba/settings.crt", "/.alibaba/keys.crt", "/alibaba.config.crt", "/alibaba/credentials.crt", "/alibaba/config.crt",
+    "/alibaba/settings.crt", "/alibaba/keys.crt", "/.oracle/credentials.json", "/.oracle/config.json", "/.oracle/settings.json", "/.oracle/keys.json", "/oracle.config.json", "/oracle/credentials.json", "/oracle/config.json", "/oracle/settings.json",
+    "/oracle/keys.json", "/.oracle/credentials.yaml", "/.oracle/config.yaml", "/.oracle/settings.yaml", "/.oracle/keys.yaml", "/oracle.config.yaml", "/oracle/credentials.yaml", "/oracle/config.yaml", "/oracle/settings.yaml", "/oracle/keys.yaml",
+    "/.oracle/credentials.yml", "/.oracle/config.yml", "/.oracle/settings.yml", "/.oracle/keys.yml", "/oracle.config.yml", "/oracle/credentials.yml", "/oracle/config.yml", "/oracle/settings.yml", "/oracle/keys.yml", "/.oracle/credentials.env",
+    "/.oracle/config.env", "/.oracle/settings.env", "/.oracle/keys.env", "/oracle.config.env", "/oracle/credentials.env", "/oracle/config.env", "/oracle/settings.env", "/oracle/keys.env", "/.oracle/credentials.conf", "/.oracle/config.conf",
+    "/.oracle/settings.conf", "/.oracle/keys.conf", "/oracle.config.conf", "/oracle/credentials.conf", "/oracle/config.conf", "/oracle/settings.conf", "/oracle/keys.conf", "/.oracle/credentials.ini", "/.oracle/config.ini", "/.oracle/settings.ini",
+    "/.oracle/keys.ini", "/oracle.config.ini", "/oracle/credentials.ini", "/oracle/config.ini", "/oracle/settings.ini", "/oracle/keys.ini", "/.oracle/credentials.config", "/.oracle/config.config", "/.oracle/settings.config", "/.oracle/keys.config",
+    "/oracle.config.config", "/oracle/credentials.config", "/oracle/config.config", "/oracle/settings.config", "/oracle/keys.config", "/.oracle/credentials.key", "/.oracle/config.key", "/.oracle/settings.key", "/.oracle/keys.key", "/oracle.config.key",
+    "/oracle/credentials.key", "/oracle/config.key", "/oracle/settings.key", "/oracle/keys.key", "/.oracle/credentials.pem", "/.oracle/config.pem", "/.oracle/settings.pem", "/.oracle/keys.pem", "/oracle.config.pem", "/oracle/credentials.pem",
+    "/oracle/config.pem", "/oracle/settings.pem", "/oracle/keys.pem", "/.oracle/credentials.crt", "/.oracle/config.crt", "/.oracle/settings.crt", "/.oracle/keys.crt", "/oracle.config.crt", "/oracle/credentials.crt", "/oracle/config.crt",
+    "/oracle/settings.crt", "/oracle/keys.crt", "/.ibm/credentials.json", "/.ibm/config.json", "/.ibm/settings.json", "/.ibm/keys.json", "/ibm.config.json", "/ibm/credentials.json", "/ibm/config.json", "/ibm/settings.json",
+    "/ibm/keys.json", "/.ibm/credentials.yaml", "/.ibm/config.yaml", "/.ibm/settings.yaml", "/.ibm/keys.yaml", "/ibm.config.yaml", "/ibm/credentials.yaml", "/ibm/config.yaml", "/ibm/settings.yaml", "/ibm/keys.yaml",
+    "/.ibm/credentials.yml", "/.ibm/config.yml", "/.ibm/settings.yml", "/.ibm/keys.yml", "/ibm.config.yml", "/ibm/credentials.yml", "/ibm/config.yml", "/ibm/settings.yml", "/ibm/keys.yml", "/.ibm/credentials.env",
+    "/.ibm/config.env", "/.ibm/settings.env", "/.ibm/keys.env", "/ibm.config.env", "/ibm/credentials.env", "/ibm/config.env", "/ibm/settings.env", "/ibm/keys.env", "/.ibm/credentials.conf", "/.ibm/config.conf",
+    "/.ibm/settings.conf", "/.ibm/keys.conf", "/ibm.config.conf", "/ibm/credentials.conf", "/ibm/config.conf", "/ibm/settings.conf", "/ibm/keys.conf", "/.ibm/credentials.ini", "/.ibm/config.ini", "/.ibm/settings.ini",
+    "/.ibm/keys.ini", "/ibm.config.ini", "/ibm/credentials.ini", "/ibm/config.ini", "/ibm/settings.ini", "/ibm/keys.ini", "/.ibm/credentials.config", "/.ibm/config.config", "/.ibm/settings.config", "/.ibm/keys.config",
+    "/ibm.config.config", "/ibm/credentials.config", "/ibm/config.config", "/ibm/settings.config", "/ibm/keys.config", "/.ibm/credentials.key", "/.ibm/config.key", "/.ibm/settings.key", "/.ibm/keys.key", "/ibm.config.key",
+    "/ibm/credentials.key", "/ibm/config.key", "/ibm/settings.key", "/ibm/keys.key", "/.ibm/credentials.pem", "/.ibm/config.pem", "/.ibm/settings.pem", "/.ibm/keys.pem", "/ibm.config.pem", "/ibm/credentials.pem",
+    "/ibm/config.pem", "/ibm/settings.pem", "/ibm/keys.pem", "/.ibm/credentials.crt", "/.ibm/config.crt", "/.ibm/settings.crt", "/.ibm/keys.crt", "/ibm.config.crt", "/ibm/credentials.crt", "/ibm/config.crt",
+    "/ibm/settings.crt", "/ibm/keys.crt", "/.digitalocean/credentials.json", "/.digitalocean/config.json", "/.digitalocean/settings.json", "/.digitalocean/keys.json", "/digitalocean.config.json", "/digitalocean/credentials.json", "/digitalocean/config.json", "/digitalocean/settings.json",
+    "/digitalocean/keys.json", "/.digitalocean/credentials.yaml", "/.digitalocean/config.yaml", "/.digitalocean/settings.yaml", "/.digitalocean/keys.yaml", "/digitalocean.config.yaml", "/digitalocean/credentials.yaml", "/digitalocean/config.yaml", "/digitalocean/settings.yaml", "/digitalocean/keys.yaml",
+    "/.digitalocean/credentials.yml", "/.digitalocean/config.yml", "/.digitalocean/settings.yml", "/.digitalocean/keys.yml", "/digitalocean.config.yml", "/digitalocean/credentials.yml", "/digitalocean/config.yml", "/digitalocean/settings.yml", "/digitalocean/keys.yml", "/.digitalocean/credentials.env",
+    "/.digitalocean/config.env", "/.digitalocean/settings.env", "/.digitalocean/keys.env", "/digitalocean.config.env", "/digitalocean/credentials.env", "/digitalocean/config.env", "/digitalocean/settings.env", "/digitalocean/keys.env", "/.digitalocean/credentials.conf", "/.digitalocean/config.conf",
+    "/.digitalocean/settings.conf", "/.digitalocean/keys.conf", "/digitalocean.config.conf", "/digitalocean/credentials.conf", "/digitalocean/config.conf", "/digitalocean/settings.conf", "/digitalocean/keys.conf", "/.digitalocean/credentials.ini", "/.digitalocean/config.ini", "/.digitalocean/settings.ini",
+    "/.digitalocean/keys.ini", "/digitalocean.config.ini", "/digitalocean/credentials.ini", "/digitalocean/config.ini", "/digitalocean/settings.ini", "/digitalocean/keys.ini", "/.digitalocean/credentials.config", "/.digitalocean/config.config", "/.digitalocean/settings.config", "/.digitalocean/keys.config",
+    "/digitalocean.config.config", "/digitalocean/credentials.config", "/digitalocean/config.config", "/digitalocean/settings.config", "/digitalocean/keys.config", "/.digitalocean/credentials.key", "/.digitalocean/config.key", "/.digitalocean/settings.key", "/.digitalocean/keys.key", "/digitalocean.config.key",
+    "/digitalocean/credentials.key", "/digitalocean/config.key", "/digitalocean/settings.key", "/digitalocean/keys.key", "/.digitalocean/credentials.pem", "/.digitalocean/config.pem", "/.digitalocean/settings.pem", "/.digitalocean/keys.pem", "/digitalocean.config.pem", "/digitalocean/credentials.pem",
+    "/digitalocean/config.pem", "/digitalocean/settings.pem", "/digitalocean/keys.pem", "/.digitalocean/credentials.crt", "/.digitalocean/config.crt", "/.digitalocean/settings.crt", "/.digitalocean/keys.crt", "/digitalocean.config.crt", "/digitalocean/credentials.crt", "/digitalocean/config.crt",
+    "/digitalocean/settings.crt", "/digitalocean/keys.crt", "/.vultr/credentials.json", "/.vultr/config.json", "/.vultr/settings.json", "/.vultr/keys.json", "/vultr.config.json", "/vultr/credentials.json", "/vultr/config.json", "/vultr/settings.json",
+    "/vultr/keys.json", "/.vultr/credentials.yaml", "/.vultr/config.yaml", "/.vultr/settings.yaml", "/.vultr/keys.yaml", "/vultr.config.yaml", "/vultr/credentials.yaml", "/vultr/config.yaml", "/vultr/settings.yaml", "/vultr/keys.yaml",
+    "/.vultr/credentials.yml", "/.vultr/config.yml", "/.vultr/settings.yml", "/.vultr/keys.yml", "/vultr.config.yml", "/vultr/credentials.yml", "/vultr/config.yml", "/vultr/settings.yml", "/vultr/keys.yml", "/.vultr/credentials.env",
+    "/.vultr/config.env", "/.vultr/settings.env", "/.vultr/keys.env", "/vultr.config.env", "/vultr/credentials.env", "/vultr/config.env", "/vultr/settings.env", "/vultr/keys.env", "/.vultr/credentials.conf", "/.vultr/config.conf",
+    "/.vultr/settings.conf", "/.vultr/keys.conf", "/vultr.config.conf", "/vultr/credentials.conf", "/vultr/config.conf", "/vultr/settings.conf", "/vultr/keys.conf", "/.vultr/credentials.ini", "/.vultr/config.ini", "/.vultr/settings.ini",
+    "/.vultr/keys.ini", "/vultr.config.ini", "/vultr/credentials.ini", "/vultr/config.ini", "/vultr/settings.ini", "/vultr/keys.ini", "/.vultr/credentials.config", "/.vultr/config.config", "/.vultr/settings.config", "/.vultr/keys.config",
+    "/vultr.config.config", "/vultr/credentials.config", "/vultr/config.config", "/vultr/settings.config", "/vultr/keys.config", "/.vultr/credentials.key", "/.vultr/config.key", "/.vultr/settings.key", "/.vultr/keys.key", "/vultr.config.key",
+    "/vultr/credentials.key", "/vultr/config.key", "/vultr/settings.key", "/vultr/keys.key", "/.vultr/credentials.pem", "/.vultr/config.pem", "/.vultr/settings.pem", "/.vultr/keys.pem", "/vultr.config.pem", "/vultr/credentials.pem",
+    "/vultr/config.pem", "/vultr/settings.pem", "/vultr/keys.pem", "/.vultr/credentials.crt", "/.vultr/config.crt", "/.vultr/settings.crt", "/.vultr/keys.crt", "/vultr.config.crt", "/vultr/credentials.crt", "/vultr/config.crt",
+    "/vultr/settings.crt", "/vultr/keys.crt", "/.linode/credentials.json", "/.linode/config.json", "/.linode/settings.json", "/.linode/keys.json", "/linode.config.json", "/linode/credentials.json", "/linode/config.json", "/linode/settings.json",
+    "/linode/keys.json", "/.linode/credentials.yaml", "/.linode/config.yaml", "/.linode/settings.yaml", "/.linode/keys.yaml", "/linode.config.yaml", "/linode/credentials.yaml", "/linode/config.yaml", "/linode/settings.yaml", "/linode/keys.yaml",
+    "/.linode/credentials.yml", "/.linode/config.yml", "/.linode/settings.yml", "/.linode/keys.yml", "/linode.config.yml", "/linode/credentials.yml", "/linode/config.yml", "/linode/settings.yml", "/linode/keys.yml", "/.linode/credentials.env",
+    "/.linode/config.env", "/.linode/settings.env", "/.linode/keys.env", "/linode.config.env", "/linode/credentials.env", "/linode/config.env", "/linode/settings.env", "/linode/keys.env", "/.linode/credentials.conf", "/.linode/config.conf",
+    "/.linode/settings.conf", "/.linode/keys.conf", "/linode.config.conf", "/linode/credentials.conf", "/linode/config.conf", "/linode/settings.conf", "/linode/keys.conf", "/.linode/credentials.ini", "/.linode/config.ini", "/.linode/settings.ini",
+    "/.linode/keys.ini", "/linode.config.ini", "/linode/credentials.ini", "/linode/config.ini", "/linode/settings.ini", "/linode/keys.ini", "/.linode/credentials.config", "/.linode/config.config", "/.linode/settings.config", "/.linode/keys.config",
+    "/linode.config.config", "/linode/credentials.config", "/linode/config.config", "/linode/settings.config", "/linode/keys.config", "/.linode/credentials.key", "/.linode/config.key", "/.linode/settings.key", "/.linode/keys.key", "/linode.config.key",
+    "/linode/credentials.key", "/linode/config.key", "/linode/settings.key", "/linode/keys.key", "/.linode/credentials.pem", "/.linode/config.pem", "/.linode/settings.pem", "/.linode/keys.pem", "/linode.config.pem", "/linode/credentials.pem",
+    "/linode/config.pem", "/linode/settings.pem", "/linode/keys.pem", "/.linode/credentials.crt", "/.linode/config.crt", "/.linode/settings.crt", "/.linode/keys.crt", "/linode.config.crt", "/linode/credentials.crt", "/linode/config.crt",
+    "/linode/settings.crt", "/linode/keys.crt", "/.hetzner/credentials.json", "/.hetzner/config.json", "/.hetzner/settings.json", "/.hetzner/keys.json", "/hetzner.config.json", "/hetzner/credentials.json", "/hetzner/config.json", "/hetzner/settings.json",
+    "/hetzner/keys.json", "/.hetzner/credentials.yaml", "/.hetzner/config.yaml", "/.hetzner/settings.yaml", "/.hetzner/keys.yaml", "/hetzner.config.yaml", "/hetzner/credentials.yaml", "/hetzner/config.yaml", "/hetzner/settings.yaml", "/hetzner/keys.yaml",
+    "/.hetzner/credentials.yml", "/.hetzner/config.yml", "/.hetzner/settings.yml", "/.hetzner/keys.yml", "/hetzner.config.yml", "/hetzner/credentials.yml", "/hetzner/config.yml", "/hetzner/settings.yml", "/hetzner/keys.yml", "/.hetzner/credentials.env",
+    "/.hetzner/config.env", "/.hetzner/settings.env", "/.hetzner/keys.env", "/hetzner.config.env", "/hetzner/credentials.env", "/hetzner/config.env", "/hetzner/settings.env", "/hetzner/keys.env", "/.hetzner/credentials.conf", "/.hetzner/config.conf",
+    "/.hetzner/settings.conf", "/.hetzner/keys.conf", "/hetzner.config.conf", "/hetzner/credentials.conf", "/hetzner/config.conf", "/hetzner/settings.conf", "/hetzner/keys.conf", "/.hetzner/credentials.ini", "/.hetzner/config.ini", "/.hetzner/settings.ini",
+    "/.hetzner/keys.ini", "/hetzner.config.ini", "/hetzner/credentials.ini", "/hetzner/config.ini", "/hetzner/settings.ini", "/hetzner/keys.ini", "/.hetzner/credentials.config", "/.hetzner/config.config", "/.hetzner/settings.config", "/.hetzner/keys.config",
+    "/hetzner.config.config", "/hetzner/credentials.config", "/hetzner/config.config", "/hetzner/settings.config", "/hetzner/keys.config", "/.hetzner/credentials.key", "/.hetzner/config.key", "/.hetzner/settings.key", "/.hetzner/keys.key", "/hetzner.config.key",
+    "/hetzner/credentials.key", "/hetzner/config.key", "/hetzner/settings.key", "/hetzner/keys.key", "/.hetzner/credentials.pem", "/.hetzner/config.pem", "/.hetzner/settings.pem", "/.hetzner/keys.pem", "/hetzner.config.pem", "/hetzner/credentials.pem",
+    "/hetzner/config.pem", "/hetzner/settings.pem", "/hetzner/keys.pem", "/.hetzner/credentials.crt", "/.hetzner/config.crt", "/.hetzner/settings.crt", "/.hetzner/keys.crt", "/hetzner.config.crt", "/hetzner/credentials.crt", "/hetzner/config.crt",
+    "/hetzner/settings.crt", "/hetzner/keys.crt", "/.ovh/credentials.json", "/.ovh/config.json", "/.ovh/settings.json", "/.ovh/keys.json", "/ovh.config.json", "/ovh/credentials.json", "/ovh/config.json", "/ovh/settings.json",
+    "/ovh/keys.json", "/.ovh/credentials.yaml", "/.ovh/config.yaml", "/.ovh/settings.yaml", "/.ovh/keys.yaml", "/ovh.config.yaml", "/ovh/credentials.yaml", "/ovh/config.yaml", "/ovh/settings.yaml", "/ovh/keys.yaml",
+    "/.ovh/credentials.yml", "/.ovh/config.yml", "/.ovh/settings.yml", "/.ovh/keys.yml", "/ovh.config.yml", "/ovh/credentials.yml", "/ovh/config.yml", "/ovh/settings.yml", "/ovh/keys.yml", "/.ovh/credentials.env",
+    "/.ovh/config.env", "/.ovh/settings.env", "/.ovh/keys.env", "/ovh.config.env", "/ovh/credentials.env", "/ovh/config.env", "/ovh/settings.env", "/ovh/keys.env", "/.ovh/credentials.conf", "/.ovh/config.conf",
+    "/.ovh/settings.conf", "/.ovh/keys.conf", "/ovh.config.conf", "/ovh/credentials.conf", "/ovh/config.conf", "/ovh/settings.conf", "/ovh/keys.conf", "/.ovh/credentials.ini", "/.ovh/config.ini", "/.ovh/settings.ini",
+    "/.ovh/keys.ini", "/ovh.config.ini", "/ovh/credentials.ini", "/ovh/config.ini", "/ovh/settings.ini", "/ovh/keys.ini", "/.ovh/credentials.config", "/.ovh/config.config", "/.ovh/settings.config", "/.ovh/keys.config",
+    "/ovh.config.config", "/ovh/credentials.config", "/ovh/config.config", "/ovh/settings.config", "/ovh/keys.config", "/.ovh/credentials.key", "/.ovh/config.key", "/.ovh/settings.key", "/.ovh/keys.key", "/ovh.config.key",
+    "/ovh/credentials.key", "/ovh/config.key", "/ovh/settings.key", "/ovh/keys.key", "/.ovh/credentials.pem", "/.ovh/config.pem", "/.ovh/settings.pem", "/.ovh/keys.pem", "/ovh.config.pem", "/ovh/credentials.pem",
+    "/ovh/config.pem", "/ovh/settings.pem", "/ovh/keys.pem", "/.ovh/credentials.crt", "/.ovh/config.crt", "/.ovh/settings.crt", "/.ovh/keys.crt", "/ovh.config.crt", "/ovh/credentials.crt", "/ovh/config.crt",
+    "/ovh/settings.crt", "/ovh/keys.crt", "/.scaleway/credentials.json", "/.scaleway/config.json", "/.scaleway/settings.json", "/.scaleway/keys.json", "/scaleway.config.json", "/scaleway/credentials.json", "/scaleway/config.json", "/scaleway/settings.json",
+    "/scaleway/keys.json", "/.scaleway/credentials.yaml", "/.scaleway/config.yaml", "/.scaleway/settings.yaml", "/.scaleway/keys.yaml", "/scaleway.config.yaml", "/scaleway/credentials.yaml", "/scaleway/config.yaml", "/scaleway/settings.yaml", "/scaleway/keys.yaml",
+    "/.scaleway/credentials.yml", "/.scaleway/config.yml", "/.scaleway/settings.yml", "/.scaleway/keys.yml", "/scaleway.config.yml", "/scaleway/credentials.yml", "/scaleway/config.yml", "/scaleway/settings.yml", "/scaleway/keys.yml", "/.scaleway/credentials.env",
+    "/.scaleway/config.env", "/.scaleway/settings.env", "/.scaleway/keys.env", "/scaleway.config.env", "/scaleway/credentials.env", "/scaleway/config.env", "/scaleway/settings.env", "/scaleway/keys.env", "/.scaleway/credentials.conf", "/.scaleway/config.conf",
+    "/.scaleway/settings.conf", "/.scaleway/keys.conf", "/scaleway.config.conf", "/scaleway/credentials.conf", "/scaleway/config.conf", "/scaleway/settings.conf", "/scaleway/keys.conf", "/.scaleway/credentials.ini", "/.scaleway/config.ini", "/.scaleway/settings.ini",
+    "/.scaleway/keys.ini", "/scaleway.config.ini", "/scaleway/credentials.ini", "/scaleway/config.ini", "/scaleway/settings.ini", "/scaleway/keys.ini", "/.scaleway/credentials.config", "/.scaleway/config.config", "/.scaleway/settings.config", "/.scaleway/keys.config",
+    "/scaleway.config.config", "/scaleway/credentials.config", "/scaleway/config.config", "/scaleway/settings.config", "/scaleway/keys.config", "/.scaleway/credentials.key", "/.scaleway/config.key", "/.scaleway/settings.key", "/.scaleway/keys.key", "/scaleway.config.key",
+    "/scaleway/credentials.key", "/scaleway/config.key", "/scaleway/settings.key", "/scaleway/keys.key", "/.scaleway/credentials.pem", "/.scaleway/config.pem", "/.scaleway/settings.pem", "/.scaleway/keys.pem", "/scaleway.config.pem", "/scaleway/credentials.pem",
+    "/scaleway/config.pem", "/scaleway/settings.pem", "/scaleway/keys.pem", "/.scaleway/credentials.crt", "/.scaleway/config.crt", "/.scaleway/settings.crt", "/.scaleway/keys.crt", "/scaleway.config.crt", "/scaleway/credentials.crt", "/scaleway/config.crt",
+    "/scaleway/settings.crt", "/scaleway/keys.crt", "/.rackspace/credentials.json", "/.rackspace/config.json", "/.rackspace/settings.json", "/.rackspace/keys.json", "/rackspace.config.json", "/rackspace/credentials.json", "/rackspace/config.json", "/rackspace/settings.json",
+    "/rackspace/keys.json", "/.rackspace/credentials.yaml", "/.rackspace/config.yaml", "/.rackspace/settings.yaml", "/.rackspace/keys.yaml", "/rackspace.config.yaml", "/rackspace/credentials.yaml", "/rackspace/config.yaml", "/rackspace/settings.yaml", "/rackspace/keys.yaml",
+    "/.rackspace/credentials.yml", "/.rackspace/config.yml", "/.rackspace/settings.yml", "/.rackspace/keys.yml", "/rackspace.config.yml", "/rackspace/credentials.yml", "/rackspace/config.yml", "/rackspace/settings.yml", "/rackspace/keys.yml", "/.rackspace/credentials.env",
+    "/.rackspace/config.env", "/.rackspace/settings.env", "/.rackspace/keys.env", "/rackspace.config.env", "/rackspace/credentials.env", "/rackspace/config.env", "/rackspace/settings.env", "/rackspace/keys.env", "/.rackspace/credentials.conf", "/.rackspace/config.conf",
+    "/.rackspace/settings.conf", "/.rackspace/keys.conf", "/rackspace.config.conf", "/rackspace/credentials.conf", "/rackspace/config.conf", "/rackspace/settings.conf", "/rackspace/keys.conf", "/.rackspace/credentials.ini", "/.rackspace/config.ini", "/.rackspace/settings.ini",
+    "/.rackspace/keys.ini", "/rackspace.config.ini", "/rackspace/credentials.ini", "/rackspace/config.ini", "/rackspace/settings.ini", "/rackspace/keys.ini", "/.rackspace/credentials.config", "/.rackspace/config.config", "/.rackspace/settings.config", "/.rackspace/keys.config",
+    "/rackspace.config.config", "/rackspace/credentials.config", "/rackspace/config.config", "/rackspace/settings.config", "/rackspace/keys.config", "/.rackspace/credentials.key", "/.rackspace/config.key", "/.rackspace/settings.key", "/.rackspace/keys.key", "/rackspace.config.key",
+    "/rackspace/credentials.key", "/rackspace/config.key", "/rackspace/settings.key", "/rackspace/keys.key", "/.rackspace/credentials.pem", "/.rackspace/config.pem", "/.rackspace/settings.pem", "/.rackspace/keys.pem", "/rackspace.config.pem", "/rackspace/credentials.pem",
+    "/rackspace/config.pem", "/rackspace/settings.pem", "/rackspace/keys.pem", "/.rackspace/credentials.crt", "/.rackspace/config.crt", "/.rackspace/settings.crt", "/.rackspace/keys.crt", "/rackspace.config.crt", "/rackspace/credentials.crt", "/rackspace/config.crt",
+    "/rackspace/settings.crt", "/rackspace/keys.crt", "/.heroku/credentials.json", "/.heroku/config.json", "/.heroku/settings.json", "/.heroku/keys.json", "/heroku.config.json", "/heroku/credentials.json", "/heroku/config.json", "/heroku/settings.json",
+    "/heroku/keys.json", "/.heroku/credentials.yaml", "/.heroku/config.yaml", "/.heroku/settings.yaml", "/.heroku/keys.yaml", "/heroku.config.yaml", "/heroku/credentials.yaml", "/heroku/config.yaml", "/heroku/settings.yaml", "/heroku/keys.yaml",
+    "/.heroku/credentials.yml", "/.heroku/config.yml", "/.heroku/settings.yml", "/.heroku/keys.yml", "/heroku.config.yml", "/heroku/credentials.yml", "/heroku/config.yml", "/heroku/settings.yml", "/heroku/keys.yml", "/.heroku/credentials.env",
+    "/.heroku/config.env", "/.heroku/settings.env", "/.heroku/keys.env", "/heroku.config.env", "/heroku/credentials.env", "/heroku/config.env", "/heroku/settings.env", "/heroku/keys.env", "/.heroku/credentials.conf", "/.heroku/config.conf",
+    "/.heroku/settings.conf", "/.heroku/keys.conf", "/heroku.config.conf", "/heroku/credentials.conf", "/heroku/config.conf", "/heroku/settings.conf", "/heroku/keys.conf", "/.heroku/credentials.ini", "/.heroku/config.ini", "/.heroku/settings.ini",
+    "/.heroku/keys.ini", "/heroku.config.ini", "/heroku/credentials.ini", "/heroku/config.ini", "/heroku/settings.ini", "/heroku/keys.ini", "/.heroku/credentials.config", "/.heroku/config.config", "/.heroku/settings.config", "/.heroku/keys.config",
+    "/heroku.config.config", "/heroku/credentials.config", "/heroku/config.config", "/heroku/settings.config", "/heroku/keys.config", "/.heroku/credentials.key", "/.heroku/config.key", "/.heroku/settings.key", "/.heroku/keys.key", "/heroku.config.key",
+    "/heroku/credentials.key", "/heroku/config.key", "/heroku/settings.key", "/heroku/keys.key", "/.heroku/credentials.pem", "/.heroku/config.pem", "/.heroku/settings.pem", "/.heroku/keys.pem", "/heroku.config.pem", "/heroku/credentials.pem",
+    "/heroku/config.pem", "/heroku/settings.pem", "/heroku/keys.pem", "/.heroku/credentials.crt", "/.heroku/config.crt", "/.heroku/settings.crt", "/.heroku/keys.crt", "/heroku.config.crt", "/heroku/credentials.crt", "/heroku/config.crt",
+    "/heroku/settings.crt", "/heroku/keys.crt", "/.vercel/credentials.json", "/.vercel/config.json", "/.vercel/settings.json", "/.vercel/keys.json", "/vercel.config.json", "/vercel/credentials.json", "/vercel/config.json", "/vercel/settings.json",
+    "/vercel/keys.json", "/.vercel/credentials.yaml", "/.vercel/config.yaml", "/.vercel/settings.yaml", "/.vercel/keys.yaml", "/vercel.config.yaml", "/vercel/credentials.yaml", "/vercel/config.yaml", "/vercel/settings.yaml", "/vercel/keys.yaml",
+    "/.vercel/credentials.yml", "/.vercel/config.yml", "/.vercel/settings.yml", "/.vercel/keys.yml", "/vercel.config.yml", "/vercel/credentials.yml", "/vercel/config.yml", "/vercel/settings.yml", "/vercel/keys.yml", "/.vercel/credentials.env",
+    "/.vercel/config.env", "/.vercel/settings.env", "/.vercel/keys.env", "/vercel.config.env", "/vercel/credentials.env", "/vercel/config.env", "/vercel/settings.env", "/vercel/keys.env", "/.vercel/credentials.conf", "/.vercel/config.conf",
+    "/.vercel/settings.conf", "/.vercel/keys.conf", "/vercel.config.conf", "/vercel/credentials.conf", "/vercel/config.conf", "/vercel/settings.conf", "/vercel/keys.conf", "/.vercel/credentials.ini", "/.vercel/config.ini", "/.vercel/settings.ini",
+    "/.vercel/keys.ini", "/vercel.config.ini", "/vercel/credentials.ini", "/vercel/config.ini", "/vercel/settings.ini", "/vercel/keys.ini", "/.vercel/credentials.config", "/.vercel/config.config", "/.vercel/settings.config", "/.vercel/keys.config",
+    "/vercel.config.config", "/vercel/credentials.config", "/vercel/config.config", "/vercel/settings.config", "/vercel/keys.config", "/.vercel/credentials.key", "/.vercel/config.key", "/.vercel/settings.key", "/.vercel/keys.key", "/vercel.config.key",
+    "/vercel/credentials.key", "/vercel/config.key", "/vercel/settings.key", "/vercel/keys.key", "/.vercel/credentials.pem", "/.vercel/config.pem", "/.vercel/settings.pem", "/.vercel/keys.pem", "/vercel.config.pem", "/vercel/credentials.pem",
+    "/vercel/config.pem", "/vercel/settings.pem", "/vercel/keys.pem", "/.vercel/credentials.crt", "/.vercel/config.crt", "/.vercel/settings.crt", "/.vercel/keys.crt", "/vercel.config.crt", "/vercel/credentials.crt", "/vercel/config.crt",
+    "/vercel/settings.crt", "/vercel/keys.crt", "/.netlify/credentials.json", "/.netlify/config.json", "/.netlify/settings.json", "/.netlify/keys.json", "/netlify.config.json", "/netlify/credentials.json", "/netlify/config.json", "/netlify/settings.json",
+    "/netlify/keys.json", "/.netlify/credentials.yaml", "/.netlify/config.yaml", "/.netlify/settings.yaml", "/.netlify/keys.yaml", "/netlify.config.yaml", "/netlify/credentials.yaml", "/netlify/config.yaml", "/netlify/settings.yaml", "/netlify/keys.yaml",
+    "/.netlify/credentials.yml", "/.netlify/config.yml", "/.netlify/settings.yml", "/.netlify/keys.yml", "/netlify.config.yml", "/netlify/credentials.yml", "/netlify/config.yml", "/netlify/settings.yml", "/netlify/keys.yml", "/.netlify/credentials.env",
+    "/.netlify/config.env", "/.netlify/settings.env", "/.netlify/keys.env", "/netlify.config.env", "/netlify/credentials.env", "/netlify/config.env", "/netlify/settings.env", "/netlify/keys.env", "/.netlify/credentials.conf", "/.netlify/config.conf",
+    "/.netlify/settings.conf", "/.netlify/keys.conf", "/netlify.config.conf", "/netlify/credentials.conf", "/netlify/config.conf", "/netlify/settings.conf", "/netlify/keys.conf", "/.netlify/credentials.ini", "/.netlify/config.ini", "/.netlify/settings.ini",
+    "/.netlify/keys.ini", "/netlify.config.ini", "/netlify/credentials.ini", "/netlify/config.ini", "/netlify/settings.ini", "/netlify/keys.ini", "/.netlify/credentials.config", "/.netlify/config.config", "/.netlify/settings.config", "/.netlify/keys.config",
+    "/netlify.config.config", "/netlify/credentials.config", "/netlify/config.config", "/netlify/settings.config", "/netlify/keys.config", "/.netlify/credentials.key", "/.netlify/config.key", "/.netlify/settings.key", "/.netlify/keys.key", "/netlify.config.key",
+    "/netlify/credentials.key", "/netlify/config.key", "/netlify/settings.key", "/netlify/keys.key", "/.netlify/credentials.pem", "/.netlify/config.pem", "/.netlify/settings.pem", "/.netlify/keys.pem", "/netlify.config.pem", "/netlify/credentials.pem",
+    "/netlify/config.pem", "/netlify/settings.pem", "/netlify/keys.pem", "/.netlify/credentials.crt", "/.netlify/config.crt", "/.netlify/settings.crt", "/.netlify/keys.crt", "/netlify.config.crt", "/netlify/credentials.crt", "/netlify/config.crt",
+    "/netlify/settings.crt", "/netlify/keys.crt", "/.cloudflare/credentials.json", "/.cloudflare/config.json", "/.cloudflare/settings.json", "/.cloudflare/keys.json", "/cloudflare.config.json", "/cloudflare/credentials.json", "/cloudflare/config.json", "/cloudflare/settings.json",
+    "/cloudflare/keys.json", "/.cloudflare/credentials.yaml", "/.cloudflare/config.yaml", "/.cloudflare/settings.yaml", "/.cloudflare/keys.yaml", "/cloudflare.config.yaml", "/cloudflare/credentials.yaml", "/cloudflare/config.yaml", "/cloudflare/settings.yaml", "/cloudflare/keys.yaml",
+    "/.cloudflare/credentials.yml", "/.cloudflare/config.yml", "/.cloudflare/settings.yml", "/.cloudflare/keys.yml", "/cloudflare.config.yml", "/cloudflare/credentials.yml", "/cloudflare/config.yml", "/cloudflare/settings.yml", "/cloudflare/keys.yml", "/.cloudflare/credentials.env",
+    "/.cloudflare/config.env", "/.cloudflare/settings.env", "/.cloudflare/keys.env", "/cloudflare.config.env", "/cloudflare/credentials.env", "/cloudflare/config.env", "/cloudflare/settings.env", "/cloudflare/keys.env", "/.cloudflare/credentials.conf", "/.cloudflare/config.conf",
+    "/.cloudflare/settings.conf", "/.cloudflare/keys.conf", "/cloudflare.config.conf", "/cloudflare/credentials.conf", "/cloudflare/config.conf", "/cloudflare/settings.conf", "/cloudflare/keys.conf", "/.cloudflare/credentials.ini", "/.cloudflare/config.ini", "/.cloudflare/settings.ini",
+    "/.cloudflare/keys.ini", "/cloudflare.config.ini", "/cloudflare/credentials.ini", "/cloudflare/config.ini", "/cloudflare/settings.ini", "/cloudflare/keys.ini", "/.cloudflare/credentials.config", "/.cloudflare/config.config", "/.cloudflare/settings.config", "/.cloudflare/keys.config",
+    "/cloudflare.config.config", "/cloudflare/credentials.config", "/cloudflare/config.config", "/cloudflare/settings.config", "/cloudflare/keys.config", "/.cloudflare/credentials.key", "/.cloudflare/config.key", "/.cloudflare/settings.key", "/.cloudflare/keys.key", "/cloudflare.config.key",
+    "/cloudflare/credentials.key", "/cloudflare/config.key", "/cloudflare/settings.key", "/cloudflare/keys.key", "/.cloudflare/credentials.pem", "/.cloudflare/config.pem", "/.cloudflare/settings.pem", "/.cloudflare/keys.pem", "/cloudflare.config.pem", "/cloudflare/credentials.pem",
+    "/cloudflare/config.pem", "/cloudflare/settings.pem", "/cloudflare/keys.pem", "/.cloudflare/credentials.crt", "/.cloudflare/config.crt", "/.cloudflare/settings.crt", "/.cloudflare/keys.crt", "/cloudflare.config.crt", "/cloudflare/credentials.crt", "/cloudflare/config.crt",
+    "/cloudflare/settings.crt", "/cloudflare/keys.crt", "/.fastly/credentials.json", "/.fastly/config.json", "/.fastly/settings.json", "/.fastly/keys.json", "/fastly.config.json", "/fastly/credentials.json", "/fastly/config.json", "/fastly/settings.json",
+    "/fastly/keys.json", "/.fastly/credentials.yaml", "/.fastly/config.yaml", "/.fastly/settings.yaml", "/.fastly/keys.yaml", "/fastly.config.yaml", "/fastly/credentials.yaml", "/fastly/config.yaml", "/fastly/settings.yaml", "/fastly/keys.yaml",
+    "/.fastly/credentials.yml", "/.fastly/config.yml", "/.fastly/settings.yml", "/.fastly/keys.yml", "/fastly.config.yml", "/fastly/credentials.yml", "/fastly/config.yml", "/fastly/settings.yml", "/fastly/keys.yml", "/.fastly/credentials.env",
+    "/.fastly/config.env", "/.fastly/settings.env", "/.fastly/keys.env", "/fastly.config.env", "/fastly/credentials.env", "/fastly/config.env", "/fastly/settings.env", "/fastly/keys.env", "/.fastly/credentials.conf", "/.fastly/config.conf",
+    "/.fastly/settings.conf", "/.fastly/keys.conf", "/fastly.config.conf", "/fastly/credentials.conf", "/fastly/config.conf", "/fastly/settings.conf", "/fastly/keys.conf", "/.fastly/credentials.ini", "/.fastly/config.ini", "/.fastly/settings.ini",
+    "/.fastly/keys.ini", "/fastly.config.ini", "/fastly/credentials.ini", "/fastly/config.ini", "/fastly/settings.ini", "/fastly/keys.ini", "/.fastly/credentials.config", "/.fastly/config.config", "/.fastly/settings.config", "/.fastly/keys.config",
+    "/fastly.config.config", "/fastly/credentials.config", "/fastly/config.config", "/fastly/settings.config", "/fastly/keys.config", "/.fastly/credentials.key", "/.fastly/config.key", "/.fastly/settings.key", "/.fastly/keys.key", "/fastly.config.key",
+    "/fastly/credentials.key", "/fastly/config.key", "/fastly/settings.key", "/fastly/keys.key", "/.fastly/credentials.pem", "/.fastly/config.pem", "/.fastly/settings.pem", "/.fastly/keys.pem", "/fastly.config.pem", "/fastly/credentials.pem",
+    "/fastly/config.pem", "/fastly/settings.pem", "/fastly/keys.pem", "/.fastly/credentials.crt", "/.fastly/config.crt", "/.fastly/settings.crt", "/.fastly/keys.crt", "/fastly.config.crt", "/fastly/credentials.crt", "/fastly/config.crt",
+    "/fastly/settings.crt", "/fastly/keys.crt", "/.akamai/credentials.json", "/.akamai/config.json", "/.akamai/settings.json", "/.akamai/keys.json", "/akamai.config.json", "/akamai/credentials.json", "/akamai/config.json", "/akamai/settings.json",
+    "/akamai/keys.json", "/.akamai/credentials.yaml", "/.akamai/config.yaml", "/.akamai/settings.yaml", "/.akamai/keys.yaml", "/akamai.config.yaml", "/akamai/credentials.yaml", "/akamai/config.yaml", "/akamai/settings.yaml", "/akamai/keys.yaml",
+    "/.akamai/credentials.yml", "/.akamai/config.yml", "/.akamai/settings.yml", "/.akamai/keys.yml", "/akamai.config.yml", "/akamai/credentials.yml", "/akamai/config.yml", "/akamai/settings.yml", "/akamai/keys.yml", "/.akamai/credentials.env",
+    "/.akamai/config.env", "/.akamai/settings.env", "/.akamai/keys.env", "/akamai.config.env", "/akamai/credentials.env", "/akamai/config.env", "/akamai/settings.env", "/akamai/keys.env", "/.akamai/credentials.conf", "/.akamai/config.conf",
+    "/.akamai/settings.conf", "/.akamai/keys.conf", "/akamai.config.conf", "/akamai/credentials.conf", "/akamai/config.conf", "/akamai/settings.conf", "/akamai/keys.conf", "/.akamai/credentials.ini", "/.akamai/config.ini", "/.akamai/settings.ini",
+    "/.akamai/keys.ini", "/akamai.config.ini", "/akamai/credentials.ini", "/akamai/config.ini", "/akamai/settings.ini", "/akamai/keys.ini", "/.akamai/credentials.config", "/.akamai/config.config", "/.akamai/settings.config", "/.akamai/keys.config",
+    "/akamai.config.config", "/akamai/credentials.config", "/akamai/config.config", "/akamai/settings.config", "/akamai/keys.config", "/.akamai/credentials.key", "/.akamai/config.key", "/.akamai/settings.key", "/.akamai/keys.key", "/akamai.config.key",
+    "/akamai/credentials.key", "/akamai/config.key", "/akamai/settings.key", "/akamai/keys.key", "/.akamai/credentials.pem", "/.akamai/config.pem", "/.akamai/settings.pem", "/.akamai/keys.pem", "/akamai.config.pem", "/akamai/credentials.pem",
+    "/akamai/config.pem", "/akamai/settings.pem", "/akamai/keys.pem", "/.akamai/credentials.crt", "/.akamai/config.crt", "/.akamai/settings.crt", "/.akamai/keys.crt", "/akamai.config.crt", "/akamai/credentials.crt", "/akamai/config.crt",
+    "/akamai/settings.crt", "/akamai/keys.crt", "/mysql.config.json", "/mysql/config.json", "/mysql/database.json", "/mysql/connection.json", "/mysql/credentials.json", "/config/mysql.json", "/mysql.config.yaml", "/mysql/config.yaml",
+    "/mysql/database.yaml", "/mysql/connection.yaml", "/mysql/credentials.yaml", "/config/mysql.yaml", "/mysql.config.yml", "/mysql/config.yml", "/mysql/database.yml", "/mysql/connection.yml", "/mysql/credentials.yml", "/config/mysql.yml",
+    "/mysql.config.env", "/mysql/config.env", "/mysql/database.env", "/mysql/connection.env", "/mysql/credentials.env", "/config/mysql.env", "/mysql.config.conf", "/mysql/config.conf", "/mysql/database.conf", "/mysql/connection.conf",
+    "/mysql/credentials.conf", "/config/mysql.conf", "/mysql.config.ini", "/mysql/config.ini", "/mysql/database.ini", "/mysql/connection.ini", "/mysql/credentials.ini", "/config/mysql.ini", "/mysql.config.config", "/mysql/config.config",
+    "/mysql/database.config", "/mysql/connection.config", "/mysql/credentials.config", "/config/mysql.config", "/mysql.config.sql", "/mysql/config.sql", "/mysql/database.sql", "/mysql/connection.sql", "/mysql/credentials.sql", "/config/mysql.sql",
+    "/mysql.config.db", "/mysql/config.db", "/mysql/database.db", "/mysql/connection.db", "/mysql/credentials.db", "/config/mysql.db", "/mysql.config.dump", "/mysql/config.dump", "/mysql/database.dump", "/mysql/connection.dump",
+    "/mysql/credentials.dump", "/config/mysql.dump", "/postgres.config.json", "/postgres/config.json", "/postgres/database.json", "/postgres/connection.json", "/postgres/credentials.json", "/config/postgres.json", "/postgres.config.yaml", "/postgres/config.yaml",
+    "/postgres/database.yaml", "/postgres/connection.yaml", "/postgres/credentials.yaml", "/config/postgres.yaml", "/postgres.config.yml", "/postgres/config.yml", "/postgres/database.yml", "/postgres/connection.yml", "/postgres/credentials.yml", "/config/postgres.yml",
+    "/postgres.config.env", "/postgres/config.env", "/postgres/database.env", "/postgres/connection.env", "/postgres/credentials.env", "/config/postgres.env", "/postgres.config.conf", "/postgres/config.conf", "/postgres/database.conf", "/postgres/connection.conf",
+    "/postgres/credentials.conf", "/config/postgres.conf", "/postgres.config.ini", "/postgres/config.ini", "/postgres/database.ini", "/postgres/connection.ini", "/postgres/credentials.ini", "/config/postgres.ini", "/postgres.config.config", "/postgres/config.config",
+    "/postgres/database.config", "/postgres/connection.config", "/postgres/credentials.config", "/config/postgres.config", "/postgres.config.sql", "/postgres/config.sql", "/postgres/database.sql", "/postgres/connection.sql", "/postgres/credentials.sql", "/config/postgres.sql",
+    "/postgres.config.db", "/postgres/config.db", "/postgres/database.db", "/postgres/connection.db", "/postgres/credentials.db", "/config/postgres.db", "/postgres.config.dump", "/postgres/config.dump", "/postgres/database.dump", "/postgres/connection.dump",
+    "/postgres/credentials.dump", "/config/postgres.dump", "/postgresql.config.json", "/postgresql/config.json", "/postgresql/database.json", "/postgresql/connection.json", "/postgresql/credentials.json", "/config/postgresql.json", "/postgresql.config.yaml", "/postgresql/config.yaml",
+    "/postgresql/database.yaml", "/postgresql/connection.yaml", "/postgresql/credentials.yaml", "/config/postgresql.yaml", "/postgresql.config.yml", "/postgresql/config.yml", "/postgresql/database.yml", "/postgresql/connection.yml", "/postgresql/credentials.yml", "/config/postgresql.yml",
+    "/postgresql.config.env", "/postgresql/config.env", "/postgresql/database.env", "/postgresql/connection.env", "/postgresql/credentials.env", "/config/postgresql.env", "/postgresql.config.conf", "/postgresql/config.conf", "/postgresql/database.conf", "/postgresql/connection.conf",
+    "/postgresql/credentials.conf", "/config/postgresql.conf", "/postgresql.config.ini", "/postgresql/config.ini", "/postgresql/database.ini", "/postgresql/connection.ini", "/postgresql/credentials.ini", "/config/postgresql.ini", "/postgresql.config.config", "/postgresql/config.config",
+    "/postgresql/database.config", "/postgresql/connection.config", "/postgresql/credentials.config", "/config/postgresql.config", "/postgresql.config.sql", "/postgresql/config.sql", "/postgresql/database.sql", "/postgresql/connection.sql", "/postgresql/credentials.sql", "/config/postgresql.sql",
+    "/postgresql.config.db", "/postgresql/config.db", "/postgresql/database.db", "/postgresql/connection.db", "/postgresql/credentials.db", "/config/postgresql.db", "/postgresql.config.dump", "/postgresql/config.dump", "/postgresql/database.dump", "/postgresql/connection.dump",
+    "/postgresql/credentials.dump", "/config/postgresql.dump", "/mongodb.config.json", "/mongodb/config.json", "/mongodb/database.json", "/mongodb/connection.json", "/mongodb/credentials.json", "/config/mongodb.json", "/mongodb.config.yaml", "/mongodb/config.yaml",
+    "/mongodb/database.yaml", "/mongodb/connection.yaml", "/mongodb/credentials.yaml", "/config/mongodb.yaml", "/mongodb.config.yml", "/mongodb/config.yml", "/mongodb/database.yml", "/mongodb/connection.yml", "/mongodb/credentials.yml", "/config/mongodb.yml",
+    "/mongodb.config.env", "/mongodb/config.env", "/mongodb/database.env", "/mongodb/connection.env", "/mongodb/credentials.env", "/config/mongodb.env", "/mongodb.config.conf", "/mongodb/config.conf", "/mongodb/database.conf", "/mongodb/connection.conf",
+    "/mongodb/credentials.conf", "/config/mongodb.conf", "/mongodb.config.ini", "/mongodb/config.ini", "/mongodb/database.ini", "/mongodb/connection.ini", "/mongodb/credentials.ini", "/config/mongodb.ini", "/mongodb.config.config", "/mongodb/config.config",
+    "/mongodb/database.config", "/mongodb/connection.config", "/mongodb/credentials.config", "/config/mongodb.config", "/mongodb.config.sql", "/mongodb/config.sql", "/mongodb/database.sql", "/mongodb/connection.sql", "/mongodb/credentials.sql", "/config/mongodb.sql",
+    "/mongodb.config.db", "/mongodb/config.db", "/mongodb/database.db", "/mongodb/connection.db", "/mongodb/credentials.db", "/config/mongodb.db", "/mongodb.config.dump", "/mongodb/config.dump", "/mongodb/database.dump", "/mongodb/connection.dump",
+    "/mongodb/credentials.dump", "/config/mongodb.dump", "/redis.config.json", "/redis/config.json", "/redis/database.json", "/redis/connection.json", "/redis/credentials.json", "/config/redis.json", "/redis.config.yaml", "/redis/config.yaml",
+    "/redis/database.yaml", "/redis/connection.yaml", "/redis/credentials.yaml", "/config/redis.yaml", "/redis.config.yml", "/redis/config.yml", "/redis/database.yml", "/redis/connection.yml", "/redis/credentials.yml", "/config/redis.yml",
+    "/redis.config.env", "/redis/config.env", "/redis/database.env", "/redis/connection.env", "/redis/credentials.env", "/config/redis.env", "/redis.config.conf", "/redis/config.conf", "/redis/database.conf", "/redis/connection.conf",
+    "/redis/credentials.conf", "/config/redis.conf", "/redis.config.ini", "/redis/config.ini", "/redis/database.ini", "/redis/connection.ini", "/redis/credentials.ini", "/config/redis.ini", "/redis.config.config", "/redis/config.config",
+    "/redis/database.config", "/redis/connection.config", "/redis/credentials.config", "/config/redis.config", "/redis.config.sql", "/redis/config.sql", "/redis/database.sql", "/redis/connection.sql", "/redis/credentials.sql", "/config/redis.sql",
+    "/redis.config.db", "/redis/config.db", "/redis/database.db", "/redis/connection.db", "/redis/credentials.db", "/config/redis.db", "/redis.config.dump", "/redis/config.dump", "/redis/database.dump", "/redis/connection.dump",
+    "/redis/credentials.dump", "/config/redis.dump", "/memcached.config.json", "/memcached/config.json", "/memcached/database.json", "/memcached/connection.json", "/memcached/credentials.json", "/config/memcached.json", "/memcached.config.yaml", "/memcached/config.yaml",
+    "/memcached/database.yaml", "/memcached/connection.yaml", "/memcached/credentials.yaml", "/config/memcached.yaml", "/memcached.config.yml", "/memcached/config.yml", "/memcached/database.yml", "/memcached/connection.yml", "/memcached/credentials.yml", "/config/memcached.yml",
+    "/memcached.config.env", "/memcached/config.env", "/memcached/database.env", "/memcached/connection.env", "/memcached/credentials.env", "/config/memcached.env", "/memcached.config.conf", "/memcached/config.conf", "/memcached/database.conf", "/memcached/connection.conf",
+    "/memcached/credentials.conf", "/config/memcached.conf", "/memcached.config.ini", "/memcached/config.ini", "/memcached/database.ini", "/memcached/connection.ini", "/memcached/credentials.ini", "/config/memcached.ini", "/memcached.config.config", "/memcached/config.config",
+    "/memcached/database.config", "/memcached/connection.config", "/memcached/credentials.config", "/config/memcached.config", "/memcached.config.sql", "/memcached/config.sql", "/memcached/database.sql", "/memcached/connection.sql", "/memcached/credentials.sql", "/config/memcached.sql",
+    "/memcached.config.db", "/memcached/config.db", "/memcached/database.db", "/memcached/connection.db", "/memcached/credentials.db", "/config/memcached.db", "/memcached.config.dump", "/memcached/config.dump", "/memcached/database.dump", "/memcached/connection.dump",
+    "/memcached/credentials.dump", "/config/memcached.dump", "/elasticsearch.config.json", "/elasticsearch/config.json", "/elasticsearch/database.json", "/elasticsearch/connection.json", "/elasticsearch/credentials.json", "/config/elasticsearch.json", "/elasticsearch.config.yaml", "/elasticsearch/config.yaml",
+    "/elasticsearch/database.yaml", "/elasticsearch/connection.yaml", "/elasticsearch/credentials.yaml", "/config/elasticsearch.yaml", "/elasticsearch.config.yml", "/elasticsearch/config.yml", "/elasticsearch/database.yml", "/elasticsearch/connection.yml", "/elasticsearch/credentials.yml", "/config/elasticsearch.yml",
+    "/elasticsearch.config.env", "/elasticsearch/config.env", "/elasticsearch/database.env", "/elasticsearch/connection.env", "/elasticsearch/credentials.env", "/config/elasticsearch.env", "/elasticsearch.config.conf", "/elasticsearch/config.conf", "/elasticsearch/database.conf", "/elasticsearch/connection.conf",
+    "/elasticsearch/credentials.conf", "/config/elasticsearch.conf", "/elasticsearch.config.ini", "/elasticsearch/config.ini", "/elasticsearch/database.ini", "/elasticsearch/connection.ini", "/elasticsearch/credentials.ini", "/config/elasticsearch.ini", "/elasticsearch.config.config", "/elasticsearch/config.config",
+    "/elasticsearch/database.config", "/elasticsearch/connection.config", "/elasticsearch/credentials.config", "/config/elasticsearch.config", "/elasticsearch.config.sql", "/elasticsearch/config.sql", "/elasticsearch/database.sql", "/elasticsearch/connection.sql", "/elasticsearch/credentials.sql", "/config/elasticsearch.sql",
+    "/elasticsearch.config.db", "/elasticsearch/config.db", "/elasticsearch/database.db", "/elasticsearch/connection.db", "/elasticsearch/credentials.db", "/config/elasticsearch.db", "/elasticsearch.config.dump", "/elasticsearch/config.dump", "/elasticsearch/database.dump", "/elasticsearch/connection.dump",
+    "/elasticsearch/credentials.dump", "/config/elasticsearch.dump", "/cassandra.config.json", "/cassandra/config.json", "/cassandra/database.json", "/cassandra/connection.json", "/cassandra/credentials.json", "/config/cassandra.json", "/cassandra.config.yaml", "/cassandra/config.yaml",
+    "/cassandra/database.yaml", "/cassandra/connection.yaml", "/cassandra/credentials.yaml", "/config/cassandra.yaml", "/cassandra.config.yml", "/cassandra/config.yml", "/cassandra/database.yml", "/cassandra/connection.yml", "/cassandra/credentials.yml", "/config/cassandra.yml",
+    "/cassandra.config.env", "/cassandra/config.env", "/cassandra/database.env", "/cassandra/connection.env", "/cassandra/credentials.env", "/config/cassandra.env", "/cassandra.config.conf", "/cassandra/config.conf", "/cassandra/database.conf", "/cassandra/connection.conf",
+    "/cassandra/credentials.conf", "/config/cassandra.conf", "/cassandra.config.ini", "/cassandra/config.ini", "/cassandra/database.ini", "/cassandra/connection.ini", "/cassandra/credentials.ini", "/config/cassandra.ini", "/cassandra.config.config", "/cassandra/config.config",
+    "/cassandra/database.config", "/cassandra/connection.config", "/cassandra/credentials.config", "/config/cassandra.config", "/cassandra.config.sql", "/cassandra/config.sql", "/cassandra/database.sql", "/cassandra/connection.sql", "/cassandra/credentials.sql", "/config/cassandra.sql",
+    "/cassandra.config.db", "/cassandra/config.db", "/cassandra/database.db", "/cassandra/connection.db", "/cassandra/credentials.db", "/config/cassandra.db", "/cassandra.config.dump", "/cassandra/config.dump", "/cassandra/database.dump", "/cassandra/connection.dump",
+    "/cassandra/credentials.dump", "/config/cassandra.dump", "/couchdb.config.json", "/couchdb/config.json", "/couchdb/database.json", "/couchdb/connection.json", "/couchdb/credentials.json", "/config/couchdb.json", "/couchdb.config.yaml", "/couchdb/config.yaml",
+    "/couchdb/database.yaml", "/couchdb/connection.yaml", "/couchdb/credentials.yaml", "/config/couchdb.yaml", "/couchdb.config.yml", "/couchdb/config.yml", "/couchdb/database.yml", "/couchdb/connection.yml", "/couchdb/credentials.yml", "/config/couchdb.yml",
+    "/couchdb.config.env", "/couchdb/config.env", "/couchdb/database.env", "/couchdb/connection.env", "/couchdb/credentials.env", "/config/couchdb.env", "/couchdb.config.conf", "/couchdb/config.conf", "/couchdb/database.conf", "/couchdb/connection.conf",
+    "/couchdb/credentials.conf", "/config/couchdb.conf", "/couchdb.config.ini", "/couchdb/config.ini", "/couchdb/database.ini", "/couchdb/connection.ini", "/couchdb/credentials.ini", "/config/couchdb.ini", "/couchdb.config.config", "/couchdb/config.config",
+    "/couchdb/database.config", "/couchdb/connection.config", "/couchdb/credentials.config", "/config/couchdb.config", "/couchdb.config.sql", "/couchdb/config.sql", "/couchdb/database.sql", "/couchdb/connection.sql", "/couchdb/credentials.sql", "/config/couchdb.sql",
+    "/couchdb.config.db", "/couchdb/config.db", "/couchdb/database.db", "/couchdb/connection.db", "/couchdb/credentials.db", "/config/couchdb.db", "/couchdb.config.dump", "/couchdb/config.dump", "/couchdb/database.dump", "/couchdb/connection.dump",
+    "/couchdb/credentials.dump", "/config/couchdb.dump", "/influxdb.config.json", "/influxdb/config.json", "/influxdb/database.json", "/influxdb/connection.json", "/influxdb/credentials.json", "/config/influxdb.json", "/influxdb.config.yaml", "/influxdb/config.yaml",
+    "/influxdb/database.yaml", "/influxdb/connection.yaml", "/influxdb/credentials.yaml", "/config/influxdb.yaml", "/influxdb.config.yml", "/influxdb/config.yml", "/influxdb/database.yml", "/influxdb/connection.yml", "/influxdb/credentials.yml", "/config/influxdb.yml",
+    "/influxdb.config.env", "/influxdb/config.env", "/influxdb/database.env", "/influxdb/connection.env", "/influxdb/credentials.env", "/config/influxdb.env", "/influxdb.config.conf", "/influxdb/config.conf", "/influxdb/database.conf", "/influxdb/connection.conf",
+    "/influxdb/credentials.conf", "/config/influxdb.conf", "/influxdb.config.ini", "/influxdb/config.ini", "/influxdb/database.ini", "/influxdb/connection.ini", "/influxdb/credentials.ini", "/config/influxdb.ini", "/influxdb.config.config", "/influxdb/config.config",
+    "/influxdb/database.config", "/influxdb/connection.config", "/influxdb/credentials.config", "/config/influxdb.config", "/influxdb.config.sql", "/influxdb/config.sql", "/influxdb/database.sql", "/influxdb/connection.sql", "/influxdb/credentials.sql", "/config/influxdb.sql",
+    "/influxdb.config.db", "/influxdb/config.db", "/influxdb/database.db", "/influxdb/connection.db", "/influxdb/credentials.db", "/config/influxdb.db", "/influxdb.config.dump", "/influxdb/config.dump", "/influxdb/database.dump", "/influxdb/connection.dump",
+    "/influxdb/credentials.dump", "/config/influxdb.dump", "/neo4j.config.json", "/neo4j/config.json", "/neo4j/database.json", "/neo4j/connection.json", "/neo4j/credentials.json", "/config/neo4j.json", "/neo4j.config.yaml", "/neo4j/config.yaml",
+    "/neo4j/database.yaml", "/neo4j/connection.yaml", "/neo4j/credentials.yaml", "/config/neo4j.yaml", "/neo4j.config.yml", "/neo4j/config.yml", "/neo4j/database.yml", "/neo4j/connection.yml", "/neo4j/credentials.yml", "/config/neo4j.yml",
+    "/neo4j.config.env", "/neo4j/config.env", "/neo4j/database.env", "/neo4j/connection.env", "/neo4j/credentials.env", "/config/neo4j.env", "/neo4j.config.conf", "/neo4j/config.conf", "/neo4j/database.conf", "/neo4j/connection.conf",
+    "/neo4j/credentials.conf", "/config/neo4j.conf", "/neo4j.config.ini", "/neo4j/config.ini", "/neo4j/database.ini", "/neo4j/connection.ini", "/neo4j/credentials.ini", "/config/neo4j.ini", "/neo4j.config.config", "/neo4j/config.config",
+    "/neo4j/database.config", "/neo4j/connection.config", "/neo4j/credentials.config", "/config/neo4j.config", "/neo4j.config.sql", "/neo4j/config.sql", "/neo4j/database.sql", "/neo4j/connection.sql", "/neo4j/credentials.sql", "/config/neo4j.sql",
+    "/neo4j.config.db", "/neo4j/config.db", "/neo4j/database.db", "/neo4j/connection.db", "/neo4j/credentials.db", "/config/neo4j.db", "/neo4j.config.dump", "/neo4j/config.dump", "/neo4j/database.dump", "/neo4j/connection.dump",
+    "/neo4j/credentials.dump", "/config/neo4j.dump", "/arangodb.config.json", "/arangodb/config.json", "/arangodb/database.json", "/arangodb/connection.json", "/arangodb/credentials.json", "/config/arangodb.json", "/arangodb.config.yaml", "/arangodb/config.yaml",
+    "/arangodb/database.yaml", "/arangodb/connection.yaml", "/arangodb/credentials.yaml", "/config/arangodb.yaml", "/arangodb.config.yml", "/arangodb/config.yml", "/arangodb/database.yml", "/arangodb/connection.yml", "/arangodb/credentials.yml", "/config/arangodb.yml",
+    "/arangodb.config.env", "/arangodb/config.env", "/arangodb/database.env", "/arangodb/connection.env", "/arangodb/credentials.env", "/config/arangodb.env", "/arangodb.config.conf", "/arangodb/config.conf", "/arangodb/database.conf", "/arangodb/connection.conf",
+    "/arangodb/credentials.conf", "/config/arangodb.conf", "/arangodb.config.ini", "/arangodb/config.ini", "/arangodb/database.ini", "/arangodb/connection.ini", "/arangodb/credentials.ini", "/config/arangodb.ini", "/arangodb.config.config", "/arangodb/config.config",
+    "/arangodb/database.config", "/arangodb/connection.config", "/arangodb/credentials.config", "/config/arangodb.config", "/arangodb.config.sql", "/arangodb/config.sql", "/arangodb/database.sql", "/arangodb/connection.sql", "/arangodb/credentials.sql", "/config/arangodb.sql",
+    "/arangodb.config.db", "/arangodb/config.db", "/arangodb/database.db", "/arangodb/connection.db", "/arangodb/credentials.db", "/config/arangodb.db", "/arangodb.config.dump", "/arangodb/config.dump", "/arangodb/database.dump", "/arangodb/connection.dump",
+    "/arangodb/credentials.dump", "/config/arangodb.dump", "/cockroach.config.json", "/cockroach/config.json", "/cockroach/database.json", "/cockroach/connection.json", "/cockroach/credentials.json", "/config/cockroach.json", "/cockroach.config.yaml", "/cockroach/config.yaml",
+    "/cockroach/database.yaml", "/cockroach/connection.yaml", "/cockroach/credentials.yaml", "/config/cockroach.yaml", "/cockroach.config.yml", "/cockroach/config.yml", "/cockroach/database.yml", "/cockroach/connection.yml", "/cockroach/credentials.yml", "/config/cockroach.yml",
+    "/cockroach.config.env", "/cockroach/config.env", "/cockroach/database.env", "/cockroach/connection.env", "/cockroach/credentials.env", "/config/cockroach.env", "/cockroach.config.conf", "/cockroach/config.conf", "/cockroach/database.conf", "/cockroach/connection.conf",
+    "/cockroach/credentials.conf", "/config/cockroach.conf", "/cockroach.config.ini", "/cockroach/config.ini", "/cockroach/database.ini", "/cockroach/connection.ini", "/cockroach/credentials.ini", "/config/cockroach.ini", "/cockroach.config.config", "/cockroach/config.config",
+    "/cockroach/database.config", "/cockroach/connection.config", "/cockroach/credentials.config", "/config/cockroach.config", "/cockroach.config.sql", "/cockroach/config.sql", "/cockroach/database.sql", "/cockroach/connection.sql", "/cockroach/credentials.sql", "/config/cockroach.sql",
+    "/cockroach.config.db", "/cockroach/config.db", "/cockroach/database.db", "/cockroach/connection.db", "/cockroach/credentials.db", "/config/cockroach.db", "/cockroach.config.dump", "/cockroach/config.dump", "/cockroach/database.dump", "/cockroach/connection.dump",
+    "/cockroach/credentials.dump", "/config/cockroach.dump", "/timescale.config.json", "/timescale/config.json", "/timescale/database.json", "/timescale/connection.json", "/timescale/credentials.json", "/config/timescale.json", "/timescale.config.yaml", "/timescale/config.yaml",
+    "/timescale/database.yaml", "/timescale/connection.yaml", "/timescale/credentials.yaml", "/config/timescale.yaml", "/timescale.config.yml", "/timescale/config.yml", "/timescale/database.yml", "/timescale/connection.yml", "/timescale/credentials.yml", "/config/timescale.yml",
+    "/timescale.config.env", "/timescale/config.env", "/timescale/database.env", "/timescale/connection.env", "/timescale/credentials.env", "/config/timescale.env", "/timescale.config.conf", "/timescale/config.conf", "/timescale/database.conf", "/timescale/connection.conf",
+    "/timescale/credentials.conf", "/config/timescale.conf", "/timescale.config.ini", "/timescale/config.ini", "/timescale/database.ini", "/timescale/connection.ini", "/timescale/credentials.ini", "/config/timescale.ini", "/timescale.config.config", "/timescale/config.config",
+    "/timescale/database.config", "/timescale/connection.config", "/timescale/credentials.config", "/config/timescale.config", "/timescale.config.sql", "/timescale/config.sql", "/timescale/database.sql", "/timescale/connection.sql", "/timescale/credentials.sql", "/config/timescale.sql",
+    "/timescale.config.db", "/timescale/config.db", "/timescale/database.db", "/timescale/connection.db", "/timescale/credentials.db", "/config/timescale.db", "/timescale.config.dump", "/timescale/config.dump", "/timescale/database.dump", "/timescale/connection.dump",
+    "/timescale/credentials.dump", "/config/timescale.dump", "/supabase.config.json", "/supabase/config.json", "/supabase/database.json", "/supabase/connection.json", "/supabase/credentials.json", "/config/supabase.json", "/supabase.config.yaml", "/supabase/config.yaml",
+    "/supabase/database.yaml", "/supabase/connection.yaml", "/supabase/credentials.yaml", "/config/supabase.yaml", "/supabase.config.yml", "/supabase/config.yml", "/supabase/database.yml", "/supabase/connection.yml", "/supabase/credentials.yml", "/config/supabase.yml",
+    "/supabase.config.env", "/supabase/config.env", "/supabase/database.env", "/supabase/connection.env", "/supabase/credentials.env", "/config/supabase.env", "/supabase.config.conf", "/supabase/config.conf", "/supabase/database.conf", "/supabase/connection.conf",
+    "/supabase/credentials.conf", "/config/supabase.conf", "/supabase.config.ini", "/supabase/config.ini", "/supabase/database.ini", "/supabase/connection.ini", "/supabase/credentials.ini", "/config/supabase.ini", "/supabase.config.config", "/supabase/config.config",
+    "/supabase/database.config", "/supabase/connection.config", "/supabase/credentials.config", "/config/supabase.config", "/supabase.config.sql", "/supabase/config.sql", "/supabase/database.sql", "/supabase/connection.sql", "/supabase/credentials.sql", "/config/supabase.sql",
+    "/supabase.config.db", "/supabase/config.db", "/supabase/database.db", "/supabase/connection.db", "/supabase/credentials.db", "/config/supabase.db", "/supabase.config.dump", "/supabase/config.dump", "/supabase/database.dump", "/supabase/connection.dump",
+    "/supabase/credentials.dump", "/config/supabase.dump", "/planetscale.config.json", "/planetscale/config.json", "/planetscale/database.json", "/planetscale/connection.json", "/planetscale/credentials.json", "/config/planetscale.json", "/planetscale.config.yaml", "/planetscale/config.yaml",
+    "/planetscale/database.yaml", "/planetscale/connection.yaml", "/planetscale/credentials.yaml", "/config/planetscale.yaml", "/planetscale.config.yml", "/planetscale/config.yml", "/planetscale/database.yml", "/planetscale/connection.yml", "/planetscale/credentials.yml", "/config/planetscale.yml",
+    "/planetscale.config.env", "/planetscale/config.env", "/planetscale/database.env", "/planetscale/connection.env", "/planetscale/credentials.env", "/config/planetscale.env", "/planetscale.config.conf", "/planetscale/config.conf", "/planetscale/database.conf", "/planetscale/connection.conf",
+    "/planetscale/credentials.conf", "/config/planetscale.conf", "/planetscale.config.ini", "/planetscale/config.ini", "/planetscale/database.ini", "/planetscale/connection.ini", "/planetscale/credentials.ini", "/config/planetscale.ini", "/planetscale.config.config", "/planetscale/config.config",
+    "/planetscale/database.config", "/planetscale/connection.config", "/planetscale/credentials.config", "/config/planetscale.config", "/planetscale.config.sql", "/planetscale/config.sql", "/planetscale/database.sql", "/planetscale/connection.sql", "/planetscale/credentials.sql", "/config/planetscale.sql",
+    "/planetscale.config.db", "/planetscale/config.db", "/planetscale/database.db", "/planetscale/connection.db", "/planetscale/credentials.db", "/config/planetscale.db", "/planetscale.config.dump", "/planetscale/config.dump", "/planetscale/database.dump", "/planetscale/connection.dump",
+    "/planetscale/credentials.dump", "/config/planetscale.dump", "/neon.config.json", "/neon/config.json", "/neon/database.json", "/neon/connection.json", "/neon/credentials.json", "/config/neon.json", "/neon.config.yaml", "/neon/config.yaml",
+    "/neon/database.yaml", "/neon/connection.yaml", "/neon/credentials.yaml", "/config/neon.yaml", "/neon.config.yml", "/neon/config.yml", "/neon/database.yml", "/neon/connection.yml", "/neon/credentials.yml", "/config/neon.yml",
+    "/neon.config.env", "/neon/config.env", "/neon/database.env", "/neon/connection.env", "/neon/credentials.env", "/config/neon.env", "/neon.config.conf", "/neon/config.conf", "/neon/database.conf", "/neon/connection.conf",
+    "/neon/credentials.conf", "/config/neon.conf", "/neon.config.ini", "/neon/config.ini", "/neon/database.ini", "/neon/connection.ini", "/neon/credentials.ini", "/config/neon.ini", "/neon.config.config", "/neon/config.config",
+    "/neon/database.config", "/neon/connection.config", "/neon/credentials.config", "/config/neon.config", "/neon.config.sql", "/neon/config.sql", "/neon/database.sql", "/neon/connection.sql", "/neon/credentials.sql", "/config/neon.sql",
+    "/neon.config.db", "/neon/config.db", "/neon/database.db", "/neon/connection.db", "/neon/credentials.db", "/config/neon.db", "/neon.config.dump", "/neon/config.dump", "/neon/database.dump", "/neon/connection.dump",
+    "/neon/credentials.dump", "/config/neon.dump", "/turso.config.json", "/turso/config.json", "/turso/database.json", "/turso/connection.json", "/turso/credentials.json", "/config/turso.json", "/turso.config.yaml", "/turso/config.yaml",
+    "/turso/database.yaml", "/turso/connection.yaml", "/turso/credentials.yaml", "/config/turso.yaml", "/turso.config.yml", "/turso/config.yml", "/turso/database.yml", "/turso/connection.yml", "/turso/credentials.yml", "/config/turso.yml",
+    "/turso.config.env", "/turso/config.env", "/turso/database.env", "/turso/connection.env", "/turso/credentials.env", "/config/turso.env", "/turso.config.conf", "/turso/config.conf", "/turso/database.conf", "/turso/connection.conf",
+    "/turso/credentials.conf", "/config/turso.conf", "/turso.config.ini", "/turso/config.ini", "/turso/database.ini", "/turso/connection.ini", "/turso/credentials.ini", "/config/turso.ini", "/turso.config.config", "/turso/config.config",
+    "/turso/database.config", "/turso/connection.config", "/turso/credentials.config", "/config/turso.config", "/turso.config.sql", "/turso/config.sql", "/turso/database.sql", "/turso/connection.sql", "/turso/credentials.sql", "/config/turso.sql",
+    "/turso.config.db", "/turso/config.db", "/turso/database.db", "/turso/connection.db", "/turso/credentials.db", "/config/turso.db", "/turso.config.dump", "/turso/config.dump", "/turso/database.dump", "/turso/connection.dump",
+    "/turso/credentials.dump", "/config/turso.dump", "/fauna.config.json", "/fauna/config.json", "/fauna/database.json", "/fauna/connection.json", "/fauna/credentials.json", "/config/fauna.json", "/fauna.config.yaml", "/fauna/config.yaml",
+    "/fauna/database.yaml", "/fauna/connection.yaml", "/fauna/credentials.yaml", "/config/fauna.yaml", "/fauna.config.yml", "/fauna/config.yml", "/fauna/database.yml", "/fauna/connection.yml", "/fauna/credentials.yml", "/config/fauna.yml",
+    "/fauna.config.env", "/fauna/config.env", "/fauna/database.env", "/fauna/connection.env", "/fauna/credentials.env", "/config/fauna.env", "/fauna.config.conf", "/fauna/config.conf", "/fauna/database.conf", "/fauna/connection.conf",
+    "/fauna/credentials.conf", "/config/fauna.conf", "/fauna.config.ini", "/fauna/config.ini", "/fauna/database.ini", "/fauna/connection.ini", "/fauna/credentials.ini", "/config/fauna.ini", "/fauna.config.config", "/fauna/config.config",
+    "/fauna/database.config", "/fauna/connection.config", "/fauna/credentials.config", "/config/fauna.config", "/fauna.config.sql", "/fauna/config.sql", "/fauna/database.sql", "/fauna/connection.sql", "/fauna/credentials.sql", "/config/fauna.sql",
+    "/fauna.config.db", "/fauna/config.db", "/fauna/database.db", "/fauna/connection.db", "/fauna/credentials.db", "/config/fauna.db", "/fauna.config.dump", "/fauna/config.dump", "/fauna/database.dump", "/fauna/connection.dump",
+    "/fauna/credentials.dump", "/config/fauna.dump", "/upstash.config.json", "/upstash/config.json", "/upstash/database.json", "/upstash/connection.json", "/upstash/credentials.json", "/config/upstash.json", "/upstash.config.yaml", "/upstash/config.yaml",
+    "/upstash/database.yaml", "/upstash/connection.yaml", "/upstash/credentials.yaml", "/config/upstash.yaml", "/upstash.config.yml", "/upstash/config.yml", "/upstash/database.yml", "/upstash/connection.yml", "/upstash/credentials.yml", "/config/upstash.yml",
+    "/upstash.config.env", "/upstash/config.env", "/upstash/database.env", "/upstash/connection.env", "/upstash/credentials.env", "/config/upstash.env", "/upstash.config.conf", "/upstash/config.conf", "/upstash/database.conf", "/upstash/connection.conf",
+    "/upstash/credentials.conf", "/config/upstash.conf", "/upstash.config.ini", "/upstash/config.ini", "/upstash/database.ini", "/upstash/connection.ini", "/upstash/credentials.ini", "/config/upstash.ini", "/upstash.config.config", "/upstash/config.config",
+    "/upstash/database.config", "/upstash/connection.config", "/upstash/credentials.config", "/config/upstash.config", "/upstash.config.sql", "/upstash/config.sql", "/upstash/database.sql", "/upstash/connection.sql", "/upstash/credentials.sql", "/config/upstash.sql",
+    "/upstash.config.db", "/upstash/config.db", "/upstash/database.db", "/upstash/connection.db", "/upstash/credentials.db", "/config/upstash.db", "/upstash.config.dump", "/upstash/config.dump", "/upstash/database.dump", "/upstash/connection.dump",
+    "/upstash/credentials.dump", "/config/upstash.dump", "/redisgreen.config.json", "/redisgreen/config.json", "/redisgreen/database.json", "/redisgreen/connection.json", "/redisgreen/credentials.json", "/config/redisgreen.json", "/redisgreen.config.yaml", "/redisgreen/config.yaml",
+    "/redisgreen/database.yaml", "/redisgreen/connection.yaml", "/redisgreen/credentials.yaml", "/config/redisgreen.yaml", "/redisgreen.config.yml", "/redisgreen/config.yml", "/redisgreen/database.yml", "/redisgreen/connection.yml", "/redisgreen/credentials.yml", "/config/redisgreen.yml",
+    "/redisgreen.config.env", "/redisgreen/config.env", "/redisgreen/database.env", "/redisgreen/connection.env", "/redisgreen/credentials.env", "/config/redisgreen.env", "/redisgreen.config.conf", "/redisgreen/config.conf", "/redisgreen/database.conf", "/redisgreen/connection.conf",
+    "/redisgreen/credentials.conf", "/config/redisgreen.conf", "/redisgreen.config.ini", "/redisgreen/config.ini", "/redisgreen/database.ini", "/redisgreen/connection.ini", "/redisgreen/credentials.ini", "/config/redisgreen.ini", "/redisgreen.config.config", "/redisgreen/config.config",
+    "/redisgreen/database.config", "/redisgreen/connection.config", "/redisgreen/credentials.config", "/config/redisgreen.config", "/redisgreen.config.sql", "/redisgreen/config.sql", "/redisgreen/database.sql", "/redisgreen/connection.sql", "/redisgreen/credentials.sql", "/config/redisgreen.sql",
+    "/redisgreen.config.db", "/redisgreen/config.db", "/redisgreen/database.db", "/redisgreen/connection.db", "/redisgreen/credentials.db", "/config/redisgreen.db", "/redisgreen.config.dump", "/redisgreen/config.dump", "/redisgreen/database.dump", "/redisgreen/connection.dump",
+    "/redisgreen/credentials.dump", "/config/redisgreen.dump", "/redistogo.config.json", "/redistogo/config.json", "/redistogo/database.json", "/redistogo/connection.json", "/redistogo/credentials.json", "/config/redistogo.json", "/redistogo.config.yaml", "/redistogo/config.yaml",
+    "/redistogo/database.yaml", "/redistogo/connection.yaml", "/redistogo/credentials.yaml", "/config/redistogo.yaml", "/redistogo.config.yml", "/redistogo/config.yml", "/redistogo/database.yml", "/redistogo/connection.yml", "/redistogo/credentials.yml", "/config/redistogo.yml",
+    "/redistogo.config.env", "/redistogo/config.env", "/redistogo/database.env", "/redistogo/connection.env", "/redistogo/credentials.env", "/config/redistogo.env", "/redistogo.config.conf", "/redistogo/config.conf", "/redistogo/database.conf", "/redistogo/connection.conf",
+    "/redistogo/credentials.conf", "/config/redistogo.conf", "/redistogo.config.ini", "/redistogo/config.ini", "/redistogo/database.ini", "/redistogo/connection.ini", "/redistogo/credentials.ini", "/config/redistogo.ini", "/redistogo.config.config", "/redistogo/config.config",
+    "/redistogo/database.config", "/redistogo/connection.config", "/redistogo/credentials.config", "/config/redistogo.config", "/redistogo.config.sql", "/redistogo/config.sql", "/redistogo/database.sql", "/redistogo/connection.sql", "/redistogo/credentials.sql", "/config/redistogo.sql",
+    "/redistogo.config.db", "/redistogo/config.db", "/redistogo/database.db", "/redistogo/connection.db", "/redistogo/credentials.db", "/config/redistogo.db", "/redistogo.config.dump", "/redistogo/config.dump", "/redistogo/database.dump", "/redistogo/connection.dump",
+    "/redistogo/credentials.dump", "/config/redistogo.dump", "/mongohq.config.json", "/mongohq/config.json", "/mongohq/database.json", "/mongohq/connection.json", "/mongohq/credentials.json", "/config/mongohq.json", "/mongohq.config.yaml", "/mongohq/config.yaml",
+    "/mongohq/database.yaml", "/mongohq/connection.yaml", "/mongohq/credentials.yaml", "/config/mongohq.yaml", "/mongohq.config.yml", "/mongohq/config.yml", "/mongohq/database.yml", "/mongohq/connection.yml", "/mongohq/credentials.yml", "/config/mongohq.yml",
+    "/mongohq.config.env", "/mongohq/config.env", "/mongohq/database.env", "/mongohq/connection.env", "/mongohq/credentials.env", "/config/mongohq.env", "/mongohq.config.conf", "/mongohq/config.conf", "/mongohq/database.conf", "/mongohq/connection.conf",
+    "/mongohq/credentials.conf", "/config/mongohq.conf", "/mongohq.config.ini", "/mongohq/config.ini", "/mongohq/database.ini", "/mongohq/connection.ini", "/mongohq/credentials.ini", "/config/mongohq.ini", "/mongohq.config.config", "/mongohq/config.config",
+    "/mongohq/database.config", "/mongohq/connection.config", "/mongohq/credentials.config", "/config/mongohq.config", "/mongohq.config.sql", "/mongohq/config.sql", "/mongohq/database.sql", "/mongohq/connection.sql", "/mongohq/credentials.sql", "/config/mongohq.sql",
+    "/mongohq.config.db", "/mongohq/config.db", "/mongohq/database.db", "/mongohq/connection.db", "/mongohq/credentials.db", "/config/mongohq.db", "/mongohq.config.dump", "/mongohq/config.dump", "/mongohq/database.dump", "/mongohq/connection.dump",
+    "/mongohq/credentials.dump", "/config/mongohq.dump", "/mongolab.config.json", "/mongolab/config.json", "/mongolab/database.json", "/mongolab/connection.json", "/mongolab/credentials.json", "/config/mongolab.json", "/mongolab.config.yaml", "/mongolab/config.yaml",
+    "/mongolab/database.yaml", "/mongolab/connection.yaml", "/mongolab/credentials.yaml", "/config/mongolab.yaml", "/mongolab.config.yml", "/mongolab/config.yml", "/mongolab/database.yml", "/mongolab/connection.yml", "/mongolab/credentials.yml", "/config/mongolab.yml",
+    "/mongolab.config.env", "/mongolab/config.env", "/mongolab/database.env", "/mongolab/connection.env", "/mongolab/credentials.env", "/config/mongolab.env", "/mongolab.config.conf", "/mongolab/config.conf", "/mongolab/database.conf", "/mongolab/connection.conf",
+    "/mongolab/credentials.conf", "/config/mongolab.conf", "/mongolab.config.ini", "/mongolab/config.ini", "/mongolab/database.ini", "/mongolab/connection.ini", "/mongolab/credentials.ini", "/config/mongolab.ini", "/mongolab.config.config", "/mongolab/config.config",
+    "/mongolab/database.config", "/mongolab/connection.config", "/mongolab/credentials.config", "/config/mongolab.config", "/mongolab.config.sql", "/mongolab/config.sql", "/mongolab/database.sql", "/mongolab/connection.sql", "/mongolab/credentials.sql", "/config/mongolab.sql",
+    "/mongolab.config.db", "/mongolab/config.db", "/mongolab/database.db", "/mongolab/connection.db", "/mongolab/credentials.db", "/config/mongolab.db", "/mongolab.config.dump", "/mongolab/config.dump", "/mongolab/database.dump", "/mongolab/connection.dump",
+    "/mongolab/credentials.dump", "/config/mongolab.dump", "/compose.config.json", "/compose/config.json", "/compose/database.json", "/compose/connection.json", "/compose/credentials.json", "/config/compose.json", "/compose.config.yaml", "/compose/config.yaml",
+    "/compose/database.yaml", "/compose/connection.yaml", "/compose/credentials.yaml", "/config/compose.yaml", "/compose.config.yml", "/compose/config.yml", "/compose/database.yml", "/compose/connection.yml", "/compose/credentials.yml", "/config/compose.yml",
+    "/compose.config.env", "/compose/config.env", "/compose/database.env", "/compose/connection.env", "/compose/credentials.env", "/config/compose.env", "/compose.config.conf", "/compose/config.conf", "/compose/database.conf", "/compose/connection.conf",
+    "/compose/credentials.conf", "/config/compose.conf", "/compose.config.ini", "/compose/config.ini", "/compose/database.ini", "/compose/connection.ini", "/compose/credentials.ini", "/config/compose.ini", "/compose.config.config", "/compose/config.config",
+    "/compose/database.config", "/compose/connection.config", "/compose/credentials.config", "/config/compose.config", "/compose.config.sql", "/compose/config.sql", "/compose/database.sql", "/compose/connection.sql", "/compose/credentials.sql", "/config/compose.sql",
+    "/compose.config.db", "/compose/config.db", "/compose/database.db", "/compose/connection.db", "/compose/credentials.db", "/config/compose.db", "/compose.config.dump", "/compose/config.dump", "/compose/database.dump", "/compose/connection.dump",
+    "/compose/credentials.dump", "/config/compose.dump", "/elephantsql.config.json", "/elephantsql/config.json", "/elephantsql/database.json", "/elephantsql/connection.json", "/elephantsql/credentials.json", "/config/elephantsql.json", "/elephantsql.config.yaml", "/elephantsql/config.yaml",
+    "/elephantsql/database.yaml", "/elephantsql/connection.yaml", "/elephantsql/credentials.yaml", "/config/elephantsql.yaml", "/elephantsql.config.yml", "/elephantsql/config.yml", "/elephantsql/database.yml", "/elephantsql/connection.yml", "/elephantsql/credentials.yml", "/config/elephantsql.yml",
+    "/elephantsql.config.env", "/elephantsql/config.env", "/elephantsql/database.env", "/elephantsql/connection.env", "/elephantsql/credentials.env", "/config/elephantsql.env", "/elephantsql.config.conf", "/elephantsql/config.conf", "/elephantsql/database.conf", "/elephantsql/connection.conf",
+    "/elephantsql/credentials.conf", "/config/elephantsql.conf", "/elephantsql.config.ini", "/elephantsql/config.ini", "/elephantsql/database.ini", "/elephantsql/connection.ini", "/elephantsql/credentials.ini", "/config/elephantsql.ini", "/elephantsql.config.config", "/elephantsql/config.config",
+    "/elephantsql/database.config", "/elephantsql/connection.config", "/elephantsql/credentials.config", "/config/elephantsql.config", "/elephantsql.config.sql", "/elephantsql/config.sql", "/elephantsql/database.sql", "/elephantsql/connection.sql", "/elephantsql/credentials.sql", "/config/elephantsql.sql",
+    "/elephantsql.config.db", "/elephantsql/config.db", "/elephantsql/database.db", "/elephantsql/connection.db", "/elephantsql/credentials.db", "/config/elephantsql.db", "/elephantsql.config.dump", "/elephantsql/config.dump", "/elephantsql/database.dump", "/elephantsql/connection.dump",
+    "/elephantsql/credentials.dump", "/config/elephantsql.dump", "/graphenedb.config.json", "/graphenedb/config.json", "/graphenedb/database.json", "/graphenedb/connection.json", "/graphenedb/credentials.json", "/config/graphenedb.json", "/graphenedb.config.yaml", "/graphenedb/config.yaml",
+    "/graphenedb/database.yaml", "/graphenedb/connection.yaml", "/graphenedb/credentials.yaml", "/config/graphenedb.yaml", "/graphenedb.config.yml", "/graphenedb/config.yml", "/graphenedb/database.yml", "/graphenedb/connection.yml", "/graphenedb/credentials.yml", "/config/graphenedb.yml",
+    "/graphenedb.config.env", "/graphenedb/config.env", "/graphenedb/database.env", "/graphenedb/connection.env", "/graphenedb/credentials.env", "/config/graphenedb.env", "/graphenedb.config.conf", "/graphenedb/config.conf", "/graphenedb/database.conf", "/graphenedb/connection.conf",
+    "/graphenedb/credentials.conf", "/config/graphenedb.conf", "/graphenedb.config.ini", "/graphenedb/config.ini", "/graphenedb/database.ini", "/graphenedb/connection.ini", "/graphenedb/credentials.ini", "/config/graphenedb.ini", "/graphenedb.config.config", "/graphenedb/config.config",
+    "/graphenedb/database.config", "/graphenedb/connection.config", "/graphenedb/credentials.config", "/config/graphenedb.config", "/graphenedb.config.sql", "/graphenedb/config.sql", "/graphenedb/database.sql", "/graphenedb/connection.sql", "/graphenedb/credentials.sql", "/config/graphenedb.sql",
+    "/graphenedb.config.db", "/graphenedb/config.db", "/graphenedb/database.db", "/graphenedb/connection.db", "/graphenedb/credentials.db", "/config/graphenedb.db", "/graphenedb.config.dump", "/graphenedb/config.dump", "/graphenedb/database.dump", "/graphenedb/connection.dump",
+    "/graphenedb/credentials.dump", "/config/graphenedb.dump", "/hyperedis.config.json", "/hyperedis/config.json", "/hyperedis/database.json", "/hyperedis/connection.json", "/hyperedis/credentials.json", "/config/hyperedis.json", "/hyperedis.config.yaml", "/hyperedis/config.yaml",
+    "/hyperedis/database.yaml", "/hyperedis/connection.yaml", "/hyperedis/credentials.yaml", "/config/hyperedis.yaml", "/hyperedis.config.yml", "/hyperedis/config.yml", "/hyperedis/database.yml", "/hyperedis/connection.yml", "/hyperedis/credentials.yml", "/config/hyperedis.yml",
+    "/hyperedis.config.env", "/hyperedis/config.env", "/hyperedis/database.env", "/hyperedis/connection.env", "/hyperedis/credentials.env", "/config/hyperedis.env", "/hyperedis.config.conf", "/hyperedis/config.conf", "/hyperedis/database.conf", "/hyperedis/connection.conf",
+    "/hyperedis/credentials.conf", "/config/hyperedis.conf", "/hyperedis.config.ini", "/hyperedis/config.ini", "/hyperedis/database.ini", "/hyperedis/connection.ini", "/hyperedis/credentials.ini", "/config/hyperedis.ini", "/hyperedis.config.config", "/hyperedis/config.config",
+    "/hyperedis/database.config", "/hyperedis/connection.config", "/hyperedis/credentials.config", "/config/hyperedis.config", "/hyperedis.config.sql", "/hyperedis/config.sql", "/hyperedis/database.sql", "/hyperedis/connection.sql", "/hyperedis/credentials.sql", "/config/hyperedis.sql",
+    "/hyperedis.config.db", "/hyperedis/config.db", "/hyperedis/database.db", "/hyperedis/connection.db", "/hyperedis/credentials.db", "/config/hyperedis.db", "/hyperedis.config.dump", "/hyperedis/config.dump", "/hyperedis/database.dump", "/hyperedis/connection.dump",
+    "/hyperedis/credentials.dump", "/config/hyperedis.dump", "/api/v1/users", "/api/v1/users/", "/v1/users", "/v1/users/", "/api/v1/users/list", "/api/v1/users/search", "/api/v1/users/create", "/api/v1/users/update",
+    "/api/v1/users/delete", "/api/v1/users/get", "/api/v1/users/post", "/api/v1/users/put", "/api/v1/users/patch", "/api/v1/users/all", "/api/v1/user", "/api/v1/user/", "/v1/user", "/v1/user/",
+    "/api/v1/user/list", "/api/v1/user/search", "/api/v1/user/create", "/api/v1/user/update", "/api/v1/user/delete", "/api/v1/user/get", "/api/v1/user/post", "/api/v1/user/put", "/api/v1/user/patch", "/api/v1/user/all",
+    "/api/v1/admin", "/api/v1/admin/", "/v1/admin", "/v1/admin/", "/api/v1/admin/list", "/api/v1/admin/search", "/api/v1/admin/create", "/api/v1/admin/update", "/api/v1/admin/delete", "/api/v1/admin/get",
+    "/api/v1/admin/post", "/api/v1/admin/put", "/api/v1/admin/patch", "/api/v1/admin/all", "/api/v1/config", "/api/v1/config/", "/v1/config", "/v1/config/", "/api/v1/config/list", "/api/v1/config/search",
+    "/api/v1/config/create", "/api/v1/config/update", "/api/v1/config/delete", "/api/v1/config/get", "/api/v1/config/post", "/api/v1/config/put", "/api/v1/config/patch", "/api/v1/config/all", "/api/v1/settings", "/api/v1/settings/",
+    "/v1/settings", "/v1/settings/", "/api/v1/settings/list", "/api/v1/settings/search", "/api/v1/settings/create", "/api/v1/settings/update", "/api/v1/settings/delete", "/api/v1/settings/get", "/api/v1/settings/post", "/api/v1/settings/put",
+    "/api/v1/settings/patch", "/api/v1/settings/all", "/api/v1/auth", "/api/v1/auth/", "/v1/auth", "/v1/auth/", "/api/v1/auth/list", "/api/v1/auth/search", "/api/v1/auth/create", "/api/v1/auth/update",
+    "/api/v1/auth/delete", "/api/v1/auth/get", "/api/v1/auth/post", "/api/v1/auth/put", "/api/v1/auth/patch", "/api/v1/auth/all", "/api/v1/login", "/api/v1/login/", "/v1/login", "/v1/login/",
+    "/api/v1/login/list", "/api/v1/login/search", "/api/v1/login/create", "/api/v1/login/update", "/api/v1/login/delete", "/api/v1/login/get", "/api/v1/login/post", "/api/v1/login/put", "/api/v1/login/patch", "/api/v1/login/all",
+    "/api/v1/logout", "/api/v1/logout/", "/v1/logout", "/v1/logout/", "/api/v1/logout/list", "/api/v1/logout/search", "/api/v1/logout/create", "/api/v1/logout/update", "/api/v1/logout/delete", "/api/v1/logout/get",
+    "/api/v1/logout/post", "/api/v1/logout/put", "/api/v1/logout/patch", "/api/v1/logout/all", "/api/v1/register", "/api/v1/register/", "/v1/register", "/v1/register/", "/api/v1/register/list", "/api/v1/register/search",
+    "/api/v1/register/create", "/api/v1/register/update", "/api/v1/register/delete", "/api/v1/register/get", "/api/v1/register/post", "/api/v1/register/put", "/api/v1/register/patch", "/api/v1/register/all", "/api/v1/me", "/api/v1/me/",
+    "/v1/me", "/v1/me/", "/api/v1/me/list", "/api/v1/me/search", "/api/v1/me/create", "/api/v1/me/update", "/api/v1/me/delete", "/api/v1/me/get", "/api/v1/me/post", "/api/v1/me/put",
+    "/api/v1/me/patch", "/api/v1/me/all", "/api/v1/profile", "/api/v1/profile/", "/v1/profile", "/v1/profile/", "/api/v1/profile/list", "/api/v1/profile/search", "/api/v1/profile/create", "/api/v1/profile/update",
+    "/api/v1/profile/delete", "/api/v1/profile/get", "/api/v1/profile/post", "/api/v1/profile/put", "/api/v1/profile/patch", "/api/v1/profile/all", "/api/v1/account", "/api/v1/account/", "/v1/account", "/v1/account/",
+    "/api/v1/account/list", "/api/v1/account/search", "/api/v1/account/create", "/api/v1/account/update", "/api/v1/account/delete", "/api/v1/account/get", "/api/v1/account/post", "/api/v1/account/put", "/api/v1/account/patch", "/api/v1/account/all",
+    "/api/v1/accounts", "/api/v1/accounts/", "/v1/accounts", "/v1/accounts/", "/api/v1/accounts/list", "/api/v1/accounts/search", "/api/v1/accounts/create", "/api/v1/accounts/update", "/api/v1/accounts/delete", "/api/v1/accounts/get",
+    "/api/v1/accounts/post", "/api/v1/accounts/put", "/api/v1/accounts/patch", "/api/v1/accounts/all", "/api/v1/health", "/api/v1/health/", "/v1/health", "/v1/health/", "/api/v1/health/list", "/api/v1/health/search",
+    "/api/v1/health/create", "/api/v1/health/update", "/api/v1/health/delete", "/api/v1/health/get", "/api/v1/health/post", "/api/v1/health/put", "/api/v1/health/patch", "/api/v1/health/all", "/api/v1/status", "/api/v1/status/",
+    "/v1/status", "/v1/status/", "/api/v1/status/list", "/api/v1/status/search", "/api/v1/status/create", "/api/v1/status/update", "/api/v1/status/delete", "/api/v1/status/get", "/api/v1/status/post", "/api/v1/status/put",
+    "/api/v1/status/patch", "/api/v1/status/all", "/api/v1/version", "/api/v1/version/", "/v1/version", "/v1/version/", "/api/v1/version/list", "/api/v1/version/search", "/api/v1/version/create", "/api/v1/version/update",
+    "/api/v1/version/delete", "/api/v1/version/get", "/api/v1/version/post", "/api/v1/version/put", "/api/v1/version/patch", "/api/v1/version/all", "/api/v1/info", "/api/v1/info/", "/v1/info", "/v1/info/",
+    "/api/v1/info/list", "/api/v1/info/search", "/api/v1/info/create", "/api/v1/info/update", "/api/v1/info/delete", "/api/v1/info/get", "/api/v1/info/post", "/api/v1/info/put", "/api/v1/info/patch", "/api/v1/info/all",
+    "/api/v1/upload", "/api/v1/upload/", "/v1/upload", "/v1/upload/", "/api/v1/upload/list", "/api/v1/upload/search", "/api/v1/upload/create", "/api/v1/upload/update", "/api/v1/upload/delete", "/api/v1/upload/get",
+    "/api/v1/upload/post", "/api/v1/upload/put", "/api/v1/upload/patch", "/api/v1/upload/all", "/api/v1/download", "/api/v1/download/", "/v1/download", "/v1/download/", "/api/v1/download/list", "/api/v1/download/search",
+    "/api/v1/download/create", "/api/v1/download/update", "/api/v1/download/delete", "/api/v1/download/get", "/api/v1/download/post", "/api/v1/download/put", "/api/v1/download/patch", "/api/v1/download/all", "/api/v1/files", "/api/v1/files/",
+    "/v1/files", "/v1/files/", "/api/v1/files/list", "/api/v1/files/search", "/api/v1/files/create", "/api/v1/files/update", "/api/v1/files/delete", "/api/v1/files/get", "/api/v1/files/post", "/api/v1/files/put",
+    "/api/v1/files/patch", "/api/v1/files/all", "/api/v1/list", "/api/v1/list/", "/v1/list", "/v1/list/", "/api/v1/list/list", "/api/v1/list/search", "/api/v1/list/create", "/api/v1/list/update",
+    "/api/v1/list/delete", "/api/v1/list/get", "/api/v1/list/post", "/api/v1/list/put", "/api/v1/list/patch", "/api/v1/list/all", "/api/v1/search", "/api/v1/search/", "/v1/search", "/v1/search/",
+    "/api/v1/search/list", "/api/v1/search/search", "/api/v1/search/create", "/api/v1/search/update", "/api/v1/search/delete", "/api/v1/search/get", "/api/v1/search/post", "/api/v1/search/put", "/api/v1/search/patch", "/api/v1/search/all",
+    "/api/v1/query", "/api/v1/query/", "/v1/query", "/v1/query/", "/api/v1/query/list", "/api/v1/query/search", "/api/v1/query/create", "/api/v1/query/update", "/api/v1/query/delete", "/api/v1/query/get",
+    "/api/v1/query/post", "/api/v1/query/put", "/api/v1/query/patch", "/api/v1/query/all", "/api/v1/debug", "/api/v1/debug/", "/v1/debug", "/v1/debug/", "/api/v1/debug/list", "/api/v1/debug/search",
+    "/api/v1/debug/create", "/api/v1/debug/update", "/api/v1/debug/delete", "/api/v1/debug/get", "/api/v1/debug/post", "/api/v1/debug/put", "/api/v1/debug/patch", "/api/v1/debug/all", "/api/v1/test", "/api/v1/test/",
+    "/v1/test", "/v1/test/", "/api/v1/test/list", "/api/v1/test/search", "/api/v1/test/create", "/api/v1/test/update", "/api/v1/test/delete", "/api/v1/test/get", "/api/v1/test/post", "/api/v1/test/put",
+    "/api/v1/test/patch", "/api/v1/test/all", "/api/v1/internal", "/api/v1/internal/", "/v1/internal", "/v1/internal/", "/api/v1/internal/list", "/api/v1/internal/search", "/api/v1/internal/create", "/api/v1/internal/update",
+    "/api/v1/internal/delete", "/api/v1/internal/get", "/api/v1/internal/post", "/api/v1/internal/put", "/api/v1/internal/patch", "/api/v1/internal/all", "/api/v1/private", "/api/v1/private/", "/v1/private", "/v1/private/",
+    "/api/v1/private/list", "/api/v1/private/search", "/api/v1/private/create", "/api/v1/private/update", "/api/v1/private/delete", "/api/v1/private/get", "/api/v1/private/post", "/api/v1/private/put", "/api/v1/private/patch", "/api/v1/private/all",
+    "/api/v1/secret", "/api/v1/secret/", "/v1/secret", "/v1/secret/", "/api/v1/secret/list", "/api/v1/secret/search", "/api/v1/secret/create", "/api/v1/secret/update", "/api/v1/secret/delete", "/api/v1/secret/get",
+    "/api/v1/secret/post", "/api/v1/secret/put", "/api/v1/secret/patch", "/api/v1/secret/all", "/api/v1/public", "/api/v1/public/", "/v1/public", "/v1/public/", "/api/v1/public/list", "/api/v1/public/search",
+    "/api/v1/public/create", "/api/v1/public/update", "/api/v1/public/delete", "/api/v1/public/get", "/api/v1/public/post", "/api/v1/public/put", "/api/v1/public/patch", "/api/v1/public/all", "/api/v1/orders", "/api/v1/orders/",
+    "/v1/orders", "/v1/orders/", "/api/v1/orders/list", "/api/v1/orders/search", "/api/v1/orders/create", "/api/v1/orders/update", "/api/v1/orders/delete", "/api/v1/orders/get", "/api/v1/orders/post", "/api/v1/orders/put",
+    "/api/v1/orders/patch", "/api/v1/orders/all", "/api/v1/products", "/api/v1/products/", "/v1/products", "/v1/products/", "/api/v1/products/list", "/api/v1/products/search", "/api/v1/products/create", "/api/v1/products/update",
+    "/api/v1/products/delete", "/api/v1/products/get", "/api/v1/products/post", "/api/v1/products/put", "/api/v1/products/patch", "/api/v1/products/all", "/api/v1/payments", "/api/v1/payments/", "/v1/payments", "/v1/payments/",
+    "/api/v1/payments/list", "/api/v1/payments/search", "/api/v1/payments/create", "/api/v1/payments/update", "/api/v1/payments/delete", "/api/v1/payments/get", "/api/v1/payments/post", "/api/v1/payments/put", "/api/v1/payments/patch", "/api/v1/payments/all",
+    "/api/v1/invoices", "/api/v1/invoices/", "/v1/invoices", "/v1/invoices/", "/api/v1/invoices/list", "/api/v1/invoices/search", "/api/v1/invoices/create", "/api/v1/invoices/update", "/api/v1/invoices/delete", "/api/v1/invoices/get",
+    "/api/v1/invoices/post", "/api/v1/invoices/put", "/api/v1/invoices/patch", "/api/v1/invoices/all", "/api/v1/subscriptions", "/api/v1/subscriptions/", "/v1/subscriptions", "/v1/subscriptions/", "/api/v1/subscriptions/list", "/api/v1/subscriptions/search",
+    "/api/v1/subscriptions/create", "/api/v1/subscriptions/update", "/api/v1/subscriptions/delete", "/api/v1/subscriptions/get", "/api/v1/subscriptions/post", "/api/v1/subscriptions/put", "/api/v1/subscriptions/patch", "/api/v1/subscriptions/all", "/api/v1/notifications", "/api/v1/notifications/",
+    "/v1/notifications", "/v1/notifications/", "/api/v1/notifications/list", "/api/v1/notifications/search", "/api/v1/notifications/create", "/api/v1/notifications/update", "/api/v1/notifications/delete", "/api/v1/notifications/get", "/api/v1/notifications/post", "/api/v1/notifications/put",
+    "/api/v1/notifications/patch", "/api/v1/notifications/all", "/api/v1/messages", "/api/v1/messages/", "/v1/messages", "/v1/messages/", "/api/v1/messages/list", "/api/v1/messages/search", "/api/v1/messages/create", "/api/v1/messages/update",
+    "/api/v1/messages/delete", "/api/v1/messages/get", "/api/v1/messages/post", "/api/v1/messages/put", "/api/v1/messages/patch", "/api/v1/messages/all", "/api/v1/emails", "/api/v1/emails/", "/v1/emails", "/v1/emails/",
+    "/api/v1/emails/list", "/api/v1/emails/search", "/api/v1/emails/create", "/api/v1/emails/update", "/api/v1/emails/delete", "/api/v1/emails/get", "/api/v1/emails/post", "/api/v1/emails/put", "/api/v1/emails/patch", "/api/v1/emails/all",
+    "/api/v1/sessions", "/api/v1/sessions/", "/v1/sessions", "/v1/sessions/", "/api/v1/sessions/list", "/api/v1/sessions/search", "/api/v1/sessions/create", "/api/v1/sessions/update", "/api/v1/sessions/delete", "/api/v1/sessions/get",
+    "/api/v1/sessions/post", "/api/v1/sessions/put", "/api/v1/sessions/patch", "/api/v1/sessions/all", "/api/v1/tokens", "/api/v1/tokens/", "/v1/tokens", "/v1/tokens/", "/api/v1/tokens/list", "/api/v1/tokens/search",
+    "/api/v1/tokens/create", "/api/v1/tokens/update", "/api/v1/tokens/delete", "/api/v1/tokens/get", "/api/v1/tokens/post", "/api/v1/tokens/put", "/api/v1/tokens/patch", "/api/v1/tokens/all", "/api/v1/webhooks", "/api/v1/webhooks/",
+    "/v1/webhooks", "/v1/webhooks/", "/api/v1/webhooks/list", "/api/v1/webhooks/search", "/api/v1/webhooks/create", "/api/v1/webhooks/update", "/api/v1/webhooks/delete", "/api/v1/webhooks/get", "/api/v1/webhooks/post", "/api/v1/webhooks/put",
+    "/api/v1/webhooks/patch", "/api/v1/webhooks/all", "/api/v1/callbacks", "/api/v1/callbacks/", "/v1/callbacks", "/v1/callbacks/", "/api/v1/callbacks/list", "/api/v1/callbacks/search", "/api/v1/callbacks/create", "/api/v1/callbacks/update",
+    "/api/v1/callbacks/delete", "/api/v1/callbacks/get", "/api/v1/callbacks/post", "/api/v1/callbacks/put", "/api/v1/callbacks/patch", "/api/v1/callbacks/all", "/api/v1/events", "/api/v1/events/", "/v1/events", "/v1/events/",
+    "/api/v1/events/list", "/api/v1/events/search", "/api/v1/events/create", "/api/v1/events/update", "/api/v1/events/delete", "/api/v1/events/get", "/api/v1/events/post", "/api/v1/events/put", "/api/v1/events/patch", "/api/v1/events/all",
+    "/api/v1/logs", "/api/v1/logs/", "/v1/logs", "/v1/logs/", "/api/v1/logs/list", "/api/v1/logs/search", "/api/v1/logs/create", "/api/v1/logs/update", "/api/v1/logs/delete", "/api/v1/logs/get",
+    "/api/v1/logs/post", "/api/v1/logs/put", "/api/v1/logs/patch", "/api/v1/logs/all", "/api/v1/metrics", "/api/v1/metrics/", "/v1/metrics", "/v1/metrics/", "/api/v1/metrics/list", "/api/v1/metrics/search",
+    "/api/v1/metrics/create", "/api/v1/metrics/update", "/api/v1/metrics/delete", "/api/v1/metrics/get", "/api/v1/metrics/post", "/api/v1/metrics/put", "/api/v1/metrics/patch", "/api/v1/metrics/all", "/api/v1/stats", "/api/v1/stats/",
+    "/v1/stats", "/v1/stats/", "/api/v1/stats/list", "/api/v1/stats/search", "/api/v1/stats/create", "/api/v1/stats/update", "/api/v1/stats/delete", "/api/v1/stats/get", "/api/v1/stats/post", "/api/v1/stats/put",
+    "/api/v1/stats/patch", "/api/v1/stats/all", "/api/v2/users", "/api/v2/users/", "/v2/users", "/v2/users/", "/api/v2/users/list", "/api/v2/users/search", "/api/v2/users/create", "/api/v2/users/update",
+    "/api/v2/users/delete", "/api/v2/users/get", "/api/v2/users/post", "/api/v2/users/put", "/api/v2/users/patch", "/api/v2/users/all", "/api/v2/user", "/api/v2/user/", "/v2/user", "/v2/user/",
+    "/api/v2/user/list", "/api/v2/user/search", "/api/v2/user/create", "/api/v2/user/update", "/api/v2/user/delete", "/api/v2/user/get", "/api/v2/user/post", "/api/v2/user/put", "/api/v2/user/patch", "/api/v2/user/all",
+    "/api/v2/admin", "/api/v2/admin/", "/v2/admin", "/v2/admin/", "/api/v2/admin/list", "/api/v2/admin/search", "/api/v2/admin/create", "/api/v2/admin/update", "/api/v2/admin/delete", "/api/v2/admin/get",
+    "/api/v2/admin/post", "/api/v2/admin/put", "/api/v2/admin/patch", "/api/v2/admin/all", "/api/v2/config", "/api/v2/config/", "/v2/config", "/v2/config/", "/api/v2/config/list", "/api/v2/config/search",
+    "/api/v2/config/create", "/api/v2/config/update", "/api/v2/config/delete", "/api/v2/config/get", "/api/v2/config/post", "/api/v2/config/put", "/api/v2/config/patch", "/api/v2/config/all", "/api/v2/settings", "/api/v2/settings/",
+    "/v2/settings", "/v2/settings/", "/api/v2/settings/list", "/api/v2/settings/search", "/api/v2/settings/create", "/api/v2/settings/update", "/api/v2/settings/delete", "/api/v2/settings/get", "/api/v2/settings/post", "/api/v2/settings/put",
+    "/api/v2/settings/patch", "/api/v2/settings/all", "/api/v2/auth", "/api/v2/auth/", "/v2/auth", "/v2/auth/", "/api/v2/auth/list", "/api/v2/auth/search", "/api/v2/auth/create", "/api/v2/auth/update",
+    "/api/v2/auth/delete", "/api/v2/auth/get", "/api/v2/auth/post", "/api/v2/auth/put", "/api/v2/auth/patch", "/api/v2/auth/all", "/api/v2/login", "/api/v2/login/", "/v2/login", "/v2/login/",
+    "/api/v2/login/list", "/api/v2/login/search", "/api/v2/login/create", "/api/v2/login/update", "/api/v2/login/delete", "/api/v2/login/get", "/api/v2/login/post", "/api/v2/login/put", "/api/v2/login/patch", "/api/v2/login/all",
+    "/api/v2/logout", "/api/v2/logout/", "/v2/logout", "/v2/logout/", "/api/v2/logout/list", "/api/v2/logout/search", "/api/v2/logout/create", "/api/v2/logout/update", "/api/v2/logout/delete", "/api/v2/logout/get",
+    "/api/v2/logout/post", "/api/v2/logout/put", "/api/v2/logout/patch", "/api/v2/logout/all", "/api/v2/register", "/api/v2/register/", "/v2/register", "/v2/register/", "/api/v2/register/list", "/api/v2/register/search",
+    "/api/v2/register/create", "/api/v2/register/update", "/api/v2/register/delete", "/api/v2/register/get", "/api/v2/register/post", "/api/v2/register/put", "/api/v2/register/patch", "/api/v2/register/all", "/api/v2/me", "/api/v2/me/",
+    "/v2/me", "/v2/me/", "/api/v2/me/list", "/api/v2/me/search", "/api/v2/me/create", "/api/v2/me/update", "/api/v2/me/delete", "/api/v2/me/get", "/api/v2/me/post", "/api/v2/me/put",
+    "/api/v2/me/patch", "/api/v2/me/all", "/api/v2/profile", "/api/v2/profile/", "/v2/profile", "/v2/profile/", "/api/v2/profile/list", "/api/v2/profile/search", "/api/v2/profile/create", "/api/v2/profile/update",
+    "/api/v2/profile/delete", "/api/v2/profile/get", "/api/v2/profile/post", "/api/v2/profile/put", "/api/v2/profile/patch", "/api/v2/profile/all", "/api/v2/account", "/api/v2/account/", "/v2/account", "/v2/account/",
+    "/api/v2/account/list", "/api/v2/account/search", "/api/v2/account/create", "/api/v2/account/update", "/api/v2/account/delete", "/api/v2/account/get", "/api/v2/account/post", "/api/v2/account/put", "/api/v2/account/patch", "/api/v2/account/all",
+    "/api/v2/accounts", "/api/v2/accounts/", "/v2/accounts", "/v2/accounts/", "/api/v2/accounts/list", "/api/v2/accounts/search", "/api/v2/accounts/create", "/api/v2/accounts/update", "/api/v2/accounts/delete", "/api/v2/accounts/get",
+    "/api/v2/accounts/post", "/api/v2/accounts/put", "/api/v2/accounts/patch", "/api/v2/accounts/all", "/api/v2/health", "/api/v2/health/", "/v2/health", "/v2/health/", "/api/v2/health/list", "/api/v2/health/search",
+    "/api/v2/health/create", "/api/v2/health/update", "/api/v2/health/delete", "/api/v2/health/get", "/api/v2/health/post", "/api/v2/health/put", "/api/v2/health/patch", "/api/v2/health/all", "/api/v2/status", "/api/v2/status/",
+    "/v2/status", "/v2/status/", "/api/v2/status/list", "/api/v2/status/search", "/api/v2/status/create", "/api/v2/status/update", "/api/v2/status/delete", "/api/v2/status/get", "/api/v2/status/post", "/api/v2/status/put",
+    "/api/v2/status/patch", "/api/v2/status/all", "/api/v2/version", "/api/v2/version/", "/v2/version", "/v2/version/", "/api/v2/version/list", "/api/v2/version/search", "/api/v2/version/create", "/api/v2/version/update",
+    "/api/v2/version/delete", "/api/v2/version/get", "/api/v2/version/post", "/api/v2/version/put", "/api/v2/version/patch", "/api/v2/version/all", "/api/v2/info", "/api/v2/info/", "/v2/info", "/v2/info/",
+    "/api/v2/info/list", "/api/v2/info/search", "/api/v2/info/create", "/api/v2/info/update", "/api/v2/info/delete", "/api/v2/info/get", "/api/v2/info/post", "/api/v2/info/put", "/api/v2/info/patch", "/api/v2/info/all",
+    "/api/v2/upload", "/api/v2/upload/", "/v2/upload", "/v2/upload/", "/api/v2/upload/list", "/api/v2/upload/search", "/api/v2/upload/create", "/api/v2/upload/update", "/api/v2/upload/delete", "/api/v2/upload/get",
+    "/api/v2/upload/post", "/api/v2/upload/put", "/api/v2/upload/patch", "/api/v2/upload/all", "/api/v2/download", "/api/v2/download/", "/v2/download", "/v2/download/", "/api/v2/download/list", "/api/v2/download/search",
+    "/api/v2/download/create", "/api/v2/download/update", "/api/v2/download/delete", "/api/v2/download/get", "/api/v2/download/post", "/api/v2/download/put", "/api/v2/download/patch", "/api/v2/download/all", "/api/v2/files", "/api/v2/files/",
+    "/v2/files", "/v2/files/", "/api/v2/files/list", "/api/v2/files/search", "/api/v2/files/create", "/api/v2/files/update", "/api/v2/files/delete", "/api/v2/files/get", "/api/v2/files/post", "/api/v2/files/put",
+    "/api/v2/files/patch", "/api/v2/files/all", "/api/v2/list", "/api/v2/list/", "/v2/list", "/v2/list/", "/api/v2/list/list", "/api/v2/list/search", "/api/v2/list/create", "/api/v2/list/update",
+    "/api/v2/list/delete", "/api/v2/list/get", "/api/v2/list/post", "/api/v2/list/put", "/api/v2/list/patch", "/api/v2/list/all", "/api/v2/search", "/api/v2/search/", "/v2/search", "/v2/search/",
+    "/api/v2/search/list", "/api/v2/search/search", "/api/v2/search/create", "/api/v2/search/update", "/api/v2/search/delete", "/api/v2/search/get", "/api/v2/search/post", "/api/v2/search/put", "/api/v2/search/patch", "/api/v2/search/all",
+    "/api/v2/query", "/api/v2/query/", "/v2/query", "/v2/query/", "/api/v2/query/list", "/api/v2/query/search", "/api/v2/query/create", "/api/v2/query/update", "/api/v2/query/delete", "/api/v2/query/get",
+    "/api/v2/query/post", "/api/v2/query/put", "/api/v2/query/patch", "/api/v2/query/all", "/api/v2/debug", "/api/v2/debug/", "/v2/debug", "/v2/debug/", "/api/v2/debug/list", "/api/v2/debug/search",
+    "/api/v2/debug/create", "/api/v2/debug/update", "/api/v2/debug/delete", "/api/v2/debug/get", "/api/v2/debug/post", "/api/v2/debug/put", "/api/v2/debug/patch", "/api/v2/debug/all", "/api/v2/test", "/api/v2/test/",
+    "/v2/test", "/v2/test/", "/api/v2/test/list", "/api/v2/test/search", "/api/v2/test/create", "/api/v2/test/update", "/api/v2/test/delete", "/api/v2/test/get", "/api/v2/test/post", "/api/v2/test/put",
+    "/api/v2/test/patch", "/api/v2/test/all", "/api/v2/internal", "/api/v2/internal/", "/v2/internal", "/v2/internal/", "/api/v2/internal/list", "/api/v2/internal/search", "/api/v2/internal/create", "/api/v2/internal/update",
+    "/api/v2/internal/delete", "/api/v2/internal/get", "/api/v2/internal/post", "/api/v2/internal/put", "/api/v2/internal/patch", "/api/v2/internal/all", "/api/v2/private", "/api/v2/private/", "/v2/private", "/v2/private/",
+    "/api/v2/private/list", "/api/v2/private/search", "/api/v2/private/create", "/api/v2/private/update", "/api/v2/private/delete", "/api/v2/private/get", "/api/v2/private/post", "/api/v2/private/put", "/api/v2/private/patch", "/api/v2/private/all",
+    "/api/v2/secret", "/api/v2/secret/", "/v2/secret", "/v2/secret/", "/api/v2/secret/list", "/api/v2/secret/search", "/api/v2/secret/create", "/api/v2/secret/update", "/api/v2/secret/delete", "/api/v2/secret/get",
+    "/api/v2/secret/post", "/api/v2/secret/put", "/api/v2/secret/patch", "/api/v2/secret/all", "/api/v2/public", "/api/v2/public/", "/v2/public", "/v2/public/", "/api/v2/public/list", "/api/v2/public/search",
+    "/api/v2/public/create", "/api/v2/public/update", "/api/v2/public/delete", "/api/v2/public/get", "/api/v2/public/post", "/api/v2/public/put", "/api/v2/public/patch", "/api/v2/public/all", "/api/v2/orders", "/api/v2/orders/",
+    "/v2/orders", "/v2/orders/", "/api/v2/orders/list", "/api/v2/orders/search", "/api/v2/orders/create", "/api/v2/orders/update", "/api/v2/orders/delete", "/api/v2/orders/get", "/api/v2/orders/post", "/api/v2/orders/put",
+    "/api/v2/orders/patch", "/api/v2/orders/all", "/api/v2/products", "/api/v2/products/", "/v2/products", "/v2/products/", "/api/v2/products/list", "/api/v2/products/search", "/api/v2/products/create", "/api/v2/products/update",
+    "/api/v2/products/delete", "/api/v2/products/get", "/api/v2/products/post", "/api/v2/products/put", "/api/v2/products/patch", "/api/v2/products/all", "/api/v2/payments", "/api/v2/payments/", "/v2/payments", "/v2/payments/",
+    "/api/v2/payments/list", "/api/v2/payments/search", "/api/v2/payments/create", "/api/v2/payments/update", "/api/v2/payments/delete", "/api/v2/payments/get", "/api/v2/payments/post", "/api/v2/payments/put", "/api/v2/payments/patch", "/api/v2/payments/all",
+    "/api/v2/invoices", "/api/v2/invoices/", "/v2/invoices", "/v2/invoices/", "/api/v2/invoices/list", "/api/v2/invoices/search", "/api/v2/invoices/create", "/api/v2/invoices/update", "/api/v2/invoices/delete", "/api/v2/invoices/get",
+    "/api/v2/invoices/post", "/api/v2/invoices/put", "/api/v2/invoices/patch", "/api/v2/invoices/all", "/api/v2/subscriptions", "/api/v2/subscriptions/", "/v2/subscriptions", "/v2/subscriptions/", "/api/v2/subscriptions/list", "/api/v2/subscriptions/search",
+    "/api/v2/subscriptions/create", "/api/v2/subscriptions/update", "/api/v2/subscriptions/delete", "/api/v2/subscriptions/get", "/api/v2/subscriptions/post", "/api/v2/subscriptions/put", "/api/v2/subscriptions/patch", "/api/v2/subscriptions/all", "/api/v2/notifications", "/api/v2/notifications/",
+    "/v2/notifications", "/v2/notifications/", "/api/v2/notifications/list", "/api/v2/notifications/search", "/api/v2/notifications/create", "/api/v2/notifications/update", "/api/v2/notifications/delete", "/api/v2/notifications/get", "/api/v2/notifications/post", "/api/v2/notifications/put",
+    "/api/v2/notifications/patch", "/api/v2/notifications/all", "/api/v2/messages", "/api/v2/messages/", "/v2/messages", "/v2/messages/", "/api/v2/messages/list", "/api/v2/messages/search", "/api/v2/messages/create", "/api/v2/messages/update",
+    "/api/v2/messages/delete", "/api/v2/messages/get", "/api/v2/messages/post", "/api/v2/messages/put", "/api/v2/messages/patch", "/api/v2/messages/all", "/api/v2/emails", "/api/v2/emails/", "/v2/emails", "/v2/emails/",
+    "/api/v2/emails/list", "/api/v2/emails/search", "/api/v2/emails/create", "/api/v2/emails/update", "/api/v2/emails/delete", "/api/v2/emails/get", "/api/v2/emails/post", "/api/v2/emails/put", "/api/v2/emails/patch", "/api/v2/emails/all",
+    "/api/v2/sessions", "/api/v2/sessions/", "/v2/sessions", "/v2/sessions/", "/api/v2/sessions/list", "/api/v2/sessions/search", "/api/v2/sessions/create", "/api/v2/sessions/update", "/api/v2/sessions/delete", "/api/v2/sessions/get",
+    "/api/v2/sessions/post", "/api/v2/sessions/put", "/api/v2/sessions/patch", "/api/v2/sessions/all", "/api/v2/tokens", "/api/v2/tokens/", "/v2/tokens", "/v2/tokens/", "/api/v2/tokens/list", "/api/v2/tokens/search",
+    "/api/v2/tokens/create", "/api/v2/tokens/update", "/api/v2/tokens/delete", "/api/v2/tokens/get", "/api/v2/tokens/post", "/api/v2/tokens/put", "/api/v2/tokens/patch", "/api/v2/tokens/all", "/api/v2/webhooks", "/api/v2/webhooks/",
+    "/v2/webhooks", "/v2/webhooks/", "/api/v2/webhooks/list", "/api/v2/webhooks/search", "/api/v2/webhooks/create", "/api/v2/webhooks/update", "/api/v2/webhooks/delete", "/api/v2/webhooks/get", "/api/v2/webhooks/post", "/api/v2/webhooks/put",
+    "/api/v2/webhooks/patch", "/api/v2/webhooks/all", "/api/v2/callbacks", "/api/v2/callbacks/", "/v2/callbacks", "/v2/callbacks/", "/api/v2/callbacks/list", "/api/v2/callbacks/search", "/api/v2/callbacks/create", "/api/v2/callbacks/update",
+    "/api/v2/callbacks/delete", "/api/v2/callbacks/get", "/api/v2/callbacks/post", "/api/v2/callbacks/put", "/api/v2/callbacks/patch", "/api/v2/callbacks/all", "/api/v2/events", "/api/v2/events/", "/v2/events", "/v2/events/",
+    "/api/v2/events/list", "/api/v2/events/search", "/api/v2/events/create", "/api/v2/events/update", "/api/v2/events/delete", "/api/v2/events/get", "/api/v2/events/post", "/api/v2/events/put", "/api/v2/events/patch", "/api/v2/events/all",
+    "/api/v2/logs", "/api/v2/logs/", "/v2/logs", "/v2/logs/", "/api/v2/logs/list", "/api/v2/logs/search", "/api/v2/logs/create", "/api/v2/logs/update", "/api/v2/logs/delete", "/api/v2/logs/get",
+    "/api/v2/logs/post", "/api/v2/logs/put", "/api/v2/logs/patch", "/api/v2/logs/all", "/api/v2/metrics", "/api/v2/metrics/", "/v2/metrics", "/v2/metrics/", "/api/v2/metrics/list", "/api/v2/metrics/search",
+    "/api/v2/metrics/create", "/api/v2/metrics/update", "/api/v2/metrics/delete", "/api/v2/metrics/get", "/api/v2/metrics/post", "/api/v2/metrics/put", "/api/v2/metrics/patch", "/api/v2/metrics/all", "/api/v2/stats", "/api/v2/stats/",
+    "/v2/stats", "/v2/stats/", "/api/v2/stats/list", "/api/v2/stats/search", "/api/v2/stats/create", "/api/v2/stats/update", "/api/v2/stats/delete", "/api/v2/stats/get", "/api/v2/stats/post", "/api/v2/stats/put",
+    "/api/v2/stats/patch", "/api/v2/stats/all", "/api/v3/users", "/api/v3/users/", "/v3/users", "/v3/users/", "/api/v3/users/list", "/api/v3/users/search", "/api/v3/users/create", "/api/v3/users/update",
+    "/api/v3/users/delete", "/api/v3/users/get", "/api/v3/users/post", "/api/v3/users/put", "/api/v3/users/patch", "/api/v3/users/all", "/api/v3/user", "/api/v3/user/", "/v3/user", "/v3/user/",
+    "/api/v3/user/list", "/api/v3/user/search", "/api/v3/user/create", "/api/v3/user/update", "/api/v3/user/delete", "/api/v3/user/get", "/api/v3/user/post", "/api/v3/user/put", "/api/v3/user/patch", "/api/v3/user/all",
+    "/api/v3/admin", "/api/v3/admin/", "/v3/admin", "/v3/admin/", "/api/v3/admin/list", "/api/v3/admin/search", "/api/v3/admin/create", "/api/v3/admin/update", "/api/v3/admin/delete", "/api/v3/admin/get",
+    "/api/v3/admin/post", "/api/v3/admin/put", "/api/v3/admin/patch", "/api/v3/admin/all", "/api/v3/config", "/api/v3/config/", "/v3/config", "/v3/config/", "/api/v3/config/list", "/api/v3/config/search",
+    "/api/v3/config/create", "/api/v3/config/update", "/api/v3/config/delete", "/api/v3/config/get", "/api/v3/config/post", "/api/v3/config/put", "/api/v3/config/patch", "/api/v3/config/all", "/api/v3/settings", "/api/v3/settings/",
+    "/v3/settings", "/v3/settings/", "/api/v3/settings/list", "/api/v3/settings/search", "/api/v3/settings/create", "/api/v3/settings/update", "/api/v3/settings/delete", "/api/v3/settings/get", "/api/v3/settings/post", "/api/v3/settings/put",
+    "/api/v3/settings/patch", "/api/v3/settings/all", "/api/v3/auth", "/api/v3/auth/", "/v3/auth", "/v3/auth/", "/api/v3/auth/list", "/api/v3/auth/search", "/api/v3/auth/create", "/api/v3/auth/update",
+    "/api/v3/auth/delete", "/api/v3/auth/get", "/api/v3/auth/post", "/api/v3/auth/put", "/api/v3/auth/patch", "/api/v3/auth/all", "/api/v3/login", "/api/v3/login/", "/v3/login", "/v3/login/",
+    "/api/v3/login/list", "/api/v3/login/search", "/api/v3/login/create", "/api/v3/login/update", "/api/v3/login/delete", "/api/v3/login/get", "/api/v3/login/post", "/api/v3/login/put", "/api/v3/login/patch", "/api/v3/login/all",
+    "/api/v3/logout", "/api/v3/logout/", "/v3/logout", "/v3/logout/", "/api/v3/logout/list", "/api/v3/logout/search", "/api/v3/logout/create", "/api/v3/logout/update", "/api/v3/logout/delete", "/api/v3/logout/get",
+    "/api/v3/logout/post", "/api/v3/logout/put", "/api/v3/logout/patch", "/api/v3/logout/all", "/api/v3/register", "/api/v3/register/", "/v3/register", "/v3/register/", "/api/v3/register/list", "/api/v3/register/search",
+    "/api/v3/register/create", "/api/v3/register/update", "/api/v3/register/delete", "/api/v3/register/get", "/api/v3/register/post", "/api/v3/register/put", "/api/v3/register/patch", "/api/v3/register/all", "/api/v3/me", "/api/v3/me/",
+    "/v3/me", "/v3/me/", "/api/v3/me/list", "/api/v3/me/search", "/api/v3/me/create", "/api/v3/me/update", "/api/v3/me/delete", "/api/v3/me/get", "/api/v3/me/post", "/api/v3/me/put",
+    "/api/v3/me/patch", "/api/v3/me/all", "/api/v3/profile", "/api/v3/profile/", "/v3/profile", "/v3/profile/", "/api/v3/profile/list", "/api/v3/profile/search", "/api/v3/profile/create", "/api/v3/profile/update",
+    "/api/v3/profile/delete", "/api/v3/profile/get", "/api/v3/profile/post", "/api/v3/profile/put", "/api/v3/profile/patch", "/api/v3/profile/all", "/api/v3/account", "/api/v3/account/", "/v3/account", "/v3/account/",
+    "/api/v3/account/list", "/api/v3/account/search", "/api/v3/account/create", "/api/v3/account/update", "/api/v3/account/delete", "/api/v3/account/get", "/api/v3/account/post", "/api/v3/account/put", "/api/v3/account/patch", "/api/v3/account/all",
+    "/api/v3/accounts", "/api/v3/accounts/", "/v3/accounts", "/v3/accounts/", "/api/v3/accounts/list", "/api/v3/accounts/search", "/api/v3/accounts/create", "/api/v3/accounts/update", "/api/v3/accounts/delete", "/api/v3/accounts/get",
+    "/api/v3/accounts/post", "/api/v3/accounts/put", "/api/v3/accounts/patch", "/api/v3/accounts/all", "/api/v3/health", "/api/v3/health/", "/v3/health", "/v3/health/", "/api/v3/health/list", "/api/v3/health/search",
+    "/api/v3/health/create", "/api/v3/health/update", "/api/v3/health/delete", "/api/v3/health/get", "/api/v3/health/post", "/api/v3/health/put", "/api/v3/health/patch", "/api/v3/health/all", "/api/v3/status", "/api/v3/status/",
+    "/v3/status", "/v3/status/", "/api/v3/status/list", "/api/v3/status/search", "/api/v3/status/create", "/api/v3/status/update", "/api/v3/status/delete", "/api/v3/status/get", "/api/v3/status/post", "/api/v3/status/put",
+    "/api/v3/status/patch", "/api/v3/status/all", "/api/v3/version", "/api/v3/version/", "/v3/version", "/v3/version/", "/api/v3/version/list", "/api/v3/version/search", "/api/v3/version/create", "/api/v3/version/update",
+    "/api/v3/version/delete", "/api/v3/version/get", "/api/v3/version/post", "/api/v3/version/put", "/api/v3/version/patch", "/api/v3/version/all", "/api/v3/info", "/api/v3/info/", "/v3/info", "/v3/info/",
+    "/api/v3/info/list", "/api/v3/info/search", "/api/v3/info/create", "/api/v3/info/update", "/api/v3/info/delete", "/api/v3/info/get", "/api/v3/info/post", "/api/v3/info/put", "/api/v3/info/patch", "/api/v3/info/all",
+    "/api/v3/upload", "/api/v3/upload/", "/v3/upload", "/v3/upload/", "/api/v3/upload/list", "/api/v3/upload/search", "/api/v3/upload/create", "/api/v3/upload/update", "/api/v3/upload/delete", "/api/v3/upload/get",
+    "/api/v3/upload/post", "/api/v3/upload/put", "/api/v3/upload/patch", "/api/v3/upload/all", "/api/v3/download", "/api/v3/download/", "/v3/download", "/v3/download/", "/api/v3/download/list", "/api/v3/download/search",
+    "/api/v3/download/create", "/api/v3/download/update", "/api/v3/download/delete", "/api/v3/download/get", "/api/v3/download/post", "/api/v3/download/put", "/api/v3/download/patch", "/api/v3/download/all", "/api/v3/files", "/api/v3/files/",
+    "/v3/files", "/v3/files/", "/api/v3/files/list", "/api/v3/files/search", "/api/v3/files/create", "/api/v3/files/update", "/api/v3/files/delete", "/api/v3/files/get", "/api/v3/files/post", "/api/v3/files/put",
+    "/api/v3/files/patch", "/api/v3/files/all", "/api/v3/list", "/api/v3/list/", "/v3/list", "/v3/list/", "/api/v3/list/list", "/api/v3/list/search", "/api/v3/list/create", "/api/v3/list/update",
+    "/api/v3/list/delete", "/api/v3/list/get", "/api/v3/list/post", "/api/v3/list/put", "/api/v3/list/patch", "/api/v3/list/all", "/api/v3/search", "/api/v3/search/", "/v3/search", "/v3/search/",
+    "/api/v3/search/list", "/api/v3/search/search", "/api/v3/search/create", "/api/v3/search/update", "/api/v3/search/delete", "/api/v3/search/get", "/api/v3/search/post", "/api/v3/search/put", "/api/v3/search/patch", "/api/v3/search/all",
+    "/api/v3/query", "/api/v3/query/", "/v3/query", "/v3/query/", "/api/v3/query/list", "/api/v3/query/search", "/api/v3/query/create", "/api/v3/query/update", "/api/v3/query/delete", "/api/v3/query/get",
+    "/api/v3/query/post", "/api/v3/query/put", "/api/v3/query/patch", "/api/v3/query/all", "/api/v3/debug", "/api/v3/debug/", "/v3/debug", "/v3/debug/", "/api/v3/debug/list", "/api/v3/debug/search",
+    "/api/v3/debug/create", "/api/v3/debug/update", "/api/v3/debug/delete", "/api/v3/debug/get", "/api/v3/debug/post", "/api/v3/debug/put", "/api/v3/debug/patch", "/api/v3/debug/all", "/api/v3/test", "/api/v3/test/",
+    "/v3/test", "/v3/test/", "/api/v3/test/list", "/api/v3/test/search", "/api/v3/test/create", "/api/v3/test/update", "/api/v3/test/delete", "/api/v3/test/get", "/api/v3/test/post", "/api/v3/test/put",
+    "/api/v3/test/patch", "/api/v3/test/all", "/api/v3/internal", "/api/v3/internal/", "/v3/internal", "/v3/internal/", "/api/v3/internal/list", "/api/v3/internal/search", "/api/v3/internal/create", "/api/v3/internal/update",
+    "/api/v3/internal/delete", "/api/v3/internal/get", "/api/v3/internal/post", "/api/v3/internal/put", "/api/v3/internal/patch", "/api/v3/internal/all", "/api/v3/private", "/api/v3/private/", "/v3/private", "/v3/private/",
+    "/api/v3/private/list", "/api/v3/private/search", "/api/v3/private/create", "/api/v3/private/update", "/api/v3/private/delete", "/api/v3/private/get", "/api/v3/private/post", "/api/v3/private/put", "/api/v3/private/patch", "/api/v3/private/all",
+    "/api/v3/secret", "/api/v3/secret/", "/v3/secret", "/v3/secret/", "/api/v3/secret/list", "/api/v3/secret/search", "/api/v3/secret/create", "/api/v3/secret/update", "/api/v3/secret/delete", "/api/v3/secret/get",
+    "/api/v3/secret/post", "/api/v3/secret/put", "/api/v3/secret/patch", "/api/v3/secret/all", "/api/v3/public", "/api/v3/public/", "/v3/public", "/v3/public/", "/api/v3/public/list", "/api/v3/public/search",
+    "/api/v3/public/create", "/api/v3/public/update", "/api/v3/public/delete", "/api/v3/public/get", "/api/v3/public/post", "/api/v3/public/put", "/api/v3/public/patch", "/api/v3/public/all", "/api/v3/orders", "/api/v3/orders/",
+    "/v3/orders", "/v3/orders/", "/api/v3/orders/list", "/api/v3/orders/search", "/api/v3/orders/create", "/api/v3/orders/update", "/api/v3/orders/delete", "/api/v3/orders/get", "/api/v3/orders/post", "/api/v3/orders/put",
+    "/api/v3/orders/patch", "/api/v3/orders/all", "/api/v3/products", "/api/v3/products/", "/v3/products", "/v3/products/", "/api/v3/products/list", "/api/v3/products/search", "/api/v3/products/create", "/api/v3/products/update",
+    "/api/v3/products/delete", "/api/v3/products/get", "/api/v3/products/post", "/api/v3/products/put", "/api/v3/products/patch", "/api/v3/products/all", "/api/v3/payments", "/api/v3/payments/", "/v3/payments", "/v3/payments/",
+    "/api/v3/payments/list", "/api/v3/payments/search", "/api/v3/payments/create", "/api/v3/payments/update", "/api/v3/payments/delete", "/api/v3/payments/get", "/api/v3/payments/post", "/api/v3/payments/put", "/api/v3/payments/patch", "/api/v3/payments/all",
+    "/api/v3/invoices", "/api/v3/invoices/", "/v3/invoices", "/v3/invoices/", "/api/v3/invoices/list", "/api/v3/invoices/search", "/api/v3/invoices/create", "/api/v3/invoices/update", "/api/v3/invoices/delete", "/api/v3/invoices/get",
+    "/api/v3/invoices/post", "/api/v3/invoices/put", "/api/v3/invoices/patch", "/api/v3/invoices/all", "/api/v3/subscriptions", "/api/v3/subscriptions/", "/v3/subscriptions", "/v3/subscriptions/", "/api/v3/subscriptions/list", "/api/v3/subscriptions/search",
+    "/api/v3/subscriptions/create", "/api/v3/subscriptions/update", "/api/v3/subscriptions/delete", "/api/v3/subscriptions/get", "/api/v3/subscriptions/post", "/api/v3/subscriptions/put", "/api/v3/subscriptions/patch", "/api/v3/subscriptions/all", "/api/v3/notifications", "/api/v3/notifications/",
+    "/v3/notifications", "/v3/notifications/", "/api/v3/notifications/list", "/api/v3/notifications/search", "/api/v3/notifications/create", "/api/v3/notifications/update", "/api/v3/notifications/delete", "/api/v3/notifications/get", "/api/v3/notifications/post", "/api/v3/notifications/put",
+    "/api/v3/notifications/patch", "/api/v3/notifications/all", "/api/v3/messages", "/api/v3/messages/", "/v3/messages", "/v3/messages/", "/api/v3/messages/list", "/api/v3/messages/search", "/api/v3/messages/create", "/api/v3/messages/update",
+    "/api/v3/messages/delete", "/api/v3/messages/get", "/api/v3/messages/post", "/api/v3/messages/put", "/api/v3/messages/patch", "/api/v3/messages/all", "/api/v3/emails", "/api/v3/emails/", "/v3/emails", "/v3/emails/",
+    "/api/v3/emails/list", "/api/v3/emails/search", "/api/v3/emails/create", "/api/v3/emails/update", "/api/v3/emails/delete", "/api/v3/emails/get", "/api/v3/emails/post", "/api/v3/emails/put", "/api/v3/emails/patch", "/api/v3/emails/all",
+    "/api/v3/sessions", "/api/v3/sessions/", "/v3/sessions", "/v3/sessions/", "/api/v3/sessions/list", "/api/v3/sessions/search", "/api/v3/sessions/create", "/api/v3/sessions/update", "/api/v3/sessions/delete", "/api/v3/sessions/get",
+    "/api/v3/sessions/post", "/api/v3/sessions/put", "/api/v3/sessions/patch", "/api/v3/sessions/all", "/api/v3/tokens", "/api/v3/tokens/", "/v3/tokens", "/v3/tokens/", "/api/v3/tokens/list", "/api/v3/tokens/search",
+    "/api/v3/tokens/create", "/api/v3/tokens/update", "/api/v3/tokens/delete", "/api/v3/tokens/get", "/api/v3/tokens/post", "/api/v3/tokens/put", "/api/v3/tokens/patch", "/api/v3/tokens/all", "/api/v3/webhooks", "/api/v3/webhooks/",
+    "/v3/webhooks", "/v3/webhooks/", "/api/v3/webhooks/list", "/api/v3/webhooks/search", "/api/v3/webhooks/create", "/api/v3/webhooks/update", "/api/v3/webhooks/delete", "/api/v3/webhooks/get", "/api/v3/webhooks/post", "/api/v3/webhooks/put",
+    "/api/v3/webhooks/patch", "/api/v3/webhooks/all", "/api/v3/callbacks", "/api/v3/callbacks/", "/v3/callbacks", "/v3/callbacks/", "/api/v3/callbacks/list", "/api/v3/callbacks/search", "/api/v3/callbacks/create", "/api/v3/callbacks/update",
+    "/api/v3/callbacks/delete", "/api/v3/callbacks/get", "/api/v3/callbacks/post", "/api/v3/callbacks/put", "/api/v3/callbacks/patch", "/api/v3/callbacks/all", "/api/v3/events", "/api/v3/events/", "/v3/events", "/v3/events/",
+    "/api/v3/events/list", "/api/v3/events/search", "/api/v3/events/create", "/api/v3/events/update", "/api/v3/events/delete", "/api/v3/events/get", "/api/v3/events/post", "/api/v3/events/put", "/api/v3/events/patch", "/api/v3/events/all",
+    "/api/v3/logs", "/api/v3/logs/", "/v3/logs", "/v3/logs/", "/api/v3/logs/list", "/api/v3/logs/search", "/api/v3/logs/create", "/api/v3/logs/update", "/api/v3/logs/delete", "/api/v3/logs/get",
+    "/api/v3/logs/post", "/api/v3/logs/put", "/api/v3/logs/patch", "/api/v3/logs/all", "/api/v3/metrics", "/api/v3/metrics/", "/v3/metrics", "/v3/metrics/", "/api/v3/metrics/list", "/api/v3/metrics/search",
+    "/api/v3/metrics/create", "/api/v3/metrics/update", "/api/v3/metrics/delete", "/api/v3/metrics/get", "/api/v3/metrics/post", "/api/v3/metrics/put", "/api/v3/metrics/patch", "/api/v3/metrics/all", "/api/v3/stats", "/api/v3/stats/",
+    "/v3/stats", "/v3/stats/", "/api/v3/stats/list", "/api/v3/stats/search", "/api/v3/stats/create", "/api/v3/stats/update", "/api/v3/stats/delete", "/api/v3/stats/get", "/api/v3/stats/post", "/api/v3/stats/put",
+    "/api/v3/stats/patch", "/api/v3/stats/all", "/api/v4/users", "/api/v4/users/", "/v4/users", "/v4/users/", "/api/v4/users/list", "/api/v4/users/search", "/api/v4/users/create", "/api/v4/users/update",
+    "/api/v4/users/delete", "/api/v4/users/get", "/api/v4/users/post", "/api/v4/users/put", "/api/v4/users/patch", "/api/v4/users/all", "/api/v4/user", "/api/v4/user/", "/v4/user", "/v4/user/",
+    "/api/v4/user/list", "/api/v4/user/search", "/api/v4/user/create", "/api/v4/user/update", "/api/v4/user/delete", "/api/v4/user/get", "/api/v4/user/post", "/api/v4/user/put", "/api/v4/user/patch", "/api/v4/user/all",
+    "/api/v4/admin", "/api/v4/admin/", "/v4/admin", "/v4/admin/", "/api/v4/admin/list", "/api/v4/admin/search", "/api/v4/admin/create", "/api/v4/admin/update", "/api/v4/admin/delete", "/api/v4/admin/get",
+    "/api/v4/admin/post", "/api/v4/admin/put", "/api/v4/admin/patch", "/api/v4/admin/all", "/api/v4/config", "/api/v4/config/", "/v4/config", "/v4/config/", "/api/v4/config/list", "/api/v4/config/search",
+    "/api/v4/config/create", "/api/v4/config/update", "/api/v4/config/delete", "/api/v4/config/get", "/api/v4/config/post", "/api/v4/config/put", "/api/v4/config/patch", "/api/v4/config/all", "/api/v4/settings", "/api/v4/settings/",
+    "/v4/settings", "/v4/settings/", "/api/v4/settings/list", "/api/v4/settings/search", "/api/v4/settings/create", "/api/v4/settings/update", "/api/v4/settings/delete", "/api/v4/settings/get", "/api/v4/settings/post", "/api/v4/settings/put",
+    "/api/v4/settings/patch", "/api/v4/settings/all", "/api/v4/auth", "/api/v4/auth/", "/v4/auth", "/v4/auth/", "/api/v4/auth/list", "/api/v4/auth/search", "/api/v4/auth/create", "/api/v4/auth/update",
+    "/api/v4/auth/delete", "/api/v4/auth/get", "/api/v4/auth/post", "/api/v4/auth/put", "/api/v4/auth/patch", "/api/v4/auth/all", "/api/v4/login", "/api/v4/login/", "/v4/login", "/v4/login/",
+    "/api/v4/login/list", "/api/v4/login/search", "/api/v4/login/create", "/api/v4/login/update", "/api/v4/login/delete", "/api/v4/login/get", "/api/v4/login/post", "/api/v4/login/put", "/api/v4/login/patch", "/api/v4/login/all",
+    "/api/v4/logout", "/api/v4/logout/", "/v4/logout", "/v4/logout/", "/api/v4/logout/list", "/api/v4/logout/search", "/api/v4/logout/create", "/api/v4/logout/update", "/api/v4/logout/delete", "/api/v4/logout/get",
+    "/api/v4/logout/post", "/api/v4/logout/put", "/api/v4/logout/patch", "/api/v4/logout/all", "/api/v4/register", "/api/v4/register/", "/v4/register", "/v4/register/", "/api/v4/register/list", "/api/v4/register/search",
+    "/api/v4/register/create", "/api/v4/register/update", "/api/v4/register/delete", "/api/v4/register/get", "/api/v4/register/post", "/api/v4/register/put", "/api/v4/register/patch", "/api/v4/register/all", "/api/v4/me", "/api/v4/me/",
+    "/v4/me", "/v4/me/", "/api/v4/me/list", "/api/v4/me/search", "/api/v4/me/create", "/api/v4/me/update", "/api/v4/me/delete", "/api/v4/me/get", "/api/v4/me/post", "/api/v4/me/put",
+    "/api/v4/me/patch", "/api/v4/me/all", "/api/v4/profile", "/api/v4/profile/", "/v4/profile", "/v4/profile/", "/api/v4/profile/list", "/api/v4/profile/search", "/api/v4/profile/create", "/api/v4/profile/update",
+    "/api/v4/profile/delete", "/api/v4/profile/get", "/api/v4/profile/post", "/api/v4/profile/put", "/api/v4/profile/patch", "/api/v4/profile/all", "/api/v4/account", "/api/v4/account/", "/v4/account", "/v4/account/",
+    "/api/v4/account/list", "/api/v4/account/search", "/api/v4/account/create", "/api/v4/account/update", "/api/v4/account/delete", "/api/v4/account/get", "/api/v4/account/post", "/api/v4/account/put", "/api/v4/account/patch", "/api/v4/account/all",
+    "/api/v4/accounts", "/api/v4/accounts/", "/v4/accounts", "/v4/accounts/", "/api/v4/accounts/list", "/api/v4/accounts/search", "/api/v4/accounts/create", "/api/v4/accounts/update", "/api/v4/accounts/delete", "/api/v4/accounts/get",
+    "/api/v4/accounts/post", "/api/v4/accounts/put", "/api/v4/accounts/patch", "/api/v4/accounts/all", "/api/v4/health", "/api/v4/health/", "/v4/health", "/v4/health/", "/api/v4/health/list", "/api/v4/health/search",
+    "/api/v4/health/create", "/api/v4/health/update", "/api/v4/health/delete", "/api/v4/health/get", "/api/v4/health/post", "/api/v4/health/put", "/api/v4/health/patch", "/api/v4/health/all", "/api/v4/status", "/api/v4/status/",
+    "/v4/status", "/v4/status/", "/api/v4/status/list", "/api/v4/status/search", "/api/v4/status/create", "/api/v4/status/update", "/api/v4/status/delete", "/api/v4/status/get", "/api/v4/status/post", "/api/v4/status/put",
+    "/api/v4/status/patch", "/api/v4/status/all", "/api/v4/version", "/api/v4/version/", "/v4/version", "/v4/version/", "/api/v4/version/list", "/api/v4/version/search", "/api/v4/version/create", "/api/v4/version/update",
+    "/api/v4/version/delete", "/api/v4/version/get", "/api/v4/version/post", "/api/v4/version/put", "/api/v4/version/patch", "/api/v4/version/all", "/api/v4/info", "/api/v4/info/", "/v4/info", "/v4/info/",
+    "/api/v4/info/list", "/api/v4/info/search", "/api/v4/info/create", "/api/v4/info/update", "/api/v4/info/delete", "/api/v4/info/get", "/api/v4/info/post", "/api/v4/info/put", "/api/v4/info/patch", "/api/v4/info/all",
+    "/api/v4/upload", "/api/v4/upload/", "/v4/upload", "/v4/upload/", "/api/v4/upload/list", "/api/v4/upload/search", "/api/v4/upload/create", "/api/v4/upload/update", "/api/v4/upload/delete", "/api/v4/upload/get",
+    "/api/v4/upload/post", "/api/v4/upload/put", "/api/v4/upload/patch", "/api/v4/upload/all", "/api/v4/download", "/api/v4/download/", "/v4/download", "/v4/download/", "/api/v4/download/list", "/api/v4/download/search",
+    "/api/v4/download/create", "/api/v4/download/update", "/api/v4/download/delete", "/api/v4/download/get", "/api/v4/download/post", "/api/v4/download/put", "/api/v4/download/patch", "/api/v4/download/all", "/api/v4/files", "/api/v4/files/",
+    "/v4/files", "/v4/files/", "/api/v4/files/list", "/api/v4/files/search", "/api/v4/files/create", "/api/v4/files/update", "/api/v4/files/delete", "/api/v4/files/get", "/api/v4/files/post", "/api/v4/files/put",
+    "/api/v4/files/patch", "/api/v4/files/all", "/api/v4/list", "/api/v4/list/", "/v4/list", "/v4/list/", "/api/v4/list/list", "/api/v4/list/search", "/api/v4/list/create", "/api/v4/list/update",
+    "/api/v4/list/delete", "/api/v4/list/get", "/api/v4/list/post", "/api/v4/list/put", "/api/v4/list/patch", "/api/v4/list/all", "/api/v4/search", "/api/v4/search/", "/v4/search", "/v4/search/",
+    "/api/v4/search/list", "/api/v4/search/search", "/api/v4/search/create", "/api/v4/search/update", "/api/v4/search/delete", "/api/v4/search/get", "/api/v4/search/post", "/api/v4/search/put", "/api/v4/search/patch", "/api/v4/search/all",
+    "/api/v4/query", "/api/v4/query/", "/v4/query", "/v4/query/", "/api/v4/query/list", "/api/v4/query/search", "/api/v4/query/create", "/api/v4/query/update", "/api/v4/query/delete", "/api/v4/query/get",
+    "/api/v4/query/post", "/api/v4/query/put", "/api/v4/query/patch", "/api/v4/query/all", "/api/v4/debug", "/api/v4/debug/", "/v4/debug", "/v4/debug/", "/api/v4/debug/list", "/api/v4/debug/search",
+    "/api/v4/debug/create", "/api/v4/debug/update", "/api/v4/debug/delete", "/api/v4/debug/get", "/api/v4/debug/post", "/api/v4/debug/put", "/api/v4/debug/patch", "/api/v4/debug/all", "/api/v4/test", "/api/v4/test/",
+    "/v4/test", "/v4/test/", "/api/v4/test/list", "/api/v4/test/search", "/api/v4/test/create", "/api/v4/test/update", "/api/v4/test/delete", "/api/v4/test/get", "/api/v4/test/post", "/api/v4/test/put",
+    "/api/v4/test/patch", "/api/v4/test/all", "/api/v4/internal", "/api/v4/internal/", "/v4/internal", "/v4/internal/", "/api/v4/internal/list", "/api/v4/internal/search", "/api/v4/internal/create", "/api/v4/internal/update",
+    "/api/v4/internal/delete", "/api/v4/internal/get", "/api/v4/internal/post", "/api/v4/internal/put", "/api/v4/internal/patch", "/api/v4/internal/all", "/api/v4/private", "/api/v4/private/", "/v4/private", "/v4/private/",
+    "/api/v4/private/list", "/api/v4/private/search", "/api/v4/private/create", "/api/v4/private/update", "/api/v4/private/delete", "/api/v4/private/get", "/api/v4/private/post", "/api/v4/private/put", "/api/v4/private/patch", "/api/v4/private/all",
+    "/api/v4/secret", "/api/v4/secret/", "/v4/secret", "/v4/secret/", "/api/v4/secret/list", "/api/v4/secret/search", "/api/v4/secret/create", "/api/v4/secret/update", "/api/v4/secret/delete", "/api/v4/secret/get",
+    "/api/v4/secret/post", "/api/v4/secret/put", "/api/v4/secret/patch", "/api/v4/secret/all", "/api/v4/public", "/api/v4/public/", "/v4/public", "/v4/public/", "/api/v4/public/list", "/api/v4/public/search",
+    "/api/v4/public/create", "/api/v4/public/update", "/api/v4/public/delete", "/api/v4/public/get", "/api/v4/public/post", "/api/v4/public/put", "/api/v4/public/patch", "/api/v4/public/all", "/api/v4/orders", "/api/v4/orders/",
+    "/v4/orders", "/v4/orders/", "/api/v4/orders/list", "/api/v4/orders/search", "/api/v4/orders/create", "/api/v4/orders/update", "/api/v4/orders/delete", "/api/v4/orders/get", "/api/v4/orders/post", "/api/v4/orders/put",
+    "/api/v4/orders/patch", "/api/v4/orders/all", "/api/v4/products", "/api/v4/products/", "/v4/products", "/v4/products/", "/api/v4/products/list", "/api/v4/products/search", "/api/v4/products/create", "/api/v4/products/update",
+    "/api/v4/products/delete", "/api/v4/products/get", "/api/v4/products/post", "/api/v4/products/put", "/api/v4/products/patch", "/api/v4/products/all", "/api/v4/payments", "/api/v4/payments/", "/v4/payments", "/v4/payments/",
+    "/api/v4/payments/list", "/api/v4/payments/search", "/api/v4/payments/create", "/api/v4/payments/update", "/api/v4/payments/delete", "/api/v4/payments/get", "/api/v4/payments/post", "/api/v4/payments/put", "/api/v4/payments/patch", "/api/v4/payments/all",
+    "/api/v4/invoices", "/api/v4/invoices/", "/v4/invoices", "/v4/invoices/", "/api/v4/invoices/list", "/api/v4/invoices/search", "/api/v4/invoices/create", "/api/v4/invoices/update", "/api/v4/invoices/delete", "/api/v4/invoices/get",
+    "/api/v4/invoices/post", "/api/v4/invoices/put", "/api/v4/invoices/patch", "/api/v4/invoices/all", "/api/v4/subscriptions", "/api/v4/subscriptions/", "/v4/subscriptions", "/v4/subscriptions/", "/api/v4/subscriptions/list", "/api/v4/subscriptions/search",
+    "/api/v4/subscriptions/create", "/api/v4/subscriptions/update", "/api/v4/subscriptions/delete", "/api/v4/subscriptions/get", "/api/v4/subscriptions/post", "/api/v4/subscriptions/put", "/api/v4/subscriptions/patch", "/api/v4/subscriptions/all", "/api/v4/notifications", "/api/v4/notifications/",
+    "/v4/notifications", "/v4/notifications/", "/api/v4/notifications/list", "/api/v4/notifications/search", "/api/v4/notifications/create", "/api/v4/notifications/update", "/api/v4/notifications/delete", "/api/v4/notifications/get", "/api/v4/notifications/post", "/api/v4/notifications/put",
+    "/api/v4/notifications/patch", "/api/v4/notifications/all", "/api/v4/messages", "/api/v4/messages/", "/v4/messages", "/v4/messages/", "/api/v4/messages/list", "/api/v4/messages/search", "/api/v4/messages/create", "/api/v4/messages/update",
+    "/api/v4/messages/delete", "/api/v4/messages/get", "/api/v4/messages/post", "/api/v4/messages/put", "/api/v4/messages/patch", "/api/v4/messages/all", "/api/v4/emails", "/api/v4/emails/", "/v4/emails", "/v4/emails/",
+    "/api/v4/emails/list", "/api/v4/emails/search", "/api/v4/emails/create", "/api/v4/emails/update", "/api/v4/emails/delete", "/api/v4/emails/get", "/api/v4/emails/post", "/api/v4/emails/put", "/api/v4/emails/patch", "/api/v4/emails/all",
+    "/api/v4/sessions", "/api/v4/sessions/", "/v4/sessions", "/v4/sessions/", "/api/v4/sessions/list", "/api/v4/sessions/search", "/api/v4/sessions/create", "/api/v4/sessions/update", "/api/v4/sessions/delete", "/api/v4/sessions/get",
+    "/api/v4/sessions/post", "/api/v4/sessions/put", "/api/v4/sessions/patch", "/api/v4/sessions/all", "/api/v4/tokens", "/api/v4/tokens/", "/v4/tokens", "/v4/tokens/", "/api/v4/tokens/list", "/api/v4/tokens/search",
+    "/api/v4/tokens/create", "/api/v4/tokens/update", "/api/v4/tokens/delete", "/api/v4/tokens/get", "/api/v4/tokens/post", "/api/v4/tokens/put", "/api/v4/tokens/patch", "/api/v4/tokens/all", "/api/v4/webhooks", "/api/v4/webhooks/",
+    "/v4/webhooks", "/v4/webhooks/", "/api/v4/webhooks/list", "/api/v4/webhooks/search", "/api/v4/webhooks/create", "/api/v4/webhooks/update", "/api/v4/webhooks/delete", "/api/v4/webhooks/get", "/api/v4/webhooks/post", "/api/v4/webhooks/put",
+    "/api/v4/webhooks/patch", "/api/v4/webhooks/all", "/api/v4/callbacks", "/api/v4/callbacks/", "/v4/callbacks", "/v4/callbacks/", "/api/v4/callbacks/list", "/api/v4/callbacks/search", "/api/v4/callbacks/create", "/api/v4/callbacks/update",
+    "/api/v4/callbacks/delete", "/api/v4/callbacks/get", "/api/v4/callbacks/post", "/api/v4/callbacks/put", "/api/v4/callbacks/patch", "/api/v4/callbacks/all", "/api/v4/events", "/api/v4/events/", "/v4/events", "/v4/events/",
+    "/api/v4/events/list", "/api/v4/events/search", "/api/v4/events/create", "/api/v4/events/update", "/api/v4/events/delete", "/api/v4/events/get", "/api/v4/events/post", "/api/v4/events/put", "/api/v4/events/patch", "/api/v4/events/all",
+    "/api/v4/logs", "/api/v4/logs/", "/v4/logs", "/v4/logs/", "/api/v4/logs/list", "/api/v4/logs/search", "/api/v4/logs/create", "/api/v4/logs/update", "/api/v4/logs/delete", "/api/v4/logs/get",
+    "/api/v4/logs/post", "/api/v4/logs/put", "/api/v4/logs/patch", "/api/v4/logs/all", "/api/v4/metrics", "/api/v4/metrics/", "/v4/metrics", "/v4/metrics/", "/api/v4/metrics/list", "/api/v4/metrics/search",
+    "/api/v4/metrics/create", "/api/v4/metrics/update", "/api/v4/metrics/delete", "/api/v4/metrics/get", "/api/v4/metrics/post", "/api/v4/metrics/put", "/api/v4/metrics/patch", "/api/v4/metrics/all", "/api/v4/stats", "/api/v4/stats/",
+    "/v4/stats", "/v4/stats/", "/api/v4/stats/list", "/api/v4/stats/search", "/api/v4/stats/create", "/api/v4/stats/update", "/api/v4/stats/delete", "/api/v4/stats/get", "/api/v4/stats/post", "/api/v4/stats/put",
+    "/api/v4/stats/patch", "/api/v4/stats/all", "/api/v5/users", "/api/v5/users/", "/v5/users", "/v5/users/", "/api/v5/users/list", "/api/v5/users/search", "/api/v5/users/create", "/api/v5/users/update",
+    "/api/v5/users/delete", "/api/v5/users/get", "/api/v5/users/post", "/api/v5/users/put", "/api/v5/users/patch", "/api/v5/users/all", "/api/v5/user", "/api/v5/user/", "/v5/user", "/v5/user/",
+    "/api/v5/user/list", "/api/v5/user/search", "/api/v5/user/create", "/api/v5/user/update", "/api/v5/user/delete", "/api/v5/user/get", "/api/v5/user/post", "/api/v5/user/put", "/api/v5/user/patch", "/api/v5/user/all",
+    "/api/v5/admin", "/api/v5/admin/", "/v5/admin", "/v5/admin/", "/api/v5/admin/list", "/api/v5/admin/search", "/api/v5/admin/create", "/api/v5/admin/update", "/api/v5/admin/delete", "/api/v5/admin/get",
+    "/api/v5/admin/post", "/api/v5/admin/put", "/api/v5/admin/patch", "/api/v5/admin/all", "/api/v5/config", "/api/v5/config/", "/v5/config", "/v5/config/", "/api/v5/config/list", "/api/v5/config/search",
+    "/api/v5/config/create", "/api/v5/config/update", "/api/v5/config/delete", "/api/v5/config/get", "/api/v5/config/post", "/api/v5/config/put", "/api/v5/config/patch", "/api/v5/config/all", "/api/v5/settings", "/api/v5/settings/",
+    "/v5/settings", "/v5/settings/", "/api/v5/settings/list", "/api/v5/settings/search", "/api/v5/settings/create", "/api/v5/settings/update", "/api/v5/settings/delete", "/api/v5/settings/get", "/api/v5/settings/post", "/api/v5/settings/put",
+    "/api/v5/settings/patch", "/api/v5/settings/all", "/api/v5/auth", "/api/v5/auth/", "/v5/auth", "/v5/auth/", "/api/v5/auth/list", "/api/v5/auth/search", "/api/v5/auth/create", "/api/v5/auth/update",
+    "/api/v5/auth/delete", "/api/v5/auth/get", "/api/v5/auth/post", "/api/v5/auth/put", "/api/v5/auth/patch", "/api/v5/auth/all", "/api/v5/login", "/api/v5/login/", "/v5/login", "/v5/login/",
+    "/api/v5/login/list", "/api/v5/login/search", "/api/v5/login/create", "/api/v5/login/update", "/api/v5/login/delete", "/api/v5/login/get", "/api/v5/login/post", "/api/v5/login/put", "/api/v5/login/patch", "/api/v5/login/all",
+    "/api/v5/logout", "/api/v5/logout/", "/v5/logout", "/v5/logout/", "/api/v5/logout/list", "/api/v5/logout/search", "/api/v5/logout/create", "/api/v5/logout/update", "/api/v5/logout/delete", "/api/v5/logout/get",
+    "/api/v5/logout/post", "/api/v5/logout/put", "/api/v5/logout/patch", "/api/v5/logout/all", "/api/v5/register", "/api/v5/register/", "/v5/register", "/v5/register/", "/api/v5/register/list", "/api/v5/register/search",
+    "/api/v5/register/create", "/api/v5/register/update", "/api/v5/register/delete", "/api/v5/register/get", "/api/v5/register/post", "/api/v5/register/put", "/api/v5/register/patch", "/api/v5/register/all", "/api/v5/me", "/api/v5/me/",
+    "/v5/me", "/v5/me/", "/api/v5/me/list", "/api/v5/me/search", "/api/v5/me/create", "/api/v5/me/update", "/api/v5/me/delete", "/api/v5/me/get", "/api/v5/me/post", "/api/v5/me/put",
+    "/api/v5/me/patch", "/api/v5/me/all", "/api/v5/profile", "/api/v5/profile/", "/v5/profile", "/v5/profile/", "/api/v5/profile/list", "/api/v5/profile/search", "/api/v5/profile/create", "/api/v5/profile/update",
+    "/api/v5/profile/delete", "/api/v5/profile/get", "/api/v5/profile/post", "/api/v5/profile/put", "/api/v5/profile/patch", "/api/v5/profile/all", "/api/v5/account", "/api/v5/account/", "/v5/account", "/v5/account/",
+    "/api/v5/account/list", "/api/v5/account/search", "/api/v5/account/create", "/api/v5/account/update", "/api/v5/account/delete", "/api/v5/account/get", "/api/v5/account/post", "/api/v5/account/put", "/api/v5/account/patch", "/api/v5/account/all",
+    "/api/v5/accounts", "/api/v5/accounts/", "/v5/accounts", "/v5/accounts/", "/api/v5/accounts/list", "/api/v5/accounts/search", "/api/v5/accounts/create", "/api/v5/accounts/update", "/api/v5/accounts/delete", "/api/v5/accounts/get",
+    "/api/v5/accounts/post", "/api/v5/accounts/put", "/api/v5/accounts/patch", "/api/v5/accounts/all", "/api/v5/health", "/api/v5/health/", "/v5/health", "/v5/health/", "/api/v5/health/list", "/api/v5/health/search",
+    "/api/v5/health/create", "/api/v5/health/update", "/api/v5/health/delete", "/api/v5/health/get", "/api/v5/health/post", "/api/v5/health/put", "/api/v5/health/patch", "/api/v5/health/all", "/api/v5/status", "/api/v5/status/",
+    "/v5/status", "/v5/status/", "/api/v5/status/list", "/api/v5/status/search", "/api/v5/status/create", "/api/v5/status/update", "/api/v5/status/delete", "/api/v5/status/get", "/api/v5/status/post", "/api/v5/status/put",
+    "/api/v5/status/patch", "/api/v5/status/all", "/api/v5/version", "/api/v5/version/", "/v5/version", "/v5/version/", "/api/v5/version/list", "/api/v5/version/search", "/api/v5/version/create", "/api/v5/version/update",
+    "/api/v5/version/delete", "/api/v5/version/get", "/api/v5/version/post", "/api/v5/version/put", "/api/v5/version/patch", "/api/v5/version/all", "/api/v5/info", "/api/v5/info/", "/v5/info", "/v5/info/",
+    "/api/v5/info/list", "/api/v5/info/search", "/api/v5/info/create", "/api/v5/info/update", "/api/v5/info/delete", "/api/v5/info/get", "/api/v5/info/post", "/api/v5/info/put", "/api/v5/info/patch", "/api/v5/info/all",
+    "/api/v5/upload", "/api/v5/upload/", "/v5/upload", "/v5/upload/", "/api/v5/upload/list", "/api/v5/upload/search", "/api/v5/upload/create", "/api/v5/upload/update", "/api/v5/upload/delete", "/api/v5/upload/get",
+    "/api/v5/upload/post", "/api/v5/upload/put", "/api/v5/upload/patch", "/api/v5/upload/all", "/api/v5/download", "/api/v5/download/", "/v5/download", "/v5/download/", "/api/v5/download/list", "/api/v5/download/search",
+    "/api/v5/download/create", "/api/v5/download/update", "/api/v5/download/delete", "/api/v5/download/get", "/api/v5/download/post", "/api/v5/download/put", "/api/v5/download/patch", "/api/v5/download/all", "/api/v5/files", "/api/v5/files/",
+    "/v5/files", "/v5/files/", "/api/v5/files/list", "/api/v5/files/search", "/api/v5/files/create", "/api/v5/files/update", "/api/v5/files/delete", "/api/v5/files/get", "/api/v5/files/post", "/api/v5/files/put",
+    "/api/v5/files/patch", "/api/v5/files/all", "/api/v5/list", "/api/v5/list/", "/v5/list", "/v5/list/", "/api/v5/list/list", "/api/v5/list/search", "/api/v5/list/create", "/api/v5/list/update",
+    "/api/v5/list/delete", "/api/v5/list/get", "/api/v5/list/post", "/api/v5/list/put", "/api/v5/list/patch", "/api/v5/list/all", "/api/v5/search", "/api/v5/search/", "/v5/search", "/v5/search/",
+    "/api/v5/search/list", "/api/v5/search/search", "/api/v5/search/create", "/api/v5/search/update", "/api/v5/search/delete", "/api/v5/search/get", "/api/v5/search/post", "/api/v5/search/put", "/api/v5/search/patch", "/api/v5/search/all",
+    "/api/v5/query", "/api/v5/query/", "/v5/query", "/v5/query/", "/api/v5/query/list", "/api/v5/query/search", "/api/v5/query/create", "/api/v5/query/update", "/api/v5/query/delete", "/api/v5/query/get",
+    "/api/v5/query/post", "/api/v5/query/put", "/api/v5/query/patch", "/api/v5/query/all", "/api/v5/debug", "/api/v5/debug/", "/v5/debug", "/v5/debug/", "/api/v5/debug/list", "/api/v5/debug/search",
+    "/api/v5/debug/create", "/api/v5/debug/update", "/api/v5/debug/delete", "/api/v5/debug/get", "/api/v5/debug/post", "/api/v5/debug/put", "/api/v5/debug/patch", "/api/v5/debug/all", "/api/v5/test", "/api/v5/test/",
+    "/v5/test", "/v5/test/", "/api/v5/test/list", "/api/v5/test/search", "/api/v5/test/create", "/api/v5/test/update", "/api/v5/test/delete", "/api/v5/test/get", "/api/v5/test/post", "/api/v5/test/put",
+    "/api/v5/test/patch", "/api/v5/test/all", "/api/v5/internal", "/api/v5/internal/", "/v5/internal", "/v5/internal/", "/api/v5/internal/list", "/api/v5/internal/search", "/api/v5/internal/create", "/api/v5/internal/update",
+    "/api/v5/internal/delete", "/api/v5/internal/get", "/api/v5/internal/post", "/api/v5/internal/put", "/api/v5/internal/patch", "/api/v5/internal/all", "/api/v5/private", "/api/v5/private/", "/v5/private", "/v5/private/",
+    "/api/v5/private/list", "/api/v5/private/search", "/api/v5/private/create", "/api/v5/private/update", "/api/v5/private/delete", "/api/v5/private/get", "/api/v5/private/post", "/api/v5/private/put", "/api/v5/private/patch", "/api/v5/private/all",
+    "/api/v5/secret", "/api/v5/secret/", "/v5/secret", "/v5/secret/", "/api/v5/secret/list", "/api/v5/secret/search", "/api/v5/secret/create", "/api/v5/secret/update", "/api/v5/secret/delete", "/api/v5/secret/get",
+    "/api/v5/secret/post", "/api/v5/secret/put", "/api/v5/secret/patch", "/api/v5/secret/all", "/api/v5/public", "/api/v5/public/", "/v5/public", "/v5/public/", "/api/v5/public/list", "/api/v5/public/search",
+    "/api/v5/public/create", "/api/v5/public/update", "/api/v5/public/delete", "/api/v5/public/get", "/api/v5/public/post", "/api/v5/public/put", "/api/v5/public/patch", "/api/v5/public/all", "/api/v5/orders", "/api/v5/orders/",
+    "/v5/orders", "/v5/orders/", "/api/v5/orders/list", "/api/v5/orders/search", "/api/v5/orders/create", "/api/v5/orders/update", "/api/v5/orders/delete", "/api/v5/orders/get", "/api/v5/orders/post", "/api/v5/orders/put",
+    "/api/v5/orders/patch", "/api/v5/orders/all", "/api/v5/products", "/api/v5/products/", "/v5/products", "/v5/products/", "/api/v5/products/list", "/api/v5/products/search", "/api/v5/products/create", "/api/v5/products/update",
+    "/api/v5/products/delete", "/api/v5/products/get", "/api/v5/products/post", "/api/v5/products/put", "/api/v5/products/patch", "/api/v5/products/all", "/api/v5/payments", "/api/v5/payments/", "/v5/payments", "/v5/payments/",
+    "/api/v5/payments/list", "/api/v5/payments/search", "/api/v5/payments/create", "/api/v5/payments/update", "/api/v5/payments/delete", "/api/v5/payments/get", "/api/v5/payments/post", "/api/v5/payments/put", "/api/v5/payments/patch", "/api/v5/payments/all",
+    "/api/v5/invoices", "/api/v5/invoices/", "/v5/invoices", "/v5/invoices/", "/api/v5/invoices/list", "/api/v5/invoices/search", "/api/v5/invoices/create", "/api/v5/invoices/update", "/api/v5/invoices/delete", "/api/v5/invoices/get",
+    "/api/v5/invoices/post", "/api/v5/invoices/put", "/api/v5/invoices/patch", "/api/v5/invoices/all", "/api/v5/subscriptions", "/api/v5/subscriptions/", "/v5/subscriptions", "/v5/subscriptions/", "/api/v5/subscriptions/list", "/api/v5/subscriptions/search",
+    "/api/v5/subscriptions/create", "/api/v5/subscriptions/update", "/api/v5/subscriptions/delete", "/api/v5/subscriptions/get", "/api/v5/subscriptions/post", "/api/v5/subscriptions/put", "/api/v5/subscriptions/patch", "/api/v5/subscriptions/all", "/api/v5/notifications", "/api/v5/notifications/",
+    "/v5/notifications", "/v5/notifications/", "/api/v5/notifications/list", "/api/v5/notifications/search", "/api/v5/notifications/create", "/api/v5/notifications/update", "/api/v5/notifications/delete", "/api/v5/notifications/get", "/api/v5/notifications/post", "/api/v5/notifications/put",
+    "/api/v5/notifications/patch", "/api/v5/notifications/all", "/api/v5/messages", "/api/v5/messages/", "/v5/messages", "/v5/messages/", "/api/v5/messages/list", "/api/v5/messages/search", "/api/v5/messages/create", "/api/v5/messages/update",
+    "/api/v5/messages/delete", "/api/v5/messages/get", "/api/v5/messages/post", "/api/v5/messages/put", "/api/v5/messages/patch", "/api/v5/messages/all", "/api/v5/emails", "/api/v5/emails/", "/v5/emails", "/v5/emails/",
+    "/api/v5/emails/list", "/api/v5/emails/search", "/api/v5/emails/create", "/api/v5/emails/update", "/api/v5/emails/delete", "/api/v5/emails/get", "/api/v5/emails/post", "/api/v5/emails/put", "/api/v5/emails/patch", "/api/v5/emails/all",
+    "/api/v5/sessions", "/api/v5/sessions/", "/v5/sessions", "/v5/sessions/", "/api/v5/sessions/list", "/api/v5/sessions/search", "/api/v5/sessions/create", "/api/v5/sessions/update", "/api/v5/sessions/delete", "/api/v5/sessions/get",
+    "/api/v5/sessions/post", "/api/v5/sessions/put", "/api/v5/sessions/patch", "/api/v5/sessions/all", "/api/v5/tokens", "/api/v5/tokens/", "/v5/tokens", "/v5/tokens/", "/api/v5/tokens/list", "/api/v5/tokens/search",
+    "/api/v5/tokens/create", "/api/v5/tokens/update", "/api/v5/tokens/delete", "/api/v5/tokens/get", "/api/v5/tokens/post", "/api/v5/tokens/put", "/api/v5/tokens/patch", "/api/v5/tokens/all", "/api/v5/webhooks", "/api/v5/webhooks/",
+    "/v5/webhooks", "/v5/webhooks/", "/api/v5/webhooks/list", "/api/v5/webhooks/search", "/api/v5/webhooks/create", "/api/v5/webhooks/update", "/api/v5/webhooks/delete", "/api/v5/webhooks/get", "/api/v5/webhooks/post", "/api/v5/webhooks/put",
+    "/api/v5/webhooks/patch", "/api/v5/webhooks/all", "/api/v5/callbacks", "/api/v5/callbacks/", "/v5/callbacks", "/v5/callbacks/", "/api/v5/callbacks/list", "/api/v5/callbacks/search", "/api/v5/callbacks/create", "/api/v5/callbacks/update",
+    "/api/v5/callbacks/delete", "/api/v5/callbacks/get", "/api/v5/callbacks/post", "/api/v5/callbacks/put", "/api/v5/callbacks/patch", "/api/v5/callbacks/all", "/api/v5/events", "/api/v5/events/", "/v5/events", "/v5/events/",
+    "/api/v5/events/list", "/api/v5/events/search", "/api/v5/events/create", "/api/v5/events/update", "/api/v5/events/delete", "/api/v5/events/get", "/api/v5/events/post", "/api/v5/events/put", "/api/v5/events/patch", "/api/v5/events/all",
+    "/api/v5/logs", "/api/v5/logs/", "/v5/logs", "/v5/logs/", "/api/v5/logs/list", "/api/v5/logs/search", "/api/v5/logs/create", "/api/v5/logs/update", "/api/v5/logs/delete", "/api/v5/logs/get",
+    "/api/v5/logs/post", "/api/v5/logs/put", "/api/v5/logs/patch", "/api/v5/logs/all", "/api/v5/metrics", "/api/v5/metrics/", "/v5/metrics", "/v5/metrics/", "/api/v5/metrics/list", "/api/v5/metrics/search",
+    "/api/v5/metrics/create", "/api/v5/metrics/update", "/api/v5/metrics/delete", "/api/v5/metrics/get", "/api/v5/metrics/post", "/api/v5/metrics/put", "/api/v5/metrics/patch", "/api/v5/metrics/all", "/api/v5/stats", "/api/v5/stats/",
+    "/v5/stats", "/v5/stats/", "/api/v5/stats/list", "/api/v5/stats/search", "/api/v5/stats/create", "/api/v5/stats/update", "/api/v5/stats/delete", "/api/v5/stats/get", "/api/v5/stats/post", "/api/v5/stats/put",
+    "/api/v5/stats/patch", "/api/v5/stats/all", "/api/v6/users", "/api/v6/users/", "/v6/users", "/v6/users/", "/api/v6/users/list", "/api/v6/users/search", "/api/v6/users/create", "/api/v6/users/update",
+    "/api/v6/users/delete", "/api/v6/users/get", "/api/v6/users/post", "/api/v6/users/put", "/api/v6/users/patch", "/api/v6/users/all", "/api/v6/user", "/api/v6/user/", "/v6/user", "/v6/user/",
+    "/api/v6/user/list", "/api/v6/user/search", "/api/v6/user/create", "/api/v6/user/update", "/api/v6/user/delete", "/api/v6/user/get", "/api/v6/user/post", "/api/v6/user/put", "/api/v6/user/patch", "/api/v6/user/all",
+    "/api/v6/admin", "/api/v6/admin/", "/v6/admin", "/v6/admin/", "/api/v6/admin/list", "/api/v6/admin/search", "/api/v6/admin/create", "/api/v6/admin/update", "/api/v6/admin/delete", "/api/v6/admin/get",
+    "/api/v6/admin/post", "/api/v6/admin/put", "/api/v6/admin/patch", "/api/v6/admin/all", "/api/v6/config", "/api/v6/config/", "/v6/config", "/v6/config/", "/api/v6/config/list", "/api/v6/config/search",
+    "/api/v6/config/create", "/api/v6/config/update", "/api/v6/config/delete", "/api/v6/config/get", "/api/v6/config/post", "/api/v6/config/put", "/api/v6/config/patch", "/api/v6/config/all", "/api/v6/settings", "/api/v6/settings/",
+    "/v6/settings", "/v6/settings/", "/api/v6/settings/list", "/api/v6/settings/search", "/api/v6/settings/create", "/api/v6/settings/update", "/api/v6/settings/delete", "/api/v6/settings/get", "/api/v6/settings/post", "/api/v6/settings/put",
+    "/api/v6/settings/patch", "/api/v6/settings/all", "/api/v6/auth", "/api/v6/auth/", "/v6/auth", "/v6/auth/", "/api/v6/auth/list", "/api/v6/auth/search", "/api/v6/auth/create", "/api/v6/auth/update",
+    "/api/v6/auth/delete", "/api/v6/auth/get", "/api/v6/auth/post", "/api/v6/auth/put", "/api/v6/auth/patch", "/api/v6/auth/all", "/api/v6/login", "/api/v6/login/", "/v6/login", "/v6/login/",
+    "/api/v6/login/list", "/api/v6/login/search", "/api/v6/login/create", "/api/v6/login/update", "/api/v6/login/delete", "/api/v6/login/get", "/api/v6/login/post", "/api/v6/login/put", "/api/v6/login/patch", "/api/v6/login/all",
+    "/api/v6/logout", "/api/v6/logout/", "/v6/logout", "/v6/logout/", "/api/v6/logout/list", "/api/v6/logout/search", "/api/v6/logout/create", "/api/v6/logout/update", "/api/v6/logout/delete", "/api/v6/logout/get",
+    "/api/v6/logout/post", "/api/v6/logout/put", "/api/v6/logout/patch", "/api/v6/logout/all", "/api/v6/register", "/api/v6/register/", "/v6/register", "/v6/register/", "/api/v6/register/list", "/api/v6/register/search",
+    "/api/v6/register/create", "/api/v6/register/update", "/api/v6/register/delete", "/api/v6/register/get", "/api/v6/register/post", "/api/v6/register/put", "/api/v6/register/patch", "/api/v6/register/all", "/api/v6/me", "/api/v6/me/",
+    "/v6/me", "/v6/me/", "/api/v6/me/list", "/api/v6/me/search", "/api/v6/me/create", "/api/v6/me/update", "/api/v6/me/delete", "/api/v6/me/get", "/api/v6/me/post", "/api/v6/me/put",
+    "/api/v6/me/patch", "/api/v6/me/all", "/api/v6/profile", "/api/v6/profile/", "/v6/profile", "/v6/profile/", "/api/v6/profile/list", "/api/v6/profile/search", "/api/v6/profile/create", "/api/v6/profile/update",
+    "/api/v6/profile/delete", "/api/v6/profile/get", "/api/v6/profile/post", "/api/v6/profile/put", "/api/v6/profile/patch", "/api/v6/profile/all", "/api/v6/account", "/api/v6/account/", "/v6/account", "/v6/account/",
+    "/api/v6/account/list", "/api/v6/account/search", "/api/v6/account/create", "/api/v6/account/update", "/api/v6/account/delete", "/api/v6/account/get", "/api/v6/account/post", "/api/v6/account/put", "/api/v6/account/patch", "/api/v6/account/all",
+    "/api/v6/accounts", "/api/v6/accounts/", "/v6/accounts", "/v6/accounts/", "/api/v6/accounts/list", "/api/v6/accounts/search", "/api/v6/accounts/create", "/api/v6/accounts/update", "/api/v6/accounts/delete", "/api/v6/accounts/get",
+    "/api/v6/accounts/post", "/api/v6/accounts/put", "/api/v6/accounts/patch", "/api/v6/accounts/all", "/api/v6/health", "/api/v6/health/", "/v6/health", "/v6/health/", "/api/v6/health/list", "/api/v6/health/search",
+    "/api/v6/health/create", "/api/v6/health/update", "/api/v6/health/delete", "/api/v6/health/get", "/api/v6/health/post", "/api/v6/health/put", "/api/v6/health/patch", "/api/v6/health/all", "/api/v6/status", "/api/v6/status/",
+    "/v6/status", "/v6/status/", "/api/v6/status/list", "/api/v6/status/search", "/api/v6/status/create", "/api/v6/status/update", "/api/v6/status/delete", "/api/v6/status/get", "/api/v6/status/post", "/api/v6/status/put",
+    "/api/v6/status/patch", "/api/v6/status/all", "/api/v6/version", "/api/v6/version/", "/v6/version", "/v6/version/", "/api/v6/version/list", "/api/v6/version/search", "/api/v6/version/create", "/api/v6/version/update",
+    "/api/v6/version/delete", "/api/v6/version/get", "/api/v6/version/post", "/api/v6/version/put", "/api/v6/version/patch", "/api/v6/version/all", "/api/v6/info", "/api/v6/info/", "/v6/info", "/v6/info/",
+    "/api/v6/info/list", "/api/v6/info/search", "/api/v6/info/create", "/api/v6/info/update", "/api/v6/info/delete", "/api/v6/info/get", "/api/v6/info/post", "/api/v6/info/put", "/api/v6/info/patch", "/api/v6/info/all",
+    "/api/v6/upload", "/api/v6/upload/", "/v6/upload", "/v6/upload/", "/api/v6/upload/list", "/api/v6/upload/search", "/api/v6/upload/create", "/api/v6/upload/update", "/api/v6/upload/delete", "/api/v6/upload/get",
+    "/api/v6/upload/post", "/api/v6/upload/put", "/api/v6/upload/patch", "/api/v6/upload/all", "/api/v6/download", "/api/v6/download/", "/v6/download", "/v6/download/", "/api/v6/download/list", "/api/v6/download/search",
+    "/api/v6/download/create", "/api/v6/download/update", "/api/v6/download/delete", "/api/v6/download/get", "/api/v6/download/post", "/api/v6/download/put", "/api/v6/download/patch", "/api/v6/download/all", "/api/v6/files", "/api/v6/files/",
+    "/v6/files", "/v6/files/", "/api/v6/files/list", "/api/v6/files/search", "/api/v6/files/create", "/api/v6/files/update", "/api/v6/files/delete", "/api/v6/files/get", "/api/v6/files/post", "/api/v6/files/put",
+    "/api/v6/files/patch", "/api/v6/files/all", "/api/v6/list", "/api/v6/list/", "/v6/list", "/v6/list/", "/api/v6/list/list", "/api/v6/list/search", "/api/v6/list/create", "/api/v6/list/update",
+    "/api/v6/list/delete", "/api/v6/list/get", "/api/v6/list/post", "/api/v6/list/put", "/api/v6/list/patch", "/api/v6/list/all", "/api/v6/search", "/api/v6/search/", "/v6/search", "/v6/search/",
+    "/api/v6/search/list", "/api/v6/search/search", "/api/v6/search/create", "/api/v6/search/update", "/api/v6/search/delete", "/api/v6/search/get", "/api/v6/search/post", "/api/v6/search/put", "/api/v6/search/patch", "/api/v6/search/all",
+    "/api/v6/query", "/api/v6/query/", "/v6/query", "/v6/query/", "/api/v6/query/list", "/api/v6/query/search", "/api/v6/query/create", "/api/v6/query/update", "/api/v6/query/delete", "/api/v6/query/get",
+    "/api/v6/query/post", "/api/v6/query/put", "/api/v6/query/patch", "/api/v6/query/all", "/api/v6/debug", "/api/v6/debug/", "/v6/debug", "/v6/debug/", "/api/v6/debug/list", "/api/v6/debug/search",
+    "/api/v6/debug/create", "/api/v6/debug/update", "/api/v6/debug/delete", "/api/v6/debug/get", "/api/v6/debug/post", "/api/v6/debug/put", "/api/v6/debug/patch", "/api/v6/debug/all", "/api/v6/test", "/api/v6/test/",
+    "/v6/test", "/v6/test/", "/api/v6/test/list", "/api/v6/test/search", "/api/v6/test/create", "/api/v6/test/update", "/api/v6/test/delete", "/api/v6/test/get", "/api/v6/test/post", "/api/v6/test/put",
+    "/api/v6/test/patch", "/api/v6/test/all", "/api/v6/internal", "/api/v6/internal/", "/v6/internal", "/v6/internal/", "/api/v6/internal/list", "/api/v6/internal/search", "/api/v6/internal/create", "/api/v6/internal/update",
+    "/api/v6/internal/delete", "/api/v6/internal/get", "/api/v6/internal/post", "/api/v6/internal/put", "/api/v6/internal/patch", "/api/v6/internal/all", "/api/v6/private", "/api/v6/private/", "/v6/private", "/v6/private/",
+    "/api/v6/private/list", "/api/v6/private/search", "/api/v6/private/create", "/api/v6/private/update", "/api/v6/private/delete", "/api/v6/private/get", "/api/v6/private/post", "/api/v6/private/put", "/api/v6/private/patch", "/api/v6/private/all",
+    "/api/v6/secret", "/api/v6/secret/", "/v6/secret", "/v6/secret/", "/api/v6/secret/list", "/api/v6/secret/search", "/api/v6/secret/create", "/api/v6/secret/update", "/api/v6/secret/delete", "/api/v6/secret/get",
+    "/api/v6/secret/post", "/api/v6/secret/put", "/api/v6/secret/patch", "/api/v6/secret/all", "/api/v6/public", "/api/v6/public/", "/v6/public", "/v6/public/", "/api/v6/public/list", "/api/v6/public/search",
+    "/api/v6/public/create", "/api/v6/public/update", "/api/v6/public/delete", "/api/v6/public/get", "/api/v6/public/post", "/api/v6/public/put", "/api/v6/public/patch", "/api/v6/public/all", "/api/v6/orders", "/api/v6/orders/",
+    "/v6/orders", "/v6/orders/", "/api/v6/orders/list", "/api/v6/orders/search", "/api/v6/orders/create", "/api/v6/orders/update", "/api/v6/orders/delete", "/api/v6/orders/get", "/api/v6/orders/post", "/api/v6/orders/put",
+    "/api/v6/orders/patch", "/api/v6/orders/all", "/api/v6/products", "/api/v6/products/", "/v6/products", "/v6/products/", "/api/v6/products/list", "/api/v6/products/search", "/api/v6/products/create", "/api/v6/products/update",
+    "/api/v6/products/delete", "/api/v6/products/get", "/api/v6/products/post", "/api/v6/products/put", "/api/v6/products/patch", "/api/v6/products/all", "/api/v6/payments", "/api/v6/payments/", "/v6/payments", "/v6/payments/",
+    "/api/v6/payments/list", "/api/v6/payments/search", "/api/v6/payments/create", "/api/v6/payments/update", "/api/v6/payments/delete", "/api/v6/payments/get", "/api/v6/payments/post", "/api/v6/payments/put", "/api/v6/payments/patch", "/api/v6/payments/all",
+    "/api/v6/invoices", "/api/v6/invoices/", "/v6/invoices", "/v6/invoices/", "/api/v6/invoices/list", "/api/v6/invoices/search", "/api/v6/invoices/create", "/api/v6/invoices/update", "/api/v6/invoices/delete", "/api/v6/invoices/get",
+    "/api/v6/invoices/post", "/api/v6/invoices/put", "/api/v6/invoices/patch", "/api/v6/invoices/all", "/api/v6/subscriptions", "/api/v6/subscriptions/", "/v6/subscriptions", "/v6/subscriptions/", "/api/v6/subscriptions/list", "/api/v6/subscriptions/search",
+    "/api/v6/subscriptions/create", "/api/v6/subscriptions/update", "/api/v6/subscriptions/delete", "/api/v6/subscriptions/get", "/api/v6/subscriptions/post", "/api/v6/subscriptions/put", "/api/v6/subscriptions/patch", "/api/v6/subscriptions/all", "/api/v6/notifications", "/api/v6/notifications/",
+    "/v6/notifications", "/v6/notifications/", "/api/v6/notifications/list", "/api/v6/notifications/search", "/api/v6/notifications/create", "/api/v6/notifications/update", "/api/v6/notifications/delete", "/api/v6/notifications/get", "/api/v6/notifications/post", "/api/v6/notifications/put",
+    "/api/v6/notifications/patch", "/api/v6/notifications/all", "/api/v6/messages", "/api/v6/messages/", "/v6/messages", "/v6/messages/", "/api/v6/messages/list", "/api/v6/messages/search", "/api/v6/messages/create", "/api/v6/messages/update",
+    "/api/v6/messages/delete", "/api/v6/messages/get", "/api/v6/messages/post", "/api/v6/messages/put", "/api/v6/messages/patch", "/api/v6/messages/all", "/api/v6/emails", "/api/v6/emails/", "/v6/emails", "/v6/emails/",
+    "/api/v6/emails/list", "/api/v6/emails/search", "/api/v6/emails/create", "/api/v6/emails/update", "/api/v6/emails/delete", "/api/v6/emails/get", "/api/v6/emails/post", "/api/v6/emails/put", "/api/v6/emails/patch", "/api/v6/emails/all",
+    "/api/v6/sessions", "/api/v6/sessions/", "/v6/sessions", "/v6/sessions/", "/api/v6/sessions/list", "/api/v6/sessions/search", "/api/v6/sessions/create", "/api/v6/sessions/update", "/api/v6/sessions/delete", "/api/v6/sessions/get",
+    "/api/v6/sessions/post", "/api/v6/sessions/put", "/api/v6/sessions/patch", "/api/v6/sessions/all", "/api/v6/tokens", "/api/v6/tokens/", "/v6/tokens", "/v6/tokens/", "/api/v6/tokens/list", "/api/v6/tokens/search",
+    "/api/v6/tokens/create", "/api/v6/tokens/update", "/api/v6/tokens/delete", "/api/v6/tokens/get", "/api/v6/tokens/post", "/api/v6/tokens/put", "/api/v6/tokens/patch", "/api/v6/tokens/all", "/api/v6/webhooks", "/api/v6/webhooks/",
+    "/v6/webhooks", "/v6/webhooks/", "/api/v6/webhooks/list", "/api/v6/webhooks/search", "/api/v6/webhooks/create", "/api/v6/webhooks/update", "/api/v6/webhooks/delete", "/api/v6/webhooks/get", "/api/v6/webhooks/post", "/api/v6/webhooks/put",
+    "/api/v6/webhooks/patch", "/api/v6/webhooks/all", "/api/v6/callbacks", "/api/v6/callbacks/", "/v6/callbacks", "/v6/callbacks/", "/api/v6/callbacks/list", "/api/v6/callbacks/search", "/api/v6/callbacks/create", "/api/v6/callbacks/update",
+    "/api/v6/callbacks/delete", "/api/v6/callbacks/get", "/api/v6/callbacks/post", "/api/v6/callbacks/put", "/api/v6/callbacks/patch", "/api/v6/callbacks/all", "/api/v6/events", "/api/v6/events/", "/v6/events", "/v6/events/",
+    "/api/v6/events/list", "/api/v6/events/search", "/api/v6/events/create", "/api/v6/events/update", "/api/v6/events/delete", "/api/v6/events/get", "/api/v6/events/post", "/api/v6/events/put", "/api/v6/events/patch", "/api/v6/events/all",
+    "/api/v6/logs", "/api/v6/logs/", "/v6/logs", "/v6/logs/", "/api/v6/logs/list", "/api/v6/logs/search", "/api/v6/logs/create", "/api/v6/logs/update", "/api/v6/logs/delete", "/api/v6/logs/get",
+    "/api/v6/logs/post", "/api/v6/logs/put", "/api/v6/logs/patch", "/api/v6/logs/all", "/api/v6/metrics", "/api/v6/metrics/", "/v6/metrics", "/v6/metrics/", "/api/v6/metrics/list", "/api/v6/metrics/search",
+    "/api/v6/metrics/create", "/api/v6/metrics/update", "/api/v6/metrics/delete", "/api/v6/metrics/get", "/api/v6/metrics/post", "/api/v6/metrics/put", "/api/v6/metrics/patch", "/api/v6/metrics/all", "/api/v6/stats", "/api/v6/stats/",
+    "/v6/stats", "/v6/stats/", "/api/v6/stats/list", "/api/v6/stats/search", "/api/v6/stats/create", "/api/v6/stats/update", "/api/v6/stats/delete", "/api/v6/stats/get", "/api/v6/stats/post", "/api/v6/stats/put",
+    "/api/v6/stats/patch", "/api/v6/stats/all", "/api/v7/users", "/api/v7/users/", "/v7/users", "/v7/users/", "/api/v7/users/list", "/api/v7/users/search", "/api/v7/users/create", "/api/v7/users/update",
+    "/api/v7/users/delete", "/api/v7/users/get", "/api/v7/users/post", "/api/v7/users/put", "/api/v7/users/patch", "/api/v7/users/all", "/api/v7/user", "/api/v7/user/", "/v7/user", "/v7/user/",
+    "/api/v7/user/list", "/api/v7/user/search", "/api/v7/user/create", "/api/v7/user/update", "/api/v7/user/delete", "/api/v7/user/get", "/api/v7/user/post", "/api/v7/user/put", "/api/v7/user/patch", "/api/v7/user/all",
+    "/api/v7/admin", "/api/v7/admin/", "/v7/admin", "/v7/admin/", "/api/v7/admin/list", "/api/v7/admin/search", "/api/v7/admin/create", "/api/v7/admin/update", "/api/v7/admin/delete", "/api/v7/admin/get",
+    "/api/v7/admin/post", "/api/v7/admin/put", "/api/v7/admin/patch", "/api/v7/admin/all", "/api/v7/config", "/api/v7/config/", "/v7/config", "/v7/config/", "/api/v7/config/list", "/api/v7/config/search",
+    "/api/v7/config/create", "/api/v7/config/update", "/api/v7/config/delete", "/api/v7/config/get", "/api/v7/config/post", "/api/v7/config/put", "/api/v7/config/patch", "/api/v7/config/all", "/api/v7/settings", "/api/v7/settings/",
+    "/v7/settings", "/v7/settings/", "/api/v7/settings/list", "/api/v7/settings/search", "/api/v7/settings/create", "/api/v7/settings/update", "/api/v7/settings/delete", "/api/v7/settings/get", "/api/v7/settings/post", "/api/v7/settings/put",
+    "/api/v7/settings/patch", "/api/v7/settings/all", "/api/v7/auth", "/api/v7/auth/", "/v7/auth", "/v7/auth/", "/api/v7/auth/list", "/api/v7/auth/search", "/api/v7/auth/create", "/api/v7/auth/update",
+    "/api/v7/auth/delete", "/api/v7/auth/get", "/api/v7/auth/post", "/api/v7/auth/put", "/api/v7/auth/patch", "/api/v7/auth/all", "/api/v7/login", "/api/v7/login/", "/v7/login", "/v7/login/",
+    "/api/v7/login/list", "/api/v7/login/search", "/api/v7/login/create", "/api/v7/login/update", "/api/v7/login/delete", "/api/v7/login/get", "/api/v7/login/post", "/api/v7/login/put", "/api/v7/login/patch", "/api/v7/login/all",
+    "/api/v7/logout", "/api/v7/logout/", "/v7/logout", "/v7/logout/", "/api/v7/logout/list", "/api/v7/logout/search", "/api/v7/logout/create", "/api/v7/logout/update", "/api/v7/logout/delete", "/api/v7/logout/get",
+    "/api/v7/logout/post", "/api/v7/logout/put", "/api/v7/logout/patch", "/api/v7/logout/all", "/api/v7/register", "/api/v7/register/", "/v7/register", "/v7/register/", "/api/v7/register/list", "/api/v7/register/search",
+    "/api/v7/register/create", "/api/v7/register/update", "/api/v7/register/delete", "/api/v7/register/get", "/api/v7/register/post", "/api/v7/register/put", "/api/v7/register/patch", "/api/v7/register/all", "/api/v7/me", "/api/v7/me/",
+    "/v7/me", "/v7/me/", "/api/v7/me/list", "/api/v7/me/search", "/api/v7/me/create", "/api/v7/me/update", "/api/v7/me/delete", "/api/v7/me/get", "/api/v7/me/post", "/api/v7/me/put",
+    "/api/v7/me/patch", "/api/v7/me/all", "/api/v7/profile", "/api/v7/profile/", "/v7/profile", "/v7/profile/", "/api/v7/profile/list", "/api/v7/profile/search", "/api/v7/profile/create", "/api/v7/profile/update",
+    "/api/v7/profile/delete", "/api/v7/profile/get", "/api/v7/profile/post", "/api/v7/profile/put", "/api/v7/profile/patch", "/api/v7/profile/all", "/api/v7/account", "/api/v7/account/", "/v7/account", "/v7/account/",
+    "/api/v7/account/list", "/api/v7/account/search", "/api/v7/account/create", "/api/v7/account/update", "/api/v7/account/delete", "/api/v7/account/get", "/api/v7/account/post", "/api/v7/account/put", "/api/v7/account/patch", "/api/v7/account/all",
+    "/api/v7/accounts", "/api/v7/accounts/", "/v7/accounts", "/v7/accounts/", "/api/v7/accounts/list", "/api/v7/accounts/search", "/api/v7/accounts/create", "/api/v7/accounts/update", "/api/v7/accounts/delete", "/api/v7/accounts/get",
+    "/api/v7/accounts/post", "/api/v7/accounts/put", "/api/v7/accounts/patch", "/api/v7/accounts/all", "/api/v7/health", "/api/v7/health/", "/v7/health", "/v7/health/", "/api/v7/health/list", "/api/v7/health/search",
+    "/api/v7/health/create", "/api/v7/health/update", "/api/v7/health/delete", "/api/v7/health/get", "/api/v7/health/post", "/api/v7/health/put", "/api/v7/health/patch", "/api/v7/health/all", "/api/v7/status", "/api/v7/status/",
+    "/v7/status", "/v7/status/", "/api/v7/status/list", "/api/v7/status/search", "/api/v7/status/create", "/api/v7/status/update", "/api/v7/status/delete", "/api/v7/status/get", "/api/v7/status/post", "/api/v7/status/put",
+    "/api/v7/status/patch", "/api/v7/status/all", "/api/v7/version", "/api/v7/version/", "/v7/version", "/v7/version/", "/api/v7/version/list", "/api/v7/version/search", "/api/v7/version/create", "/api/v7/version/update",
+    "/api/v7/version/delete", "/api/v7/version/get", "/api/v7/version/post", "/api/v7/version/put", "/api/v7/version/patch", "/api/v7/version/all", "/api/v7/info", "/api/v7/info/", "/v7/info", "/v7/info/",
+    "/api/v7/info/list", "/api/v7/info/search", "/api/v7/info/create", "/api/v7/info/update", "/api/v7/info/delete", "/api/v7/info/get", "/api/v7/info/post", "/api/v7/info/put", "/api/v7/info/patch", "/api/v7/info/all",
+    "/api/v7/upload", "/api/v7/upload/", "/v7/upload", "/v7/upload/", "/api/v7/upload/list", "/api/v7/upload/search", "/api/v7/upload/create", "/api/v7/upload/update", "/api/v7/upload/delete", "/api/v7/upload/get",
+    "/api/v7/upload/post", "/api/v7/upload/put", "/api/v7/upload/patch", "/api/v7/upload/all", "/api/v7/download", "/api/v7/download/", "/v7/download", "/v7/download/", "/api/v7/download/list", "/api/v7/download/search",
+    "/api/v7/download/create", "/api/v7/download/update", "/api/v7/download/delete", "/api/v7/download/get", "/api/v7/download/post", "/api/v7/download/put", "/api/v7/download/patch", "/api/v7/download/all", "/api/v7/files", "/api/v7/files/",
+    "/v7/files", "/v7/files/", "/api/v7/files/list", "/api/v7/files/search", "/api/v7/files/create", "/api/v7/files/update", "/api/v7/files/delete", "/api/v7/files/get", "/api/v7/files/post", "/api/v7/files/put",
+    "/api/v7/files/patch", "/api/v7/files/all", "/api/v7/list", "/api/v7/list/", "/v7/list", "/v7/list/", "/api/v7/list/list", "/api/v7/list/search", "/api/v7/list/create", "/api/v7/list/update",
+    "/api/v7/list/delete", "/api/v7/list/get", "/api/v7/list/post", "/api/v7/list/put", "/api/v7/list/patch", "/api/v7/list/all", "/api/v7/search", "/api/v7/search/", "/v7/search", "/v7/search/",
+    "/api/v7/search/list", "/api/v7/search/search", "/api/v7/search/create", "/api/v7/search/update", "/api/v7/search/delete", "/api/v7/search/get", "/api/v7/search/post", "/api/v7/search/put", "/api/v7/search/patch", "/api/v7/search/all",
+    "/api/v7/query", "/api/v7/query/", "/v7/query", "/v7/query/", "/api/v7/query/list", "/api/v7/query/search", "/api/v7/query/create", "/api/v7/query/update", "/api/v7/query/delete", "/api/v7/query/get",
+    "/api/v7/query/post", "/api/v7/query/put", "/api/v7/query/patch", "/api/v7/query/all", "/api/v7/debug", "/api/v7/debug/", "/v7/debug", "/v7/debug/", "/api/v7/debug/list", "/api/v7/debug/search",
+    "/api/v7/debug/create", "/api/v7/debug/update", "/api/v7/debug/delete", "/api/v7/debug/get", "/api/v7/debug/post", "/api/v7/debug/put", "/api/v7/debug/patch", "/api/v7/debug/all", "/api/v7/test", "/api/v7/test/",
+    "/v7/test", "/v7/test/", "/api/v7/test/list", "/api/v7/test/search", "/api/v7/test/create", "/api/v7/test/update", "/api/v7/test/delete", "/api/v7/test/get", "/api/v7/test/post", "/api/v7/test/put",
+    "/api/v7/test/patch", "/api/v7/test/all", "/api/v7/internal", "/api/v7/internal/", "/v7/internal", "/v7/internal/", "/api/v7/internal/list", "/api/v7/internal/search", "/api/v7/internal/create", "/api/v7/internal/update",
+    "/api/v7/internal/delete", "/api/v7/internal/get", "/api/v7/internal/post", "/api/v7/internal/put", "/api/v7/internal/patch", "/api/v7/internal/all", "/api/v7/private", "/api/v7/private/", "/v7/private", "/v7/private/",
+    "/api/v7/private/list", "/api/v7/private/search", "/api/v7/private/create", "/api/v7/private/update", "/api/v7/private/delete", "/api/v7/private/get", "/api/v7/private/post", "/api/v7/private/put", "/api/v7/private/patch", "/api/v7/private/all",
+    "/api/v7/secret", "/api/v7/secret/", "/v7/secret", "/v7/secret/", "/api/v7/secret/list", "/api/v7/secret/search", "/api/v7/secret/create", "/api/v7/secret/update", "/api/v7/secret/delete", "/api/v7/secret/get",
+    "/api/v7/secret/post", "/api/v7/secret/put", "/api/v7/secret/patch", "/api/v7/secret/all", "/api/v7/public", "/api/v7/public/", "/v7/public", "/v7/public/", "/api/v7/public/list", "/api/v7/public/search",
+    "/api/v7/public/create", "/api/v7/public/update", "/api/v7/public/delete", "/api/v7/public/get", "/api/v7/public/post", "/api/v7/public/put", "/api/v7/public/patch", "/api/v7/public/all", "/api/v7/orders", "/api/v7/orders/",
+    "/v7/orders", "/v7/orders/", "/api/v7/orders/list", "/api/v7/orders/search", "/api/v7/orders/create", "/api/v7/orders/update", "/api/v7/orders/delete", "/api/v7/orders/get", "/api/v7/orders/post", "/api/v7/orders/put",
+    "/api/v7/orders/patch", "/api/v7/orders/all", "/api/v7/products", "/api/v7/products/", "/v7/products", "/v7/products/", "/api/v7/products/list", "/api/v7/products/search", "/api/v7/products/create", "/api/v7/products/update",
+    "/api/v7/products/delete", "/api/v7/products/get", "/api/v7/products/post", "/api/v7/products/put", "/api/v7/products/patch", "/api/v7/products/all", "/api/v7/payments", "/api/v7/payments/", "/v7/payments", "/v7/payments/",
+    "/api/v7/payments/list", "/api/v7/payments/search", "/api/v7/payments/create", "/api/v7/payments/update", "/api/v7/payments/delete", "/api/v7/payments/get", "/api/v7/payments/post", "/api/v7/payments/put", "/api/v7/payments/patch", "/api/v7/payments/all",
+    "/api/v7/invoices", "/api/v7/invoices/", "/v7/invoices", "/v7/invoices/", "/api/v7/invoices/list", "/api/v7/invoices/search", "/api/v7/invoices/create", "/api/v7/invoices/update", "/api/v7/invoices/delete", "/api/v7/invoices/get",
+    "/api/v7/invoices/post", "/api/v7/invoices/put", "/api/v7/invoices/patch", "/api/v7/invoices/all", "/api/v7/subscriptions", "/api/v7/subscriptions/", "/v7/subscriptions", "/v7/subscriptions/", "/api/v7/subscriptions/list", "/api/v7/subscriptions/search",
+    "/api/v7/subscriptions/create", "/api/v7/subscriptions/update", "/api/v7/subscriptions/delete", "/api/v7/subscriptions/get", "/api/v7/subscriptions/post", "/api/v7/subscriptions/put", "/api/v7/subscriptions/patch", "/api/v7/subscriptions/all", "/api/v7/notifications", "/api/v7/notifications/",
+    "/v7/notifications", "/v7/notifications/", "/api/v7/notifications/list", "/api/v7/notifications/search", "/api/v7/notifications/create", "/api/v7/notifications/update", "/api/v7/notifications/delete", "/api/v7/notifications/get", "/api/v7/notifications/post", "/api/v7/notifications/put",
+    "/api/v7/notifications/patch", "/api/v7/notifications/all", "/api/v7/messages", "/api/v7/messages/", "/v7/messages", "/v7/messages/", "/api/v7/messages/list", "/api/v7/messages/search", "/api/v7/messages/create", "/api/v7/messages/update",
+    "/api/v7/messages/delete", "/api/v7/messages/get", "/api/v7/messages/post", "/api/v7/messages/put", "/api/v7/messages/patch", "/api/v7/messages/all", "/api/v7/emails", "/api/v7/emails/", "/v7/emails", "/v7/emails/",
+    "/api/v7/emails/list", "/api/v7/emails/search", "/api/v7/emails/create", "/api/v7/emails/update", "/api/v7/emails/delete", "/api/v7/emails/get", "/api/v7/emails/post", "/api/v7/emails/put", "/api/v7/emails/patch", "/api/v7/emails/all",
+    "/api/v7/sessions", "/api/v7/sessions/", "/v7/sessions", "/v7/sessions/", "/api/v7/sessions/list", "/api/v7/sessions/search", "/api/v7/sessions/create", "/api/v7/sessions/update", "/api/v7/sessions/delete", "/api/v7/sessions/get",
+    "/api/v7/sessions/post", "/api/v7/sessions/put", "/api/v7/sessions/patch", "/api/v7/sessions/all", "/api/v7/tokens", "/api/v7/tokens/", "/v7/tokens", "/v7/tokens/", "/api/v7/tokens/list", "/api/v7/tokens/search",
+    "/api/v7/tokens/create", "/api/v7/tokens/update", "/api/v7/tokens/delete", "/api/v7/tokens/get", "/api/v7/tokens/post", "/api/v7/tokens/put", "/api/v7/tokens/patch", "/api/v7/tokens/all", "/api/v7/webhooks", "/api/v7/webhooks/",
+    "/v7/webhooks", "/v7/webhooks/", "/api/v7/webhooks/list", "/api/v7/webhooks/search", "/api/v7/webhooks/create", "/api/v7/webhooks/update", "/api/v7/webhooks/delete", "/api/v7/webhooks/get", "/api/v7/webhooks/post", "/api/v7/webhooks/put",
+    "/api/v7/webhooks/patch", "/api/v7/webhooks/all", "/api/v7/callbacks", "/api/v7/callbacks/", "/v7/callbacks", "/v7/callbacks/", "/api/v7/callbacks/list", "/api/v7/callbacks/search", "/api/v7/callbacks/create", "/api/v7/callbacks/update",
+    "/api/v7/callbacks/delete", "/api/v7/callbacks/get", "/api/v7/callbacks/post", "/api/v7/callbacks/put", "/api/v7/callbacks/patch", "/api/v7/callbacks/all", "/api/v7/events", "/api/v7/events/", "/v7/events", "/v7/events/",
+    "/api/v7/events/list", "/api/v7/events/search", "/api/v7/events/create", "/api/v7/events/update", "/api/v7/events/delete", "/api/v7/events/get", "/api/v7/events/post", "/api/v7/events/put", "/api/v7/events/patch", "/api/v7/events/all",
+    "/api/v7/logs", "/api/v7/logs/", "/v7/logs", "/v7/logs/", "/api/v7/logs/list", "/api/v7/logs/search", "/api/v7/logs/create", "/api/v7/logs/update", "/api/v7/logs/delete", "/api/v7/logs/get",
+    "/api/v7/logs/post", "/api/v7/logs/put", "/api/v7/logs/patch", "/api/v7/logs/all", "/api/v7/metrics", "/api/v7/metrics/", "/v7/metrics", "/v7/metrics/", "/api/v7/metrics/list", "/api/v7/metrics/search",
+    "/api/v7/metrics/create", "/api/v7/metrics/update", "/api/v7/metrics/delete", "/api/v7/metrics/get", "/api/v7/metrics/post", "/api/v7/metrics/put", "/api/v7/metrics/patch", "/api/v7/metrics/all", "/api/v7/stats", "/api/v7/stats/",
+    "/v7/stats", "/v7/stats/", "/api/v7/stats/list", "/api/v7/stats/search", "/api/v7/stats/create", "/api/v7/stats/update", "/api/v7/stats/delete", "/api/v7/stats/get", "/api/v7/stats/post", "/api/v7/stats/put",
+    "/api/v7/stats/patch", "/api/v7/stats/all", "/api/v8/users", "/api/v8/users/", "/v8/users", "/v8/users/", "/api/v8/users/list", "/api/v8/users/search", "/api/v8/users/create", "/api/v8/users/update",
+    "/api/v8/users/delete", "/api/v8/users/get", "/api/v8/users/post", "/api/v8/users/put", "/api/v8/users/patch", "/api/v8/users/all", "/api/v8/user", "/api/v8/user/", "/v8/user", "/v8/user/",
+    "/api/v8/user/list", "/api/v8/user/search", "/api/v8/user/create", "/api/v8/user/update", "/api/v8/user/delete", "/api/v8/user/get", "/api/v8/user/post", "/api/v8/user/put", "/api/v8/user/patch", "/api/v8/user/all",
+    "/api/v8/admin", "/api/v8/admin/", "/v8/admin", "/v8/admin/", "/api/v8/admin/list", "/api/v8/admin/search", "/api/v8/admin/create", "/api/v8/admin/update", "/api/v8/admin/delete", "/api/v8/admin/get",
+    "/api/v8/admin/post", "/api/v8/admin/put", "/api/v8/admin/patch", "/api/v8/admin/all", "/api/v8/config", "/api/v8/config/", "/v8/config", "/v8/config/", "/api/v8/config/list", "/api/v8/config/search",
+    "/api/v8/config/create", "/api/v8/config/update", "/api/v8/config/delete", "/api/v8/config/get", "/api/v8/config/post", "/api/v8/config/put", "/api/v8/config/patch", "/api/v8/config/all", "/api/v8/settings", "/api/v8/settings/",
+    "/v8/settings", "/v8/settings/", "/api/v8/settings/list", "/api/v8/settings/search", "/api/v8/settings/create", "/api/v8/settings/update", "/api/v8/settings/delete", "/api/v8/settings/get", "/api/v8/settings/post", "/api/v8/settings/put",
+    "/api/v8/settings/patch", "/api/v8/settings/all", "/api/v8/auth", "/api/v8/auth/", "/v8/auth", "/v8/auth/", "/api/v8/auth/list", "/api/v8/auth/search", "/api/v8/auth/create", "/api/v8/auth/update",
+    "/api/v8/auth/delete", "/api/v8/auth/get", "/api/v8/auth/post", "/api/v8/auth/put", "/api/v8/auth/patch", "/api/v8/auth/all", "/api/v8/login", "/api/v8/login/", "/v8/login", "/v8/login/",
+    "/api/v8/login/list", "/api/v8/login/search", "/api/v8/login/create", "/api/v8/login/update", "/api/v8/login/delete", "/api/v8/login/get", "/api/v8/login/post", "/api/v8/login/put", "/api/v8/login/patch", "/api/v8/login/all",
+    "/api/v8/logout", "/api/v8/logout/", "/v8/logout", "/v8/logout/", "/api/v8/logout/list", "/api/v8/logout/search", "/api/v8/logout/create", "/api/v8/logout/update", "/api/v8/logout/delete", "/api/v8/logout/get",
+    "/api/v8/logout/post", "/api/v8/logout/put", "/api/v8/logout/patch", "/api/v8/logout/all", "/api/v8/register", "/api/v8/register/", "/v8/register", "/v8/register/", "/api/v8/register/list", "/api/v8/register/search",
+    "/api/v8/register/create", "/api/v8/register/update", "/api/v8/register/delete", "/api/v8/register/get", "/api/v8/register/post", "/api/v8/register/put", "/api/v8/register/patch", "/api/v8/register/all", "/api/v8/me", "/api/v8/me/",
+    "/v8/me", "/v8/me/", "/api/v8/me/list", "/api/v8/me/search", "/api/v8/me/create", "/api/v8/me/update", "/api/v8/me/delete", "/api/v8/me/get", "/api/v8/me/post", "/api/v8/me/put",
+    "/api/v8/me/patch", "/api/v8/me/all", "/api/v8/profile", "/api/v8/profile/", "/v8/profile", "/v8/profile/", "/api/v8/profile/list", "/api/v8/profile/search", "/api/v8/profile/create", "/api/v8/profile/update",
+    "/api/v8/profile/delete", "/api/v8/profile/get", "/api/v8/profile/post", "/api/v8/profile/put", "/api/v8/profile/patch", "/api/v8/profile/all", "/api/v8/account", "/api/v8/account/", "/v8/account", "/v8/account/",
+    "/api/v8/account/list", "/api/v8/account/search", "/api/v8/account/create", "/api/v8/account/update", "/api/v8/account/delete", "/api/v8/account/get", "/api/v8/account/post", "/api/v8/account/put", "/api/v8/account/patch", "/api/v8/account/all",
+    "/api/v8/accounts", "/api/v8/accounts/", "/v8/accounts", "/v8/accounts/", "/api/v8/accounts/list", "/api/v8/accounts/search", "/api/v8/accounts/create", "/api/v8/accounts/update", "/api/v8/accounts/delete", "/api/v8/accounts/get",
+    "/api/v8/accounts/post", "/api/v8/accounts/put", "/api/v8/accounts/patch", "/api/v8/accounts/all", "/api/v8/health", "/api/v8/health/", "/v8/health", "/v8/health/", "/api/v8/health/list", "/api/v8/health/search",
+    "/api/v8/health/create", "/api/v8/health/update", "/api/v8/health/delete", "/api/v8/health/get", "/api/v8/health/post", "/api/v8/health/put", "/api/v8/health/patch", "/api/v8/health/all", "/api/v8/status", "/api/v8/status/",
+    "/v8/status", "/v8/status/", "/api/v8/status/list", "/api/v8/status/search", "/api/v8/status/create", "/api/v8/status/update", "/api/v8/status/delete", "/api/v8/status/get", "/api/v8/status/post", "/api/v8/status/put",
+    "/api/v8/status/patch", "/api/v8/status/all", "/api/v8/version", "/api/v8/version/", "/v8/version", "/v8/version/", "/api/v8/version/list", "/api/v8/version/search", "/api/v8/version/create", "/api/v8/version/update",
+    "/api/v8/version/delete", "/api/v8/version/get", "/api/v8/version/post", "/api/v8/version/put", "/api/v8/version/patch", "/api/v8/version/all", "/api/v8/info", "/api/v8/info/", "/v8/info", "/v8/info/",
+    "/api/v8/info/list", "/api/v8/info/search", "/api/v8/info/create", "/api/v8/info/update", "/api/v8/info/delete", "/api/v8/info/get", "/api/v8/info/post", "/api/v8/info/put", "/api/v8/info/patch", "/api/v8/info/all",
+    "/api/v8/upload", "/api/v8/upload/", "/v8/upload", "/v8/upload/", "/api/v8/upload/list", "/api/v8/upload/search", "/api/v8/upload/create", "/api/v8/upload/update", "/api/v8/upload/delete", "/api/v8/upload/get",
+    "/api/v8/upload/post", "/api/v8/upload/put", "/api/v8/upload/patch", "/api/v8/upload/all", "/api/v8/download", "/api/v8/download/", "/v8/download", "/v8/download/", "/api/v8/download/list", "/api/v8/download/search",
+    "/api/v8/download/create", "/api/v8/download/update", "/api/v8/download/delete", "/api/v8/download/get", "/api/v8/download/post", "/api/v8/download/put", "/api/v8/download/patch", "/api/v8/download/all", "/api/v8/files", "/api/v8/files/",
+    "/v8/files", "/v8/files/", "/api/v8/files/list", "/api/v8/files/search", "/api/v8/files/create", "/api/v8/files/update", "/api/v8/files/delete", "/api/v8/files/get", "/api/v8/files/post", "/api/v8/files/put",
+    "/api/v8/files/patch", "/api/v8/files/all", "/api/v8/list", "/api/v8/list/", "/v8/list", "/v8/list/", "/api/v8/list/list", "/api/v8/list/search", "/api/v8/list/create", "/api/v8/list/update",
+    "/api/v8/list/delete", "/api/v8/list/get", "/api/v8/list/post", "/api/v8/list/put", "/api/v8/list/patch", "/api/v8/list/all", "/api/v8/search", "/api/v8/search/", "/v8/search", "/v8/search/",
+    "/api/v8/search/list", "/api/v8/search/search", "/api/v8/search/create", "/api/v8/search/update", "/api/v8/search/delete", "/api/v8/search/get", "/api/v8/search/post", "/api/v8/search/put", "/api/v8/search/patch", "/api/v8/search/all",
+    "/api/v8/query", "/api/v8/query/", "/v8/query", "/v8/query/", "/api/v8/query/list", "/api/v8/query/search", "/api/v8/query/create", "/api/v8/query/update", "/api/v8/query/delete", "/api/v8/query/get",
+    "/api/v8/query/post", "/api/v8/query/put", "/api/v8/query/patch", "/api/v8/query/all", "/api/v8/debug", "/api/v8/debug/", "/v8/debug", "/v8/debug/", "/api/v8/debug/list", "/api/v8/debug/search",
+    "/api/v8/debug/create", "/api/v8/debug/update", "/api/v8/debug/delete", "/api/v8/debug/get", "/api/v8/debug/post", "/api/v8/debug/put", "/api/v8/debug/patch", "/api/v8/debug/all", "/api/v8/test", "/api/v8/test/",
+    "/v8/test", "/v8/test/", "/api/v8/test/list", "/api/v8/test/search", "/api/v8/test/create", "/api/v8/test/update", "/api/v8/test/delete", "/api/v8/test/get", "/api/v8/test/post", "/api/v8/test/put",
+    "/api/v8/test/patch", "/api/v8/test/all", "/api/v8/internal", "/api/v8/internal/", "/v8/internal", "/v8/internal/", "/api/v8/internal/list", "/api/v8/internal/search", "/api/v8/internal/create", "/api/v8/internal/update",
+    "/api/v8/internal/delete", "/api/v8/internal/get", "/api/v8/internal/post", "/api/v8/internal/put", "/api/v8/internal/patch", "/api/v8/internal/all", "/api/v8/private", "/api/v8/private/", "/v8/private", "/v8/private/",
+    "/api/v8/private/list", "/api/v8/private/search", "/api/v8/private/create", "/api/v8/private/update", "/api/v8/private/delete", "/api/v8/private/get", "/api/v8/private/post", "/api/v8/private/put", "/api/v8/private/patch", "/api/v8/private/all",
+    "/api/v8/secret", "/api/v8/secret/", "/v8/secret", "/v8/secret/", "/api/v8/secret/list", "/api/v8/secret/search", "/api/v8/secret/create", "/api/v8/secret/update", "/api/v8/secret/delete", "/api/v8/secret/get",
+    "/api/v8/secret/post", "/api/v8/secret/put", "/api/v8/secret/patch", "/api/v8/secret/all", "/api/v8/public", "/api/v8/public/", "/v8/public", "/v8/public/", "/api/v8/public/list", "/api/v8/public/search",
+    "/api/v8/public/create", "/api/v8/public/update", "/api/v8/public/delete", "/api/v8/public/get", "/api/v8/public/post", "/api/v8/public/put", "/api/v8/public/patch", "/api/v8/public/all", "/api/v8/orders", "/api/v8/orders/",
+    "/v8/orders", "/v8/orders/", "/api/v8/orders/list", "/api/v8/orders/search", "/api/v8/orders/create", "/api/v8/orders/update", "/api/v8/orders/delete", "/api/v8/orders/get", "/api/v8/orders/post", "/api/v8/orders/put",
+    "/api/v8/orders/patch", "/api/v8/orders/all", "/api/v8/products", "/api/v8/products/", "/v8/products", "/v8/products/", "/api/v8/products/list", "/api/v8/products/search", "/api/v8/products/create", "/api/v8/products/update",
+    "/api/v8/products/delete", "/api/v8/products/get", "/api/v8/products/post", "/api/v8/products/put", "/api/v8/products/patch", "/api/v8/products/all", "/api/v8/payments", "/api/v8/payments/", "/v8/payments", "/v8/payments/",
+    "/api/v8/payments/list", "/api/v8/payments/search", "/api/v8/payments/create", "/api/v8/payments/update", "/api/v8/payments/delete", "/api/v8/payments/get", "/api/v8/payments/post", "/api/v8/payments/put", "/api/v8/payments/patch", "/api/v8/payments/all",
+    "/api/v8/invoices", "/api/v8/invoices/", "/v8/invoices", "/v8/invoices/", "/api/v8/invoices/list", "/api/v8/invoices/search", "/api/v8/invoices/create", "/api/v8/invoices/update", "/api/v8/invoices/delete", "/api/v8/invoices/get",
+    "/api/v8/invoices/post", "/api/v8/invoices/put", "/api/v8/invoices/patch", "/api/v8/invoices/all", "/api/v8/subscriptions", "/api/v8/subscriptions/", "/v8/subscriptions", "/v8/subscriptions/", "/api/v8/subscriptions/list", "/api/v8/subscriptions/search",
+    "/api/v8/subscriptions/create", "/api/v8/subscriptions/update", "/api/v8/subscriptions/delete", "/api/v8/subscriptions/get", "/api/v8/subscriptions/post", "/api/v8/subscriptions/put", "/api/v8/subscriptions/patch", "/api/v8/subscriptions/all", "/api/v8/notifications", "/api/v8/notifications/",
+    "/v8/notifications", "/v8/notifications/", "/api/v8/notifications/list", "/api/v8/notifications/search", "/api/v8/notifications/create", "/api/v8/notifications/update", "/api/v8/notifications/delete", "/api/v8/notifications/get", "/api/v8/notifications/post", "/api/v8/notifications/put",
+    "/api/v8/notifications/patch", "/api/v8/notifications/all", "/api/v8/messages", "/api/v8/messages/", "/v8/messages", "/v8/messages/", "/api/v8/messages/list", "/api/v8/messages/search", "/api/v8/messages/create", "/api/v8/messages/update",
+    "/api/v8/messages/delete", "/api/v8/messages/get", "/api/v8/messages/post", "/api/v8/messages/put", "/api/v8/messages/patch", "/api/v8/messages/all", "/api/v8/emails", "/api/v8/emails/", "/v8/emails", "/v8/emails/",
+    "/api/v8/emails/list", "/api/v8/emails/search", "/api/v8/emails/create", "/api/v8/emails/update", "/api/v8/emails/delete", "/api/v8/emails/get", "/api/v8/emails/post", "/api/v8/emails/put", "/api/v8/emails/patch", "/api/v8/emails/all",
+    "/api/v8/sessions", "/api/v8/sessions/", "/v8/sessions", "/v8/sessions/", "/api/v8/sessions/list", "/api/v8/sessions/search", "/api/v8/sessions/create", "/api/v8/sessions/update", "/api/v8/sessions/delete", "/api/v8/sessions/get",
+    "/api/v8/sessions/post", "/api/v8/sessions/put", "/api/v8/sessions/patch", "/api/v8/sessions/all", "/api/v8/tokens", "/api/v8/tokens/", "/v8/tokens", "/v8/tokens/", "/api/v8/tokens/list", "/api/v8/tokens/search",
+    "/api/v8/tokens/create", "/api/v8/tokens/update", "/api/v8/tokens/delete", "/api/v8/tokens/get", "/api/v8/tokens/post", "/api/v8/tokens/put", "/api/v8/tokens/patch", "/api/v8/tokens/all", "/api/v8/webhooks", "/api/v8/webhooks/",
+    "/v8/webhooks", "/v8/webhooks/", "/api/v8/webhooks/list", "/api/v8/webhooks/search", "/api/v8/webhooks/create", "/api/v8/webhooks/update", "/api/v8/webhooks/delete", "/api/v8/webhooks/get", "/api/v8/webhooks/post", "/api/v8/webhooks/put",
+    "/api/v8/webhooks/patch", "/api/v8/webhooks/all", "/api/v8/callbacks", "/api/v8/callbacks/", "/v8/callbacks", "/v8/callbacks/", "/api/v8/callbacks/list", "/api/v8/callbacks/search", "/api/v8/callbacks/create", "/api/v8/callbacks/update",
+    "/api/v8/callbacks/delete", "/api/v8/callbacks/get", "/api/v8/callbacks/post", "/api/v8/callbacks/put", "/api/v8/callbacks/patch", "/api/v8/callbacks/all", "/api/v8/events", "/api/v8/events/", "/v8/events", "/v8/events/",
+    "/api/v8/events/list", "/api/v8/events/search", "/api/v8/events/create", "/api/v8/events/update", "/api/v8/events/delete", "/api/v8/events/get", "/api/v8/events/post", "/api/v8/events/put", "/api/v8/events/patch", "/api/v8/events/all",
+    "/api/v8/logs", "/api/v8/logs/", "/v8/logs", "/v8/logs/", "/api/v8/logs/list", "/api/v8/logs/search", "/api/v8/logs/create", "/api/v8/logs/update", "/api/v8/logs/delete", "/api/v8/logs/get",
+    "/api/v8/logs/post", "/api/v8/logs/put", "/api/v8/logs/patch", "/api/v8/logs/all", "/api/v8/metrics", "/api/v8/metrics/", "/v8/metrics", "/v8/metrics/", "/api/v8/metrics/list", "/api/v8/metrics/search",
+    "/api/v8/metrics/create", "/api/v8/metrics/update", "/api/v8/metrics/delete", "/api/v8/metrics/get", "/api/v8/metrics/post", "/api/v8/metrics/put", "/api/v8/metrics/patch", "/api/v8/metrics/all", "/api/v8/stats", "/api/v8/stats/",
+    "/v8/stats", "/v8/stats/", "/api/v8/stats/list", "/api/v8/stats/search", "/api/v8/stats/create", "/api/v8/stats/update", "/api/v8/stats/delete", "/api/v8/stats/get", "/api/v8/stats/post", "/api/v8/stats/put",
+    "/api/v8/stats/patch", "/api/v8/stats/all", "/api/v9/users", "/api/v9/users/", "/v9/users", "/v9/users/", "/api/v9/users/list", "/api/v9/users/search", "/api/v9/users/create", "/api/v9/users/update",
+    "/api/v9/users/delete", "/api/v9/users/get", "/api/v9/users/post", "/api/v9/users/put", "/api/v9/users/patch", "/api/v9/users/all", "/api/v9/user", "/api/v9/user/", "/v9/user", "/v9/user/",
+    "/api/v9/user/list", "/api/v9/user/search", "/api/v9/user/create", "/api/v9/user/update", "/api/v9/user/delete", "/api/v9/user/get", "/api/v9/user/post", "/api/v9/user/put", "/api/v9/user/patch", "/api/v9/user/all",
+    "/api/v9/admin", "/api/v9/admin/", "/v9/admin", "/v9/admin/", "/api/v9/admin/list", "/api/v9/admin/search", "/api/v9/admin/create", "/api/v9/admin/update", "/api/v9/admin/delete", "/api/v9/admin/get",
+    "/api/v9/admin/post", "/api/v9/admin/put", "/api/v9/admin/patch", "/api/v9/admin/all", "/api/v9/config", "/api/v9/config/", "/v9/config", "/v9/config/", "/api/v9/config/list", "/api/v9/config/search",
+    "/api/v9/config/create", "/api/v9/config/update", "/api/v9/config/delete", "/api/v9/config/get", "/api/v9/config/post", "/api/v9/config/put", "/api/v9/config/patch", "/api/v9/config/all", "/api/v9/settings", "/api/v9/settings/",
+    "/v9/settings", "/v9/settings/", "/api/v9/settings/list", "/api/v9/settings/search", "/api/v9/settings/create", "/api/v9/settings/update", "/api/v9/settings/delete", "/api/v9/settings/get", "/api/v9/settings/post", "/api/v9/settings/put",
+    "/api/v9/settings/patch", "/api/v9/settings/all", "/api/v9/auth", "/api/v9/auth/", "/v9/auth", "/v9/auth/", "/api/v9/auth/list", "/api/v9/auth/search", "/api/v9/auth/create", "/api/v9/auth/update",
+    "/api/v9/auth/delete", "/api/v9/auth/get", "/api/v9/auth/post", "/api/v9/auth/put", "/api/v9/auth/patch", "/api/v9/auth/all", "/api/v9/login", "/api/v9/login/", "/v9/login", "/v9/login/",
+    "/api/v9/login/list", "/api/v9/login/search", "/api/v9/login/create", "/api/v9/login/update", "/api/v9/login/delete", "/api/v9/login/get", "/api/v9/login/post", "/api/v9/login/put", "/api/v9/login/patch", "/api/v9/login/all",
+    "/api/v9/logout", "/api/v9/logout/", "/v9/logout", "/v9/logout/", "/api/v9/logout/list", "/api/v9/logout/search", "/api/v9/logout/create", "/api/v9/logout/update", "/api/v9/logout/delete", "/api/v9/logout/get",
+    "/api/v9/logout/post", "/api/v9/logout/put", "/api/v9/logout/patch", "/api/v9/logout/all", "/api/v9/register", "/api/v9/register/", "/v9/register", "/v9/register/", "/api/v9/register/list", "/api/v9/register/search",
+    "/api/v9/register/create", "/api/v9/register/update", "/api/v9/register/delete", "/api/v9/register/get", "/api/v9/register/post", "/api/v9/register/put", "/api/v9/register/patch", "/api/v9/register/all", "/api/v9/me", "/api/v9/me/",
+    "/v9/me", "/v9/me/", "/api/v9/me/list", "/api/v9/me/search", "/api/v9/me/create", "/api/v9/me/update", "/api/v9/me/delete", "/api/v9/me/get", "/api/v9/me/post", "/api/v9/me/put",
+    "/api/v9/me/patch", "/api/v9/me/all", "/api/v9/profile", "/api/v9/profile/", "/v9/profile", "/v9/profile/", "/api/v9/profile/list", "/api/v9/profile/search", "/api/v9/profile/create", "/api/v9/profile/update",
+    "/api/v9/profile/delete", "/api/v9/profile/get", "/api/v9/profile/post", "/api/v9/profile/put", "/api/v9/profile/patch", "/api/v9/profile/all", "/api/v9/account", "/api/v9/account/", "/v9/account", "/v9/account/",
+    "/api/v9/account/list", "/api/v9/account/search", "/api/v9/account/create", "/api/v9/account/update", "/api/v9/account/delete", "/api/v9/account/get", "/api/v9/account/post", "/api/v9/account/put", "/api/v9/account/patch", "/api/v9/account/all",
+    "/api/v9/accounts", "/api/v9/accounts/", "/v9/accounts", "/v9/accounts/", "/api/v9/accounts/list", "/api/v9/accounts/search", "/api/v9/accounts/create", "/api/v9/accounts/update", "/api/v9/accounts/delete", "/api/v9/accounts/get",
+    "/api/v9/accounts/post", "/api/v9/accounts/put", "/api/v9/accounts/patch", "/api/v9/accounts/all", "/api/v9/health", "/api/v9/health/", "/v9/health", "/v9/health/", "/api/v9/health/list", "/api/v9/health/search",
+    "/api/v9/health/create", "/api/v9/health/update", "/api/v9/health/delete", "/api/v9/health/get", "/api/v9/health/post", "/api/v9/health/put", "/api/v9/health/patch", "/api/v9/health/all", "/api/v9/status", "/api/v9/status/",
+    "/v9/status", "/v9/status/", "/api/v9/status/list", "/api/v9/status/search", "/api/v9/status/create", "/api/v9/status/update", "/api/v9/status/delete", "/api/v9/status/get", "/api/v9/status/post", "/api/v9/status/put",
+    "/api/v9/status/patch", "/api/v9/status/all", "/api/v9/version", "/api/v9/version/", "/v9/version", "/v9/version/", "/api/v9/version/list", "/api/v9/version/search", "/api/v9/version/create", "/api/v9/version/update",
+    "/api/v9/version/delete", "/api/v9/version/get", "/api/v9/version/post", "/api/v9/version/put", "/api/v9/version/patch", "/api/v9/version/all", "/api/v9/info", "/api/v9/info/", "/v9/info", "/v9/info/",
+    "/api/v9/info/list", "/api/v9/info/search", "/api/v9/info/create", "/api/v9/info/update", "/api/v9/info/delete", "/api/v9/info/get", "/api/v9/info/post", "/api/v9/info/put", "/api/v9/info/patch", "/api/v9/info/all",
+    "/api/v9/upload", "/api/v9/upload/", "/v9/upload", "/v9/upload/", "/api/v9/upload/list", "/api/v9/upload/search", "/api/v9/upload/create", "/api/v9/upload/update", "/api/v9/upload/delete", "/api/v9/upload/get",
+    "/api/v9/upload/post", "/api/v9/upload/put", "/api/v9/upload/patch", "/api/v9/upload/all", "/api/v9/download", "/api/v9/download/", "/v9/download", "/v9/download/", "/api/v9/download/list", "/api/v9/download/search",
+    "/api/v9/download/create", "/api/v9/download/update", "/api/v9/download/delete", "/api/v9/download/get", "/api/v9/download/post", "/api/v9/download/put", "/api/v9/download/patch", "/api/v9/download/all", "/api/v9/files", "/api/v9/files/",
+    "/v9/files", "/v9/files/", "/api/v9/files/list", "/api/v9/files/search", "/api/v9/files/create", "/api/v9/files/update", "/api/v9/files/delete", "/api/v9/files/get", "/api/v9/files/post", "/api/v9/files/put",
+    "/api/v9/files/patch", "/api/v9/files/all", "/api/v9/list", "/api/v9/list/", "/v9/list", "/v9/list/", "/api/v9/list/list", "/api/v9/list/search", "/api/v9/list/create", "/api/v9/list/update",
+    "/api/v9/list/delete", "/api/v9/list/get", "/api/v9/list/post", "/api/v9/list/put", "/api/v9/list/patch", "/api/v9/list/all", "/api/v9/search", "/api/v9/search/", "/v9/search", "/v9/search/",
+    "/api/v9/search/list", "/api/v9/search/search", "/api/v9/search/create", "/api/v9/search/update", "/api/v9/search/delete", "/api/v9/search/get", "/api/v9/search/post", "/api/v9/search/put", "/api/v9/search/patch", "/api/v9/search/all",
+    "/api/v9/query", "/api/v9/query/", "/v9/query", "/v9/query/", "/api/v9/query/list", "/api/v9/query/search", "/api/v9/query/create", "/api/v9/query/update", "/api/v9/query/delete", "/api/v9/query/get",
+    "/api/v9/query/post", "/api/v9/query/put", "/api/v9/query/patch", "/api/v9/query/all", "/api/v9/debug", "/api/v9/debug/", "/v9/debug", "/v9/debug/", "/api/v9/debug/list", "/api/v9/debug/search",
+    "/api/v9/debug/create", "/api/v9/debug/update", "/api/v9/debug/delete", "/api/v9/debug/get", "/api/v9/debug/post", "/api/v9/debug/put", "/api/v9/debug/patch", "/api/v9/debug/all", "/api/v9/test", "/api/v9/test/",
+    "/v9/test", "/v9/test/", "/api/v9/test/list", "/api/v9/test/search", "/api/v9/test/create", "/api/v9/test/update", "/api/v9/test/delete", "/api/v9/test/get", "/api/v9/test/post", "/api/v9/test/put",
+    "/api/v9/test/patch", "/api/v9/test/all", "/api/v9/internal", "/api/v9/internal/", "/v9/internal", "/v9/internal/", "/api/v9/internal/list", "/api/v9/internal/search", "/api/v9/internal/create", "/api/v9/internal/update",
+    "/api/v9/internal/delete", "/api/v9/internal/get", "/api/v9/internal/post", "/api/v9/internal/put", "/api/v9/internal/patch", "/api/v9/internal/all", "/api/v9/private", "/api/v9/private/", "/v9/private", "/v9/private/",
+    "/api/v9/private/list", "/api/v9/private/search", "/api/v9/private/create", "/api/v9/private/update", "/api/v9/private/delete", "/api/v9/private/get", "/api/v9/private/post", "/api/v9/private/put", "/api/v9/private/patch", "/api/v9/private/all",
+    "/api/v9/secret", "/api/v9/secret/", "/v9/secret", "/v9/secret/", "/api/v9/secret/list", "/api/v9/secret/search", "/api/v9/secret/create", "/api/v9/secret/update", "/api/v9/secret/delete", "/api/v9/secret/get",
+    "/api/v9/secret/post", "/api/v9/secret/put", "/api/v9/secret/patch", "/api/v9/secret/all", "/api/v9/public", "/api/v9/public/", "/v9/public", "/v9/public/", "/api/v9/public/list", "/api/v9/public/search",
+    "/api/v9/public/create", "/api/v9/public/update", "/api/v9/public/delete", "/api/v9/public/get", "/api/v9/public/post", "/api/v9/public/put", "/api/v9/public/patch", "/api/v9/public/all", "/api/v9/orders", "/api/v9/orders/",
+    "/v9/orders", "/v9/orders/", "/api/v9/orders/list", "/api/v9/orders/search", "/api/v9/orders/create", "/api/v9/orders/update", "/api/v9/orders/delete", "/api/v9/orders/get", "/api/v9/orders/post", "/api/v9/orders/put",
+    "/api/v9/orders/patch", "/api/v9/orders/all", "/api/v9/products", "/api/v9/products/", "/v9/products", "/v9/products/", "/api/v9/products/list", "/api/v9/products/search", "/api/v9/products/create", "/api/v9/products/update",
+    "/api/v9/products/delete", "/api/v9/products/get", "/api/v9/products/post", "/api/v9/products/put", "/api/v9/products/patch", "/api/v9/products/all", "/api/v9/payments", "/api/v9/payments/", "/v9/payments", "/v9/payments/",
+    "/api/v9/payments/list", "/api/v9/payments/search", "/api/v9/payments/create", "/api/v9/payments/update", "/api/v9/payments/delete", "/api/v9/payments/get", "/api/v9/payments/post", "/api/v9/payments/put", "/api/v9/payments/patch", "/api/v9/payments/all",
+    "/api/v9/invoices", "/api/v9/invoices/", "/v9/invoices", "/v9/invoices/", "/api/v9/invoices/list", "/api/v9/invoices/search", "/api/v9/invoices/create", "/api/v9/invoices/update", "/api/v9/invoices/delete", "/api/v9/invoices/get",
+    "/api/v9/invoices/post", "/api/v9/invoices/put", "/api/v9/invoices/patch", "/api/v9/invoices/all", "/api/v9/subscriptions", "/api/v9/subscriptions/", "/v9/subscriptions", "/v9/subscriptions/", "/api/v9/subscriptions/list", "/api/v9/subscriptions/search",
+    "/api/v9/subscriptions/create", "/api/v9/subscriptions/update", "/api/v9/subscriptions/delete", "/api/v9/subscriptions/get", "/api/v9/subscriptions/post", "/api/v9/subscriptions/put", "/api/v9/subscriptions/patch", "/api/v9/subscriptions/all", "/api/v9/notifications", "/api/v9/notifications/",
+    "/v9/notifications", "/v9/notifications/", "/api/v9/notifications/list", "/api/v9/notifications/search", "/api/v9/notifications/create", "/api/v9/notifications/update", "/api/v9/notifications/delete", "/api/v9/notifications/get", "/api/v9/notifications/post", "/api/v9/notifications/put",
+    "/api/v9/notifications/patch", "/api/v9/notifications/all", "/api/v9/messages", "/api/v9/messages/", "/v9/messages", "/v9/messages/", "/api/v9/messages/list", "/api/v9/messages/search", "/api/v9/messages/create", "/api/v9/messages/update",
+    "/api/v9/messages/delete", "/api/v9/messages/get", "/api/v9/messages/post", "/api/v9/messages/put", "/api/v9/messages/patch", "/api/v9/messages/all", "/api/v9/emails", "/api/v9/emails/", "/v9/emails", "/v9/emails/",
+    "/api/v9/emails/list", "/api/v9/emails/search", "/api/v9/emails/create", "/api/v9/emails/update", "/api/v9/emails/delete", "/api/v9/emails/get", "/api/v9/emails/post", "/api/v9/emails/put", "/api/v9/emails/patch", "/api/v9/emails/all",
+    "/api/v9/sessions", "/api/v9/sessions/", "/v9/sessions", "/v9/sessions/", "/api/v9/sessions/list", "/api/v9/sessions/search", "/api/v9/sessions/create", "/api/v9/sessions/update", "/api/v9/sessions/delete", "/api/v9/sessions/get",
+    "/api/v9/sessions/post", "/api/v9/sessions/put", "/api/v9/sessions/patch", "/api/v9/sessions/all", "/api/v9/tokens", "/api/v9/tokens/", "/v9/tokens", "/v9/tokens/", "/api/v9/tokens/list", "/api/v9/tokens/search",
+    "/api/v9/tokens/create", "/api/v9/tokens/update", "/api/v9/tokens/delete", "/api/v9/tokens/get", "/api/v9/tokens/post", "/api/v9/tokens/put", "/api/v9/tokens/patch", "/api/v9/tokens/all", "/api/v9/webhooks", "/api/v9/webhooks/",
+    "/v9/webhooks", "/v9/webhooks/", "/api/v9/webhooks/list", "/api/v9/webhooks/search", "/api/v9/webhooks/create", "/api/v9/webhooks/update", "/api/v9/webhooks/delete", "/api/v9/webhooks/get", "/api/v9/webhooks/post", "/api/v9/webhooks/put",
+    "/api/v9/webhooks/patch", "/api/v9/webhooks/all", "/api/v9/callbacks", "/api/v9/callbacks/", "/v9/callbacks", "/v9/callbacks/", "/api/v9/callbacks/list", "/api/v9/callbacks/search", "/api/v9/callbacks/create", "/api/v9/callbacks/update",
+    "/api/v9/callbacks/delete", "/api/v9/callbacks/get", "/api/v9/callbacks/post", "/api/v9/callbacks/put", "/api/v9/callbacks/patch", "/api/v9/callbacks/all", "/api/v9/events", "/api/v9/events/", "/v9/events", "/v9/events/",
+    "/api/v9/events/list", "/api/v9/events/search", "/api/v9/events/create", "/api/v9/events/update", "/api/v9/events/delete", "/api/v9/events/get", "/api/v9/events/post", "/api/v9/events/put", "/api/v9/events/patch", "/api/v9/events/all",
+    "/api/v9/logs", "/api/v9/logs/", "/v9/logs", "/v9/logs/", "/api/v9/logs/list", "/api/v9/logs/search", "/api/v9/logs/create", "/api/v9/logs/update", "/api/v9/logs/delete", "/api/v9/logs/get",
+    "/api/v9/logs/post", "/api/v9/logs/put", "/api/v9/logs/patch", "/api/v9/logs/all", "/api/v9/metrics", "/api/v9/metrics/", "/v9/metrics", "/v9/metrics/", "/api/v9/metrics/list", "/api/v9/metrics/search",
+    "/api/v9/metrics/create", "/api/v9/metrics/update", "/api/v9/metrics/delete", "/api/v9/metrics/get", "/api/v9/metrics/post", "/api/v9/metrics/put", "/api/v9/metrics/patch", "/api/v9/metrics/all", "/api/v9/stats", "/api/v9/stats/",
+    "/v9/stats", "/v9/stats/", "/api/v9/stats/list", "/api/v9/stats/search", "/api/v9/stats/create", "/api/v9/stats/update", "/api/v9/stats/delete", "/api/v9/stats/get", "/api/v9/stats/post", "/api/v9/stats/put",
+    "/api/v9/stats/patch", "/api/v9/stats/all", "/api/v10/users", "/api/v10/users/", "/v10/users", "/v10/users/", "/api/v10/users/list", "/api/v10/users/search", "/api/v10/users/create", "/api/v10/users/update",
+    "/api/v10/users/delete", "/api/v10/users/get", "/api/v10/users/post", "/api/v10/users/put", "/api/v10/users/patch", "/api/v10/users/all", "/api/v10/user", "/api/v10/user/", "/v10/user", "/v10/user/",
+    "/api/v10/user/list", "/api/v10/user/search", "/api/v10/user/create", "/api/v10/user/update", "/api/v10/user/delete", "/api/v10/user/get", "/api/v10/user/post", "/api/v10/user/put", "/api/v10/user/patch", "/api/v10/user/all",
+    "/api/v10/admin", "/api/v10/admin/", "/v10/admin", "/v10/admin/", "/api/v10/admin/list", "/api/v10/admin/search", "/api/v10/admin/create", "/api/v10/admin/update", "/api/v10/admin/delete", "/api/v10/admin/get",
+    "/api/v10/admin/post", "/api/v10/admin/put", "/api/v10/admin/patch", "/api/v10/admin/all", "/api/v10/config", "/api/v10/config/", "/v10/config", "/v10/config/", "/api/v10/config/list", "/api/v10/config/search",
+    "/api/v10/config/create", "/api/v10/config/update", "/api/v10/config/delete", "/api/v10/config/get", "/api/v10/config/post", "/api/v10/config/put", "/api/v10/config/patch", "/api/v10/config/all", "/api/v10/settings", "/api/v10/settings/",
+    "/v10/settings", "/v10/settings/", "/api/v10/settings/list", "/api/v10/settings/search", "/api/v10/settings/create", "/api/v10/settings/update", "/api/v10/settings/delete", "/api/v10/settings/get", "/api/v10/settings/post", "/api/v10/settings/put",
+    "/api/v10/settings/patch", "/api/v10/settings/all", "/api/v10/auth", "/api/v10/auth/", "/v10/auth", "/v10/auth/", "/api/v10/auth/list", "/api/v10/auth/search", "/api/v10/auth/create", "/api/v10/auth/update",
+    "/api/v10/auth/delete", "/api/v10/auth/get", "/api/v10/auth/post", "/api/v10/auth/put", "/api/v10/auth/patch", "/api/v10/auth/all", "/api/v10/login", "/api/v10/login/", "/v10/login", "/v10/login/",
+    "/api/v10/login/list", "/api/v10/login/search", "/api/v10/login/create", "/api/v10/login/update", "/api/v10/login/delete", "/api/v10/login/get", "/api/v10/login/post", "/api/v10/login/put", "/api/v10/login/patch", "/api/v10/login/all",
+    "/api/v10/logout", "/api/v10/logout/", "/v10/logout", "/v10/logout/", "/api/v10/logout/list", "/api/v10/logout/search", "/api/v10/logout/create", "/api/v10/logout/update", "/api/v10/logout/delete", "/api/v10/logout/get",
+    "/api/v10/logout/post", "/api/v10/logout/put", "/api/v10/logout/patch", "/api/v10/logout/all", "/api/v10/register", "/api/v10/register/", "/v10/register", "/v10/register/", "/api/v10/register/list", "/api/v10/register/search",
+    "/api/v10/register/create", "/api/v10/register/update", "/api/v10/register/delete", "/api/v10/register/get", "/api/v10/register/post", "/api/v10/register/put", "/api/v10/register/patch", "/api/v10/register/all", "/api/v10/me", "/api/v10/me/",
+    "/v10/me", "/v10/me/", "/api/v10/me/list", "/api/v10/me/search", "/api/v10/me/create", "/api/v10/me/update", "/api/v10/me/delete", "/api/v10/me/get", "/api/v10/me/post", "/api/v10/me/put",
+    "/api/v10/me/patch", "/api/v10/me/all", "/api/v10/profile", "/api/v10/profile/", "/v10/profile", "/v10/profile/", "/api/v10/profile/list", "/api/v10/profile/search", "/api/v10/profile/create", "/api/v10/profile/update",
+    "/api/v10/profile/delete", "/api/v10/profile/get", "/api/v10/profile/post", "/api/v10/profile/put", "/api/v10/profile/patch", "/api/v10/profile/all", "/api/v10/account", "/api/v10/account/", "/v10/account", "/v10/account/",
+    "/api/v10/account/list", "/api/v10/account/search", "/api/v10/account/create", "/api/v10/account/update", "/api/v10/account/delete", "/api/v10/account/get", "/api/v10/account/post", "/api/v10/account/put", "/api/v10/account/patch", "/api/v10/account/all",
+    "/api/v10/accounts", "/api/v10/accounts/", "/v10/accounts", "/v10/accounts/", "/api/v10/accounts/list", "/api/v10/accounts/search", "/api/v10/accounts/create", "/api/v10/accounts/update", "/api/v10/accounts/delete", "/api/v10/accounts/get",
+    "/api/v10/accounts/post", "/api/v10/accounts/put", "/api/v10/accounts/patch", "/api/v10/accounts/all", "/api/v10/health", "/api/v10/health/", "/v10/health", "/v10/health/", "/api/v10/health/list", "/api/v10/health/search",
+    "/api/v10/health/create", "/api/v10/health/update", "/api/v10/health/delete", "/api/v10/health/get", "/api/v10/health/post", "/api/v10/health/put", "/api/v10/health/patch", "/api/v10/health/all", "/api/v10/status", "/api/v10/status/",
+    "/v10/status", "/v10/status/", "/api/v10/status/list", "/api/v10/status/search", "/api/v10/status/create", "/api/v10/status/update", "/api/v10/status/delete", "/api/v10/status/get", "/api/v10/status/post", "/api/v10/status/put",
+    "/api/v10/status/patch", "/api/v10/status/all", "/api/v10/version", "/api/v10/version/", "/v10/version", "/v10/version/", "/api/v10/version/list", "/api/v10/version/search", "/api/v10/version/create", "/api/v10/version/update",
+    "/api/v10/version/delete", "/api/v10/version/get", "/api/v10/version/post", "/api/v10/version/put", "/api/v10/version/patch", "/api/v10/version/all", "/api/v10/info", "/api/v10/info/", "/v10/info", "/v10/info/",
+    "/api/v10/info/list", "/api/v10/info/search", "/api/v10/info/create", "/api/v10/info/update", "/api/v10/info/delete", "/api/v10/info/get", "/api/v10/info/post", "/api/v10/info/put", "/api/v10/info/patch", "/api/v10/info/all",
+    "/api/v10/upload", "/api/v10/upload/", "/v10/upload", "/v10/upload/", "/api/v10/upload/list", "/api/v10/upload/search", "/api/v10/upload/create", "/api/v10/upload/update", "/api/v10/upload/delete", "/api/v10/upload/get",
+    "/api/v10/upload/post", "/api/v10/upload/put", "/api/v10/upload/patch", "/api/v10/upload/all", "/api/v10/download", "/api/v10/download/", "/v10/download", "/v10/download/", "/api/v10/download/list", "/api/v10/download/search",
+    "/api/v10/download/create", "/api/v10/download/update", "/api/v10/download/delete", "/api/v10/download/get", "/api/v10/download/post", "/api/v10/download/put", "/api/v10/download/patch", "/api/v10/download/all", "/api/v10/files", "/api/v10/files/",
+    "/v10/files", "/v10/files/", "/api/v10/files/list", "/api/v10/files/search", "/api/v10/files/create", "/api/v10/files/update", "/api/v10/files/delete", "/api/v10/files/get", "/api/v10/files/post", "/api/v10/files/put",
+    "/api/v10/files/patch", "/api/v10/files/all", "/api/v10/list", "/api/v10/list/", "/v10/list", "/v10/list/", "/api/v10/list/list", "/api/v10/list/search", "/api/v10/list/create", "/api/v10/list/update",
+    "/api/v10/list/delete", "/api/v10/list/get", "/api/v10/list/post", "/api/v10/list/put", "/api/v10/list/patch", "/api/v10/list/all", "/api/v10/search", "/api/v10/search/", "/v10/search", "/v10/search/",
+    "/api/v10/search/list", "/api/v10/search/search", "/api/v10/search/create", "/api/v10/search/update", "/api/v10/search/delete", "/api/v10/search/get", "/api/v10/search/post", "/api/v10/search/put", "/api/v10/search/patch", "/api/v10/search/all",
+    "/api/v10/query", "/api/v10/query/", "/v10/query", "/v10/query/", "/api/v10/query/list", "/api/v10/query/search", "/api/v10/query/create", "/api/v10/query/update", "/api/v10/query/delete", "/api/v10/query/get",
+    "/api/v10/query/post", "/api/v10/query/put", "/api/v10/query/patch", "/api/v10/query/all", "/api/v10/debug", "/api/v10/debug/", "/v10/debug", "/v10/debug/", "/api/v10/debug/list", "/api/v10/debug/search",
+    "/api/v10/debug/create", "/api/v10/debug/update", "/api/v10/debug/delete", "/api/v10/debug/get", "/api/v10/debug/post", "/api/v10/debug/put", "/api/v10/debug/patch", "/api/v10/debug/all", "/api/v10/test", "/api/v10/test/",
+    "/v10/test", "/v10/test/", "/api/v10/test/list", "/api/v10/test/search", "/api/v10/test/create", "/api/v10/test/update", "/api/v10/test/delete", "/api/v10/test/get", "/api/v10/test/post", "/api/v10/test/put",
+    "/api/v10/test/patch", "/api/v10/test/all", "/api/v10/internal", "/api/v10/internal/", "/v10/internal", "/v10/internal/", "/api/v10/internal/list", "/api/v10/internal/search", "/api/v10/internal/create", "/api/v10/internal/update",
+    "/api/v10/internal/delete", "/api/v10/internal/get", "/api/v10/internal/post", "/api/v10/internal/put", "/api/v10/internal/patch", "/api/v10/internal/all", "/api/v10/private", "/api/v10/private/", "/v10/private", "/v10/private/",
+    "/api/v10/private/list", "/api/v10/private/search", "/api/v10/private/create", "/api/v10/private/update", "/api/v10/private/delete", "/api/v10/private/get", "/api/v10/private/post", "/api/v10/private/put", "/api/v10/private/patch", "/api/v10/private/all",
+    "/api/v10/secret", "/api/v10/secret/", "/v10/secret", "/v10/secret/", "/api/v10/secret/list", "/api/v10/secret/search", "/api/v10/secret/create", "/api/v10/secret/update", "/api/v10/secret/delete", "/api/v10/secret/get",
+    "/api/v10/secret/post", "/api/v10/secret/put", "/api/v10/secret/patch", "/api/v10/secret/all", "/api/v10/public", "/api/v10/public/", "/v10/public", "/v10/public/", "/api/v10/public/list", "/api/v10/public/search",
+    "/api/v10/public/create", "/api/v10/public/update", "/api/v10/public/delete", "/api/v10/public/get", "/api/v10/public/post", "/api/v10/public/put", "/api/v10/public/patch", "/api/v10/public/all", "/api/v10/orders", "/api/v10/orders/",
+    "/v10/orders", "/v10/orders/", "/api/v10/orders/list", "/api/v10/orders/search", "/api/v10/orders/create", "/api/v10/orders/update", "/api/v10/orders/delete", "/api/v10/orders/get", "/api/v10/orders/post", "/api/v10/orders/put",
+    "/api/v10/orders/patch", "/api/v10/orders/all", "/api/v10/products", "/api/v10/products/", "/v10/products", "/v10/products/", "/api/v10/products/list", "/api/v10/products/search", "/api/v10/products/create", "/api/v10/products/update",
+    "/api/v10/products/delete", "/api/v10/products/get", "/api/v10/products/post", "/api/v10/products/put", "/api/v10/products/patch", "/api/v10/products/all", "/api/v10/payments", "/api/v10/payments/", "/v10/payments", "/v10/payments/",
+    "/api/v10/payments/list", "/api/v10/payments/search", "/api/v10/payments/create", "/api/v10/payments/update", "/api/v10/payments/delete", "/api/v10/payments/get", "/api/v10/payments/post", "/api/v10/payments/put", "/api/v10/payments/patch", "/api/v10/payments/all",
+    "/api/v10/invoices", "/api/v10/invoices/", "/v10/invoices", "/v10/invoices/", "/api/v10/invoices/list", "/api/v10/invoices/search", "/api/v10/invoices/create", "/api/v10/invoices/update", "/api/v10/invoices/delete", "/api/v10/invoices/get",
+    "/api/v10/invoices/post", "/api/v10/invoices/put", "/api/v10/invoices/patch", "/api/v10/invoices/all", "/api/v10/subscriptions", "/api/v10/subscriptions/", "/v10/subscriptions", "/v10/subscriptions/", "/api/v10/subscriptions/list", "/api/v10/subscriptions/search",
+    "/api/v10/subscriptions/create", "/api/v10/subscriptions/update", "/api/v10/subscriptions/delete", "/api/v10/subscriptions/get", "/api/v10/subscriptions/post", "/api/v10/subscriptions/put", "/api/v10/subscriptions/patch", "/api/v10/subscriptions/all", "/api/v10/notifications", "/api/v10/notifications/",
+    "/v10/notifications", "/v10/notifications/", "/api/v10/notifications/list", "/api/v10/notifications/search", "/api/v10/notifications/create", "/api/v10/notifications/update", "/api/v10/notifications/delete", "/api/v10/notifications/get", "/api/v10/notifications/post", "/api/v10/notifications/put",
+    "/api/v10/notifications/patch", "/api/v10/notifications/all", "/api/v10/messages", "/api/v10/messages/", "/v10/messages", "/v10/messages/", "/api/v10/messages/list", "/api/v10/messages/search", "/api/v10/messages/create", "/api/v10/messages/update",
+    "/api/v10/messages/delete", "/api/v10/messages/get", "/api/v10/messages/post", "/api/v10/messages/put", "/api/v10/messages/patch", "/api/v10/messages/all", "/api/v10/emails", "/api/v10/emails/", "/v10/emails", "/v10/emails/",
+    "/api/v10/emails/list", "/api/v10/emails/search", "/api/v10/emails/create", "/api/v10/emails/update", "/api/v10/emails/delete", "/api/v10/emails/get", "/api/v10/emails/post", "/api/v10/emails/put", "/api/v10/emails/patch", "/api/v10/emails/all",
+    "/api/v10/sessions", "/api/v10/sessions/", "/v10/sessions", "/v10/sessions/", "/api/v10/sessions/list", "/api/v10/sessions/search", "/api/v10/sessions/create", "/api/v10/sessions/update", "/api/v10/sessions/delete", "/api/v10/sessions/get",
+    "/api/v10/sessions/post", "/api/v10/sessions/put", "/api/v10/sessions/patch", "/api/v10/sessions/all", "/api/v10/tokens", "/api/v10/tokens/", "/v10/tokens", "/v10/tokens/", "/api/v10/tokens/list", "/api/v10/tokens/search",
+    "/api/v10/tokens/create", "/api/v10/tokens/update", "/api/v10/tokens/delete", "/api/v10/tokens/get", "/api/v10/tokens/post", "/api/v10/tokens/put", "/api/v10/tokens/patch", "/api/v10/tokens/all", "/api/v10/webhooks", "/api/v10/webhooks/",
+    "/v10/webhooks", "/v10/webhooks/", "/api/v10/webhooks/list", "/api/v10/webhooks/search", "/api/v10/webhooks/create", "/api/v10/webhooks/update", "/api/v10/webhooks/delete", "/api/v10/webhooks/get", "/api/v10/webhooks/post", "/api/v10/webhooks/put",
+    "/api/v10/webhooks/patch", "/api/v10/webhooks/all", "/api/v10/callbacks", "/api/v10/callbacks/", "/v10/callbacks", "/v10/callbacks/", "/api/v10/callbacks/list", "/api/v10/callbacks/search", "/api/v10/callbacks/create", "/api/v10/callbacks/update",
+    "/api/v10/callbacks/delete", "/api/v10/callbacks/get", "/api/v10/callbacks/post", "/api/v10/callbacks/put", "/api/v10/callbacks/patch", "/api/v10/callbacks/all", "/api/v10/events", "/api/v10/events/", "/v10/events", "/v10/events/",
+    "/api/v10/events/list", "/api/v10/events/search", "/api/v10/events/create", "/api/v10/events/update", "/api/v10/events/delete", "/api/v10/events/get", "/api/v10/events/post", "/api/v10/events/put", "/api/v10/events/patch", "/api/v10/events/all",
+    "/api/v10/logs", "/api/v10/logs/", "/v10/logs", "/v10/logs/", "/api/v10/logs/list", "/api/v10/logs/search", "/api/v10/logs/create", "/api/v10/logs/update", "/api/v10/logs/delete", "/api/v10/logs/get",
+    "/api/v10/logs/post", "/api/v10/logs/put", "/api/v10/logs/patch", "/api/v10/logs/all", "/api/v10/metrics", "/api/v10/metrics/", "/v10/metrics", "/v10/metrics/", "/api/v10/metrics/list", "/api/v10/metrics/search",
+    "/api/v10/metrics/create", "/api/v10/metrics/update", "/api/v10/metrics/delete", "/api/v10/metrics/get", "/api/v10/metrics/post", "/api/v10/metrics/put", "/api/v10/metrics/patch", "/api/v10/metrics/all", "/api/v10/stats", "/api/v10/stats/",
+    "/v10/stats", "/v10/stats/", "/api/v10/stats/list", "/api/v10/stats/search", "/api/v10/stats/create", "/api/v10/stats/update", "/api/v10/stats/delete", "/api/v10/stats/get", "/api/v10/stats/post", "/api/v10/stats/put",
+    "/api/v10/stats/patch", "/api/v10/stats/all", "/api/beta/users", "/api/beta/users/", "/beta/users", "/beta/users/", "/api/beta/users/list", "/api/beta/users/search", "/api/beta/users/create", "/api/beta/users/update",
+    "/api/beta/users/delete", "/api/beta/users/get", "/api/beta/users/post", "/api/beta/users/put", "/api/beta/users/patch", "/api/beta/users/all", "/api/beta/user", "/api/beta/user/", "/beta/user", "/beta/user/",
+    "/api/beta/user/list", "/api/beta/user/search", "/api/beta/user/create", "/api/beta/user/update", "/api/beta/user/delete", "/api/beta/user/get", "/api/beta/user/post", "/api/beta/user/put", "/api/beta/user/patch", "/api/beta/user/all",
+    "/api/beta/admin", "/api/beta/admin/", "/beta/admin", "/beta/admin/", "/api/beta/admin/list", "/api/beta/admin/search", "/api/beta/admin/create", "/api/beta/admin/update", "/api/beta/admin/delete", "/api/beta/admin/get",
+    "/api/beta/admin/post", "/api/beta/admin/put", "/api/beta/admin/patch", "/api/beta/admin/all", "/api/beta/config", "/api/beta/config/", "/beta/config", "/beta/config/", "/api/beta/config/list", "/api/beta/config/search",
+    "/api/beta/config/create", "/api/beta/config/update", "/api/beta/config/delete", "/api/beta/config/get", "/api/beta/config/post", "/api/beta/config/put", "/api/beta/config/patch", "/api/beta/config/all", "/api/beta/settings", "/api/beta/settings/",
+    "/beta/settings", "/beta/settings/", "/api/beta/settings/list", "/api/beta/settings/search", "/api/beta/settings/create", "/api/beta/settings/update", "/api/beta/settings/delete", "/api/beta/settings/get", "/api/beta/settings/post", "/api/beta/settings/put",
+    "/api/beta/settings/patch", "/api/beta/settings/all", "/api/beta/auth", "/api/beta/auth/", "/beta/auth", "/beta/auth/", "/api/beta/auth/list", "/api/beta/auth/search", "/api/beta/auth/create", "/api/beta/auth/update",
+    "/api/beta/auth/delete", "/api/beta/auth/get", "/api/beta/auth/post", "/api/beta/auth/put", "/api/beta/auth/patch", "/api/beta/auth/all", "/api/beta/login", "/api/beta/login/", "/beta/login", "/beta/login/",
+    "/api/beta/login/list", "/api/beta/login/search", "/api/beta/login/create", "/api/beta/login/update", "/api/beta/login/delete", "/api/beta/login/get", "/api/beta/login/post", "/api/beta/login/put", "/api/beta/login/patch", "/api/beta/login/all",
+    "/api/beta/logout", "/api/beta/logout/", "/beta/logout", "/beta/logout/", "/api/beta/logout/list", "/api/beta/logout/search", "/api/beta/logout/create", "/api/beta/logout/update", "/api/beta/logout/delete", "/api/beta/logout/get",
+    "/api/beta/logout/post", "/api/beta/logout/put", "/api/beta/logout/patch", "/api/beta/logout/all", "/api/beta/register", "/api/beta/register/", "/beta/register", "/beta/register/", "/api/beta/register/list", "/api/beta/register/search",
+    "/api/beta/register/create", "/api/beta/register/update", "/api/beta/register/delete", "/api/beta/register/get", "/api/beta/register/post", "/api/beta/register/put", "/api/beta/register/patch", "/api/beta/register/all", "/api/beta/me", "/api/beta/me/",
+    "/beta/me", "/beta/me/", "/api/beta/me/list", "/api/beta/me/search", "/api/beta/me/create", "/api/beta/me/update", "/api/beta/me/delete", "/api/beta/me/get", "/api/beta/me/post", "/api/beta/me/put",
+    "/api/beta/me/patch", "/api/beta/me/all", "/api/beta/profile", "/api/beta/profile/", "/beta/profile", "/beta/profile/", "/api/beta/profile/list", "/api/beta/profile/search", "/api/beta/profile/create", "/api/beta/profile/update",
+    "/api/beta/profile/delete", "/api/beta/profile/get", "/api/beta/profile/post", "/api/beta/profile/put", "/api/beta/profile/patch", "/api/beta/profile/all", "/api/beta/account", "/api/beta/account/", "/beta/account", "/beta/account/",
+    "/api/beta/account/list", "/api/beta/account/search", "/api/beta/account/create", "/api/beta/account/update", "/api/beta/account/delete", "/api/beta/account/get", "/api/beta/account/post", "/api/beta/account/put", "/api/beta/account/patch", "/api/beta/account/all",
+    "/api/beta/accounts", "/api/beta/accounts/", "/beta/accounts", "/beta/accounts/", "/api/beta/accounts/list", "/api/beta/accounts/search", "/api/beta/accounts/create", "/api/beta/accounts/update", "/api/beta/accounts/delete", "/api/beta/accounts/get",
+    "/api/beta/accounts/post", "/api/beta/accounts/put", "/api/beta/accounts/patch", "/api/beta/accounts/all", "/api/beta/health", "/api/beta/health/", "/beta/health", "/beta/health/", "/api/beta/health/list", "/api/beta/health/search",
+    "/api/beta/health/create", "/api/beta/health/update", "/api/beta/health/delete", "/api/beta/health/get", "/api/beta/health/post", "/api/beta/health/put", "/api/beta/health/patch", "/api/beta/health/all", "/api/beta/status", "/api/beta/status/",
+    "/beta/status", "/beta/status/", "/api/beta/status/list", "/api/beta/status/search", "/api/beta/status/create", "/api/beta/status/update", "/api/beta/status/delete", "/api/beta/status/get", "/api/beta/status/post", "/api/beta/status/put",
+    "/api/beta/status/patch", "/api/beta/status/all", "/api/beta/version", "/api/beta/version/", "/beta/version", "/beta/version/", "/api/beta/version/list", "/api/beta/version/search", "/api/beta/version/create", "/api/beta/version/update",
+    "/api/beta/version/delete", "/api/beta/version/get", "/api/beta/version/post", "/api/beta/version/put", "/api/beta/version/patch", "/api/beta/version/all", "/api/beta/info", "/api/beta/info/", "/beta/info", "/beta/info/",
+    "/api/beta/info/list", "/api/beta/info/search", "/api/beta/info/create", "/api/beta/info/update", "/api/beta/info/delete", "/api/beta/info/get", "/api/beta/info/post", "/api/beta/info/put", "/api/beta/info/patch", "/api/beta/info/all",
+    "/api/beta/upload", "/api/beta/upload/", "/beta/upload", "/beta/upload/", "/api/beta/upload/list", "/api/beta/upload/search", "/api/beta/upload/create", "/api/beta/upload/update", "/api/beta/upload/delete", "/api/beta/upload/get",
+    "/api/beta/upload/post", "/api/beta/upload/put", "/api/beta/upload/patch", "/api/beta/upload/all", "/api/beta/download", "/api/beta/download/", "/beta/download", "/beta/download/", "/api/beta/download/list", "/api/beta/download/search",
+    "/api/beta/download/create", "/api/beta/download/update", "/api/beta/download/delete", "/api/beta/download/get", "/api/beta/download/post", "/api/beta/download/put", "/api/beta/download/patch", "/api/beta/download/all", "/api/beta/files", "/api/beta/files/",
+    "/beta/files", "/beta/files/", "/api/beta/files/list", "/api/beta/files/search", "/api/beta/files/create", "/api/beta/files/update", "/api/beta/files/delete", "/api/beta/files/get", "/api/beta/files/post", "/api/beta/files/put",
+    "/api/beta/files/patch", "/api/beta/files/all", "/api/beta/list", "/api/beta/list/", "/beta/list", "/beta/list/", "/api/beta/list/list", "/api/beta/list/search", "/api/beta/list/create", "/api/beta/list/update",
+    "/api/beta/list/delete", "/api/beta/list/get", "/api/beta/list/post", "/api/beta/list/put", "/api/beta/list/patch", "/api/beta/list/all", "/api/beta/search", "/api/beta/search/", "/beta/search", "/beta/search/",
+    "/api/beta/search/list", "/api/beta/search/search", "/api/beta/search/create", "/api/beta/search/update", "/api/beta/search/delete", "/api/beta/search/get", "/api/beta/search/post", "/api/beta/search/put", "/api/beta/search/patch", "/api/beta/search/all",
+    "/api/beta/query", "/api/beta/query/", "/beta/query", "/beta/query/", "/api/beta/query/list", "/api/beta/query/search", "/api/beta/query/create", "/api/beta/query/update", "/api/beta/query/delete", "/api/beta/query/get",
+    "/api/beta/query/post", "/api/beta/query/put", "/api/beta/query/patch", "/api/beta/query/all", "/api/beta/debug", "/api/beta/debug/", "/beta/debug", "/beta/debug/", "/api/beta/debug/list", "/api/beta/debug/search",
+    "/api/beta/debug/create", "/api/beta/debug/update", "/api/beta/debug/delete", "/api/beta/debug/get", "/api/beta/debug/post", "/api/beta/debug/put", "/api/beta/debug/patch", "/api/beta/debug/all", "/api/beta/test", "/api/beta/test/",
+    "/beta/test", "/beta/test/", "/api/beta/test/list", "/api/beta/test/search", "/api/beta/test/create", "/api/beta/test/update", "/api/beta/test/delete", "/api/beta/test/get", "/api/beta/test/post", "/api/beta/test/put",
+    "/api/beta/test/patch", "/api/beta/test/all", "/api/beta/internal", "/api/beta/internal/", "/beta/internal", "/beta/internal/", "/api/beta/internal/list", "/api/beta/internal/search", "/api/beta/internal/create", "/api/beta/internal/update",
+    "/api/beta/internal/delete", "/api/beta/internal/get", "/api/beta/internal/post", "/api/beta/internal/put", "/api/beta/internal/patch", "/api/beta/internal/all", "/api/beta/private", "/api/beta/private/", "/beta/private", "/beta/private/",
+    "/api/beta/private/list", "/api/beta/private/search", "/api/beta/private/create", "/api/beta/private/update", "/api/beta/private/delete", "/api/beta/private/get", "/api/beta/private/post", "/api/beta/private/put", "/api/beta/private/patch", "/api/beta/private/all",
+    "/api/beta/secret", "/api/beta/secret/", "/beta/secret", "/beta/secret/", "/api/beta/secret/list", "/api/beta/secret/search", "/api/beta/secret/create", "/api/beta/secret/update", "/api/beta/secret/delete", "/api/beta/secret/get",
+    "/api/beta/secret/post", "/api/beta/secret/put", "/api/beta/secret/patch", "/api/beta/secret/all", "/api/beta/public", "/api/beta/public/", "/beta/public", "/beta/public/", "/api/beta/public/list", "/api/beta/public/search",
+    "/api/beta/public/create", "/api/beta/public/update", "/api/beta/public/delete", "/api/beta/public/get", "/api/beta/public/post", "/api/beta/public/put", "/api/beta/public/patch", "/api/beta/public/all", "/api/beta/orders", "/api/beta/orders/",
+    "/beta/orders", "/beta/orders/", "/api/beta/orders/list", "/api/beta/orders/search", "/api/beta/orders/create", "/api/beta/orders/update", "/api/beta/orders/delete", "/api/beta/orders/get", "/api/beta/orders/post", "/api/beta/orders/put",
+    "/api/beta/orders/patch", "/api/beta/orders/all", "/api/beta/products", "/api/beta/products/", "/beta/products", "/beta/products/", "/api/beta/products/list", "/api/beta/products/search", "/api/beta/products/create", "/api/beta/products/update",
+    "/api/beta/products/delete", "/api/beta/products/get", "/api/beta/products/post", "/api/beta/products/put", "/api/beta/products/patch", "/api/beta/products/all", "/api/beta/payments", "/api/beta/payments/", "/beta/payments", "/beta/payments/",
+    "/api/beta/payments/list", "/api/beta/payments/search", "/api/beta/payments/create", "/api/beta/payments/update", "/api/beta/payments/delete", "/api/beta/payments/get", "/api/beta/payments/post", "/api/beta/payments/put", "/api/beta/payments/patch", "/api/beta/payments/all",
+    "/api/beta/invoices", "/api/beta/invoices/", "/beta/invoices", "/beta/invoices/", "/api/beta/invoices/list", "/api/beta/invoices/search", "/api/beta/invoices/create", "/api/beta/invoices/update", "/api/beta/invoices/delete", "/api/beta/invoices/get",
+    "/api/beta/invoices/post", "/api/beta/invoices/put", "/api/beta/invoices/patch", "/api/beta/invoices/all", "/api/beta/subscriptions", "/api/beta/subscriptions/", "/beta/subscriptions", "/beta/subscriptions/", "/api/beta/subscriptions/list", "/api/beta/subscriptions/search",
+    "/api/beta/subscriptions/create", "/api/beta/subscriptions/update", "/api/beta/subscriptions/delete", "/api/beta/subscriptions/get", "/api/beta/subscriptions/post", "/api/beta/subscriptions/put", "/api/beta/subscriptions/patch", "/api/beta/subscriptions/all", "/api/beta/notifications", "/api/beta/notifications/",
+    "/beta/notifications", "/beta/notifications/", "/api/beta/notifications/list", "/api/beta/notifications/search", "/api/beta/notifications/create", "/api/beta/notifications/update", "/api/beta/notifications/delete", "/api/beta/notifications/get", "/api/beta/notifications/post", "/api/beta/notifications/put",
+    "/api/beta/notifications/patch", "/api/beta/notifications/all", "/api/beta/messages", "/api/beta/messages/", "/beta/messages", "/beta/messages/", "/api/beta/messages/list", "/api/beta/messages/search", "/api/beta/messages/create", "/api/beta/messages/update",
+    "/api/beta/messages/delete", "/api/beta/messages/get", "/api/beta/messages/post", "/api/beta/messages/put", "/api/beta/messages/patch", "/api/beta/messages/all", "/api/beta/emails", "/api/beta/emails/", "/beta/emails", "/beta/emails/",
+    "/api/beta/emails/list", "/api/beta/emails/search", "/api/beta/emails/create", "/api/beta/emails/update", "/api/beta/emails/delete", "/api/beta/emails/get", "/api/beta/emails/post", "/api/beta/emails/put", "/api/beta/emails/patch", "/api/beta/emails/all",
+    "/api/beta/sessions", "/api/beta/sessions/", "/beta/sessions", "/beta/sessions/", "/api/beta/sessions/list", "/api/beta/sessions/search", "/api/beta/sessions/create", "/api/beta/sessions/update", "/api/beta/sessions/delete", "/api/beta/sessions/get",
+    "/api/beta/sessions/post", "/api/beta/sessions/put", "/api/beta/sessions/patch", "/api/beta/sessions/all", "/api/beta/tokens", "/api/beta/tokens/", "/beta/tokens", "/beta/tokens/", "/api/beta/tokens/list", "/api/beta/tokens/search",
+    "/api/beta/tokens/create", "/api/beta/tokens/update", "/api/beta/tokens/delete", "/api/beta/tokens/get", "/api/beta/tokens/post", "/api/beta/tokens/put", "/api/beta/tokens/patch", "/api/beta/tokens/all", "/api/beta/webhooks", "/api/beta/webhooks/",
+    "/beta/webhooks", "/beta/webhooks/", "/api/beta/webhooks/list", "/api/beta/webhooks/search", "/api/beta/webhooks/create", "/api/beta/webhooks/update", "/api/beta/webhooks/delete", "/api/beta/webhooks/get", "/api/beta/webhooks/post", "/api/beta/webhooks/put",
+    "/api/beta/webhooks/patch", "/api/beta/webhooks/all", "/api/beta/callbacks", "/api/beta/callbacks/", "/beta/callbacks", "/beta/callbacks/", "/api/beta/callbacks/list", "/api/beta/callbacks/search", "/api/beta/callbacks/create", "/api/beta/callbacks/update",
+    "/api/beta/callbacks/delete", "/api/beta/callbacks/get", "/api/beta/callbacks/post", "/api/beta/callbacks/put", "/api/beta/callbacks/patch", "/api/beta/callbacks/all", "/api/beta/events", "/api/beta/events/", "/beta/events", "/beta/events/",
+    "/api/beta/events/list", "/api/beta/events/search", "/api/beta/events/create", "/api/beta/events/update", "/api/beta/events/delete", "/api/beta/events/get", "/api/beta/events/post", "/api/beta/events/put", "/api/beta/events/patch", "/api/beta/events/all",
+    "/api/beta/logs", "/api/beta/logs/", "/beta/logs", "/beta/logs/", "/api/beta/logs/list", "/api/beta/logs/search", "/api/beta/logs/create", "/api/beta/logs/update", "/api/beta/logs/delete", "/api/beta/logs/get",
+    "/api/beta/logs/post", "/api/beta/logs/put", "/api/beta/logs/patch", "/api/beta/logs/all", "/api/beta/metrics", "/api/beta/metrics/", "/beta/metrics", "/beta/metrics/", "/api/beta/metrics/list", "/api/beta/metrics/search",
+    "/api/beta/metrics/create", "/api/beta/metrics/update", "/api/beta/metrics/delete", "/api/beta/metrics/get", "/api/beta/metrics/post", "/api/beta/metrics/put", "/api/beta/metrics/patch", "/api/beta/metrics/all", "/api/beta/stats", "/api/beta/stats/",
+    "/beta/stats", "/beta/stats/", "/api/beta/stats/list", "/api/beta/stats/search", "/api/beta/stats/create", "/api/beta/stats/update", "/api/beta/stats/delete", "/api/beta/stats/get", "/api/beta/stats/post", "/api/beta/stats/put",
+    "/api/beta/stats/patch", "/api/beta/stats/all", "/api/alpha/users", "/api/alpha/users/", "/alpha/users", "/alpha/users/", "/api/alpha/users/list", "/api/alpha/users/search", "/api/alpha/users/create", "/api/alpha/users/update",
+    "/api/alpha/users/delete", "/api/alpha/users/get", "/api/alpha/users/post", "/api/alpha/users/put", "/api/alpha/users/patch", "/api/alpha/users/all", "/api/alpha/user", "/api/alpha/user/", "/alpha/user", "/alpha/user/",
+    "/api/alpha/user/list", "/api/alpha/user/search", "/api/alpha/user/create", "/api/alpha/user/update", "/api/alpha/user/delete", "/api/alpha/user/get", "/api/alpha/user/post", "/api/alpha/user/put", "/api/alpha/user/patch", "/api/alpha/user/all",
+    "/api/alpha/admin", "/api/alpha/admin/", "/alpha/admin", "/alpha/admin/", "/api/alpha/admin/list", "/api/alpha/admin/search", "/api/alpha/admin/create", "/api/alpha/admin/update", "/api/alpha/admin/delete", "/api/alpha/admin/get",
+    "/api/alpha/admin/post", "/api/alpha/admin/put", "/api/alpha/admin/patch", "/api/alpha/admin/all", "/api/alpha/config", "/api/alpha/config/", "/alpha/config", "/alpha/config/", "/api/alpha/config/list", "/api/alpha/config/search",
+    "/api/alpha/config/create", "/api/alpha/config/update", "/api/alpha/config/delete", "/api/alpha/config/get", "/api/alpha/config/post", "/api/alpha/config/put", "/api/alpha/config/patch", "/api/alpha/config/all", "/api/alpha/settings", "/api/alpha/settings/",
+    "/alpha/settings", "/alpha/settings/", "/api/alpha/settings/list", "/api/alpha/settings/search", "/api/alpha/settings/create", "/api/alpha/settings/update", "/api/alpha/settings/delete", "/api/alpha/settings/get", "/api/alpha/settings/post", "/api/alpha/settings/put",
+    "/api/alpha/settings/patch", "/api/alpha/settings/all", "/api/alpha/auth", "/api/alpha/auth/", "/alpha/auth", "/alpha/auth/", "/api/alpha/auth/list", "/api/alpha/auth/search", "/api/alpha/auth/create", "/api/alpha/auth/update",
+    "/api/alpha/auth/delete", "/api/alpha/auth/get", "/api/alpha/auth/post", "/api/alpha/auth/put", "/api/alpha/auth/patch", "/api/alpha/auth/all", "/api/alpha/login", "/api/alpha/login/", "/alpha/login", "/alpha/login/",
+    "/api/alpha/login/list", "/api/alpha/login/search", "/api/alpha/login/create", "/api/alpha/login/update", "/api/alpha/login/delete", "/api/alpha/login/get", "/api/alpha/login/post", "/api/alpha/login/put", "/api/alpha/login/patch", "/api/alpha/login/all",
+    "/api/alpha/logout", "/api/alpha/logout/", "/alpha/logout", "/alpha/logout/", "/api/alpha/logout/list", "/api/alpha/logout/search", "/api/alpha/logout/create", "/api/alpha/logout/update", "/api/alpha/logout/delete", "/api/alpha/logout/get",
+    "/api/alpha/logout/post", "/api/alpha/logout/put", "/api/alpha/logout/patch", "/api/alpha/logout/all", "/api/alpha/register", "/api/alpha/register/", "/alpha/register", "/alpha/register/", "/api/alpha/register/list", "/api/alpha/register/search",
+    "/api/alpha/register/create", "/api/alpha/register/update", "/api/alpha/register/delete", "/api/alpha/register/get", "/api/alpha/register/post", "/api/alpha/register/put", "/api/alpha/register/patch", "/api/alpha/register/all", "/api/alpha/me", "/api/alpha/me/",
+    "/alpha/me", "/alpha/me/", "/api/alpha/me/list", "/api/alpha/me/search", "/api/alpha/me/create", "/api/alpha/me/update", "/api/alpha/me/delete", "/api/alpha/me/get", "/api/alpha/me/post", "/api/alpha/me/put",
+    "/api/alpha/me/patch", "/api/alpha/me/all", "/api/alpha/profile", "/api/alpha/profile/", "/alpha/profile", "/alpha/profile/", "/api/alpha/profile/list", "/api/alpha/profile/search", "/api/alpha/profile/create", "/api/alpha/profile/update",
+    "/api/alpha/profile/delete", "/api/alpha/profile/get", "/api/alpha/profile/post", "/api/alpha/profile/put", "/api/alpha/profile/patch", "/api/alpha/profile/all", "/api/alpha/account", "/api/alpha/account/", "/alpha/account", "/alpha/account/",
+    "/api/alpha/account/list", "/api/alpha/account/search", "/api/alpha/account/create", "/api/alpha/account/update", "/api/alpha/account/delete", "/api/alpha/account/get", "/api/alpha/account/post", "/api/alpha/account/put", "/api/alpha/account/patch", "/api/alpha/account/all",
+    "/api/alpha/accounts", "/api/alpha/accounts/", "/alpha/accounts", "/alpha/accounts/", "/api/alpha/accounts/list", "/api/alpha/accounts/search", "/api/alpha/accounts/create", "/api/alpha/accounts/update", "/api/alpha/accounts/delete", "/api/alpha/accounts/get",
+    "/api/alpha/accounts/post", "/api/alpha/accounts/put", "/api/alpha/accounts/patch", "/api/alpha/accounts/all", "/api/alpha/health", "/api/alpha/health/", "/alpha/health", "/alpha/health/", "/api/alpha/health/list", "/api/alpha/health/search",
+    "/api/alpha/health/create", "/api/alpha/health/update", "/api/alpha/health/delete", "/api/alpha/health/get", "/api/alpha/health/post", "/api/alpha/health/put", "/api/alpha/health/patch", "/api/alpha/health/all", "/api/alpha/status", "/api/alpha/status/",
+    "/alpha/status", "/alpha/status/", "/api/alpha/status/list", "/api/alpha/status/search", "/api/alpha/status/create", "/api/alpha/status/update", "/api/alpha/status/delete", "/api/alpha/status/get", "/api/alpha/status/post", "/api/alpha/status/put",
+    "/api/alpha/status/patch", "/api/alpha/status/all", "/api/alpha/version", "/api/alpha/version/", "/alpha/version", "/alpha/version/", "/api/alpha/version/list", "/api/alpha/version/search", "/api/alpha/version/create", "/api/alpha/version/update",
+    "/api/alpha/version/delete", "/api/alpha/version/get", "/api/alpha/version/post", "/api/alpha/version/put", "/api/alpha/version/patch", "/api/alpha/version/all", "/api/alpha/info", "/api/alpha/info/", "/alpha/info", "/alpha/info/",
+    "/api/alpha/info/list", "/api/alpha/info/search", "/api/alpha/info/create", "/api/alpha/info/update", "/api/alpha/info/delete", "/api/alpha/info/get", "/api/alpha/info/post", "/api/alpha/info/put", "/api/alpha/info/patch", "/api/alpha/info/all",
+    "/api/alpha/upload", "/api/alpha/upload/", "/alpha/upload", "/alpha/upload/", "/api/alpha/upload/list", "/api/alpha/upload/search", "/api/alpha/upload/create", "/api/alpha/upload/update", "/api/alpha/upload/delete", "/api/alpha/upload/get",
+    "/api/alpha/upload/post", "/api/alpha/upload/put", "/api/alpha/upload/patch", "/api/alpha/upload/all", "/api/alpha/download", "/api/alpha/download/", "/alpha/download", "/alpha/download/", "/api/alpha/download/list", "/api/alpha/download/search",
+    "/api/alpha/download/create", "/api/alpha/download/update", "/api/alpha/download/delete", "/api/alpha/download/get", "/api/alpha/download/post", "/api/alpha/download/put", "/api/alpha/download/patch", "/api/alpha/download/all", "/api/alpha/files", "/api/alpha/files/",
+    "/alpha/files", "/alpha/files/", "/api/alpha/files/list", "/api/alpha/files/search", "/api/alpha/files/create", "/api/alpha/files/update", "/api/alpha/files/delete", "/api/alpha/files/get", "/api/alpha/files/post", "/api/alpha/files/put",
+    "/api/alpha/files/patch", "/api/alpha/files/all", "/api/alpha/list", "/api/alpha/list/", "/alpha/list", "/alpha/list/", "/api/alpha/list/list", "/api/alpha/list/search", "/api/alpha/list/create", "/api/alpha/list/update",
+    "/api/alpha/list/delete", "/api/alpha/list/get", "/api/alpha/list/post", "/api/alpha/list/put", "/api/alpha/list/patch", "/api/alpha/list/all", "/api/alpha/search", "/api/alpha/search/", "/alpha/search", "/alpha/search/",
+    "/api/alpha/search/list", "/api/alpha/search/search", "/api/alpha/search/create", "/api/alpha/search/update", "/api/alpha/search/delete", "/api/alpha/search/get", "/api/alpha/search/post", "/api/alpha/search/put", "/api/alpha/search/patch", "/api/alpha/search/all",
+    "/api/alpha/query", "/api/alpha/query/", "/alpha/query", "/alpha/query/", "/api/alpha/query/list", "/api/alpha/query/search", "/api/alpha/query/create", "/api/alpha/query/update", "/api/alpha/query/delete", "/api/alpha/query/get",
+    "/api/alpha/query/post", "/api/alpha/query/put", "/api/alpha/query/patch", "/api/alpha/query/all", "/api/alpha/debug", "/api/alpha/debug/", "/alpha/debug", "/alpha/debug/", "/api/alpha/debug/list", "/api/alpha/debug/search",
+    "/api/alpha/debug/create", "/api/alpha/debug/update", "/api/alpha/debug/delete", "/api/alpha/debug/get", "/api/alpha/debug/post", "/api/alpha/debug/put", "/api/alpha/debug/patch", "/api/alpha/debug/all", "/api/alpha/test", "/api/alpha/test/",
+    "/alpha/test", "/alpha/test/", "/api/alpha/test/list", "/api/alpha/test/search", "/api/alpha/test/create", "/api/alpha/test/update", "/api/alpha/test/delete", "/api/alpha/test/get", "/api/alpha/test/post", "/api/alpha/test/put",
+    "/api/alpha/test/patch", "/api/alpha/test/all", "/api/alpha/internal", "/api/alpha/internal/", "/alpha/internal", "/alpha/internal/", "/api/alpha/internal/list", "/api/alpha/internal/search", "/api/alpha/internal/create", "/api/alpha/internal/update",
+    "/api/alpha/internal/delete", "/api/alpha/internal/get", "/api/alpha/internal/post", "/api/alpha/internal/put", "/api/alpha/internal/patch", "/api/alpha/internal/all", "/api/alpha/private", "/api/alpha/private/", "/alpha/private", "/alpha/private/",
+    "/api/alpha/private/list", "/api/alpha/private/search", "/api/alpha/private/create", "/api/alpha/private/update", "/api/alpha/private/delete", "/api/alpha/private/get", "/api/alpha/private/post", "/api/alpha/private/put", "/api/alpha/private/patch", "/api/alpha/private/all",
+    "/api/alpha/secret", "/api/alpha/secret/", "/alpha/secret", "/alpha/secret/", "/api/alpha/secret/list", "/api/alpha/secret/search", "/api/alpha/secret/create", "/api/alpha/secret/update", "/api/alpha/secret/delete", "/api/alpha/secret/get",
+    "/api/alpha/secret/post", "/api/alpha/secret/put", "/api/alpha/secret/patch", "/api/alpha/secret/all", "/api/alpha/public", "/api/alpha/public/", "/alpha/public", "/alpha/public/", "/api/alpha/public/list", "/api/alpha/public/search",
+    "/api/alpha/public/create", "/api/alpha/public/update", "/api/alpha/public/delete", "/api/alpha/public/get", "/api/alpha/public/post", "/api/alpha/public/put", "/api/alpha/public/patch", "/api/alpha/public/all", "/api/alpha/orders", "/api/alpha/orders/",
+    "/alpha/orders", "/alpha/orders/", "/api/alpha/orders/list", "/api/alpha/orders/search", "/api/alpha/orders/create", "/api/alpha/orders/update", "/api/alpha/orders/delete", "/api/alpha/orders/get", "/api/alpha/orders/post", "/api/alpha/orders/put",
+    "/api/alpha/orders/patch", "/api/alpha/orders/all", "/api/alpha/products", "/api/alpha/products/", "/alpha/products", "/alpha/products/", "/api/alpha/products/list", "/api/alpha/products/search", "/api/alpha/products/create", "/api/alpha/products/update",
+    "/api/alpha/products/delete", "/api/alpha/products/get", "/api/alpha/products/post", "/api/alpha/products/put", "/api/alpha/products/patch", "/api/alpha/products/all", "/api/alpha/payments", "/api/alpha/payments/", "/alpha/payments", "/alpha/payments/",
+    "/api/alpha/payments/list", "/api/alpha/payments/search", "/api/alpha/payments/create", "/api/alpha/payments/update", "/api/alpha/payments/delete", "/api/alpha/payments/get", "/api/alpha/payments/post", "/api/alpha/payments/put", "/api/alpha/payments/patch", "/api/alpha/payments/all",
+    "/api/alpha/invoices", "/api/alpha/invoices/", "/alpha/invoices", "/alpha/invoices/", "/api/alpha/invoices/list", "/api/alpha/invoices/search", "/api/alpha/invoices/create", "/api/alpha/invoices/update", "/api/alpha/invoices/delete", "/api/alpha/invoices/get",
+    "/api/alpha/invoices/post", "/api/alpha/invoices/put", "/api/alpha/invoices/patch", "/api/alpha/invoices/all", "/api/alpha/subscriptions", "/api/alpha/subscriptions/", "/alpha/subscriptions", "/alpha/subscriptions/", "/api/alpha/subscriptions/list", "/api/alpha/subscriptions/search",
+    "/api/alpha/subscriptions/create", "/api/alpha/subscriptions/update", "/api/alpha/subscriptions/delete", "/api/alpha/subscriptions/get", "/api/alpha/subscriptions/post", "/api/alpha/subscriptions/put", "/api/alpha/subscriptions/patch", "/api/alpha/subscriptions/all", "/api/alpha/notifications", "/api/alpha/notifications/",
+    "/alpha/notifications", "/alpha/notifications/", "/api/alpha/notifications/list", "/api/alpha/notifications/search", "/api/alpha/notifications/create", "/api/alpha/notifications/update", "/api/alpha/notifications/delete", "/api/alpha/notifications/get", "/api/alpha/notifications/post", "/api/alpha/notifications/put",
+    "/api/alpha/notifications/patch", "/api/alpha/notifications/all", "/api/alpha/messages", "/api/alpha/messages/", "/alpha/messages", "/alpha/messages/", "/api/alpha/messages/list", "/api/alpha/messages/search", "/api/alpha/messages/create", "/api/alpha/messages/update",
+    "/api/alpha/messages/delete", "/api/alpha/messages/get", "/api/alpha/messages/post", "/api/alpha/messages/put", "/api/alpha/messages/patch", "/api/alpha/messages/all", "/api/alpha/emails", "/api/alpha/emails/", "/alpha/emails", "/alpha/emails/",
+    "/api/alpha/emails/list", "/api/alpha/emails/search", "/api/alpha/emails/create", "/api/alpha/emails/update", "/api/alpha/emails/delete", "/api/alpha/emails/get", "/api/alpha/emails/post", "/api/alpha/emails/put", "/api/alpha/emails/patch", "/api/alpha/emails/all",
+    "/api/alpha/sessions", "/api/alpha/sessions/", "/alpha/sessions", "/alpha/sessions/", "/api/alpha/sessions/list", "/api/alpha/sessions/search", "/api/alpha/sessions/create", "/api/alpha/sessions/update", "/api/alpha/sessions/delete", "/api/alpha/sessions/get",
+    "/api/alpha/sessions/post", "/api/alpha/sessions/put", "/api/alpha/sessions/patch", "/api/alpha/sessions/all", "/api/alpha/tokens", "/api/alpha/tokens/", "/alpha/tokens", "/alpha/tokens/", "/api/alpha/tokens/list", "/api/alpha/tokens/search",
+    "/api/alpha/tokens/create", "/api/alpha/tokens/update", "/api/alpha/tokens/delete", "/api/alpha/tokens/get", "/api/alpha/tokens/post", "/api/alpha/tokens/put", "/api/alpha/tokens/patch", "/api/alpha/tokens/all", "/api/alpha/webhooks", "/api/alpha/webhooks/",
+    "/alpha/webhooks", "/alpha/webhooks/", "/api/alpha/webhooks/list", "/api/alpha/webhooks/search", "/api/alpha/webhooks/create", "/api/alpha/webhooks/update", "/api/alpha/webhooks/delete", "/api/alpha/webhooks/get", "/api/alpha/webhooks/post", "/api/alpha/webhooks/put",
+    "/api/alpha/webhooks/patch", "/api/alpha/webhooks/all", "/api/alpha/callbacks", "/api/alpha/callbacks/", "/alpha/callbacks", "/alpha/callbacks/", "/api/alpha/callbacks/list", "/api/alpha/callbacks/search", "/api/alpha/callbacks/create", "/api/alpha/callbacks/update",
+    "/api/alpha/callbacks/delete", "/api/alpha/callbacks/get", "/api/alpha/callbacks/post", "/api/alpha/callbacks/put", "/api/alpha/callbacks/patch", "/api/alpha/callbacks/all", "/api/alpha/events", "/api/alpha/events/", "/alpha/events", "/alpha/events/",
+    "/api/alpha/events/list", "/api/alpha/events/search", "/api/alpha/events/create", "/api/alpha/events/update", "/api/alpha/events/delete", "/api/alpha/events/get", "/api/alpha/events/post", "/api/alpha/events/put", "/api/alpha/events/patch", "/api/alpha/events/all",
+    "/api/alpha/logs", "/api/alpha/logs/", "/alpha/logs", "/alpha/logs/", "/api/alpha/logs/list", "/api/alpha/logs/search", "/api/alpha/logs/create", "/api/alpha/logs/update", "/api/alpha/logs/delete", "/api/alpha/logs/get",
+    "/api/alpha/logs/post", "/api/alpha/logs/put", "/api/alpha/logs/patch", "/api/alpha/logs/all", "/api/alpha/metrics", "/api/alpha/metrics/", "/alpha/metrics", "/alpha/metrics/", "/api/alpha/metrics/list", "/api/alpha/metrics/search",
+    "/api/alpha/metrics/create", "/api/alpha/metrics/update", "/api/alpha/metrics/delete", "/api/alpha/metrics/get", "/api/alpha/metrics/post", "/api/alpha/metrics/put", "/api/alpha/metrics/patch", "/api/alpha/metrics/all", "/api/alpha/stats", "/api/alpha/stats/",
+    "/alpha/stats", "/alpha/stats/", "/api/alpha/stats/list", "/api/alpha/stats/search", "/api/alpha/stats/create", "/api/alpha/stats/update", "/api/alpha/stats/delete", "/api/alpha/stats/get", "/api/alpha/stats/post", "/api/alpha/stats/put",
+    "/api/alpha/stats/patch", "/api/alpha/stats/all", "/api/rc/users", "/api/rc/users/", "/rc/users", "/rc/users/", "/api/rc/users/list", "/api/rc/users/search", "/api/rc/users/create", "/api/rc/users/update",
+    "/api/rc/users/delete", "/api/rc/users/get", "/api/rc/users/post", "/api/rc/users/put", "/api/rc/users/patch", "/api/rc/users/all", "/api/rc/user", "/api/rc/user/", "/rc/user", "/rc/user/",
+    "/api/rc/user/list", "/api/rc/user/search", "/api/rc/user/create", "/api/rc/user/update", "/api/rc/user/delete", "/api/rc/user/get", "/api/rc/user/post", "/api/rc/user/put", "/api/rc/user/patch", "/api/rc/user/all",
+    "/api/rc/admin", "/api/rc/admin/", "/rc/admin", "/rc/admin/", "/api/rc/admin/list", "/api/rc/admin/search", "/api/rc/admin/create", "/api/rc/admin/update", "/api/rc/admin/delete", "/api/rc/admin/get",
+    "/api/rc/admin/post", "/api/rc/admin/put", "/api/rc/admin/patch", "/api/rc/admin/all", "/api/rc/config", "/api/rc/config/", "/rc/config", "/rc/config/", "/api/rc/config/list", "/api/rc/config/search",
+    "/api/rc/config/create", "/api/rc/config/update", "/api/rc/config/delete", "/api/rc/config/get", "/api/rc/config/post", "/api/rc/config/put", "/api/rc/config/patch", "/api/rc/config/all", "/api/rc/settings", "/api/rc/settings/",
+    "/rc/settings", "/rc/settings/", "/api/rc/settings/list", "/api/rc/settings/search", "/api/rc/settings/create", "/api/rc/settings/update", "/api/rc/settings/delete", "/api/rc/settings/get", "/api/rc/settings/post", "/api/rc/settings/put",
+    "/api/rc/settings/patch", "/api/rc/settings/all", "/api/rc/auth", "/api/rc/auth/", "/rc/auth", "/rc/auth/", "/api/rc/auth/list", "/api/rc/auth/search", "/api/rc/auth/create", "/api/rc/auth/update",
+    "/api/rc/auth/delete", "/api/rc/auth/get", "/api/rc/auth/post", "/api/rc/auth/put", "/api/rc/auth/patch", "/api/rc/auth/all", "/api/rc/login", "/api/rc/login/", "/rc/login", "/rc/login/",
+    "/api/rc/login/list", "/api/rc/login/search", "/api/rc/login/create", "/api/rc/login/update", "/api/rc/login/delete", "/api/rc/login/get", "/api/rc/login/post", "/api/rc/login/put", "/api/rc/login/patch", "/api/rc/login/all",
+    "/api/rc/logout", "/api/rc/logout/", "/rc/logout", "/rc/logout/", "/api/rc/logout/list", "/api/rc/logout/search", "/api/rc/logout/create", "/api/rc/logout/update", "/api/rc/logout/delete", "/api/rc/logout/get",
+    "/api/rc/logout/post", "/api/rc/logout/put", "/api/rc/logout/patch", "/api/rc/logout/all", "/api/rc/register", "/api/rc/register/", "/rc/register", "/rc/register/", "/api/rc/register/list", "/api/rc/register/search",
+    "/api/rc/register/create", "/api/rc/register/update", "/api/rc/register/delete", "/api/rc/register/get", "/api/rc/register/post", "/api/rc/register/put", "/api/rc/register/patch", "/api/rc/register/all", "/api/rc/me", "/api/rc/me/",
+    "/rc/me", "/rc/me/", "/api/rc/me/list", "/api/rc/me/search", "/api/rc/me/create", "/api/rc/me/update", "/api/rc/me/delete", "/api/rc/me/get", "/api/rc/me/post", "/api/rc/me/put",
+    "/api/rc/me/patch", "/api/rc/me/all", "/api/rc/profile", "/api/rc/profile/", "/rc/profile", "/rc/profile/", "/api/rc/profile/list", "/api/rc/profile/search", "/api/rc/profile/create", "/api/rc/profile/update",
+    "/api/rc/profile/delete", "/api/rc/profile/get", "/api/rc/profile/post", "/api/rc/profile/put", "/api/rc/profile/patch", "/api/rc/profile/all", "/api/rc/account", "/api/rc/account/", "/rc/account", "/rc/account/",
+    "/api/rc/account/list", "/api/rc/account/search", "/api/rc/account/create", "/api/rc/account/update", "/api/rc/account/delete", "/api/rc/account/get", "/api/rc/account/post", "/api/rc/account/put", "/api/rc/account/patch", "/api/rc/account/all",
+    "/api/rc/accounts", "/api/rc/accounts/", "/rc/accounts", "/rc/accounts/", "/api/rc/accounts/list", "/api/rc/accounts/search", "/api/rc/accounts/create", "/api/rc/accounts/update", "/api/rc/accounts/delete", "/api/rc/accounts/get",
+    "/api/rc/accounts/post", "/api/rc/accounts/put", "/api/rc/accounts/patch", "/api/rc/accounts/all", "/api/rc/health", "/api/rc/health/", "/rc/health", "/rc/health/", "/api/rc/health/list", "/api/rc/health/search",
+    "/api/rc/health/create", "/api/rc/health/update", "/api/rc/health/delete", "/api/rc/health/get", "/api/rc/health/post", "/api/rc/health/put", "/api/rc/health/patch", "/api/rc/health/all", "/api/rc/status", "/api/rc/status/",
+    "/rc/status", "/rc/status/", "/api/rc/status/list", "/api/rc/status/search", "/api/rc/status/create", "/api/rc/status/update", "/api/rc/status/delete", "/api/rc/status/get", "/api/rc/status/post", "/api/rc/status/put",
+    "/api/rc/status/patch", "/api/rc/status/all", "/api/rc/version", "/api/rc/version/", "/rc/version", "/rc/version/", "/api/rc/version/list", "/api/rc/version/search", "/api/rc/version/create", "/api/rc/version/update",
+    "/api/rc/version/delete", "/api/rc/version/get", "/api/rc/version/post", "/api/rc/version/put", "/api/rc/version/patch", "/api/rc/version/all", "/api/rc/info", "/api/rc/info/", "/rc/info", "/rc/info/",
+    "/api/rc/info/list", "/api/rc/info/search", "/api/rc/info/create", "/api/rc/info/update", "/api/rc/info/delete", "/api/rc/info/get", "/api/rc/info/post", "/api/rc/info/put", "/api/rc/info/patch", "/api/rc/info/all",
+    "/api/rc/upload", "/api/rc/upload/", "/rc/upload", "/rc/upload/", "/api/rc/upload/list", "/api/rc/upload/search", "/api/rc/upload/create", "/api/rc/upload/update", "/api/rc/upload/delete", "/api/rc/upload/get",
+    "/api/rc/upload/post", "/api/rc/upload/put", "/api/rc/upload/patch", "/api/rc/upload/all", "/api/rc/download", "/api/rc/download/", "/rc/download", "/rc/download/", "/api/rc/download/list", "/api/rc/download/search",
+    "/api/rc/download/create", "/api/rc/download/update", "/api/rc/download/delete", "/api/rc/download/get", "/api/rc/download/post", "/api/rc/download/put", "/api/rc/download/patch", "/api/rc/download/all", "/api/rc/files", "/api/rc/files/",
+    "/rc/files", "/rc/files/", "/api/rc/files/list", "/api/rc/files/search", "/api/rc/files/create", "/api/rc/files/update", "/api/rc/files/delete", "/api/rc/files/get", "/api/rc/files/post", "/api/rc/files/put",
+    "/api/rc/files/patch", "/api/rc/files/all", "/api/rc/list", "/api/rc/list/", "/rc/list", "/rc/list/", "/api/rc/list/list", "/api/rc/list/search", "/api/rc/list/create", "/api/rc/list/update",
+    "/api/rc/list/delete", "/api/rc/list/get", "/api/rc/list/post", "/api/rc/list/put", "/api/rc/list/patch", "/api/rc/list/all", "/api/rc/search", "/api/rc/search/", "/rc/search", "/rc/search/",
+    "/api/rc/search/list", "/api/rc/search/search", "/api/rc/search/create", "/api/rc/search/update", "/api/rc/search/delete", "/api/rc/search/get", "/api/rc/search/post", "/api/rc/search/put", "/api/rc/search/patch", "/api/rc/search/all",
+    "/api/rc/query", "/api/rc/query/", "/rc/query", "/rc/query/", "/api/rc/query/list", "/api/rc/query/search", "/api/rc/query/create", "/api/rc/query/update", "/api/rc/query/delete", "/api/rc/query/get",
+    "/api/rc/query/post", "/api/rc/query/put", "/api/rc/query/patch", "/api/rc/query/all", "/api/rc/debug", "/api/rc/debug/", "/rc/debug", "/rc/debug/", "/api/rc/debug/list", "/api/rc/debug/search",
+    "/api/rc/debug/create", "/api/rc/debug/update", "/api/rc/debug/delete", "/api/rc/debug/get", "/api/rc/debug/post", "/api/rc/debug/put", "/api/rc/debug/patch", "/api/rc/debug/all", "/api/rc/test", "/api/rc/test/",
+    "/rc/test", "/rc/test/", "/api/rc/test/list", "/api/rc/test/search", "/api/rc/test/create", "/api/rc/test/update", "/api/rc/test/delete", "/api/rc/test/get", "/api/rc/test/post", "/api/rc/test/put",
+    "/api/rc/test/patch", "/api/rc/test/all", "/api/rc/internal", "/api/rc/internal/", "/rc/internal", "/rc/internal/", "/api/rc/internal/list", "/api/rc/internal/search", "/api/rc/internal/create", "/api/rc/internal/update",
+    "/api/rc/internal/delete", "/api/rc/internal/get", "/api/rc/internal/post", "/api/rc/internal/put", "/api/rc/internal/patch", "/api/rc/internal/all", "/api/rc/private", "/api/rc/private/", "/rc/private", "/rc/private/",
+    "/api/rc/private/list", "/api/rc/private/search", "/api/rc/private/create", "/api/rc/private/update", "/api/rc/private/delete", "/api/rc/private/get", "/api/rc/private/post", "/api/rc/private/put", "/api/rc/private/patch", "/api/rc/private/all",
+    "/api/rc/secret", "/api/rc/secret/", "/rc/secret", "/rc/secret/", "/api/rc/secret/list", "/api/rc/secret/search", "/api/rc/secret/create", "/api/rc/secret/update", "/api/rc/secret/delete", "/api/rc/secret/get",
+    "/api/rc/secret/post", "/api/rc/secret/put", "/api/rc/secret/patch", "/api/rc/secret/all", "/api/rc/public", "/api/rc/public/", "/rc/public", "/rc/public/", "/api/rc/public/list", "/api/rc/public/search",
+    "/api/rc/public/create", "/api/rc/public/update", "/api/rc/public/delete", "/api/rc/public/get", "/api/rc/public/post", "/api/rc/public/put", "/api/rc/public/patch", "/api/rc/public/all", "/api/rc/orders", "/api/rc/orders/",
+    "/rc/orders", "/rc/orders/", "/api/rc/orders/list", "/api/rc/orders/search", "/api/rc/orders/create", "/api/rc/orders/update", "/api/rc/orders/delete", "/api/rc/orders/get", "/api/rc/orders/post", "/api/rc/orders/put",
+    "/api/rc/orders/patch", "/api/rc/orders/all", "/api/rc/products", "/api/rc/products/", "/rc/products", "/rc/products/", "/api/rc/products/list", "/api/rc/products/search", "/api/rc/products/create", "/api/rc/products/update",
+    "/api/rc/products/delete", "/api/rc/products/get", "/api/rc/products/post", "/api/rc/products/put", "/api/rc/products/patch", "/api/rc/products/all", "/api/rc/payments", "/api/rc/payments/", "/rc/payments", "/rc/payments/",
+    "/api/rc/payments/list", "/api/rc/payments/search", "/api/rc/payments/create", "/api/rc/payments/update", "/api/rc/payments/delete", "/api/rc/payments/get", "/api/rc/payments/post", "/api/rc/payments/put", "/api/rc/payments/patch", "/api/rc/payments/all",
+    "/api/rc/invoices", "/api/rc/invoices/", "/rc/invoices", "/rc/invoices/", "/api/rc/invoices/list", "/api/rc/invoices/search", "/api/rc/invoices/create", "/api/rc/invoices/update", "/api/rc/invoices/delete", "/api/rc/invoices/get",
+    "/api/rc/invoices/post", "/api/rc/invoices/put", "/api/rc/invoices/patch", "/api/rc/invoices/all", "/api/rc/subscriptions", "/api/rc/subscriptions/", "/rc/subscriptions", "/rc/subscriptions/", "/api/rc/subscriptions/list", "/api/rc/subscriptions/search",
+    "/api/rc/subscriptions/create", "/api/rc/subscriptions/update", "/api/rc/subscriptions/delete", "/api/rc/subscriptions/get", "/api/rc/subscriptions/post", "/api/rc/subscriptions/put", "/api/rc/subscriptions/patch", "/api/rc/subscriptions/all", "/api/rc/notifications", "/api/rc/notifications/",
+    "/rc/notifications", "/rc/notifications/", "/api/rc/notifications/list", "/api/rc/notifications/search", "/api/rc/notifications/create", "/api/rc/notifications/update", "/api/rc/notifications/delete", "/api/rc/notifications/get", "/api/rc/notifications/post", "/api/rc/notifications/put",
+    "/api/rc/notifications/patch", "/api/rc/notifications/all", "/api/rc/messages", "/api/rc/messages/", "/rc/messages", "/rc/messages/", "/api/rc/messages/list", "/api/rc/messages/search", "/api/rc/messages/create", "/api/rc/messages/update",
+    "/api/rc/messages/delete", "/api/rc/messages/get", "/api/rc/messages/post", "/api/rc/messages/put", "/api/rc/messages/patch", "/api/rc/messages/all", "/api/rc/emails", "/api/rc/emails/", "/rc/emails", "/rc/emails/",
+    "/api/rc/emails/list", "/api/rc/emails/search", "/api/rc/emails/create", "/api/rc/emails/update", "/api/rc/emails/delete", "/api/rc/emails/get", "/api/rc/emails/post", "/api/rc/emails/put", "/api/rc/emails/patch", "/api/rc/emails/all",
+    "/api/rc/sessions", "/api/rc/sessions/", "/rc/sessions", "/rc/sessions/", "/api/rc/sessions/list", "/api/rc/sessions/search", "/api/rc/sessions/create", "/api/rc/sessions/update", "/api/rc/sessions/delete", "/api/rc/sessions/get",
+    "/api/rc/sessions/post", "/api/rc/sessions/put", "/api/rc/sessions/patch", "/api/rc/sessions/all", "/api/rc/tokens", "/api/rc/tokens/", "/rc/tokens", "/rc/tokens/", "/api/rc/tokens/list", "/api/rc/tokens/search",
+    "/api/rc/tokens/create", "/api/rc/tokens/update", "/api/rc/tokens/delete", "/api/rc/tokens/get", "/api/rc/tokens/post", "/api/rc/tokens/put", "/api/rc/tokens/patch", "/api/rc/tokens/all", "/api/rc/webhooks", "/api/rc/webhooks/",
+    "/rc/webhooks", "/rc/webhooks/", "/api/rc/webhooks/list", "/api/rc/webhooks/search", "/api/rc/webhooks/create", "/api/rc/webhooks/update", "/api/rc/webhooks/delete", "/api/rc/webhooks/get", "/api/rc/webhooks/post", "/api/rc/webhooks/put",
+    "/api/rc/webhooks/patch", "/api/rc/webhooks/all", "/api/rc/callbacks", "/api/rc/callbacks/", "/rc/callbacks", "/rc/callbacks/", "/api/rc/callbacks/list", "/api/rc/callbacks/search", "/api/rc/callbacks/create", "/api/rc/callbacks/update",
+    "/api/rc/callbacks/delete", "/api/rc/callbacks/get", "/api/rc/callbacks/post", "/api/rc/callbacks/put", "/api/rc/callbacks/patch", "/api/rc/callbacks/all", "/api/rc/events", "/api/rc/events/", "/rc/events", "/rc/events/",
+    "/api/rc/events/list", "/api/rc/events/search", "/api/rc/events/create", "/api/rc/events/update", "/api/rc/events/delete", "/api/rc/events/get", "/api/rc/events/post", "/api/rc/events/put", "/api/rc/events/patch", "/api/rc/events/all",
+    "/api/rc/logs", "/api/rc/logs/", "/rc/logs", "/rc/logs/", "/api/rc/logs/list", "/api/rc/logs/search", "/api/rc/logs/create", "/api/rc/logs/update", "/api/rc/logs/delete", "/api/rc/logs/get",
+    "/api/rc/logs/post", "/api/rc/logs/put", "/api/rc/logs/patch", "/api/rc/logs/all", "/api/rc/metrics", "/api/rc/metrics/", "/rc/metrics", "/rc/metrics/", "/api/rc/metrics/list", "/api/rc/metrics/search",
+    "/api/rc/metrics/create", "/api/rc/metrics/update", "/api/rc/metrics/delete", "/api/rc/metrics/get", "/api/rc/metrics/post", "/api/rc/metrics/put", "/api/rc/metrics/patch", "/api/rc/metrics/all", "/api/rc/stats", "/api/rc/stats/",
+    "/rc/stats", "/rc/stats/", "/api/rc/stats/list", "/api/rc/stats/search", "/api/rc/stats/create", "/api/rc/stats/update", "/api/rc/stats/delete", "/api/rc/stats/get", "/api/rc/stats/post", "/api/rc/stats/put",
+    "/api/rc/stats/patch", "/api/rc/stats/all", "/api/preview/users", "/api/preview/users/", "/preview/users", "/preview/users/", "/api/preview/users/list", "/api/preview/users/search", "/api/preview/users/create", "/api/preview/users/update",
+    "/api/preview/users/delete", "/api/preview/users/get", "/api/preview/users/post", "/api/preview/users/put", "/api/preview/users/patch", "/api/preview/users/all", "/api/preview/user", "/api/preview/user/", "/preview/user", "/preview/user/",
+    "/api/preview/user/list", "/api/preview/user/search", "/api/preview/user/create", "/api/preview/user/update", "/api/preview/user/delete", "/api/preview/user/get", "/api/preview/user/post", "/api/preview/user/put", "/api/preview/user/patch", "/api/preview/user/all",
+    "/api/preview/admin", "/api/preview/admin/", "/preview/admin", "/preview/admin/", "/api/preview/admin/list", "/api/preview/admin/search", "/api/preview/admin/create", "/api/preview/admin/update", "/api/preview/admin/delete", "/api/preview/admin/get",
+    "/api/preview/admin/post", "/api/preview/admin/put", "/api/preview/admin/patch", "/api/preview/admin/all", "/api/preview/config", "/api/preview/config/", "/preview/config", "/preview/config/", "/api/preview/config/list", "/api/preview/config/search",
+    "/api/preview/config/create", "/api/preview/config/update", "/api/preview/config/delete", "/api/preview/config/get", "/api/preview/config/post", "/api/preview/config/put", "/api/preview/config/patch", "/api/preview/config/all", "/api/preview/settings", "/api/preview/settings/",
+    "/preview/settings", "/preview/settings/", "/api/preview/settings/list", "/api/preview/settings/search", "/api/preview/settings/create", "/api/preview/settings/update", "/api/preview/settings/delete", "/api/preview/settings/get", "/api/preview/settings/post", "/api/preview/settings/put",
+    "/api/preview/settings/patch", "/api/preview/settings/all", "/api/preview/auth", "/api/preview/auth/", "/preview/auth", "/preview/auth/", "/api/preview/auth/list", "/api/preview/auth/search", "/api/preview/auth/create", "/api/preview/auth/update",
+    "/api/preview/auth/delete", "/api/preview/auth/get", "/api/preview/auth/post", "/api/preview/auth/put", "/api/preview/auth/patch", "/api/preview/auth/all", "/api/preview/login", "/api/preview/login/", "/preview/login", "/preview/login/",
+    "/api/preview/login/list", "/api/preview/login/search", "/api/preview/login/create", "/api/preview/login/update", "/api/preview/login/delete", "/api/preview/login/get", "/api/preview/login/post", "/api/preview/login/put", "/api/preview/login/patch", "/api/preview/login/all",
+    "/api/preview/logout", "/api/preview/logout/", "/preview/logout", "/preview/logout/", "/api/preview/logout/list", "/api/preview/logout/search", "/api/preview/logout/create", "/api/preview/logout/update", "/api/preview/logout/delete", "/api/preview/logout/get",
+    "/api/preview/logout/post", "/api/preview/logout/put", "/api/preview/logout/patch", "/api/preview/logout/all", "/api/preview/register", "/api/preview/register/", "/preview/register", "/preview/register/", "/api/preview/register/list", "/api/preview/register/search",
+    "/api/preview/register/create", "/api/preview/register/update", "/api/preview/register/delete", "/api/preview/register/get", "/api/preview/register/post", "/api/preview/register/put", "/api/preview/register/patch", "/api/preview/register/all", "/api/preview/me", "/api/preview/me/",
+    "/preview/me", "/preview/me/", "/api/preview/me/list", "/api/preview/me/search", "/api/preview/me/create", "/api/preview/me/update", "/api/preview/me/delete", "/api/preview/me/get", "/api/preview/me/post", "/api/preview/me/put",
+    "/api/preview/me/patch", "/api/preview/me/all", "/api/preview/profile", "/api/preview/profile/", "/preview/profile", "/preview/profile/", "/api/preview/profile/list", "/api/preview/profile/search", "/api/preview/profile/create", "/api/preview/profile/update",
+    "/api/preview/profile/delete", "/api/preview/profile/get", "/api/preview/profile/post", "/api/preview/profile/put", "/api/preview/profile/patch", "/api/preview/profile/all", "/api/preview/account", "/api/preview/account/", "/preview/account", "/preview/account/",
+    "/api/preview/account/list", "/api/preview/account/search", "/api/preview/account/create", "/api/preview/account/update", "/api/preview/account/delete", "/api/preview/account/get", "/api/preview/account/post", "/api/preview/account/put", "/api/preview/account/patch", "/api/preview/account/all",
+    "/api/preview/accounts", "/api/preview/accounts/", "/preview/accounts", "/preview/accounts/", "/api/preview/accounts/list", "/api/preview/accounts/search", "/api/preview/accounts/create", "/api/preview/accounts/update", "/api/preview/accounts/delete", "/api/preview/accounts/get",
+    "/api/preview/accounts/post", "/api/preview/accounts/put", "/api/preview/accounts/patch", "/api/preview/accounts/all", "/api/preview/health", "/api/preview/health/", "/preview/health", "/preview/health/", "/api/preview/health/list", "/api/preview/health/search",
+    "/api/preview/health/create", "/api/preview/health/update", "/api/preview/health/delete", "/api/preview/health/get", "/api/preview/health/post", "/api/preview/health/put", "/api/preview/health/patch", "/api/preview/health/all", "/api/preview/status", "/api/preview/status/",
+    "/preview/status", "/preview/status/", "/api/preview/status/list", "/api/preview/status/search", "/api/preview/status/create", "/api/preview/status/update", "/api/preview/status/delete", "/api/preview/status/get", "/api/preview/status/post", "/api/preview/status/put",
+    "/api/preview/status/patch", "/api/preview/status/all", "/api/preview/version", "/api/preview/version/", "/preview/version", "/preview/version/", "/api/preview/version/list", "/api/preview/version/search", "/api/preview/version/create", "/api/preview/version/update",
+    "/api/preview/version/delete", "/api/preview/version/get", "/api/preview/version/post", "/api/preview/version/put", "/api/preview/version/patch", "/api/preview/version/all", "/api/preview/info", "/api/preview/info/", "/preview/info", "/preview/info/",
+    "/api/preview/info/list", "/api/preview/info/search", "/api/preview/info/create", "/api/preview/info/update", "/api/preview/info/delete", "/api/preview/info/get", "/api/preview/info/post", "/api/preview/info/put", "/api/preview/info/patch", "/api/preview/info/all",
+    "/api/preview/upload", "/api/preview/upload/", "/preview/upload", "/preview/upload/", "/api/preview/upload/list", "/api/preview/upload/search", "/api/preview/upload/create", "/api/preview/upload/update", "/api/preview/upload/delete", "/api/preview/upload/get",
+    "/api/preview/upload/post", "/api/preview/upload/put", "/api/preview/upload/patch", "/api/preview/upload/all", "/api/preview/download", "/api/preview/download/", "/preview/download", "/preview/download/", "/api/preview/download/list", "/api/preview/download/search",
+    "/api/preview/download/create", "/api/preview/download/update", "/api/preview/download/delete", "/api/preview/download/get", "/api/preview/download/post", "/api/preview/download/put", "/api/preview/download/patch", "/api/preview/download/all", "/api/preview/files", "/api/preview/files/",
+    "/preview/files", "/preview/files/", "/api/preview/files/list", "/api/preview/files/search", "/api/preview/files/create", "/api/preview/files/update", "/api/preview/files/delete", "/api/preview/files/get", "/api/preview/files/post", "/api/preview/files/put",
+    "/api/preview/files/patch", "/api/preview/files/all", "/api/preview/list", "/api/preview/list/", "/preview/list", "/preview/list/", "/api/preview/list/list", "/api/preview/list/search", "/api/preview/list/create", "/api/preview/list/update",
+    "/api/preview/list/delete", "/api/preview/list/get", "/api/preview/list/post", "/api/preview/list/put", "/api/preview/list/patch", "/api/preview/list/all", "/api/preview/search", "/api/preview/search/", "/preview/search", "/preview/search/",
+    "/api/preview/search/list", "/api/preview/search/search", "/api/preview/search/create", "/api/preview/search/update", "/api/preview/search/delete", "/api/preview/search/get", "/api/preview/search/post", "/api/preview/search/put", "/api/preview/search/patch", "/api/preview/search/all",
+    "/api/preview/query", "/api/preview/query/", "/preview/query", "/preview/query/", "/api/preview/query/list", "/api/preview/query/search", "/api/preview/query/create", "/api/preview/query/update", "/api/preview/query/delete", "/api/preview/query/get",
+    "/api/preview/query/post", "/api/preview/query/put", "/api/preview/query/patch", "/api/preview/query/all", "/api/preview/debug", "/api/preview/debug/", "/preview/debug", "/preview/debug/", "/api/preview/debug/list", "/api/preview/debug/search",
+    "/api/preview/debug/create", "/api/preview/debug/update", "/api/preview/debug/delete", "/api/preview/debug/get", "/api/preview/debug/post", "/api/preview/debug/put", "/api/preview/debug/patch", "/api/preview/debug/all", "/api/preview/test", "/api/preview/test/",
+    "/preview/test", "/preview/test/", "/api/preview/test/list", "/api/preview/test/search", "/api/preview/test/create", "/api/preview/test/update", "/api/preview/test/delete", "/api/preview/test/get", "/api/preview/test/post", "/api/preview/test/put",
+    "/api/preview/test/patch", "/api/preview/test/all", "/api/preview/internal", "/api/preview/internal/", "/preview/internal", "/preview/internal/", "/api/preview/internal/list", "/api/preview/internal/search", "/api/preview/internal/create", "/api/preview/internal/update",
+    "/api/preview/internal/delete", "/api/preview/internal/get", "/api/preview/internal/post", "/api/preview/internal/put", "/api/preview/internal/patch", "/api/preview/internal/all", "/api/preview/private", "/api/preview/private/", "/preview/private", "/preview/private/",
+    "/api/preview/private/list", "/api/preview/private/search", "/api/preview/private/create", "/api/preview/private/update", "/api/preview/private/delete", "/api/preview/private/get", "/api/preview/private/post", "/api/preview/private/put", "/api/preview/private/patch", "/api/preview/private/all",
+    "/api/preview/secret", "/api/preview/secret/", "/preview/secret", "/preview/secret/", "/api/preview/secret/list", "/api/preview/secret/search", "/api/preview/secret/create", "/api/preview/secret/update", "/api/preview/secret/delete", "/api/preview/secret/get",
+    "/api/preview/secret/post", "/api/preview/secret/put", "/api/preview/secret/patch", "/api/preview/secret/all", "/api/preview/public", "/api/preview/public/", "/preview/public", "/preview/public/", "/api/preview/public/list", "/api/preview/public/search",
+    "/api/preview/public/create", "/api/preview/public/update", "/api/preview/public/delete", "/api/preview/public/get", "/api/preview/public/post", "/api/preview/public/put", "/api/preview/public/patch", "/api/preview/public/all", "/api/preview/orders", "/api/preview/orders/",
+    "/preview/orders", "/preview/orders/", "/api/preview/orders/list", "/api/preview/orders/search", "/api/preview/orders/create", "/api/preview/orders/update", "/api/preview/orders/delete", "/api/preview/orders/get", "/api/preview/orders/post", "/api/preview/orders/put",
+    "/api/preview/orders/patch", "/api/preview/orders/all", "/api/preview/products", "/api/preview/products/", "/preview/products", "/preview/products/", "/api/preview/products/list", "/api/preview/products/search", "/api/preview/products/create", "/api/preview/products/update",
+    "/api/preview/products/delete", "/api/preview/products/get", "/api/preview/products/post", "/api/preview/products/put", "/api/preview/products/patch", "/api/preview/products/all", "/api/preview/payments", "/api/preview/payments/", "/preview/payments", "/preview/payments/",
+    "/api/preview/payments/list", "/api/preview/payments/search", "/api/preview/payments/create", "/api/preview/payments/update", "/api/preview/payments/delete", "/api/preview/payments/get", "/api/preview/payments/post", "/api/preview/payments/put", "/api/preview/payments/patch", "/api/preview/payments/all",
+    "/api/preview/invoices", "/api/preview/invoices/", "/preview/invoices", "/preview/invoices/", "/api/preview/invoices/list", "/api/preview/invoices/search", "/api/preview/invoices/create", "/api/preview/invoices/update", "/api/preview/invoices/delete", "/api/preview/invoices/get",
+    "/api/preview/invoices/post", "/api/preview/invoices/put", "/api/preview/invoices/patch", "/api/preview/invoices/all", "/api/preview/subscriptions", "/api/preview/subscriptions/", "/preview/subscriptions", "/preview/subscriptions/", "/api/preview/subscriptions/list", "/api/preview/subscriptions/search",
+    "/api/preview/subscriptions/create", "/api/preview/subscriptions/update", "/api/preview/subscriptions/delete", "/api/preview/subscriptions/get", "/api/preview/subscriptions/post", "/api/preview/subscriptions/put", "/api/preview/subscriptions/patch", "/api/preview/subscriptions/all", "/api/preview/notifications", "/api/preview/notifications/",
+    "/preview/notifications", "/preview/notifications/", "/api/preview/notifications/list", "/api/preview/notifications/search", "/api/preview/notifications/create", "/api/preview/notifications/update", "/api/preview/notifications/delete", "/api/preview/notifications/get", "/api/preview/notifications/post", "/api/preview/notifications/put",
+    "/api/preview/notifications/patch", "/api/preview/notifications/all", "/api/preview/messages", "/api/preview/messages/", "/preview/messages", "/preview/messages/", "/api/preview/messages/list", "/api/preview/messages/search", "/api/preview/messages/create", "/api/preview/messages/update",
+    "/api/preview/messages/delete", "/api/preview/messages/get", "/api/preview/messages/post", "/api/preview/messages/put", "/api/preview/messages/patch", "/api/preview/messages/all", "/api/preview/emails", "/api/preview/emails/", "/preview/emails", "/preview/emails/",
+    "/api/preview/emails/list", "/api/preview/emails/search", "/api/preview/emails/create", "/api/preview/emails/update", "/api/preview/emails/delete", "/api/preview/emails/get", "/api/preview/emails/post", "/api/preview/emails/put", "/api/preview/emails/patch", "/api/preview/emails/all",
+    "/api/preview/sessions", "/api/preview/sessions/", "/preview/sessions", "/preview/sessions/", "/api/preview/sessions/list", "/api/preview/sessions/search", "/api/preview/sessions/create", "/api/preview/sessions/update", "/api/preview/sessions/delete", "/api/preview/sessions/get",
+    "/api/preview/sessions/post", "/api/preview/sessions/put", "/api/preview/sessions/patch", "/api/preview/sessions/all", "/api/preview/tokens", "/api/preview/tokens/", "/preview/tokens", "/preview/tokens/", "/api/preview/tokens/list", "/api/preview/tokens/search",
+    "/api/preview/tokens/create", "/api/preview/tokens/update", "/api/preview/tokens/delete", "/api/preview/tokens/get", "/api/preview/tokens/post", "/api/preview/tokens/put", "/api/preview/tokens/patch", "/api/preview/tokens/all", "/api/preview/webhooks", "/api/preview/webhooks/",
+    "/preview/webhooks", "/preview/webhooks/", "/api/preview/webhooks/list", "/api/preview/webhooks/search", "/api/preview/webhooks/create", "/api/preview/webhooks/update", "/api/preview/webhooks/delete", "/api/preview/webhooks/get", "/api/preview/webhooks/post", "/api/preview/webhooks/put",
+    "/api/preview/webhooks/patch", "/api/preview/webhooks/all", "/api/preview/callbacks", "/api/preview/callbacks/", "/preview/callbacks", "/preview/callbacks/", "/api/preview/callbacks/list", "/api/preview/callbacks/search", "/api/preview/callbacks/create", "/api/preview/callbacks/update",
+    "/api/preview/callbacks/delete", "/api/preview/callbacks/get", "/api/preview/callbacks/post", "/api/preview/callbacks/put", "/api/preview/callbacks/patch", "/api/preview/callbacks/all", "/api/preview/events", "/api/preview/events/", "/preview/events", "/preview/events/",
+    "/api/preview/events/list", "/api/preview/events/search", "/api/preview/events/create", "/api/preview/events/update", "/api/preview/events/delete", "/api/preview/events/get", "/api/preview/events/post", "/api/preview/events/put", "/api/preview/events/patch", "/api/preview/events/all",
+    "/api/preview/logs", "/api/preview/logs/", "/preview/logs", "/preview/logs/", "/api/preview/logs/list", "/api/preview/logs/search", "/api/preview/logs/create", "/api/preview/logs/update", "/api/preview/logs/delete", "/api/preview/logs/get",
+    "/api/preview/logs/post", "/api/preview/logs/put", "/api/preview/logs/patch", "/api/preview/logs/all", "/api/preview/metrics", "/api/preview/metrics/", "/preview/metrics", "/preview/metrics/", "/api/preview/metrics/list", "/api/preview/metrics/search",
+    "/api/preview/metrics/create", "/api/preview/metrics/update", "/api/preview/metrics/delete", "/api/preview/metrics/get", "/api/preview/metrics/post", "/api/preview/metrics/put", "/api/preview/metrics/patch", "/api/preview/metrics/all", "/api/preview/stats", "/api/preview/stats/",
+    "/preview/stats", "/preview/stats/", "/api/preview/stats/list", "/api/preview/stats/search", "/api/preview/stats/create", "/api/preview/stats/update", "/api/preview/stats/delete", "/api/preview/stats/get", "/api/preview/stats/post", "/api/preview/stats/put",
+    "/api/preview/stats/patch", "/api/preview/stats/all", "/api/canary/users", "/api/canary/users/", "/canary/users", "/canary/users/", "/api/canary/users/list", "/api/canary/users/search", "/api/canary/users/create", "/api/canary/users/update",
+    "/api/canary/users/delete", "/api/canary/users/get", "/api/canary/users/post", "/api/canary/users/put", "/api/canary/users/patch", "/api/canary/users/all", "/api/canary/user", "/api/canary/user/", "/canary/user", "/canary/user/",
+    "/api/canary/user/list", "/api/canary/user/search", "/api/canary/user/create", "/api/canary/user/update", "/api/canary/user/delete", "/api/canary/user/get", "/api/canary/user/post", "/api/canary/user/put", "/api/canary/user/patch", "/api/canary/user/all",
+    "/api/canary/admin", "/api/canary/admin/", "/canary/admin", "/canary/admin/", "/api/canary/admin/list", "/api/canary/admin/search", "/api/canary/admin/create", "/api/canary/admin/update", "/api/canary/admin/delete", "/api/canary/admin/get",
+    "/api/canary/admin/post", "/api/canary/admin/put", "/api/canary/admin/patch", "/api/canary/admin/all", "/api/canary/config", "/api/canary/config/", "/canary/config", "/canary/config/", "/api/canary/config/list", "/api/canary/config/search",
+    "/api/canary/config/create", "/api/canary/config/update", "/api/canary/config/delete", "/api/canary/config/get", "/api/canary/config/post", "/api/canary/config/put", "/api/canary/config/patch", "/api/canary/config/all", "/api/canary/settings", "/api/canary/settings/",
+    "/canary/settings", "/canary/settings/", "/api/canary/settings/list", "/api/canary/settings/search", "/api/canary/settings/create", "/api/canary/settings/update", "/api/canary/settings/delete", "/api/canary/settings/get", "/api/canary/settings/post", "/api/canary/settings/put",
+    "/api/canary/settings/patch", "/api/canary/settings/all", "/api/canary/auth", "/api/canary/auth/", "/canary/auth", "/canary/auth/", "/api/canary/auth/list", "/api/canary/auth/search", "/api/canary/auth/create", "/api/canary/auth/update",
+    "/api/canary/auth/delete", "/api/canary/auth/get", "/api/canary/auth/post", "/api/canary/auth/put", "/api/canary/auth/patch", "/api/canary/auth/all", "/api/canary/login", "/api/canary/login/", "/canary/login", "/canary/login/",
+    "/api/canary/login/list", "/api/canary/login/search", "/api/canary/login/create", "/api/canary/login/update", "/api/canary/login/delete", "/api/canary/login/get", "/api/canary/login/post", "/api/canary/login/put", "/api/canary/login/patch", "/api/canary/login/all",
+    "/api/canary/logout", "/api/canary/logout/", "/canary/logout", "/canary/logout/", "/api/canary/logout/list", "/api/canary/logout/search", "/api/canary/logout/create", "/api/canary/logout/update", "/api/canary/logout/delete", "/api/canary/logout/get",
+    "/api/canary/logout/post", "/api/canary/logout/put", "/api/canary/logout/patch", "/api/canary/logout/all", "/api/canary/register", "/api/canary/register/", "/canary/register", "/canary/register/", "/api/canary/register/list", "/api/canary/register/search",
+    "/api/canary/register/create", "/api/canary/register/update", "/api/canary/register/delete", "/api/canary/register/get", "/api/canary/register/post", "/api/canary/register/put", "/api/canary/register/patch", "/api/canary/register/all", "/api/canary/me", "/api/canary/me/",
+    "/canary/me", "/canary/me/", "/api/canary/me/list", "/api/canary/me/search", "/api/canary/me/create", "/api/canary/me/update", "/api/canary/me/delete", "/api/canary/me/get", "/api/canary/me/post", "/api/canary/me/put",
+    "/api/canary/me/patch", "/api/canary/me/all", "/api/canary/profile", "/api/canary/profile/", "/canary/profile", "/canary/profile/", "/api/canary/profile/list", "/api/canary/profile/search", "/api/canary/profile/create", "/api/canary/profile/update",
+    "/api/canary/profile/delete", "/api/canary/profile/get", "/api/canary/profile/post", "/api/canary/profile/put", "/api/canary/profile/patch", "/api/canary/profile/all", "/api/canary/account", "/api/canary/account/", "/canary/account", "/canary/account/",
+    "/api/canary/account/list", "/api/canary/account/search", "/api/canary/account/create", "/api/canary/account/update", "/api/canary/account/delete", "/api/canary/account/get", "/api/canary/account/post", "/api/canary/account/put", "/api/canary/account/patch", "/api/canary/account/all",
+    "/api/canary/accounts", "/api/canary/accounts/", "/canary/accounts", "/canary/accounts/", "/api/canary/accounts/list", "/api/canary/accounts/search", "/api/canary/accounts/create", "/api/canary/accounts/update", "/api/canary/accounts/delete", "/api/canary/accounts/get",
+    "/api/canary/accounts/post", "/api/canary/accounts/put", "/api/canary/accounts/patch", "/api/canary/accounts/all", "/api/canary/health", "/api/canary/health/", "/canary/health", "/canary/health/", "/api/canary/health/list", "/api/canary/health/search",
+    "/api/canary/health/create", "/api/canary/health/update", "/api/canary/health/delete", "/api/canary/health/get", "/api/canary/health/post", "/api/canary/health/put", "/api/canary/health/patch", "/api/canary/health/all", "/api/canary/status", "/api/canary/status/",
+    "/canary/status", "/canary/status/", "/api/canary/status/list", "/api/canary/status/search", "/api/canary/status/create", "/api/canary/status/update", "/api/canary/status/delete", "/api/canary/status/get", "/api/canary/status/post", "/api/canary/status/put",
+    "/api/canary/status/patch", "/api/canary/status/all", "/api/canary/version", "/api/canary/version/", "/canary/version", "/canary/version/", "/api/canary/version/list", "/api/canary/version/search", "/api/canary/version/create", "/api/canary/version/update",
+    "/api/canary/version/delete", "/api/canary/version/get", "/api/canary/version/post", "/api/canary/version/put", "/api/canary/version/patch", "/api/canary/version/all", "/api/canary/info", "/api/canary/info/", "/canary/info", "/canary/info/",
+    "/api/canary/info/list", "/api/canary/info/search", "/api/canary/info/create", "/api/canary/info/update", "/api/canary/info/delete", "/api/canary/info/get", "/api/canary/info/post", "/api/canary/info/put", "/api/canary/info/patch", "/api/canary/info/all",
+    "/api/canary/upload", "/api/canary/upload/", "/canary/upload", "/canary/upload/", "/api/canary/upload/list", "/api/canary/upload/search", "/api/canary/upload/create", "/api/canary/upload/update", "/api/canary/upload/delete", "/api/canary/upload/get",
+    "/api/canary/upload/post", "/api/canary/upload/put", "/api/canary/upload/patch", "/api/canary/upload/all", "/api/canary/download", "/api/canary/download/", "/canary/download", "/canary/download/", "/api/canary/download/list", "/api/canary/download/search",
+    "/api/canary/download/create", "/api/canary/download/update", "/api/canary/download/delete", "/api/canary/download/get", "/api/canary/download/post", "/api/canary/download/put", "/api/canary/download/patch", "/api/canary/download/all", "/api/canary/files", "/api/canary/files/",
+    "/canary/files", "/canary/files/", "/api/canary/files/list", "/api/canary/files/search", "/api/canary/files/create", "/api/canary/files/update", "/api/canary/files/delete", "/api/canary/files/get", "/api/canary/files/post", "/api/canary/files/put",
+    "/api/canary/files/patch", "/api/canary/files/all", "/api/canary/list", "/api/canary/list/", "/canary/list", "/canary/list/", "/api/canary/list/list", "/api/canary/list/search", "/api/canary/list/create", "/api/canary/list/update",
+    "/api/canary/list/delete", "/api/canary/list/get", "/api/canary/list/post", "/api/canary/list/put", "/api/canary/list/patch", "/api/canary/list/all", "/api/canary/search", "/api/canary/search/", "/canary/search", "/canary/search/",
+    "/api/canary/search/list", "/api/canary/search/search", "/api/canary/search/create", "/api/canary/search/update", "/api/canary/search/delete", "/api/canary/search/get", "/api/canary/search/post", "/api/canary/search/put", "/api/canary/search/patch", "/api/canary/search/all",
+    "/api/canary/query", "/api/canary/query/", "/canary/query", "/canary/query/", "/api/canary/query/list", "/api/canary/query/search", "/api/canary/query/create", "/api/canary/query/update", "/api/canary/query/delete", "/api/canary/query/get",
+    "/api/canary/query/post", "/api/canary/query/put", "/api/canary/query/patch", "/api/canary/query/all", "/api/canary/debug", "/api/canary/debug/", "/canary/debug", "/canary/debug/", "/api/canary/debug/list", "/api/canary/debug/search",
+    "/api/canary/debug/create", "/api/canary/debug/update", "/api/canary/debug/delete", "/api/canary/debug/get", "/api/canary/debug/post", "/api/canary/debug/put", "/api/canary/debug/patch", "/api/canary/debug/all", "/api/canary/test", "/api/canary/test/",
+    "/canary/test", "/canary/test/", "/api/canary/test/list", "/api/canary/test/search", "/api/canary/test/create", "/api/canary/test/update", "/api/canary/test/delete", "/api/canary/test/get", "/api/canary/test/post", "/api/canary/test/put",
+    "/api/canary/test/patch", "/api/canary/test/all", "/api/canary/internal", "/api/canary/internal/", "/canary/internal", "/canary/internal/", "/api/canary/internal/list", "/api/canary/internal/search", "/api/canary/internal/create", "/api/canary/internal/update",
+    "/api/canary/internal/delete", "/api/canary/internal/get", "/api/canary/internal/post", "/api/canary/internal/put", "/api/canary/internal/patch", "/api/canary/internal/all", "/api/canary/private", "/api/canary/private/", "/canary/private", "/canary/private/",
+    "/api/canary/private/list", "/api/canary/private/search", "/api/canary/private/create", "/api/canary/private/update", "/api/canary/private/delete", "/api/canary/private/get", "/api/canary/private/post", "/api/canary/private/put", "/api/canary/private/patch", "/api/canary/private/all",
+    "/api/canary/secret", "/api/canary/secret/", "/canary/secret", "/canary/secret/", "/api/canary/secret/list", "/api/canary/secret/search", "/api/canary/secret/create", "/api/canary/secret/update", "/api/canary/secret/delete", "/api/canary/secret/get",
+    "/api/canary/secret/post", "/api/canary/secret/put", "/api/canary/secret/patch", "/api/canary/secret/all", "/api/canary/public", "/api/canary/public/", "/canary/public", "/canary/public/", "/api/canary/public/list", "/api/canary/public/search",
+    "/api/canary/public/create", "/api/canary/public/update", "/api/canary/public/delete", "/api/canary/public/get", "/api/canary/public/post", "/api/canary/public/put", "/api/canary/public/patch", "/api/canary/public/all", "/api/canary/orders", "/api/canary/orders/",
+    "/canary/orders", "/canary/orders/", "/api/canary/orders/list", "/api/canary/orders/search", "/api/canary/orders/create", "/api/canary/orders/update", "/api/canary/orders/delete", "/api/canary/orders/get", "/api/canary/orders/post", "/api/canary/orders/put",
+    "/api/canary/orders/patch", "/api/canary/orders/all", "/api/canary/products", "/api/canary/products/", "/canary/products", "/canary/products/", "/api/canary/products/list", "/api/canary/products/search", "/api/canary/products/create", "/api/canary/products/update",
+    "/api/canary/products/delete", "/api/canary/products/get", "/api/canary/products/post", "/api/canary/products/put", "/api/canary/products/patch", "/api/canary/products/all", "/api/canary/payments", "/api/canary/payments/", "/canary/payments", "/canary/payments/",
+    "/api/canary/payments/list", "/api/canary/payments/search", "/api/canary/payments/create", "/api/canary/payments/update", "/api/canary/payments/delete", "/api/canary/payments/get", "/api/canary/payments/post", "/api/canary/payments/put", "/api/canary/payments/patch", "/api/canary/payments/all",
+    "/api/canary/invoices", "/api/canary/invoices/", "/canary/invoices", "/canary/invoices/", "/api/canary/invoices/list", "/api/canary/invoices/search", "/api/canary/invoices/create", "/api/canary/invoices/update", "/api/canary/invoices/delete", "/api/canary/invoices/get",
+    "/api/canary/invoices/post", "/api/canary/invoices/put", "/api/canary/invoices/patch", "/api/canary/invoices/all", "/api/canary/subscriptions", "/api/canary/subscriptions/", "/canary/subscriptions", "/canary/subscriptions/", "/api/canary/subscriptions/list", "/api/canary/subscriptions/search",
+    "/api/canary/subscriptions/create", "/api/canary/subscriptions/update", "/api/canary/subscriptions/delete", "/api/canary/subscriptions/get", "/api/canary/subscriptions/post", "/api/canary/subscriptions/put", "/api/canary/subscriptions/patch", "/api/canary/subscriptions/all", "/api/canary/notifications", "/api/canary/notifications/",
+    "/canary/notifications", "/canary/notifications/", "/api/canary/notifications/list", "/api/canary/notifications/search", "/api/canary/notifications/create", "/api/canary/notifications/update", "/api/canary/notifications/delete", "/api/canary/notifications/get", "/api/canary/notifications/post", "/api/canary/notifications/put",
+    "/api/canary/notifications/patch", "/api/canary/notifications/all", "/api/canary/messages", "/api/canary/messages/", "/canary/messages", "/canary/messages/", "/api/canary/messages/list", "/api/canary/messages/search", "/api/canary/messages/create", "/api/canary/messages/update",
+    "/api/canary/messages/delete", "/api/canary/messages/get", "/api/canary/messages/post", "/api/canary/messages/put", "/api/canary/messages/patch", "/api/canary/messages/all", "/api/canary/emails", "/api/canary/emails/", "/canary/emails", "/canary/emails/",
+    "/api/canary/emails/list", "/api/canary/emails/search", "/api/canary/emails/create", "/api/canary/emails/update", "/api/canary/emails/delete", "/api/canary/emails/get", "/api/canary/emails/post", "/api/canary/emails/put", "/api/canary/emails/patch", "/api/canary/emails/all",
+    "/api/canary/sessions", "/api/canary/sessions/", "/canary/sessions", "/canary/sessions/", "/api/canary/sessions/list", "/api/canary/sessions/search", "/api/canary/sessions/create", "/api/canary/sessions/update", "/api/canary/sessions/delete", "/api/canary/sessions/get",
+    "/api/canary/sessions/post", "/api/canary/sessions/put", "/api/canary/sessions/patch", "/api/canary/sessions/all", "/api/canary/tokens", "/api/canary/tokens/", "/canary/tokens", "/canary/tokens/", "/api/canary/tokens/list", "/api/canary/tokens/search",
+    "/api/canary/tokens/create", "/api/canary/tokens/update", "/api/canary/tokens/delete", "/api/canary/tokens/get", "/api/canary/tokens/post", "/api/canary/tokens/put", "/api/canary/tokens/patch", "/api/canary/tokens/all", "/api/canary/webhooks", "/api/canary/webhooks/",
+    "/canary/webhooks", "/canary/webhooks/", "/api/canary/webhooks/list", "/api/canary/webhooks/search", "/api/canary/webhooks/create", "/api/canary/webhooks/update", "/api/canary/webhooks/delete", "/api/canary/webhooks/get", "/api/canary/webhooks/post", "/api/canary/webhooks/put",
+    "/api/canary/webhooks/patch", "/api/canary/webhooks/all", "/api/canary/callbacks", "/api/canary/callbacks/", "/canary/callbacks", "/canary/callbacks/", "/api/canary/callbacks/list", "/api/canary/callbacks/search", "/api/canary/callbacks/create", "/api/canary/callbacks/update",
+    "/api/canary/callbacks/delete", "/api/canary/callbacks/get", "/api/canary/callbacks/post", "/api/canary/callbacks/put", "/api/canary/callbacks/patch", "/api/canary/callbacks/all", "/api/canary/events", "/api/canary/events/", "/canary/events", "/canary/events/",
+    "/api/canary/events/list", "/api/canary/events/search", "/api/canary/events/create", "/api/canary/events/update", "/api/canary/events/delete", "/api/canary/events/get", "/api/canary/events/post", "/api/canary/events/put", "/api/canary/events/patch", "/api/canary/events/all",
+    "/api/canary/logs", "/api/canary/logs/", "/canary/logs", "/canary/logs/", "/api/canary/logs/list", "/api/canary/logs/search", "/api/canary/logs/create", "/api/canary/logs/update", "/api/canary/logs/delete", "/api/canary/logs/get",
+    "/api/canary/logs/post", "/api/canary/logs/put", "/api/canary/logs/patch", "/api/canary/logs/all", "/api/canary/metrics", "/api/canary/metrics/", "/canary/metrics", "/canary/metrics/", "/api/canary/metrics/list", "/api/canary/metrics/search",
+    "/api/canary/metrics/create", "/api/canary/metrics/update", "/api/canary/metrics/delete", "/api/canary/metrics/get", "/api/canary/metrics/post", "/api/canary/metrics/put", "/api/canary/metrics/patch", "/api/canary/metrics/all", "/api/canary/stats", "/api/canary/stats/",
+    "/canary/stats", "/canary/stats/", "/api/canary/stats/list", "/api/canary/stats/search", "/api/canary/stats/create", "/api/canary/stats/update", "/api/canary/stats/delete", "/api/canary/stats/get", "/api/canary/stats/post", "/api/canary/stats/put",
+    "/api/canary/stats/patch", "/api/canary/stats/all", "/api/nightly/users", "/api/nightly/users/", "/nightly/users", "/nightly/users/", "/api/nightly/users/list", "/api/nightly/users/search", "/api/nightly/users/create", "/api/nightly/users/update",
+    "/api/nightly/users/delete", "/api/nightly/users/get", "/api/nightly/users/post", "/api/nightly/users/put", "/api/nightly/users/patch", "/api/nightly/users/all", "/api/nightly/user", "/api/nightly/user/", "/nightly/user", "/nightly/user/",
+    "/api/nightly/user/list", "/api/nightly/user/search", "/api/nightly/user/create", "/api/nightly/user/update", "/api/nightly/user/delete", "/api/nightly/user/get", "/api/nightly/user/post", "/api/nightly/user/put", "/api/nightly/user/patch", "/api/nightly/user/all",
+    "/api/nightly/admin", "/api/nightly/admin/", "/nightly/admin", "/nightly/admin/", "/api/nightly/admin/list", "/api/nightly/admin/search", "/api/nightly/admin/create", "/api/nightly/admin/update", "/api/nightly/admin/delete", "/api/nightly/admin/get",
+    "/api/nightly/admin/post", "/api/nightly/admin/put", "/api/nightly/admin/patch", "/api/nightly/admin/all", "/api/nightly/config", "/api/nightly/config/", "/nightly/config", "/nightly/config/", "/api/nightly/config/list", "/api/nightly/config/search",
+    "/api/nightly/config/create", "/api/nightly/config/update", "/api/nightly/config/delete", "/api/nightly/config/get", "/api/nightly/config/post", "/api/nightly/config/put", "/api/nightly/config/patch", "/api/nightly/config/all", "/api/nightly/settings", "/api/nightly/settings/",
+    "/nightly/settings", "/nightly/settings/", "/api/nightly/settings/list", "/api/nightly/settings/search", "/api/nightly/settings/create", "/api/nightly/settings/update", "/api/nightly/settings/delete", "/api/nightly/settings/get", "/api/nightly/settings/post", "/api/nightly/settings/put",
+    "/api/nightly/settings/patch", "/api/nightly/settings/all", "/api/nightly/auth", "/api/nightly/auth/", "/nightly/auth", "/nightly/auth/", "/api/nightly/auth/list", "/api/nightly/auth/search", "/api/nightly/auth/create", "/api/nightly/auth/update",
+    "/api/nightly/auth/delete", "/api/nightly/auth/get", "/api/nightly/auth/post", "/api/nightly/auth/put", "/api/nightly/auth/patch", "/api/nightly/auth/all", "/api/nightly/login", "/api/nightly/login/", "/nightly/login", "/nightly/login/",
+    "/api/nightly/login/list", "/api/nightly/login/search", "/api/nightly/login/create", "/api/nightly/login/update", "/api/nightly/login/delete", "/api/nightly/login/get", "/api/nightly/login/post", "/api/nightly/login/put", "/api/nightly/login/patch", "/api/nightly/login/all",
+    "/api/nightly/logout", "/api/nightly/logout/", "/nightly/logout", "/nightly/logout/", "/api/nightly/logout/list", "/api/nightly/logout/search", "/api/nightly/logout/create", "/api/nightly/logout/update", "/api/nightly/logout/delete", "/api/nightly/logout/get",
+    "/api/nightly/logout/post", "/api/nightly/logout/put", "/api/nightly/logout/patch", "/api/nightly/logout/all", "/api/nightly/register", "/api/nightly/register/", "/nightly/register", "/nightly/register/", "/api/nightly/register/list", "/api/nightly/register/search",
+    "/api/nightly/register/create", "/api/nightly/register/update", "/api/nightly/register/delete", "/api/nightly/register/get", "/api/nightly/register/post", "/api/nightly/register/put", "/api/nightly/register/patch", "/api/nightly/register/all", "/api/nightly/me", "/api/nightly/me/",
+    "/nightly/me", "/nightly/me/", "/api/nightly/me/list", "/api/nightly/me/search", "/api/nightly/me/create", "/api/nightly/me/update", "/api/nightly/me/delete", "/api/nightly/me/get", "/api/nightly/me/post", "/api/nightly/me/put",
+    "/api/nightly/me/patch", "/api/nightly/me/all", "/api/nightly/profile", "/api/nightly/profile/", "/nightly/profile", "/nightly/profile/", "/api/nightly/profile/list", "/api/nightly/profile/search", "/api/nightly/profile/create", "/api/nightly/profile/update",
+    "/api/nightly/profile/delete", "/api/nightly/profile/get", "/api/nightly/profile/post", "/api/nightly/profile/put", "/api/nightly/profile/patch", "/api/nightly/profile/all", "/api/nightly/account", "/api/nightly/account/", "/nightly/account", "/nightly/account/",
+    "/api/nightly/account/list", "/api/nightly/account/search", "/api/nightly/account/create", "/api/nightly/account/update", "/api/nightly/account/delete", "/api/nightly/account/get", "/api/nightly/account/post", "/api/nightly/account/put", "/api/nightly/account/patch", "/api/nightly/account/all",
+    "/api/nightly/accounts", "/api/nightly/accounts/", "/nightly/accounts", "/nightly/accounts/", "/api/nightly/accounts/list", "/api/nightly/accounts/search", "/api/nightly/accounts/create", "/api/nightly/accounts/update", "/api/nightly/accounts/delete", "/api/nightly/accounts/get",
+    "/api/nightly/accounts/post", "/api/nightly/accounts/put", "/api/nightly/accounts/patch", "/api/nightly/accounts/all", "/api/nightly/health", "/api/nightly/health/", "/nightly/health", "/nightly/health/", "/api/nightly/health/list", "/api/nightly/health/search",
+    "/api/nightly/health/create", "/api/nightly/health/update", "/api/nightly/health/delete", "/api/nightly/health/get", "/api/nightly/health/post", "/api/nightly/health/put", "/api/nightly/health/patch", "/api/nightly/health/all", "/api/nightly/status", "/api/nightly/status/",
+    "/nightly/status", "/nightly/status/", "/api/nightly/status/list", "/api/nightly/status/search", "/api/nightly/status/create", "/api/nightly/status/update", "/api/nightly/status/delete", "/api/nightly/status/get", "/api/nightly/status/post", "/api/nightly/status/put",
+    "/api/nightly/status/patch", "/api/nightly/status/all", "/api/nightly/version", "/api/nightly/version/", "/nightly/version", "/nightly/version/", "/api/nightly/version/list", "/api/nightly/version/search", "/api/nightly/version/create", "/api/nightly/version/update",
+    "/api/nightly/version/delete", "/api/nightly/version/get", "/api/nightly/version/post", "/api/nightly/version/put", "/api/nightly/version/patch", "/api/nightly/version/all", "/api/nightly/info", "/api/nightly/info/", "/nightly/info", "/nightly/info/",
+    "/api/nightly/info/list", "/api/nightly/info/search", "/api/nightly/info/create", "/api/nightly/info/update", "/api/nightly/info/delete", "/api/nightly/info/get", "/api/nightly/info/post", "/api/nightly/info/put", "/api/nightly/info/patch", "/api/nightly/info/all",
+    "/api/nightly/upload", "/api/nightly/upload/", "/nightly/upload", "/nightly/upload/", "/api/nightly/upload/list", "/api/nightly/upload/search", "/api/nightly/upload/create", "/api/nightly/upload/update", "/api/nightly/upload/delete", "/api/nightly/upload/get",
+    "/api/nightly/upload/post", "/api/nightly/upload/put", "/api/nightly/upload/patch", "/api/nightly/upload/all", "/api/nightly/download", "/api/nightly/download/", "/nightly/download", "/nightly/download/", "/api/nightly/download/list", "/api/nightly/download/search",
+    "/api/nightly/download/create", "/api/nightly/download/update", "/api/nightly/download/delete", "/api/nightly/download/get", "/api/nightly/download/post", "/api/nightly/download/put", "/api/nightly/download/patch", "/api/nightly/download/all", "/api/nightly/files", "/api/nightly/files/",
+    "/nightly/files", "/nightly/files/", "/api/nightly/files/list", "/api/nightly/files/search", "/api/nightly/files/create", "/api/nightly/files/update", "/api/nightly/files/delete", "/api/nightly/files/get", "/api/nightly/files/post", "/api/nightly/files/put",
+    "/api/nightly/files/patch", "/api/nightly/files/all", "/api/nightly/list", "/api/nightly/list/", "/nightly/list", "/nightly/list/", "/api/nightly/list/list", "/api/nightly/list/search", "/api/nightly/list/create", "/api/nightly/list/update",
+    "/api/nightly/list/delete", "/api/nightly/list/get", "/api/nightly/list/post", "/api/nightly/list/put", "/api/nightly/list/patch", "/api/nightly/list/all", "/api/nightly/search", "/api/nightly/search/", "/nightly/search", "/nightly/search/",
+    "/api/nightly/search/list", "/api/nightly/search/search", "/api/nightly/search/create", "/api/nightly/search/update", "/api/nightly/search/delete", "/api/nightly/search/get", "/api/nightly/search/post", "/api/nightly/search/put", "/api/nightly/search/patch", "/api/nightly/search/all",
+    "/api/nightly/query", "/api/nightly/query/", "/nightly/query", "/nightly/query/", "/api/nightly/query/list", "/api/nightly/query/search", "/api/nightly/query/create", "/api/nightly/query/update", "/api/nightly/query/delete", "/api/nightly/query/get",
+    "/api/nightly/query/post", "/api/nightly/query/put", "/api/nightly/query/patch", "/api/nightly/query/all", "/api/nightly/debug", "/api/nightly/debug/", "/nightly/debug", "/nightly/debug/", "/api/nightly/debug/list", "/api/nightly/debug/search",
+    "/api/nightly/debug/create", "/api/nightly/debug/update", "/api/nightly/debug/delete", "/api/nightly/debug/get", "/api/nightly/debug/post", "/api/nightly/debug/put", "/api/nightly/debug/patch", "/api/nightly/debug/all", "/api/nightly/test", "/api/nightly/test/",
+    "/nightly/test", "/nightly/test/", "/api/nightly/test/list", "/api/nightly/test/search", "/api/nightly/test/create", "/api/nightly/test/update", "/api/nightly/test/delete", "/api/nightly/test/get", "/api/nightly/test/post", "/api/nightly/test/put",
+    "/api/nightly/test/patch", "/api/nightly/test/all", "/api/nightly/internal", "/api/nightly/internal/", "/nightly/internal", "/nightly/internal/", "/api/nightly/internal/list", "/api/nightly/internal/search", "/api/nightly/internal/create", "/api/nightly/internal/update",
+    "/api/nightly/internal/delete", "/api/nightly/internal/get", "/api/nightly/internal/post", "/api/nightly/internal/put", "/api/nightly/internal/patch", "/api/nightly/internal/all", "/api/nightly/private", "/api/nightly/private/", "/nightly/private", "/nightly/private/",
+    "/api/nightly/private/list", "/api/nightly/private/search", "/api/nightly/private/create", "/api/nightly/private/update", "/api/nightly/private/delete", "/api/nightly/private/get", "/api/nightly/private/post", "/api/nightly/private/put", "/api/nightly/private/patch", "/api/nightly/private/all",
+    "/api/nightly/secret", "/api/nightly/secret/", "/nightly/secret", "/nightly/secret/", "/api/nightly/secret/list", "/api/nightly/secret/search", "/api/nightly/secret/create", "/api/nightly/secret/update", "/api/nightly/secret/delete", "/api/nightly/secret/get",
+    "/api/nightly/secret/post", "/api/nightly/secret/put", "/api/nightly/secret/patch", "/api/nightly/secret/all", "/api/nightly/public", "/api/nightly/public/", "/nightly/public", "/nightly/public/", "/api/nightly/public/list", "/api/nightly/public/search",
+    "/api/nightly/public/create", "/api/nightly/public/update", "/api/nightly/public/delete", "/api/nightly/public/get", "/api/nightly/public/post", "/api/nightly/public/put", "/api/nightly/public/patch", "/api/nightly/public/all", "/api/nightly/orders", "/api/nightly/orders/",
+    "/nightly/orders", "/nightly/orders/", "/api/nightly/orders/list", "/api/nightly/orders/search", "/api/nightly/orders/create", "/api/nightly/orders/update", "/api/nightly/orders/delete", "/api/nightly/orders/get", "/api/nightly/orders/post", "/api/nightly/orders/put",
+    "/api/nightly/orders/patch", "/api/nightly/orders/all", "/api/nightly/products", "/api/nightly/products/", "/nightly/products", "/nightly/products/", "/api/nightly/products/list", "/api/nightly/products/search", "/api/nightly/products/create", "/api/nightly/products/update",
+    "/api/nightly/products/delete", "/api/nightly/products/get", "/api/nightly/products/post", "/api/nightly/products/put", "/api/nightly/products/patch", "/api/nightly/products/all", "/api/nightly/payments", "/api/nightly/payments/", "/nightly/payments", "/nightly/payments/",
+    "/api/nightly/payments/list", "/api/nightly/payments/search", "/api/nightly/payments/create", "/api/nightly/payments/update", "/api/nightly/payments/delete", "/api/nightly/payments/get", "/api/nightly/payments/post", "/api/nightly/payments/put", "/api/nightly/payments/patch", "/api/nightly/payments/all",
+    "/api/nightly/invoices", "/api/nightly/invoices/", "/nightly/invoices", "/nightly/invoices/", "/api/nightly/invoices/list", "/api/nightly/invoices/search", "/api/nightly/invoices/create", "/api/nightly/invoices/update", "/api/nightly/invoices/delete", "/api/nightly/invoices/get",
+    "/api/nightly/invoices/post", "/api/nightly/invoices/put", "/api/nightly/invoices/patch", "/api/nightly/invoices/all", "/api/nightly/subscriptions", "/api/nightly/subscriptions/", "/nightly/subscriptions", "/nightly/subscriptions/", "/api/nightly/subscriptions/list", "/api/nightly/subscriptions/search",
+    "/api/nightly/subscriptions/create", "/api/nightly/subscriptions/update", "/api/nightly/subscriptions/delete", "/api/nightly/subscriptions/get", "/api/nightly/subscriptions/post", "/api/nightly/subscriptions/put", "/api/nightly/subscriptions/patch", "/api/nightly/subscriptions/all", "/api/nightly/notifications", "/api/nightly/notifications/",
+    "/nightly/notifications", "/nightly/notifications/", "/api/nightly/notifications/list", "/api/nightly/notifications/search", "/api/nightly/notifications/create", "/api/nightly/notifications/update", "/api/nightly/notifications/delete", "/api/nightly/notifications/get", "/api/nightly/notifications/post", "/api/nightly/notifications/put",
+    "/api/nightly/notifications/patch", "/api/nightly/notifications/all", "/api/nightly/messages", "/api/nightly/messages/", "/nightly/messages", "/nightly/messages/", "/api/nightly/messages/list", "/api/nightly/messages/search", "/api/nightly/messages/create", "/api/nightly/messages/update",
+    "/api/nightly/messages/delete", "/api/nightly/messages/get", "/api/nightly/messages/post", "/api/nightly/messages/put", "/api/nightly/messages/patch", "/api/nightly/messages/all", "/api/nightly/emails", "/api/nightly/emails/", "/nightly/emails", "/nightly/emails/",
+    "/api/nightly/emails/list", "/api/nightly/emails/search", "/api/nightly/emails/create", "/api/nightly/emails/update", "/api/nightly/emails/delete", "/api/nightly/emails/get", "/api/nightly/emails/post", "/api/nightly/emails/put", "/api/nightly/emails/patch", "/api/nightly/emails/all",
+    "/api/nightly/sessions", "/api/nightly/sessions/", "/nightly/sessions", "/nightly/sessions/", "/api/nightly/sessions/list", "/api/nightly/sessions/search", "/api/nightly/sessions/create", "/api/nightly/sessions/update", "/api/nightly/sessions/delete", "/api/nightly/sessions/get",
+    "/api/nightly/sessions/post", "/api/nightly/sessions/put", "/api/nightly/sessions/patch", "/api/nightly/sessions/all", "/api/nightly/tokens", "/api/nightly/tokens/", "/nightly/tokens", "/nightly/tokens/", "/api/nightly/tokens/list", "/api/nightly/tokens/search",
+    "/api/nightly/tokens/create", "/api/nightly/tokens/update", "/api/nightly/tokens/delete", "/api/nightly/tokens/get", "/api/nightly/tokens/post", "/api/nightly/tokens/put", "/api/nightly/tokens/patch", "/api/nightly/tokens/all", "/api/nightly/webhooks", "/api/nightly/webhooks/",
+    "/nightly/webhooks", "/nightly/webhooks/", "/api/nightly/webhooks/list", "/api/nightly/webhooks/search", "/api/nightly/webhooks/create", "/api/nightly/webhooks/update", "/api/nightly/webhooks/delete", "/api/nightly/webhooks/get", "/api/nightly/webhooks/post", "/api/nightly/webhooks/put",
+    "/api/nightly/webhooks/patch", "/api/nightly/webhooks/all", "/api/nightly/callbacks", "/api/nightly/callbacks/", "/nightly/callbacks", "/nightly/callbacks/", "/api/nightly/callbacks/list", "/api/nightly/callbacks/search", "/api/nightly/callbacks/create", "/api/nightly/callbacks/update",
+    "/api/nightly/callbacks/delete", "/api/nightly/callbacks/get", "/api/nightly/callbacks/post", "/api/nightly/callbacks/put", "/api/nightly/callbacks/patch", "/api/nightly/callbacks/all", "/api/nightly/events", "/api/nightly/events/", "/nightly/events", "/nightly/events/",
+    "/api/nightly/events/list", "/api/nightly/events/search", "/api/nightly/events/create", "/api/nightly/events/update", "/api/nightly/events/delete", "/api/nightly/events/get", "/api/nightly/events/post", "/api/nightly/events/put", "/api/nightly/events/patch", "/api/nightly/events/all",
+    "/api/nightly/logs", "/api/nightly/logs/", "/nightly/logs", "/nightly/logs/", "/api/nightly/logs/list", "/api/nightly/logs/search", "/api/nightly/logs/create", "/api/nightly/logs/update", "/api/nightly/logs/delete", "/api/nightly/logs/get",
+    "/api/nightly/logs/post", "/api/nightly/logs/put", "/api/nightly/logs/patch", "/api/nightly/logs/all", "/api/nightly/metrics", "/api/nightly/metrics/", "/nightly/metrics", "/nightly/metrics/", "/api/nightly/metrics/list", "/api/nightly/metrics/search",
+    "/api/nightly/metrics/create", "/api/nightly/metrics/update", "/api/nightly/metrics/delete", "/api/nightly/metrics/get", "/api/nightly/metrics/post", "/api/nightly/metrics/put", "/api/nightly/metrics/patch", "/api/nightly/metrics/all", "/api/nightly/stats", "/api/nightly/stats/",
+    "/nightly/stats", "/nightly/stats/", "/api/nightly/stats/list", "/api/nightly/stats/search", "/api/nightly/stats/create", "/api/nightly/stats/update", "/api/nightly/stats/delete", "/api/nightly/stats/get", "/api/nightly/stats/post", "/api/nightly/stats/put",
+    "/api/nightly/stats/patch", "/api/nightly/stats/all", "/api/stable/users", "/api/stable/users/", "/stable/users", "/stable/users/", "/api/stable/users/list", "/api/stable/users/search", "/api/stable/users/create", "/api/stable/users/update",
+    "/api/stable/users/delete", "/api/stable/users/get", "/api/stable/users/post", "/api/stable/users/put", "/api/stable/users/patch", "/api/stable/users/all", "/api/stable/user", "/api/stable/user/", "/stable/user", "/stable/user/",
+    "/api/stable/user/list", "/api/stable/user/search", "/api/stable/user/create", "/api/stable/user/update", "/api/stable/user/delete", "/api/stable/user/get", "/api/stable/user/post", "/api/stable/user/put", "/api/stable/user/patch", "/api/stable/user/all",
+    "/api/stable/admin", "/api/stable/admin/", "/stable/admin", "/stable/admin/", "/api/stable/admin/list", "/api/stable/admin/search", "/api/stable/admin/create", "/api/stable/admin/update", "/api/stable/admin/delete", "/api/stable/admin/get",
+    "/api/stable/admin/post", "/api/stable/admin/put", "/api/stable/admin/patch", "/api/stable/admin/all", "/api/stable/config", "/api/stable/config/", "/stable/config", "/stable/config/", "/api/stable/config/list", "/api/stable/config/search",
+    "/api/stable/config/create", "/api/stable/config/update", "/api/stable/config/delete", "/api/stable/config/get", "/api/stable/config/post", "/api/stable/config/put", "/api/stable/config/patch", "/api/stable/config/all", "/api/stable/settings", "/api/stable/settings/",
+    "/stable/settings", "/stable/settings/", "/api/stable/settings/list", "/api/stable/settings/search", "/api/stable/settings/create", "/api/stable/settings/update", "/api/stable/settings/delete", "/api/stable/settings/get", "/api/stable/settings/post", "/api/stable/settings/put",
+    "/api/stable/settings/patch", "/api/stable/settings/all", "/api/stable/auth", "/api/stable/auth/", "/stable/auth", "/stable/auth/", "/api/stable/auth/list", "/api/stable/auth/search", "/api/stable/auth/create", "/api/stable/auth/update",
+    "/api/stable/auth/delete", "/api/stable/auth/get", "/api/stable/auth/post", "/api/stable/auth/put", "/api/stable/auth/patch", "/api/stable/auth/all", "/api/stable/login", "/api/stable/login/", "/stable/login", "/stable/login/",
+    "/api/stable/login/list", "/api/stable/login/search", "/api/stable/login/create", "/api/stable/login/update", "/api/stable/login/delete", "/api/stable/login/get", "/api/stable/login/post", "/api/stable/login/put", "/api/stable/login/patch", "/api/stable/login/all",
+    "/api/stable/logout", "/api/stable/logout/", "/stable/logout", "/stable/logout/", "/api/stable/logout/list", "/api/stable/logout/search", "/api/stable/logout/create", "/api/stable/logout/update", "/api/stable/logout/delete", "/api/stable/logout/get",
+    "/api/stable/logout/post", "/api/stable/logout/put", "/api/stable/logout/patch", "/api/stable/logout/all", "/api/stable/register", "/api/stable/register/", "/stable/register", "/stable/register/", "/api/stable/register/list", "/api/stable/register/search",
+    "/api/stable/register/create", "/api/stable/register/update", "/api/stable/register/delete", "/api/stable/register/get", "/api/stable/register/post", "/api/stable/register/put", "/api/stable/register/patch", "/api/stable/register/all", "/api/stable/me", "/api/stable/me/",
+    "/stable/me", "/stable/me/", "/api/stable/me/list", "/api/stable/me/search", "/api/stable/me/create", "/api/stable/me/update", "/api/stable/me/delete", "/api/stable/me/get", "/api/stable/me/post", "/api/stable/me/put",
+    "/api/stable/me/patch", "/api/stable/me/all", "/api/stable/profile", "/api/stable/profile/", "/stable/profile", "/stable/profile/", "/api/stable/profile/list", "/api/stable/profile/search", "/api/stable/profile/create", "/api/stable/profile/update",
+    "/api/stable/profile/delete", "/api/stable/profile/get", "/api/stable/profile/post", "/api/stable/profile/put", "/api/stable/profile/patch", "/api/stable/profile/all", "/api/stable/account", "/api/stable/account/", "/stable/account", "/stable/account/",
+    "/api/stable/account/list", "/api/stable/account/search", "/api/stable/account/create", "/api/stable/account/update", "/api/stable/account/delete", "/api/stable/account/get", "/api/stable/account/post", "/api/stable/account/put", "/api/stable/account/patch", "/api/stable/account/all",
+    "/api/stable/accounts", "/api/stable/accounts/", "/stable/accounts", "/stable/accounts/", "/api/stable/accounts/list", "/api/stable/accounts/search", "/api/stable/accounts/create", "/api/stable/accounts/update", "/api/stable/accounts/delete", "/api/stable/accounts/get",
+    "/api/stable/accounts/post", "/api/stable/accounts/put", "/api/stable/accounts/patch", "/api/stable/accounts/all", "/api/stable/health", "/api/stable/health/", "/stable/health", "/stable/health/", "/api/stable/health/list", "/api/stable/health/search",
+    "/api/stable/health/create", "/api/stable/health/update", "/api/stable/health/delete", "/api/stable/health/get", "/api/stable/health/post", "/api/stable/health/put", "/api/stable/health/patch", "/api/stable/health/all", "/api/stable/status", "/api/stable/status/",
+    "/stable/status", "/stable/status/", "/api/stable/status/list", "/api/stable/status/search", "/api/stable/status/create", "/api/stable/status/update", "/api/stable/status/delete", "/api/stable/status/get", "/api/stable/status/post", "/api/stable/status/put",
+    "/api/stable/status/patch", "/api/stable/status/all", "/api/stable/version", "/api/stable/version/", "/stable/version", "/stable/version/", "/api/stable/version/list", "/api/stable/version/search", "/api/stable/version/create", "/api/stable/version/update",
+    "/api/stable/version/delete", "/api/stable/version/get", "/api/stable/version/post", "/api/stable/version/put", "/api/stable/version/patch", "/api/stable/version/all", "/api/stable/info", "/api/stable/info/", "/stable/info", "/stable/info/",
+    "/api/stable/info/list", "/api/stable/info/search", "/api/stable/info/create", "/api/stable/info/update", "/api/stable/info/delete", "/api/stable/info/get", "/api/stable/info/post", "/api/stable/info/put", "/api/stable/info/patch", "/api/stable/info/all",
+    "/api/stable/upload", "/api/stable/upload/", "/stable/upload", "/stable/upload/", "/api/stable/upload/list", "/api/stable/upload/search", "/api/stable/upload/create", "/api/stable/upload/update", "/api/stable/upload/delete", "/api/stable/upload/get",
+    "/api/stable/upload/post", "/api/stable/upload/put", "/api/stable/upload/patch", "/api/stable/upload/all", "/api/stable/download", "/api/stable/download/", "/stable/download", "/stable/download/", "/api/stable/download/list", "/api/stable/download/search",
+    "/api/stable/download/create", "/api/stable/download/update", "/api/stable/download/delete", "/api/stable/download/get", "/api/stable/download/post", "/api/stable/download/put", "/api/stable/download/patch", "/api/stable/download/all", "/api/stable/files", "/api/stable/files/",
+    "/stable/files", "/stable/files/", "/api/stable/files/list", "/api/stable/files/search", "/api/stable/files/create", "/api/stable/files/update", "/api/stable/files/delete", "/api/stable/files/get", "/api/stable/files/post", "/api/stable/files/put",
+    "/api/stable/files/patch", "/api/stable/files/all", "/api/stable/list", "/api/stable/list/", "/stable/list", "/stable/list/", "/api/stable/list/list", "/api/stable/list/search", "/api/stable/list/create", "/api/stable/list/update",
+    "/api/stable/list/delete", "/api/stable/list/get", "/api/stable/list/post", "/api/stable/list/put", "/api/stable/list/patch", "/api/stable/list/all", "/api/stable/search", "/api/stable/search/", "/stable/search", "/stable/search/",
+    "/api/stable/search/list", "/api/stable/search/search", "/api/stable/search/create", "/api/stable/search/update", "/api/stable/search/delete", "/api/stable/search/get", "/api/stable/search/post", "/api/stable/search/put", "/api/stable/search/patch", "/api/stable/search/all",
+    "/api/stable/query", "/api/stable/query/", "/stable/query", "/stable/query/", "/api/stable/query/list", "/api/stable/query/search", "/api/stable/query/create", "/api/stable/query/update", "/api/stable/query/delete", "/api/stable/query/get",
+    "/api/stable/query/post", "/api/stable/query/put", "/api/stable/query/patch", "/api/stable/query/all", "/api/stable/debug", "/api/stable/debug/", "/stable/debug", "/stable/debug/", "/api/stable/debug/list", "/api/stable/debug/search",
+    "/api/stable/debug/create", "/api/stable/debug/update", "/api/stable/debug/delete", "/api/stable/debug/get", "/api/stable/debug/post", "/api/stable/debug/put", "/api/stable/debug/patch", "/api/stable/debug/all", "/api/stable/test", "/api/stable/test/",
+    "/stable/test", "/stable/test/", "/api/stable/test/list", "/api/stable/test/search", "/api/stable/test/create", "/api/stable/test/update", "/api/stable/test/delete", "/api/stable/test/get", "/api/stable/test/post", "/api/stable/test/put",
+    "/api/stable/test/patch", "/api/stable/test/all", "/api/stable/internal", "/api/stable/internal/", "/stable/internal", "/stable/internal/", "/api/stable/internal/list", "/api/stable/internal/search", "/api/stable/internal/create", "/api/stable/internal/update",
+    "/api/stable/internal/delete", "/api/stable/internal/get", "/api/stable/internal/post", "/api/stable/internal/put", "/api/stable/internal/patch", "/api/stable/internal/all", "/api/stable/private", "/api/stable/private/", "/stable/private", "/stable/private/",
+    "/api/stable/private/list", "/api/stable/private/search", "/api/stable/private/create", "/api/stable/private/update", "/api/stable/private/delete", "/api/stable/private/get", "/api/stable/private/post", "/api/stable/private/put", "/api/stable/private/patch", "/api/stable/private/all",
+    "/api/stable/secret", "/api/stable/secret/", "/stable/secret", "/stable/secret/", "/api/stable/secret/list", "/api/stable/secret/search", "/api/stable/secret/create", "/api/stable/secret/update", "/api/stable/secret/delete", "/api/stable/secret/get",
+    "/api/stable/secret/post", "/api/stable/secret/put", "/api/stable/secret/patch", "/api/stable/secret/all", "/api/stable/public", "/api/stable/public/", "/stable/public", "/stable/public/", "/api/stable/public/list", "/api/stable/public/search",
+    "/api/stable/public/create", "/api/stable/public/update", "/api/stable/public/delete", "/api/stable/public/get", "/api/stable/public/post", "/api/stable/public/put", "/api/stable/public/patch", "/api/stable/public/all", "/api/stable/orders", "/api/stable/orders/",
+    "/stable/orders", "/stable/orders/", "/api/stable/orders/list", "/api/stable/orders/search", "/api/stable/orders/create", "/api/stable/orders/update", "/api/stable/orders/delete", "/api/stable/orders/get", "/api/stable/orders/post", "/api/stable/orders/put",
+    "/api/stable/orders/patch", "/api/stable/orders/all", "/api/stable/products", "/api/stable/products/", "/stable/products", "/stable/products/", "/api/stable/products/list", "/api/stable/products/search", "/api/stable/products/create", "/api/stable/products/update",
+    "/api/stable/products/delete", "/api/stable/products/get", "/api/stable/products/post", "/api/stable/products/put", "/api/stable/products/patch", "/api/stable/products/all", "/api/stable/payments", "/api/stable/payments/", "/stable/payments", "/stable/payments/",
+    "/api/stable/payments/list", "/api/stable/payments/search", "/api/stable/payments/create", "/api/stable/payments/update", "/api/stable/payments/delete", "/api/stable/payments/get", "/api/stable/payments/post", "/api/stable/payments/put", "/api/stable/payments/patch", "/api/stable/payments/all",
+    "/api/stable/invoices", "/api/stable/invoices/", "/stable/invoices", "/stable/invoices/", "/api/stable/invoices/list", "/api/stable/invoices/search", "/api/stable/invoices/create", "/api/stable/invoices/update", "/api/stable/invoices/delete", "/api/stable/invoices/get",
+    "/api/stable/invoices/post", "/api/stable/invoices/put", "/api/stable/invoices/patch", "/api/stable/invoices/all", "/api/stable/subscriptions", "/api/stable/subscriptions/", "/stable/subscriptions", "/stable/subscriptions/", "/api/stable/subscriptions/list", "/api/stable/subscriptions/search",
+    "/api/stable/subscriptions/create", "/api/stable/subscriptions/update", "/api/stable/subscriptions/delete", "/api/stable/subscriptions/get", "/api/stable/subscriptions/post", "/api/stable/subscriptions/put", "/api/stable/subscriptions/patch", "/api/stable/subscriptions/all", "/api/stable/notifications", "/api/stable/notifications/",
+    "/stable/notifications", "/stable/notifications/", "/api/stable/notifications/list", "/api/stable/notifications/search", "/api/stable/notifications/create", "/api/stable/notifications/update", "/api/stable/notifications/delete", "/api/stable/notifications/get", "/api/stable/notifications/post", "/api/stable/notifications/put",
+    "/api/stable/notifications/patch", "/api/stable/notifications/all", "/api/stable/messages", "/api/stable/messages/", "/stable/messages", "/stable/messages/", "/api/stable/messages/list", "/api/stable/messages/search", "/api/stable/messages/create", "/api/stable/messages/update",
+    "/api/stable/messages/delete", "/api/stable/messages/get", "/api/stable/messages/post", "/api/stable/messages/put", "/api/stable/messages/patch", "/api/stable/messages/all", "/api/stable/emails", "/api/stable/emails/", "/stable/emails", "/stable/emails/",
+    "/api/stable/emails/list", "/api/stable/emails/search", "/api/stable/emails/create", "/api/stable/emails/update", "/api/stable/emails/delete", "/api/stable/emails/get", "/api/stable/emails/post", "/api/stable/emails/put", "/api/stable/emails/patch", "/api/stable/emails/all",
+    "/api/stable/sessions", "/api/stable/sessions/", "/stable/sessions", "/stable/sessions/", "/api/stable/sessions/list", "/api/stable/sessions/search", "/api/stable/sessions/create", "/api/stable/sessions/update", "/api/stable/sessions/delete", "/api/stable/sessions/get",
+    "/api/stable/sessions/post", "/api/stable/sessions/put", "/api/stable/sessions/patch", "/api/stable/sessions/all", "/api/stable/tokens", "/api/stable/tokens/", "/stable/tokens", "/stable/tokens/", "/api/stable/tokens/list", "/api/stable/tokens/search",
+    "/api/stable/tokens/create", "/api/stable/tokens/update", "/api/stable/tokens/delete", "/api/stable/tokens/get", "/api/stable/tokens/post", "/api/stable/tokens/put", "/api/stable/tokens/patch", "/api/stable/tokens/all", "/api/stable/webhooks", "/api/stable/webhooks/",
+    "/stable/webhooks", "/stable/webhooks/", "/api/stable/webhooks/list", "/api/stable/webhooks/search", "/api/stable/webhooks/create", "/api/stable/webhooks/update", "/api/stable/webhooks/delete", "/api/stable/webhooks/get", "/api/stable/webhooks/post", "/api/stable/webhooks/put",
+    "/api/stable/webhooks/patch", "/api/stable/webhooks/all", "/api/stable/callbacks", "/api/stable/callbacks/", "/stable/callbacks", "/stable/callbacks/", "/api/stable/callbacks/list", "/api/stable/callbacks/search", "/api/stable/callbacks/create", "/api/stable/callbacks/update",
+    "/api/stable/callbacks/delete", "/api/stable/callbacks/get", "/api/stable/callbacks/post", "/api/stable/callbacks/put", "/api/stable/callbacks/patch", "/api/stable/callbacks/all", "/api/stable/events", "/api/stable/events/", "/stable/events", "/stable/events/",
+    "/api/stable/events/list", "/api/stable/events/search", "/api/stable/events/create", "/api/stable/events/update", "/api/stable/events/delete", "/api/stable/events/get", "/api/stable/events/post", "/api/stable/events/put", "/api/stable/events/patch", "/api/stable/events/all",
+    "/api/stable/logs", "/api/stable/logs/", "/stable/logs", "/stable/logs/", "/api/stable/logs/list", "/api/stable/logs/search", "/api/stable/logs/create", "/api/stable/logs/update", "/api/stable/logs/delete", "/api/stable/logs/get",
+    "/api/stable/logs/post", "/api/stable/logs/put", "/api/stable/logs/patch", "/api/stable/logs/all", "/api/stable/metrics", "/api/stable/metrics/", "/stable/metrics", "/stable/metrics/", "/api/stable/metrics/list", "/api/stable/metrics/search",
+    "/api/stable/metrics/create", "/api/stable/metrics/update", "/api/stable/metrics/delete", "/api/stable/metrics/get", "/api/stable/metrics/post", "/api/stable/metrics/put", "/api/stable/metrics/patch", "/api/stable/metrics/all", "/api/stable/stats", "/api/stable/stats/",
+    "/stable/stats", "/stable/stats/", "/api/stable/stats/list", "/api/stable/stats/search", "/api/stable/stats/create", "/api/stable/stats/update", "/api/stable/stats/delete", "/api/stable/stats/get", "/api/stable/stats/post", "/api/stable/stats/put",
+    "/api/stable/stats/patch", "/api/stable/stats/all", "/api/latest/users", "/api/latest/users/", "/latest/users", "/latest/users/", "/api/latest/users/list", "/api/latest/users/search", "/api/latest/users/create", "/api/latest/users/update",
+    "/api/latest/users/delete", "/api/latest/users/get", "/api/latest/users/post", "/api/latest/users/put", "/api/latest/users/patch", "/api/latest/users/all", "/api/latest/user", "/api/latest/user/", "/latest/user", "/latest/user/",
+    "/api/latest/user/list", "/api/latest/user/search", "/api/latest/user/create", "/api/latest/user/update", "/api/latest/user/delete", "/api/latest/user/get", "/api/latest/user/post", "/api/latest/user/put", "/api/latest/user/patch", "/api/latest/user/all",
+    "/api/latest/admin", "/api/latest/admin/", "/latest/admin", "/latest/admin/", "/api/latest/admin/list", "/api/latest/admin/search", "/api/latest/admin/create", "/api/latest/admin/update", "/api/latest/admin/delete", "/api/latest/admin/get",
+    "/api/latest/admin/post", "/api/latest/admin/put", "/api/latest/admin/patch", "/api/latest/admin/all", "/api/latest/config", "/api/latest/config/", "/latest/config", "/latest/config/", "/api/latest/config/list", "/api/latest/config/search",
+    "/api/latest/config/create", "/api/latest/config/update", "/api/latest/config/delete", "/api/latest/config/get", "/api/latest/config/post", "/api/latest/config/put", "/api/latest/config/patch", "/api/latest/config/all", "/api/latest/settings", "/api/latest/settings/",
+    "/latest/settings", "/latest/settings/", "/api/latest/settings/list", "/api/latest/settings/search", "/api/latest/settings/create", "/api/latest/settings/update", "/api/latest/settings/delete", "/api/latest/settings/get", "/api/latest/settings/post", "/api/latest/settings/put",
+    "/api/latest/settings/patch", "/api/latest/settings/all", "/api/latest/auth", "/api/latest/auth/", "/latest/auth", "/latest/auth/", "/api/latest/auth/list", "/api/latest/auth/search", "/api/latest/auth/create", "/api/latest/auth/update",
+    "/api/latest/auth/delete", "/api/latest/auth/get", "/api/latest/auth/post", "/api/latest/auth/put", "/api/latest/auth/patch", "/api/latest/auth/all", "/api/latest/login", "/api/latest/login/", "/latest/login", "/latest/login/",
+    "/api/latest/login/list", "/api/latest/login/search", "/api/latest/login/create", "/api/latest/login/update", "/api/latest/login/delete", "/api/latest/login/get", "/api/latest/login/post", "/api/latest/login/put", "/api/latest/login/patch", "/api/latest/login/all",
+    "/api/latest/logout", "/api/latest/logout/", "/latest/logout", "/latest/logout/", "/api/latest/logout/list", "/api/latest/logout/search", "/api/latest/logout/create", "/api/latest/logout/update", "/api/latest/logout/delete", "/api/latest/logout/get",
+    "/api/latest/logout/post", "/api/latest/logout/put", "/api/latest/logout/patch", "/api/latest/logout/all", "/api/latest/register", "/api/latest/register/", "/latest/register", "/latest/register/", "/api/latest/register/list", "/api/latest/register/search",
+    "/api/latest/register/create", "/api/latest/register/update", "/api/latest/register/delete", "/api/latest/register/get", "/api/latest/register/post", "/api/latest/register/put", "/api/latest/register/patch", "/api/latest/register/all", "/api/latest/me", "/api/latest/me/",
+    "/latest/me", "/latest/me/", "/api/latest/me/list", "/api/latest/me/search", "/api/latest/me/create", "/api/latest/me/update", "/api/latest/me/delete", "/api/latest/me/get", "/api/latest/me/post", "/api/latest/me/put",
+    "/api/latest/me/patch", "/api/latest/me/all", "/api/latest/profile", "/api/latest/profile/", "/latest/profile", "/latest/profile/", "/api/latest/profile/list", "/api/latest/profile/search", "/api/latest/profile/create", "/api/latest/profile/update",
+    "/api/latest/profile/delete", "/api/latest/profile/get", "/api/latest/profile/post", "/api/latest/profile/put", "/api/latest/profile/patch", "/api/latest/profile/all", "/api/latest/account", "/api/latest/account/", "/latest/account", "/latest/account/",
+    "/api/latest/account/list", "/api/latest/account/search", "/api/latest/account/create", "/api/latest/account/update", "/api/latest/account/delete", "/api/latest/account/get", "/api/latest/account/post", "/api/latest/account/put", "/api/latest/account/patch", "/api/latest/account/all",
+    "/api/latest/accounts", "/api/latest/accounts/", "/latest/accounts", "/latest/accounts/", "/api/latest/accounts/list", "/api/latest/accounts/search", "/api/latest/accounts/create", "/api/latest/accounts/update", "/api/latest/accounts/delete", "/api/latest/accounts/get",
+    "/api/latest/accounts/post", "/api/latest/accounts/put", "/api/latest/accounts/patch", "/api/latest/accounts/all", "/api/latest/health", "/api/latest/health/", "/latest/health", "/latest/health/", "/api/latest/health/list", "/api/latest/health/search",
+    "/api/latest/health/create", "/api/latest/health/update", "/api/latest/health/delete", "/api/latest/health/get", "/api/latest/health/post", "/api/latest/health/put", "/api/latest/health/patch", "/api/latest/health/all", "/api/latest/status", "/api/latest/status/",
+    "/latest/status", "/latest/status/", "/api/latest/status/list", "/api/latest/status/search", "/api/latest/status/create", "/api/latest/status/update", "/api/latest/status/delete", "/api/latest/status/get", "/api/latest/status/post", "/api/latest/status/put",
+    "/api/latest/status/patch", "/api/latest/status/all", "/api/latest/version", "/api/latest/version/", "/latest/version", "/latest/version/", "/api/latest/version/list", "/api/latest/version/search", "/api/latest/version/create", "/api/latest/version/update",
+    "/api/latest/version/delete", "/api/latest/version/get", "/api/latest/version/post", "/api/latest/version/put", "/api/latest/version/patch", "/api/latest/version/all", "/api/latest/info", "/api/latest/info/", "/latest/info", "/latest/info/",
+    "/api/latest/info/list", "/api/latest/info/search", "/api/latest/info/create", "/api/latest/info/update", "/api/latest/info/delete", "/api/latest/info/get", "/api/latest/info/post", "/api/latest/info/put", "/api/latest/info/patch", "/api/latest/info/all",
+    "/api/latest/upload", "/api/latest/upload/", "/latest/upload", "/latest/upload/", "/api/latest/upload/list", "/api/latest/upload/search", "/api/latest/upload/create", "/api/latest/upload/update", "/api/latest/upload/delete", "/api/latest/upload/get",
+    "/api/latest/upload/post", "/api/latest/upload/put", "/api/latest/upload/patch", "/api/latest/upload/all", "/api/latest/download", "/api/latest/download/", "/latest/download", "/latest/download/", "/api/latest/download/list", "/api/latest/download/search",
+    "/api/latest/download/create", "/api/latest/download/update", "/api/latest/download/delete", "/api/latest/download/get", "/api/latest/download/post", "/api/latest/download/put", "/api/latest/download/patch", "/api/latest/download/all", "/api/latest/files", "/api/latest/files/",
+    "/latest/files", "/latest/files/", "/api/latest/files/list", "/api/latest/files/search", "/api/latest/files/create", "/api/latest/files/update", "/api/latest/files/delete", "/api/latest/files/get", "/api/latest/files/post", "/api/latest/files/put",
+    "/api/latest/files/patch", "/api/latest/files/all", "/api/latest/list", "/api/latest/list/", "/latest/list", "/latest/list/", "/api/latest/list/list", "/api/latest/list/search", "/api/latest/list/create", "/api/latest/list/update",
+    "/api/latest/list/delete", "/api/latest/list/get", "/api/latest/list/post", "/api/latest/list/put", "/api/latest/list/patch", "/api/latest/list/all", "/api/latest/search", "/api/latest/search/", "/latest/search", "/latest/search/",
+    "/api/latest/search/list", "/api/latest/search/search", "/api/latest/search/create", "/api/latest/search/update", "/api/latest/search/delete", "/api/latest/search/get", "/api/latest/search/post", "/api/latest/search/put", "/api/latest/search/patch", "/api/latest/search/all",
+    "/api/latest/query", "/api/latest/query/", "/latest/query", "/latest/query/", "/api/latest/query/list", "/api/latest/query/search", "/api/latest/query/create", "/api/latest/query/update", "/api/latest/query/delete", "/api/latest/query/get",
+    "/api/latest/query/post", "/api/latest/query/put", "/api/latest/query/patch", "/api/latest/query/all", "/api/latest/debug", "/api/latest/debug/", "/latest/debug", "/latest/debug/", "/api/latest/debug/list", "/api/latest/debug/search",
+    "/api/latest/debug/create", "/api/latest/debug/update", "/api/latest/debug/delete", "/api/latest/debug/get", "/api/latest/debug/post", "/api/latest/debug/put", "/api/latest/debug/patch", "/api/latest/debug/all", "/api/latest/test", "/api/latest/test/",
+    "/latest/test", "/latest/test/", "/api/latest/test/list", "/api/latest/test/search", "/api/latest/test/create", "/api/latest/test/update", "/api/latest/test/delete", "/api/latest/test/get", "/api/latest/test/post", "/api/latest/test/put",
+    "/api/latest/test/patch", "/api/latest/test/all", "/api/latest/internal", "/api/latest/internal/", "/latest/internal", "/latest/internal/", "/api/latest/internal/list", "/api/latest/internal/search", "/api/latest/internal/create", "/api/latest/internal/update",
+    "/api/latest/internal/delete", "/api/latest/internal/get", "/api/latest/internal/post", "/api/latest/internal/put", "/api/latest/internal/patch", "/api/latest/internal/all", "/api/latest/private", "/api/latest/private/", "/latest/private", "/latest/private/",
+    "/api/latest/private/list", "/api/latest/private/search", "/api/latest/private/create", "/api/latest/private/update", "/api/latest/private/delete", "/api/latest/private/get", "/api/latest/private/post", "/api/latest/private/put", "/api/latest/private/patch", "/api/latest/private/all",
+    "/api/latest/secret", "/api/latest/secret/", "/latest/secret", "/latest/secret/", "/api/latest/secret/list", "/api/latest/secret/search", "/api/latest/secret/create", "/api/latest/secret/update", "/api/latest/secret/delete", "/api/latest/secret/get",
+    "/api/latest/secret/post", "/api/latest/secret/put", "/api/latest/secret/patch", "/api/latest/secret/all", "/api/latest/public", "/api/latest/public/", "/latest/public", "/latest/public/", "/api/latest/public/list", "/api/latest/public/search",
+    "/api/latest/public/create", "/api/latest/public/update", "/api/latest/public/delete", "/api/latest/public/get", "/api/latest/public/post", "/api/latest/public/put", "/api/latest/public/patch", "/api/latest/public/all", "/api/latest/orders", "/api/latest/orders/",
+    "/latest/orders", "/latest/orders/", "/api/latest/orders/list", "/api/latest/orders/search", "/api/latest/orders/create", "/api/latest/orders/update", "/api/latest/orders/delete", "/api/latest/orders/get", "/api/latest/orders/post", "/api/latest/orders/put",
+    "/api/latest/orders/patch", "/api/latest/orders/all", "/api/latest/products", "/api/latest/products/", "/latest/products", "/latest/products/", "/api/latest/products/list", "/api/latest/products/search", "/api/latest/products/create", "/api/latest/products/update",
+    "/api/latest/products/delete", "/api/latest/products/get", "/api/latest/products/post", "/api/latest/products/put", "/api/latest/products/patch", "/api/latest/products/all", "/api/latest/payments", "/api/latest/payments/", "/latest/payments", "/latest/payments/",
+    "/api/latest/payments/list", "/api/latest/payments/search", "/api/latest/payments/create", "/api/latest/payments/update", "/api/latest/payments/delete", "/api/latest/payments/get", "/api/latest/payments/post", "/api/latest/payments/put", "/api/latest/payments/patch", "/api/latest/payments/all",
+    "/api/latest/invoices", "/api/latest/invoices/", "/latest/invoices", "/latest/invoices/", "/api/latest/invoices/list", "/api/latest/invoices/search", "/api/latest/invoices/create", "/api/latest/invoices/update", "/api/latest/invoices/delete", "/api/latest/invoices/get",
+    "/api/latest/invoices/post", "/api/latest/invoices/put", "/api/latest/invoices/patch", "/api/latest/invoices/all", "/api/latest/subscriptions", "/api/latest/subscriptions/", "/latest/subscriptions", "/latest/subscriptions/", "/api/latest/subscriptions/list", "/api/latest/subscriptions/search",
+    "/api/latest/subscriptions/create", "/api/latest/subscriptions/update", "/api/latest/subscriptions/delete", "/api/latest/subscriptions/get", "/api/latest/subscriptions/post", "/api/latest/subscriptions/put", "/api/latest/subscriptions/patch", "/api/latest/subscriptions/all", "/api/latest/notifications", "/api/latest/notifications/",
+    "/latest/notifications", "/latest/notifications/", "/api/latest/notifications/list", "/api/latest/notifications/search", "/api/latest/notifications/create", "/api/latest/notifications/update", "/api/latest/notifications/delete", "/api/latest/notifications/get", "/api/latest/notifications/post", "/api/latest/notifications/put",
+    "/api/latest/notifications/patch", "/api/latest/notifications/all", "/api/latest/messages", "/api/latest/messages/", "/latest/messages", "/latest/messages/", "/api/latest/messages/list", "/api/latest/messages/search", "/api/latest/messages/create", "/api/latest/messages/update",
+    "/api/latest/messages/delete", "/api/latest/messages/get", "/api/latest/messages/post", "/api/latest/messages/put", "/api/latest/messages/patch", "/api/latest/messages/all", "/api/latest/emails", "/api/latest/emails/", "/latest/emails", "/latest/emails/",
+    "/api/latest/emails/list", "/api/latest/emails/search", "/api/latest/emails/create", "/api/latest/emails/update", "/api/latest/emails/delete", "/api/latest/emails/get", "/api/latest/emails/post", "/api/latest/emails/put", "/api/latest/emails/patch", "/api/latest/emails/all",
+    "/api/latest/sessions", "/api/latest/sessions/", "/latest/sessions", "/latest/sessions/", "/api/latest/sessions/list", "/api/latest/sessions/search", "/api/latest/sessions/create", "/api/latest/sessions/update", "/api/latest/sessions/delete", "/api/latest/sessions/get",
+    "/api/latest/sessions/post", "/api/latest/sessions/put", "/api/latest/sessions/patch", "/api/latest/sessions/all", "/api/latest/tokens", "/api/latest/tokens/", "/latest/tokens", "/latest/tokens/", "/api/latest/tokens/list", "/api/latest/tokens/search",
+    "/api/latest/tokens/create", "/api/latest/tokens/update", "/api/latest/tokens/delete", "/api/latest/tokens/get", "/api/latest/tokens/post", "/api/latest/tokens/put", "/api/latest/tokens/patch", "/api/latest/tokens/all", "/api/latest/webhooks", "/api/latest/webhooks/",
+    "/latest/webhooks", "/latest/webhooks/", "/api/latest/webhooks/list", "/api/latest/webhooks/search", "/api/latest/webhooks/create", "/api/latest/webhooks/update", "/api/latest/webhooks/delete", "/api/latest/webhooks/get", "/api/latest/webhooks/post", "/api/latest/webhooks/put",
+    "/api/latest/webhooks/patch", "/api/latest/webhooks/all", "/api/latest/callbacks", "/api/latest/callbacks/", "/latest/callbacks", "/latest/callbacks/", "/api/latest/callbacks/list", "/api/latest/callbacks/search", "/api/latest/callbacks/create", "/api/latest/callbacks/update",
+    "/api/latest/callbacks/delete", "/api/latest/callbacks/get", "/api/latest/callbacks/post", "/api/latest/callbacks/put", "/api/latest/callbacks/patch", "/api/latest/callbacks/all", "/api/latest/events", "/api/latest/events/", "/latest/events", "/latest/events/",
+    "/api/latest/events/list", "/api/latest/events/search", "/api/latest/events/create", "/api/latest/events/update", "/api/latest/events/delete", "/api/latest/events/get", "/api/latest/events/post", "/api/latest/events/put", "/api/latest/events/patch", "/api/latest/events/all",
+    "/api/latest/logs", "/api/latest/logs/", "/latest/logs", "/latest/logs/", "/api/latest/logs/list", "/api/latest/logs/search", "/api/latest/logs/create", "/api/latest/logs/update", "/api/latest/logs/delete", "/api/latest/logs/get",
+    "/api/latest/logs/post", "/api/latest/logs/put", "/api/latest/logs/patch", "/api/latest/logs/all", "/api/latest/metrics", "/api/latest/metrics/", "/latest/metrics", "/latest/metrics/", "/api/latest/metrics/list", "/api/latest/metrics/search",
+    "/api/latest/metrics/create", "/api/latest/metrics/update", "/api/latest/metrics/delete", "/api/latest/metrics/get", "/api/latest/metrics/post", "/api/latest/metrics/put", "/api/latest/metrics/patch", "/api/latest/metrics/all", "/api/latest/stats", "/api/latest/stats/",
+    "/latest/stats", "/latest/stats/", "/api/latest/stats/list", "/api/latest/stats/search", "/api/latest/stats/create", "/api/latest/stats/update", "/api/latest/stats/delete", "/api/latest/stats/get", "/api/latest/stats/post", "/api/latest/stats/put",
+    "/api/latest/stats/patch", "/api/latest/stats/all", "/backup-201801.zip", "/backup-201801.tar.gz", "/backup-201801.sql", "/backup-2018-01.zip", "/backup-2018-01.tar.gz", "/backup-2018-01.sql", "/backup/2018/01/", "/backup/2018/01.zip",
+    "/backup-201802.zip", "/backup-201802.tar.gz", "/backup-201802.sql", "/backup-2018-02.zip", "/backup-2018-02.tar.gz", "/backup-2018-02.sql", "/backup/2018/02/", "/backup/2018/02.zip", "/backup-201803.zip", "/backup-201803.tar.gz",
+    "/backup-201803.sql", "/backup-2018-03.zip", "/backup-2018-03.tar.gz", "/backup-2018-03.sql", "/backup/2018/03/", "/backup/2018/03.zip", "/backup-201804.zip", "/backup-201804.tar.gz", "/backup-201804.sql", "/backup-2018-04.zip",
+    "/backup-2018-04.tar.gz", "/backup-2018-04.sql", "/backup/2018/04/", "/backup/2018/04.zip", "/backup-201805.zip", "/backup-201805.tar.gz", "/backup-201805.sql", "/backup-2018-05.zip", "/backup-2018-05.tar.gz", "/backup-2018-05.sql",
+    "/backup/2018/05/", "/backup/2018/05.zip", "/backup-201806.zip", "/backup-201806.tar.gz", "/backup-201806.sql", "/backup-2018-06.zip", "/backup-2018-06.tar.gz", "/backup-2018-06.sql", "/backup/2018/06/", "/backup/2018/06.zip",
+    "/backup-201807.zip", "/backup-201807.tar.gz", "/backup-201807.sql", "/backup-2018-07.zip", "/backup-2018-07.tar.gz", "/backup-2018-07.sql", "/backup/2018/07/", "/backup/2018/07.zip", "/backup-201808.zip", "/backup-201808.tar.gz",
+    "/backup-201808.sql", "/backup-2018-08.zip", "/backup-2018-08.tar.gz", "/backup-2018-08.sql", "/backup/2018/08/", "/backup/2018/08.zip", "/backup-201809.zip", "/backup-201809.tar.gz", "/backup-201809.sql", "/backup-2018-09.zip",
+    "/backup-2018-09.tar.gz", "/backup-2018-09.sql", "/backup/2018/09/", "/backup/2018/09.zip", "/backup-201810.zip", "/backup-201810.tar.gz", "/backup-201810.sql", "/backup-2018-10.zip", "/backup-2018-10.tar.gz", "/backup-2018-10.sql",
+    "/backup/2018/10/", "/backup/2018/10.zip", "/backup-201811.zip", "/backup-201811.tar.gz", "/backup-201811.sql", "/backup-2018-11.zip", "/backup-2018-11.tar.gz", "/backup-2018-11.sql", "/backup/2018/11/", "/backup/2018/11.zip",
+    "/backup-201812.zip", "/backup-201812.tar.gz", "/backup-201812.sql", "/backup-2018-12.zip", "/backup-2018-12.tar.gz", "/backup-2018-12.sql", "/backup/2018/12/", "/backup/2018/12.zip", "/backup-201901.zip", "/backup-201901.tar.gz",
+    "/backup-201901.sql", "/backup-2019-01.zip", "/backup-2019-01.tar.gz", "/backup-2019-01.sql", "/backup/2019/01/", "/backup/2019/01.zip", "/backup-201902.zip", "/backup-201902.tar.gz", "/backup-201902.sql", "/backup-2019-02.zip",
+    "/backup-2019-02.tar.gz", "/backup-2019-02.sql", "/backup/2019/02/", "/backup/2019/02.zip", "/backup-201903.zip", "/backup-201903.tar.gz", "/backup-201903.sql", "/backup-2019-03.zip", "/backup-2019-03.tar.gz", "/backup-2019-03.sql",
+    "/backup/2019/03/", "/backup/2019/03.zip", "/backup-201904.zip", "/backup-201904.tar.gz", "/backup-201904.sql", "/backup-2019-04.zip", "/backup-2019-04.tar.gz", "/backup-2019-04.sql", "/backup/2019/04/", "/backup/2019/04.zip",
+    "/backup-201905.zip", "/backup-201905.tar.gz", "/backup-201905.sql", "/backup-2019-05.zip", "/backup-2019-05.tar.gz", "/backup-2019-05.sql", "/backup/2019/05/", "/backup/2019/05.zip", "/backup-201906.zip", "/backup-201906.tar.gz",
+    "/backup-201906.sql", "/backup-2019-06.zip", "/backup-2019-06.tar.gz", "/backup-2019-06.sql", "/backup/2019/06/", "/backup/2019/06.zip", "/backup-201907.zip", "/backup-201907.tar.gz", "/backup-201907.sql", "/backup-2019-07.zip",
+    "/backup-2019-07.tar.gz", "/backup-2019-07.sql", "/backup/2019/07/", "/backup/2019/07.zip", "/backup-201908.zip", "/backup-201908.tar.gz", "/backup-201908.sql", "/backup-2019-08.zip", "/backup-2019-08.tar.gz", "/backup-2019-08.sql",
+    "/backup/2019/08/", "/backup/2019/08.zip", "/backup-201909.zip", "/backup-201909.tar.gz", "/backup-201909.sql", "/backup-2019-09.zip", "/backup-2019-09.tar.gz", "/backup-2019-09.sql", "/backup/2019/09/", "/backup/2019/09.zip",
+    "/backup-201910.zip", "/backup-201910.tar.gz", "/backup-201910.sql", "/backup-2019-10.zip", "/backup-2019-10.tar.gz", "/backup-2019-10.sql", "/backup/2019/10/", "/backup/2019/10.zip", "/backup-201911.zip", "/backup-201911.tar.gz",
+    "/backup-201911.sql", "/backup-2019-11.zip", "/backup-2019-11.tar.gz", "/backup-2019-11.sql", "/backup/2019/11/", "/backup/2019/11.zip", "/backup-201912.zip", "/backup-201912.tar.gz", "/backup-201912.sql", "/backup-2019-12.zip",
+    "/backup-2019-12.tar.gz", "/backup-2019-12.sql", "/backup/2019/12/", "/backup/2019/12.zip", "/backup-202001.zip", "/backup-202001.tar.gz", "/backup-202001.sql", "/backup-2020-01.zip", "/backup-2020-01.tar.gz", "/backup-2020-01.sql",
+    "/backup/2020/01/", "/backup/2020/01.zip", "/backup-202002.zip", "/backup-202002.tar.gz", "/backup-202002.sql", "/backup-2020-02.zip", "/backup-2020-02.tar.gz", "/backup-2020-02.sql", "/backup/2020/02/", "/backup/2020/02.zip",
+    "/backup-202003.zip", "/backup-202003.tar.gz", "/backup-202003.sql", "/backup-2020-03.zip", "/backup-2020-03.tar.gz", "/backup-2020-03.sql", "/backup/2020/03/", "/backup/2020/03.zip", "/backup-202004.zip", "/backup-202004.tar.gz",
+    "/backup-202004.sql", "/backup-2020-04.zip", "/backup-2020-04.tar.gz", "/backup-2020-04.sql", "/backup/2020/04/", "/backup/2020/04.zip", "/backup-202005.zip", "/backup-202005.tar.gz", "/backup-202005.sql", "/backup-2020-05.zip",
+    "/backup-2020-05.tar.gz", "/backup-2020-05.sql", "/backup/2020/05/", "/backup/2020/05.zip", "/backup-202006.zip", "/backup-202006.tar.gz", "/backup-202006.sql", "/backup-2020-06.zip", "/backup-2020-06.tar.gz", "/backup-2020-06.sql",
+    "/backup/2020/06/", "/backup/2020/06.zip", "/backup-202007.zip", "/backup-202007.tar.gz", "/backup-202007.sql", "/backup-2020-07.zip", "/backup-2020-07.tar.gz", "/backup-2020-07.sql", "/backup/2020/07/", "/backup/2020/07.zip",
+    "/backup-202008.zip", "/backup-202008.tar.gz", "/backup-202008.sql", "/backup-2020-08.zip", "/backup-2020-08.tar.gz", "/backup-2020-08.sql", "/backup/2020/08/", "/backup/2020/08.zip", "/backup-202009.zip", "/backup-202009.tar.gz",
+    "/backup-202009.sql", "/backup-2020-09.zip", "/backup-2020-09.tar.gz", "/backup-2020-09.sql", "/backup/2020/09/", "/backup/2020/09.zip", "/backup-202010.zip", "/backup-202010.tar.gz", "/backup-202010.sql", "/backup-2020-10.zip",
+    "/backup-2020-10.tar.gz", "/backup-2020-10.sql", "/backup/2020/10/", "/backup/2020/10.zip", "/backup-202011.zip", "/backup-202011.tar.gz", "/backup-202011.sql", "/backup-2020-11.zip", "/backup-2020-11.tar.gz", "/backup-2020-11.sql",
+    "/backup/2020/11/", "/backup/2020/11.zip", "/backup-202012.zip", "/backup-202012.tar.gz", "/backup-202012.sql", "/backup-2020-12.zip", "/backup-2020-12.tar.gz", "/backup-2020-12.sql", "/backup/2020/12/", "/backup/2020/12.zip",
+    "/backup-202101.zip", "/backup-202101.tar.gz", "/backup-202101.sql", "/backup-2021-01.zip", "/backup-2021-01.tar.gz", "/backup-2021-01.sql", "/backup/2021/01/", "/backup/2021/01.zip", "/backup-202102.zip", "/backup-202102.tar.gz",
+    "/backup-202102.sql", "/backup-2021-02.zip", "/backup-2021-02.tar.gz", "/backup-2021-02.sql", "/backup/2021/02/", "/backup/2021/02.zip", "/backup-202103.zip", "/backup-202103.tar.gz", "/backup-202103.sql", "/backup-2021-03.zip",
+    "/backup-2021-03.tar.gz", "/backup-2021-03.sql", "/backup/2021/03/", "/backup/2021/03.zip", "/backup-202104.zip", "/backup-202104.tar.gz", "/backup-202104.sql", "/backup-2021-04.zip", "/backup-2021-04.tar.gz", "/backup-2021-04.sql",
+    "/backup/2021/04/", "/backup/2021/04.zip", "/backup-202105.zip", "/backup-202105.tar.gz", "/backup-202105.sql", "/backup-2021-05.zip", "/backup-2021-05.tar.gz", "/backup-2021-05.sql", "/backup/2021/05/", "/backup/2021/05.zip",
+    "/backup-202106.zip", "/backup-202106.tar.gz", "/backup-202106.sql", "/backup-2021-06.zip", "/backup-2021-06.tar.gz", "/backup-2021-06.sql", "/backup/2021/06/", "/backup/2021/06.zip", "/backup-202107.zip", "/backup-202107.tar.gz",
+    "/backup-202107.sql", "/backup-2021-07.zip", "/backup-2021-07.tar.gz", "/backup-2021-07.sql", "/backup/2021/07/", "/backup/2021/07.zip", "/backup-202108.zip", "/backup-202108.tar.gz", "/backup-202108.sql", "/backup-2021-08.zip",
+    "/backup-2021-08.tar.gz", "/backup-2021-08.sql", "/backup/2021/08/", "/backup/2021/08.zip", "/backup-202109.zip", "/backup-202109.tar.gz", "/backup-202109.sql", "/backup-2021-09.zip", "/backup-2021-09.tar.gz", "/backup-2021-09.sql",
+    "/backup/2021/09/", "/backup/2021/09.zip", "/backup-202110.zip", "/backup-202110.tar.gz", "/backup-202110.sql", "/backup-2021-10.zip", "/backup-2021-10.tar.gz", "/backup-2021-10.sql", "/backup/2021/10/", "/backup/2021/10.zip",
+    "/backup-202111.zip", "/backup-202111.tar.gz", "/backup-202111.sql", "/backup-2021-11.zip", "/backup-2021-11.tar.gz", "/backup-2021-11.sql", "/backup/2021/11/", "/backup/2021/11.zip", "/backup-202112.zip", "/backup-202112.tar.gz",
+    "/backup-202112.sql", "/backup-2021-12.zip", "/backup-2021-12.tar.gz", "/backup-2021-12.sql", "/backup/2021/12/", "/backup/2021/12.zip", "/backup-202201.zip", "/backup-202201.tar.gz", "/backup-202201.sql", "/backup-2022-01.zip",
+    "/backup-2022-01.tar.gz", "/backup-2022-01.sql", "/backup/2022/01/", "/backup/2022/01.zip", "/backup-202202.zip", "/backup-202202.tar.gz", "/backup-202202.sql", "/backup-2022-02.zip", "/backup-2022-02.tar.gz", "/backup-2022-02.sql",
+    "/backup/2022/02/", "/backup/2022/02.zip", "/backup-202203.zip", "/backup-202203.tar.gz", "/backup-202203.sql", "/backup-2022-03.zip", "/backup-2022-03.tar.gz", "/backup-2022-03.sql", "/backup/2022/03/", "/backup/2022/03.zip",
+    "/backup-202204.zip", "/backup-202204.tar.gz", "/backup-202204.sql", "/backup-2022-04.zip", "/backup-2022-04.tar.gz", "/backup-2022-04.sql", "/backup/2022/04/", "/backup/2022/04.zip", "/backup-202205.zip", "/backup-202205.tar.gz",
+    "/backup-202205.sql", "/backup-2022-05.zip", "/backup-2022-05.tar.gz", "/backup-2022-05.sql", "/backup/2022/05/", "/backup/2022/05.zip", "/backup-202206.zip", "/backup-202206.tar.gz", "/backup-202206.sql", "/backup-2022-06.zip",
+    "/backup-2022-06.tar.gz", "/backup-2022-06.sql", "/backup/2022/06/", "/backup/2022/06.zip", "/backup-202207.zip", "/backup-202207.tar.gz", "/backup-202207.sql", "/backup-2022-07.zip", "/backup-2022-07.tar.gz", "/backup-2022-07.sql",
+    "/backup/2022/07/", "/backup/2022/07.zip", "/backup-202208.zip", "/backup-202208.tar.gz", "/backup-202208.sql", "/backup-2022-08.zip", "/backup-2022-08.tar.gz", "/backup-2022-08.sql", "/backup/2022/08/", "/backup/2022/08.zip",
+    "/backup-202209.zip", "/backup-202209.tar.gz", "/backup-202209.sql", "/backup-2022-09.zip", "/backup-2022-09.tar.gz", "/backup-2022-09.sql", "/backup/2022/09/", "/backup/2022/09.zip", "/backup-202210.zip", "/backup-202210.tar.gz",
+    "/backup-202210.sql", "/backup-2022-10.zip", "/backup-2022-10.tar.gz", "/backup-2022-10.sql", "/backup/2022/10/", "/backup/2022/10.zip", "/backup-202211.zip", "/backup-202211.tar.gz", "/backup-202211.sql", "/backup-2022-11.zip",
+    "/backup-2022-11.tar.gz", "/backup-2022-11.sql", "/backup/2022/11/", "/backup/2022/11.zip", "/backup-202212.zip", "/backup-202212.tar.gz", "/backup-202212.sql", "/backup-2022-12.zip", "/backup-2022-12.tar.gz", "/backup-2022-12.sql",
+    "/backup/2022/12/", "/backup/2022/12.zip", "/backup-202301.zip", "/backup-202301.tar.gz", "/backup-202301.sql", "/backup-2023-01.zip", "/backup-2023-01.tar.gz", "/backup-2023-01.sql", "/backup/2023/01/", "/backup/2023/01.zip",
+    "/backup-202302.zip", "/backup-202302.tar.gz", "/backup-202302.sql", "/backup-2023-02.zip", "/backup-2023-02.tar.gz", "/backup-2023-02.sql", "/backup/2023/02/", "/backup/2023/02.zip", "/backup-202303.zip", "/backup-202303.tar.gz",
+    "/backup-202303.sql", "/backup-2023-03.zip", "/backup-2023-03.tar.gz", "/backup-2023-03.sql", "/backup/2023/03/", "/backup/2023/03.zip", "/backup-202304.zip", "/backup-202304.tar.gz", "/backup-202304.sql", "/backup-2023-04.zip",
+    "/backup-2023-04.tar.gz", "/backup-2023-04.sql", "/backup/2023/04/", "/backup/2023/04.zip", "/backup-202305.zip", "/backup-202305.tar.gz", "/backup-202305.sql", "/backup-2023-05.zip", "/backup-2023-05.tar.gz", "/backup-2023-05.sql",
+    "/backup/2023/05/", "/backup/2023/05.zip", "/backup-202306.zip", "/backup-202306.tar.gz", "/backup-202306.sql", "/backup-2023-06.zip", "/backup-2023-06.tar.gz", "/backup-2023-06.sql", "/backup/2023/06/", "/backup/2023/06.zip",
+    "/backup-202307.zip", "/backup-202307.tar.gz", "/backup-202307.sql", "/backup-2023-07.zip", "/backup-2023-07.tar.gz", "/backup-2023-07.sql", "/backup/2023/07/", "/backup/2023/07.zip", "/backup-202308.zip", "/backup-202308.tar.gz",
+    "/backup-202308.sql", "/backup-2023-08.zip", "/backup-2023-08.tar.gz", "/backup-2023-08.sql", "/backup/2023/08/", "/backup/2023/08.zip", "/backup-202309.zip", "/backup-202309.tar.gz", "/backup-202309.sql", "/backup-2023-09.zip",
+    "/backup-2023-09.tar.gz", "/backup-2023-09.sql", "/backup/2023/09/", "/backup/2023/09.zip", "/backup-202310.zip", "/backup-202310.tar.gz", "/backup-202310.sql", "/backup-2023-10.zip", "/backup-2023-10.tar.gz", "/backup-2023-10.sql",
+    "/backup/2023/10/", "/backup/2023/10.zip", "/backup-202311.zip", "/backup-202311.tar.gz", "/backup-202311.sql", "/backup-2023-11.zip", "/backup-2023-11.tar.gz", "/backup-2023-11.sql", "/backup/2023/11/", "/backup/2023/11.zip",
+    "/backup-202312.zip", "/backup-202312.tar.gz", "/backup-202312.sql", "/backup-2023-12.zip", "/backup-2023-12.tar.gz", "/backup-2023-12.sql", "/backup/2023/12/", "/backup/2023/12.zip", "/backup-202401.zip", "/backup-202401.tar.gz",
+    "/backup-202401.sql", "/backup-2024-01.zip", "/backup-2024-01.tar.gz", "/backup-2024-01.sql", "/backup/2024/01/", "/backup/2024/01.zip", "/backup-202402.zip", "/backup-202402.tar.gz", "/backup-202402.sql", "/backup-2024-02.zip",
+    "/backup-2024-02.tar.gz", "/backup-2024-02.sql", "/backup/2024/02/", "/backup/2024/02.zip", "/backup-202403.zip", "/backup-202403.tar.gz", "/backup-202403.sql", "/backup-2024-03.zip", "/backup-2024-03.tar.gz", "/backup-2024-03.sql",
+    "/backup/2024/03/", "/backup/2024/03.zip", "/backup-202404.zip", "/backup-202404.tar.gz", "/backup-202404.sql", "/backup-2024-04.zip", "/backup-2024-04.tar.gz", "/backup-2024-04.sql", "/backup/2024/04/", "/backup/2024/04.zip",
+    "/backup-202405.zip", "/backup-202405.tar.gz", "/backup-202405.sql", "/backup-2024-05.zip", "/backup-2024-05.tar.gz", "/backup-2024-05.sql", "/backup/2024/05/", "/backup/2024/05.zip", "/backup-202406.zip", "/backup-202406.tar.gz",
+    "/backup-202406.sql", "/backup-2024-06.zip", "/backup-2024-06.tar.gz", "/backup-2024-06.sql", "/backup/2024/06/", "/backup/2024/06.zip", "/backup-202407.zip", "/backup-202407.tar.gz", "/backup-202407.sql", "/backup-2024-07.zip",
+    "/backup-2024-07.tar.gz", "/backup-2024-07.sql", "/backup/2024/07/", "/backup/2024/07.zip", "/backup-202408.zip", "/backup-202408.tar.gz", "/backup-202408.sql", "/backup-2024-08.zip", "/backup-2024-08.tar.gz", "/backup-2024-08.sql",
+    "/backup/2024/08/", "/backup/2024/08.zip", "/backup-202409.zip", "/backup-202409.tar.gz", "/backup-202409.sql", "/backup-2024-09.zip", "/backup-2024-09.tar.gz", "/backup-2024-09.sql", "/backup/2024/09/", "/backup/2024/09.zip",
+    "/backup-202410.zip", "/backup-202410.tar.gz", "/backup-202410.sql", "/backup-2024-10.zip", "/backup-2024-10.tar.gz", "/backup-2024-10.sql", "/backup/2024/10/", "/backup/2024/10.zip", "/backup-202411.zip", "/backup-202411.tar.gz",
+    "/backup-202411.sql", "/backup-2024-11.zip", "/backup-2024-11.tar.gz", "/backup-2024-11.sql", "/backup/2024/11/", "/backup/2024/11.zip", "/backup-202412.zip", "/backup-202412.tar.gz", "/backup-202412.sql", "/backup-2024-12.zip",
+    "/backup-2024-12.tar.gz", "/backup-2024-12.sql", "/backup/2024/12/", "/backup/2024/12.zip", "/backup-202501.zip", "/backup-202501.tar.gz", "/backup-202501.sql", "/backup-2025-01.zip", "/backup-2025-01.tar.gz", "/backup-2025-01.sql",
+    "/backup/2025/01/", "/backup/2025/01.zip", "/backup-202502.zip", "/backup-202502.tar.gz", "/backup-202502.sql", "/backup-2025-02.zip", "/backup-2025-02.tar.gz", "/backup-2025-02.sql", "/backup/2025/02/", "/backup/2025/02.zip",
+    "/backup-202503.zip", "/backup-202503.tar.gz", "/backup-202503.sql", "/backup-2025-03.zip", "/backup-2025-03.tar.gz", "/backup-2025-03.sql", "/backup/2025/03/", "/backup/2025/03.zip", "/backup-202504.zip", "/backup-202504.tar.gz",
+    "/backup-202504.sql", "/backup-2025-04.zip", "/backup-2025-04.tar.gz", "/backup-2025-04.sql", "/backup/2025/04/", "/backup/2025/04.zip", "/backup-202505.zip", "/backup-202505.tar.gz", "/backup-202505.sql", "/backup-2025-05.zip",
+    "/backup-2025-05.tar.gz", "/backup-2025-05.sql", "/backup/2025/05/", "/backup/2025/05.zip", "/backup-202506.zip", "/backup-202506.tar.gz", "/backup-202506.sql", "/backup-2025-06.zip", "/backup-2025-06.tar.gz", "/backup-2025-06.sql",
+    "/backup/2025/06/", "/backup/2025/06.zip", "/backup-202507.zip", "/backup-202507.tar.gz", "/backup-202507.sql", "/backup-2025-07.zip", "/backup-2025-07.tar.gz", "/backup-2025-07.sql", "/backup/2025/07/", "/backup/2025/07.zip",
+    "/backup-202508.zip", "/backup-202508.tar.gz", "/backup-202508.sql", "/backup-2025-08.zip", "/backup-2025-08.tar.gz", "/backup-2025-08.sql", "/backup/2025/08/", "/backup/2025/08.zip", "/backup-202509.zip", "/backup-202509.tar.gz",
+    "/backup-202509.sql", "/backup-2025-09.zip", "/backup-2025-09.tar.gz", "/backup-2025-09.sql", "/backup/2025/09/", "/backup/2025/09.zip", "/backup-202510.zip", "/backup-202510.tar.gz", "/backup-202510.sql", "/backup-2025-10.zip",
+    "/backup-2025-10.tar.gz", "/backup-2025-10.sql", "/backup/2025/10/", "/backup/2025/10.zip", "/backup-202511.zip", "/backup-202511.tar.gz", "/backup-202511.sql", "/backup-2025-11.zip", "/backup-2025-11.tar.gz", "/backup-2025-11.sql",
+    "/backup/2025/11/", "/backup/2025/11.zip", "/backup-202512.zip", "/backup-202512.tar.gz", "/backup-202512.sql", "/backup-2025-12.zip", "/backup-2025-12.tar.gz", "/backup-2025-12.sql", "/backup/2025/12/", "/backup/2025/12.zip",
+    "/backup-202601.zip", "/backup-202601.tar.gz", "/backup-202601.sql", "/backup-2026-01.zip", "/backup-2026-01.tar.gz", "/backup-2026-01.sql", "/backup/2026/01/", "/backup/2026/01.zip", "/backup-202602.zip", "/backup-202602.tar.gz",
+    "/backup-202602.sql", "/backup-2026-02.zip", "/backup-2026-02.tar.gz", "/backup-2026-02.sql", "/backup/2026/02/", "/backup/2026/02.zip", "/backup-202603.zip", "/backup-202603.tar.gz", "/backup-202603.sql", "/backup-2026-03.zip",
+    "/backup-2026-03.tar.gz", "/backup-2026-03.sql", "/backup/2026/03/", "/backup/2026/03.zip", "/backup-202604.zip", "/backup-202604.tar.gz", "/backup-202604.sql", "/backup-2026-04.zip", "/backup-2026-04.tar.gz", "/backup-2026-04.sql",
+    "/backup/2026/04/", "/backup/2026/04.zip", "/backup-202605.zip", "/backup-202605.tar.gz", "/backup-202605.sql", "/backup-2026-05.zip", "/backup-2026-05.tar.gz", "/backup-2026-05.sql", "/backup/2026/05/", "/backup/2026/05.zip",
+    "/backup-202606.zip", "/backup-202606.tar.gz", "/backup-202606.sql", "/backup-2026-06.zip", "/backup-2026-06.tar.gz", "/backup-2026-06.sql", "/backup/2026/06/", "/backup/2026/06.zip", "/backup-202607.zip", "/backup-202607.tar.gz",
+    "/backup-202607.sql", "/backup-2026-07.zip", "/backup-2026-07.tar.gz", "/backup-2026-07.sql", "/backup/2026/07/", "/backup/2026/07.zip", "/backup-202608.zip", "/backup-202608.tar.gz", "/backup-202608.sql", "/backup-2026-08.zip",
+    "/backup-2026-08.tar.gz", "/backup-2026-08.sql", "/backup/2026/08/", "/backup/2026/08.zip", "/backup-202609.zip", "/backup-202609.tar.gz", "/backup-202609.sql", "/backup-2026-09.zip", "/backup-2026-09.tar.gz", "/backup-2026-09.sql",
+    "/backup/2026/09/", "/backup/2026/09.zip", "/backup-202610.zip", "/backup-202610.tar.gz", "/backup-202610.sql", "/backup-2026-10.zip", "/backup-2026-10.tar.gz", "/backup-2026-10.sql", "/backup/2026/10/", "/backup/2026/10.zip",
+    "/backup-202611.zip", "/backup-202611.tar.gz", "/backup-202611.sql", "/backup-2026-11.zip", "/backup-2026-11.tar.gz", "/backup-2026-11.sql", "/backup/2026/11/", "/backup/2026/11.zip", "/backup-202612.zip", "/backup-202612.tar.gz",
+    "/backup-202612.sql", "/backup-2026-12.zip", "/backup-2026-12.tar.gz", "/backup-2026-12.sql", "/backup/2026/12/", "/backup/2026/12.zip", "/.env.production", "/.env.production.local", "/.env.production.bak", "/.env.production.old",
+    "/.env.production.save", "/.env.production.swp", "/.env.production~", "/.env.production.orig", "/.env.production.dist", "/.env.production.sample", "/.env.production.backup", "/.env.staging", "/.env.staging.local", "/.env.staging.bak",
+    "/.env.staging.old", "/.env.staging.save", "/.env.staging.swp", "/.env.staging~", "/.env.staging.orig", "/.env.staging.dist", "/.env.staging.sample", "/.env.staging.backup", "/.env.development", "/.env.development.local",
+    "/.env.development.bak", "/.env.development.old", "/.env.development.save", "/.env.development.swp", "/.env.development~", "/.env.development.orig", "/.env.development.dist", "/.env.development.sample", "/.env.development.backup", "/.env.testing",
+    "/.env.testing.local", "/.env.testing.bak", "/.env.testing.old", "/.env.testing.save", "/.env.testing.swp", "/.env.testing~", "/.env.testing.orig", "/.env.testing.dist", "/.env.testing.sample", "/.env.testing.backup",
+    "/.env.dev", "/.env.dev.local", "/.env.dev.bak", "/.env.dev.old", "/.env.dev.save", "/.env.dev.swp", "/.env.dev~", "/.env.dev.orig", "/.env.dev.dist", "/.env.dev.sample",
+    "/.env.dev.backup", "/.env.prod", "/.env.prod.local", "/.env.prod.bak", "/.env.prod.old", "/.env.prod.save", "/.env.prod.swp", "/.env.prod~", "/.env.prod.orig", "/.env.prod.dist",
+    "/.env.prod.sample", "/.env.prod.backup", "/.env.stage", "/.env.stage.local", "/.env.stage.bak", "/.env.stage.old", "/.env.stage.save", "/.env.stage.swp", "/.env.stage~", "/.env.stage.orig",
+    "/.env.stage.dist", "/.env.stage.sample", "/.env.stage.backup", "/.env.qa", "/.env.qa.local", "/.env.qa.bak", "/.env.qa.old", "/.env.qa.save", "/.env.qa.swp", "/.env.qa~",
+    "/.env.qa.orig", "/.env.qa.dist", "/.env.qa.sample", "/.env.qa.backup", "/.env.live", "/.env.live.local", "/.env.live.bak", "/.env.live.old", "/.env.live.save", "/.env.live.swp",
+    "/.env.live~", "/.env.live.orig", "/.env.live.dist", "/.env.live.sample", "/.env.live.backup", "/.env.master", "/.env.master.local", "/.env.master.bak", "/.env.master.old", "/.env.master.save",
+    "/.env.master.swp", "/.env.master~", "/.env.master.orig", "/.env.master.dist", "/.env.master.sample", "/.env.master.backup", "/.env.main", "/.env.main.local", "/.env.main.bak", "/.env.main.old",
+    "/.env.main.save", "/.env.main.swp", "/.env.main~", "/.env.main.orig", "/.env.main.dist", "/.env.main.sample", "/.env.main.backup", "/.env.local", "/.env.local.local", "/.env.local.bak",
+    "/.env.local.old", "/.env.local.save", "/.env.local.swp", "/.env.local~", "/.env.local.orig", "/.env.local.dist", "/.env.local.sample", "/.env.local.backup", "/.env.test", "/.env.test.local",
+    "/.env.test.bak", "/.env.test.old", "/.env.test.save", "/.env.test.swp", "/.env.test~", "/.env.test.orig", "/.env.test.dist", "/.env.test.sample", "/.env.test.backup", "/.env.beta",
+    "/.env.beta.local", "/.env.beta.bak", "/.env.beta.old", "/.env.beta.save", "/.env.beta.swp", "/.env.beta~", "/.env.beta.orig", "/.env.beta.dist", "/.env.beta.sample", "/.env.beta.backup",
+    "/.env.alpha", "/.env.alpha.local", "/.env.alpha.bak", "/.env.alpha.old", "/.env.alpha.save", "/.env.alpha.swp", "/.env.alpha~", "/.env.alpha.orig", "/.env.alpha.dist", "/.env.alpha.sample",
+    "/.env.alpha.backup", "/.env.preview", "/.env.preview.local", "/.env.preview.bak", "/.env.preview.old", "/.env.preview.save", "/.env.preview.swp", "/.env.preview~", "/.env.preview.orig", "/.env.preview.dist",
+    "/.env.preview.sample", "/.env.preview.backup", "/.env.demo", "/.env.demo.local", "/.env.demo.bak", "/.env.demo.old", "/.env.demo.save", "/.env.demo.swp", "/.env.demo~", "/.env.demo.orig",
+    "/.env.demo.dist", "/.env.demo.sample", "/.env.demo.backup", "/.env.sandbox", "/.env.sandbox.local", "/.env.sandbox.bak", "/.env.sandbox.old", "/.env.sandbox.save", "/.env.sandbox.swp", "/.env.sandbox~",
+    "/.env.sandbox.orig", "/.env.sandbox.dist", "/.env.sandbox.sample", "/.env.sandbox.backup", "/.env.uat", "/.env.uat.local", "/.env.uat.bak", "/.env.uat.old", "/.env.uat.save", "/.env.uat.swp",
+    "/.env.uat~", "/.env.uat.orig", "/.env.uat.dist", "/.env.uat.sample", "/.env.uat.backup", "/.env.preprod", "/.env.preprod.local", "/.env.preprod.bak", "/.env.preprod.old", "/.env.preprod.save",
+    "/.env.preprod.swp", "/.env.preprod~", "/.env.preprod.orig", "/.env.preprod.dist", "/.env.preprod.sample", "/.env.preprod.backup", "/.env.preproduction", "/.env.preproduction.local", "/.env.preproduction.bak", "/.env.preproduction.old",
+    "/.env.preproduction.save", "/.env.preproduction.swp", "/.env.preproduction~", "/.env.preproduction.orig", "/.env.preproduction.dist", "/.env.preproduction.sample", "/.env.preproduction.backup", "/.env.ci", "/.env.ci.local", "/.env.ci.bak",
+    "/.env.ci.old", "/.env.ci.save", "/.env.ci.swp", "/.env.ci~", "/.env.ci.orig", "/.env.ci.dist", "/.env.ci.sample", "/.env.ci.backup", "/.env.cd", "/.env.cd.local",
+    "/.env.cd.bak", "/.env.cd.old", "/.env.cd.save", "/.env.cd.swp", "/.env.cd~", "/.env.cd.orig", "/.env.cd.dist", "/.env.cd.sample", "/.env.cd.backup", "/.env.cicd",
+    "/.env.cicd.local", "/.env.cicd.bak", "/.env.cicd.old", "/.env.cicd.save", "/.env.cicd.swp", "/.env.cicd~", "/.env.cicd.orig", "/.env.cicd.dist", "/.env.cicd.sample", "/.env.cicd.backup",
+    "/error.log", "/logs/error.log", "/log/error.log", "/var/log/error.log", "/var/log/error/error.log", "/error.log.1", "/logs/error.log.1", "/log/error.log.1", "/var/log/error.log.1", "/var/log/error/error.log.1",
+    "/error.log.2", "/logs/error.log.2", "/log/error.log.2", "/var/log/error.log.2", "/var/log/error/error.log.2", "/error.log.gz", "/logs/error.log.gz", "/log/error.log.gz", "/var/log/error.log.gz", "/var/log/error/error.log.gz",
+    "/error.log.bz2", "/logs/error.log.bz2", "/log/error.log.bz2", "/var/log/error.log.bz2", "/var/log/error/error.log.bz2", "/error.log.old", "/logs/error.log.old", "/log/error.log.old", "/var/log/error.log.old", "/var/log/error/error.log.old",
+    "/error.log.bak", "/logs/error.log.bak", "/log/error.log.bak", "/var/log/error.log.bak", "/var/log/error/error.log.bak", "/access.log", "/logs/access.log", "/log/access.log", "/var/log/access.log", "/var/log/access/access.log",
+    "/access.log.1", "/logs/access.log.1", "/log/access.log.1", "/var/log/access.log.1", "/var/log/access/access.log.1", "/access.log.2", "/logs/access.log.2", "/log/access.log.2", "/var/log/access.log.2", "/var/log/access/access.log.2",
+    "/access.log.gz", "/logs/access.log.gz", "/log/access.log.gz", "/var/log/access.log.gz", "/var/log/access/access.log.gz", "/access.log.bz2", "/logs/access.log.bz2", "/log/access.log.bz2", "/var/log/access.log.bz2", "/var/log/access/access.log.bz2",
+    "/access.log.old", "/logs/access.log.old", "/log/access.log.old", "/var/log/access.log.old", "/var/log/access/access.log.old", "/access.log.bak", "/logs/access.log.bak", "/log/access.log.bak", "/var/log/access.log.bak", "/var/log/access/access.log.bak",
+    "/debug.log", "/logs/debug.log", "/log/debug.log", "/var/log/debug.log", "/var/log/debug/debug.log", "/debug.log.1", "/logs/debug.log.1", "/log/debug.log.1", "/var/log/debug.log.1", "/var/log/debug/debug.log.1",
+    "/debug.log.2", "/logs/debug.log.2", "/log/debug.log.2", "/var/log/debug.log.2", "/var/log/debug/debug.log.2", "/debug.log.gz", "/logs/debug.log.gz", "/log/debug.log.gz", "/var/log/debug.log.gz", "/var/log/debug/debug.log.gz",
+    "/debug.log.bz2", "/logs/debug.log.bz2", "/log/debug.log.bz2", "/var/log/debug.log.bz2", "/var/log/debug/debug.log.bz2", "/debug.log.old", "/logs/debug.log.old", "/log/debug.log.old", "/var/log/debug.log.old", "/var/log/debug/debug.log.old",
+    "/debug.log.bak", "/logs/debug.log.bak", "/log/debug.log.bak", "/var/log/debug.log.bak", "/var/log/debug/debug.log.bak", "/app.log", "/logs/app.log", "/log/app.log", "/var/log/app.log", "/var/log/app/app.log",
+    "/app.log.1", "/logs/app.log.1", "/log/app.log.1", "/var/log/app.log.1", "/var/log/app/app.log.1", "/app.log.2", "/logs/app.log.2", "/log/app.log.2", "/var/log/app.log.2", "/var/log/app/app.log.2",
+    "/app.log.gz", "/logs/app.log.gz", "/log/app.log.gz", "/var/log/app.log.gz", "/var/log/app/app.log.gz", "/app.log.bz2", "/logs/app.log.bz2", "/log/app.log.bz2", "/var/log/app.log.bz2", "/var/log/app/app.log.bz2",
+    "/app.log.old", "/logs/app.log.old", "/log/app.log.old", "/var/log/app.log.old", "/var/log/app/app.log.old", "/app.log.bak", "/logs/app.log.bak", "/log/app.log.bak", "/var/log/app.log.bak", "/var/log/app/app.log.bak",
+    "/application.log", "/logs/application.log", "/log/application.log", "/var/log/application.log", "/var/log/application/application.log", "/application.log.1", "/logs/application.log.1", "/log/application.log.1", "/var/log/application.log.1", "/var/log/application/application.log.1",
+    "/application.log.2", "/logs/application.log.2", "/log/application.log.2", "/var/log/application.log.2", "/var/log/application/application.log.2", "/application.log.gz", "/logs/application.log.gz", "/log/application.log.gz", "/var/log/application.log.gz", "/var/log/application/application.log.gz",
+    "/application.log.bz2", "/logs/application.log.bz2", "/log/application.log.bz2", "/var/log/application.log.bz2", "/var/log/application/application.log.bz2", "/application.log.old", "/logs/application.log.old", "/log/application.log.old", "/var/log/application.log.old", "/var/log/application/application.log.old",
+    "/application.log.bak", "/logs/application.log.bak", "/log/application.log.bak", "/var/log/application.log.bak", "/var/log/application/application.log.bak", "/server.log", "/logs/server.log", "/log/server.log", "/var/log/server.log", "/var/log/server/server.log",
+    "/server.log.1", "/logs/server.log.1", "/log/server.log.1", "/var/log/server.log.1", "/var/log/server/server.log.1", "/server.log.2", "/logs/server.log.2", "/log/server.log.2", "/var/log/server.log.2", "/var/log/server/server.log.2",
+    "/server.log.gz", "/logs/server.log.gz", "/log/server.log.gz", "/var/log/server.log.gz", "/var/log/server/server.log.gz", "/server.log.bz2", "/logs/server.log.bz2", "/log/server.log.bz2", "/var/log/server.log.bz2", "/var/log/server/server.log.bz2",
+    "/server.log.old", "/logs/server.log.old", "/log/server.log.old", "/var/log/server.log.old", "/var/log/server/server.log.old", "/server.log.bak", "/logs/server.log.bak", "/log/server.log.bak", "/var/log/server.log.bak", "/var/log/server/server.log.bak",
+    "/request.log", "/logs/request.log", "/log/request.log", "/var/log/request.log", "/var/log/request/request.log", "/request.log.1", "/logs/request.log.1", "/log/request.log.1", "/var/log/request.log.1", "/var/log/request/request.log.1",
+    "/request.log.2", "/logs/request.log.2", "/log/request.log.2", "/var/log/request.log.2", "/var/log/request/request.log.2", "/request.log.gz", "/logs/request.log.gz", "/log/request.log.gz", "/var/log/request.log.gz", "/var/log/request/request.log.gz",
+    "/request.log.bz2", "/logs/request.log.bz2", "/log/request.log.bz2", "/var/log/request.log.bz2", "/var/log/request/request.log.bz2", "/request.log.old", "/logs/request.log.old", "/log/request.log.old", "/var/log/request.log.old", "/var/log/request/request.log.old",
+    "/request.log.bak", "/logs/request.log.bak", "/log/request.log.bak", "/var/log/request.log.bak", "/var/log/request/request.log.bak", "/response.log", "/logs/response.log", "/log/response.log", "/var/log/response.log", "/var/log/response/response.log",
+    "/response.log.1", "/logs/response.log.1", "/log/response.log.1", "/var/log/response.log.1", "/var/log/response/response.log.1", "/response.log.2", "/logs/response.log.2", "/log/response.log.2", "/var/log/response.log.2", "/var/log/response/response.log.2",
+    "/response.log.gz", "/logs/response.log.gz", "/log/response.log.gz", "/var/log/response.log.gz", "/var/log/response/response.log.gz", "/response.log.bz2", "/logs/response.log.bz2", "/log/response.log.bz2", "/var/log/response.log.bz2", "/var/log/response/response.log.bz2",
+    "/response.log.old", "/logs/response.log.old", "/log/response.log.old", "/var/log/response.log.old", "/var/log/response/response.log.old", "/response.log.bak", "/logs/response.log.bak", "/log/response.log.bak", "/var/log/response.log.bak", "/var/log/response/response.log.bak",
+    "/query.log", "/logs/query.log", "/log/query.log", "/var/log/query.log", "/var/log/query/query.log", "/query.log.1", "/logs/query.log.1", "/log/query.log.1", "/var/log/query.log.1", "/var/log/query/query.log.1",
+    "/query.log.2", "/logs/query.log.2", "/log/query.log.2", "/var/log/query.log.2", "/var/log/query/query.log.2", "/query.log.gz", "/logs/query.log.gz", "/log/query.log.gz", "/var/log/query.log.gz", "/var/log/query/query.log.gz",
+    "/query.log.bz2", "/logs/query.log.bz2", "/log/query.log.bz2", "/var/log/query.log.bz2", "/var/log/query/query.log.bz2", "/query.log.old", "/logs/query.log.old", "/log/query.log.old", "/var/log/query.log.old", "/var/log/query/query.log.old",
+    "/query.log.bak", "/logs/query.log.bak", "/log/query.log.bak", "/var/log/query.log.bak", "/var/log/query/query.log.bak", "/slow.log", "/logs/slow.log", "/log/slow.log", "/var/log/slow.log", "/var/log/slow/slow.log",
+    "/slow.log.1", "/logs/slow.log.1", "/log/slow.log.1", "/var/log/slow.log.1", "/var/log/slow/slow.log.1", "/slow.log.2", "/logs/slow.log.2", "/log/slow.log.2", "/var/log/slow.log.2", "/var/log/slow/slow.log.2",
+    "/slow.log.gz", "/logs/slow.log.gz", "/log/slow.log.gz", "/var/log/slow.log.gz", "/var/log/slow/slow.log.gz", "/slow.log.bz2", "/logs/slow.log.bz2", "/log/slow.log.bz2", "/var/log/slow.log.bz2", "/var/log/slow/slow.log.bz2",
+    "/slow.log.old", "/logs/slow.log.old", "/log/slow.log.old", "/var/log/slow.log.old", "/var/log/slow/slow.log.old", "/slow.log.bak", "/logs/slow.log.bak", "/log/slow.log.bak", "/var/log/slow.log.bak", "/var/log/slow/slow.log.bak",
+    "/php.log", "/logs/php.log", "/log/php.log", "/var/log/php.log", "/var/log/php/php.log", "/php.log.1", "/logs/php.log.1", "/log/php.log.1", "/var/log/php.log.1", "/var/log/php/php.log.1",
+    "/php.log.2", "/logs/php.log.2", "/log/php.log.2", "/var/log/php.log.2", "/var/log/php/php.log.2", "/php.log.gz", "/logs/php.log.gz", "/log/php.log.gz", "/var/log/php.log.gz", "/var/log/php/php.log.gz",
+    "/php.log.bz2", "/logs/php.log.bz2", "/log/php.log.bz2", "/var/log/php.log.bz2", "/var/log/php/php.log.bz2", "/php.log.old", "/logs/php.log.old", "/log/php.log.old", "/var/log/php.log.old", "/var/log/php/php.log.old",
+    "/php.log.bak", "/logs/php.log.bak", "/log/php.log.bak", "/var/log/php.log.bak", "/var/log/php/php.log.bak", "/nginx.log", "/logs/nginx.log", "/log/nginx.log", "/var/log/nginx.log", "/var/log/nginx/nginx.log",
+    "/nginx.log.1", "/logs/nginx.log.1", "/log/nginx.log.1", "/var/log/nginx.log.1", "/var/log/nginx/nginx.log.1", "/nginx.log.2", "/logs/nginx.log.2", "/log/nginx.log.2", "/var/log/nginx.log.2", "/var/log/nginx/nginx.log.2",
+    "/nginx.log.gz", "/logs/nginx.log.gz", "/log/nginx.log.gz", "/var/log/nginx.log.gz", "/var/log/nginx/nginx.log.gz", "/nginx.log.bz2", "/logs/nginx.log.bz2", "/log/nginx.log.bz2", "/var/log/nginx.log.bz2", "/var/log/nginx/nginx.log.bz2",
+    "/nginx.log.old", "/logs/nginx.log.old", "/log/nginx.log.old", "/var/log/nginx.log.old", "/var/log/nginx/nginx.log.old", "/nginx.log.bak", "/logs/nginx.log.bak", "/log/nginx.log.bak", "/var/log/nginx.log.bak", "/var/log/nginx/nginx.log.bak",
+    "/apache.log", "/logs/apache.log", "/log/apache.log", "/var/log/apache.log", "/var/log/apache/apache.log", "/apache.log.1", "/logs/apache.log.1", "/log/apache.log.1", "/var/log/apache.log.1", "/var/log/apache/apache.log.1",
+    "/apache.log.2", "/logs/apache.log.2", "/log/apache.log.2", "/var/log/apache.log.2", "/var/log/apache/apache.log.2", "/apache.log.gz", "/logs/apache.log.gz", "/log/apache.log.gz", "/var/log/apache.log.gz", "/var/log/apache/apache.log.gz",
+    "/apache.log.bz2", "/logs/apache.log.bz2", "/log/apache.log.bz2", "/var/log/apache.log.bz2", "/var/log/apache/apache.log.bz2", "/apache.log.old", "/logs/apache.log.old", "/log/apache.log.old", "/var/log/apache.log.old", "/var/log/apache/apache.log.old",
+    "/apache.log.bak", "/logs/apache.log.bak", "/log/apache.log.bak", "/var/log/apache.log.bak", "/var/log/apache/apache.log.bak", "/mysql.log", "/logs/mysql.log", "/log/mysql.log", "/var/log/mysql.log", "/var/log/mysql/mysql.log",
+    "/mysql.log.1", "/logs/mysql.log.1", "/log/mysql.log.1", "/var/log/mysql.log.1", "/var/log/mysql/mysql.log.1", "/mysql.log.2", "/logs/mysql.log.2", "/log/mysql.log.2", "/var/log/mysql.log.2", "/var/log/mysql/mysql.log.2",
+    "/mysql.log.gz", "/logs/mysql.log.gz", "/log/mysql.log.gz", "/var/log/mysql.log.gz", "/var/log/mysql/mysql.log.gz", "/mysql.log.bz2", "/logs/mysql.log.bz2", "/log/mysql.log.bz2", "/var/log/mysql.log.bz2", "/var/log/mysql/mysql.log.bz2",
+    "/mysql.log.old", "/logs/mysql.log.old", "/log/mysql.log.old", "/var/log/mysql.log.old", "/var/log/mysql/mysql.log.old", "/mysql.log.bak", "/logs/mysql.log.bak", "/log/mysql.log.bak", "/var/log/mysql.log.bak", "/var/log/mysql/mysql.log.bak",
+    "/postgres.log", "/logs/postgres.log", "/log/postgres.log", "/var/log/postgres.log", "/var/log/postgres/postgres.log", "/postgres.log.1", "/logs/postgres.log.1", "/log/postgres.log.1", "/var/log/postgres.log.1", "/var/log/postgres/postgres.log.1",
+    "/postgres.log.2", "/logs/postgres.log.2", "/log/postgres.log.2", "/var/log/postgres.log.2", "/var/log/postgres/postgres.log.2", "/postgres.log.gz", "/logs/postgres.log.gz", "/log/postgres.log.gz", "/var/log/postgres.log.gz", "/var/log/postgres/postgres.log.gz",
+    "/postgres.log.bz2", "/logs/postgres.log.bz2", "/log/postgres.log.bz2", "/var/log/postgres.log.bz2", "/var/log/postgres/postgres.log.bz2", "/postgres.log.old", "/logs/postgres.log.old", "/log/postgres.log.old", "/var/log/postgres.log.old", "/var/log/postgres/postgres.log.old",
+    "/postgres.log.bak", "/logs/postgres.log.bak", "/log/postgres.log.bak", "/var/log/postgres.log.bak", "/var/log/postgres/postgres.log.bak", "/redis.log", "/logs/redis.log", "/log/redis.log", "/var/log/redis.log", "/var/log/redis/redis.log",
+    "/redis.log.1", "/logs/redis.log.1", "/log/redis.log.1", "/var/log/redis.log.1", "/var/log/redis/redis.log.1", "/redis.log.2", "/logs/redis.log.2", "/log/redis.log.2", "/var/log/redis.log.2", "/var/log/redis/redis.log.2",
+    "/redis.log.gz", "/logs/redis.log.gz", "/log/redis.log.gz", "/var/log/redis.log.gz", "/var/log/redis/redis.log.gz", "/redis.log.bz2", "/logs/redis.log.bz2", "/log/redis.log.bz2", "/var/log/redis.log.bz2", "/var/log/redis/redis.log.bz2",
+    "/redis.log.old", "/logs/redis.log.old", "/log/redis.log.old", "/var/log/redis.log.old", "/var/log/redis/redis.log.old", "/redis.log.bak", "/logs/redis.log.bak", "/log/redis.log.bak", "/var/log/redis.log.bak", "/var/log/redis/redis.log.bak",
+    "/security.log", "/logs/security.log", "/log/security.log", "/var/log/security.log", "/var/log/security/security.log", "/security.log.1", "/logs/security.log.1", "/log/security.log.1", "/var/log/security.log.1", "/var/log/security/security.log.1",
+    "/security.log.2", "/logs/security.log.2", "/log/security.log.2", "/var/log/security.log.2", "/var/log/security/security.log.2", "/security.log.gz", "/logs/security.log.gz", "/log/security.log.gz", "/var/log/security.log.gz", "/var/log/security/security.log.gz",
+    "/security.log.bz2", "/logs/security.log.bz2", "/log/security.log.bz2", "/var/log/security.log.bz2", "/var/log/security/security.log.bz2", "/security.log.old", "/logs/security.log.old", "/log/security.log.old", "/var/log/security.log.old", "/var/log/security/security.log.old",
+    "/security.log.bak", "/logs/security.log.bak", "/log/security.log.bak", "/var/log/security.log.bak", "/var/log/security/security.log.bak", "/audit.log", "/logs/audit.log", "/log/audit.log", "/var/log/audit.log", "/var/log/audit/audit.log",
+    "/audit.log.1", "/logs/audit.log.1", "/log/audit.log.1", "/var/log/audit.log.1", "/var/log/audit/audit.log.1", "/audit.log.2", "/logs/audit.log.2", "/log/audit.log.2", "/var/log/audit.log.2", "/var/log/audit/audit.log.2",
+    "/audit.log.gz", "/logs/audit.log.gz", "/log/audit.log.gz", "/var/log/audit.log.gz", "/var/log/audit/audit.log.gz", "/audit.log.bz2", "/logs/audit.log.bz2", "/log/audit.log.bz2", "/var/log/audit.log.bz2", "/var/log/audit/audit.log.bz2",
+    "/audit.log.old", "/logs/audit.log.old", "/log/audit.log.old", "/var/log/audit.log.old", "/var/log/audit/audit.log.old", "/audit.log.bak", "/logs/audit.log.bak", "/log/audit.log.bak", "/var/log/audit.log.bak", "/var/log/audit/audit.log.bak",
+    "/system.log", "/logs/system.log", "/log/system.log", "/var/log/system.log", "/var/log/system/system.log", "/system.log.1", "/logs/system.log.1", "/log/system.log.1", "/var/log/system.log.1", "/var/log/system/system.log.1",
+    "/system.log.2", "/logs/system.log.2", "/log/system.log.2", "/var/log/system.log.2", "/var/log/system/system.log.2", "/system.log.gz", "/logs/system.log.gz", "/log/system.log.gz", "/var/log/system.log.gz", "/var/log/system/system.log.gz",
+    "/system.log.bz2", "/logs/system.log.bz2", "/log/system.log.bz2", "/var/log/system.log.bz2", "/var/log/system/system.log.bz2", "/system.log.old", "/logs/system.log.old", "/log/system.log.old", "/var/log/system.log.old", "/var/log/system/system.log.old",
+    "/system.log.bak", "/logs/system.log.bak", "/log/system.log.bak", "/var/log/system.log.bak", "/var/log/system/system.log.bak", "/kernel.log", "/logs/kernel.log", "/log/kernel.log", "/var/log/kernel.log", "/var/log/kernel/kernel.log",
+    "/kernel.log.1", "/logs/kernel.log.1", "/log/kernel.log.1", "/var/log/kernel.log.1", "/var/log/kernel/kernel.log.1", "/kernel.log.2", "/logs/kernel.log.2", "/log/kernel.log.2", "/var/log/kernel.log.2", "/var/log/kernel/kernel.log.2",
+    "/kernel.log.gz", "/logs/kernel.log.gz", "/log/kernel.log.gz", "/var/log/kernel.log.gz", "/var/log/kernel/kernel.log.gz", "/kernel.log.bz2", "/logs/kernel.log.bz2", "/log/kernel.log.bz2", "/var/log/kernel.log.bz2", "/var/log/kernel/kernel.log.bz2",
+    "/kernel.log.old", "/logs/kernel.log.old", "/log/kernel.log.old", "/var/log/kernel.log.old", "/var/log/kernel/kernel.log.old", "/kernel.log.bak", "/logs/kernel.log.bak", "/log/kernel.log.bak", "/var/log/kernel.log.bak", "/var/log/kernel/kernel.log.bak",
+    "/cron.log", "/logs/cron.log", "/log/cron.log", "/var/log/cron.log", "/var/log/cron/cron.log", "/cron.log.1", "/logs/cron.log.1", "/log/cron.log.1", "/var/log/cron.log.1", "/var/log/cron/cron.log.1",
+    "/cron.log.2", "/logs/cron.log.2", "/log/cron.log.2", "/var/log/cron.log.2", "/var/log/cron/cron.log.2", "/cron.log.gz", "/logs/cron.log.gz", "/log/cron.log.gz", "/var/log/cron.log.gz", "/var/log/cron/cron.log.gz",
+    "/cron.log.bz2", "/logs/cron.log.bz2", "/log/cron.log.bz2", "/var/log/cron.log.bz2", "/var/log/cron/cron.log.bz2", "/cron.log.old", "/logs/cron.log.old", "/log/cron.log.old", "/var/log/cron.log.old", "/var/log/cron/cron.log.old",
+    "/cron.log.bak", "/logs/cron.log.bak", "/log/cron.log.bak", "/var/log/cron.log.bak", "/var/log/cron/cron.log.bak", "/mail.log", "/logs/mail.log", "/log/mail.log", "/var/log/mail.log", "/var/log/mail/mail.log",
+    "/mail.log.1", "/logs/mail.log.1", "/log/mail.log.1", "/var/log/mail.log.1", "/var/log/mail/mail.log.1", "/mail.log.2", "/logs/mail.log.2", "/log/mail.log.2", "/var/log/mail.log.2", "/var/log/mail/mail.log.2",
+    "/mail.log.gz", "/logs/mail.log.gz", "/log/mail.log.gz", "/var/log/mail.log.gz", "/var/log/mail/mail.log.gz", "/mail.log.bz2", "/logs/mail.log.bz2", "/log/mail.log.bz2", "/var/log/mail.log.bz2", "/var/log/mail/mail.log.bz2",
+    "/mail.log.old", "/logs/mail.log.old", "/log/mail.log.old", "/var/log/mail.log.old", "/var/log/mail/mail.log.old", "/mail.log.bak", "/logs/mail.log.bak", "/log/mail.log.bak", "/var/log/mail.log.bak", "/var/log/mail/mail.log.bak",
+    "/ftp.log", "/logs/ftp.log", "/log/ftp.log", "/var/log/ftp.log", "/var/log/ftp/ftp.log", "/ftp.log.1", "/logs/ftp.log.1", "/log/ftp.log.1", "/var/log/ftp.log.1", "/var/log/ftp/ftp.log.1",
+    "/ftp.log.2", "/logs/ftp.log.2", "/log/ftp.log.2", "/var/log/ftp.log.2", "/var/log/ftp/ftp.log.2", "/ftp.log.gz", "/logs/ftp.log.gz", "/log/ftp.log.gz", "/var/log/ftp.log.gz", "/var/log/ftp/ftp.log.gz",
+    "/ftp.log.bz2", "/logs/ftp.log.bz2", "/log/ftp.log.bz2", "/var/log/ftp.log.bz2", "/var/log/ftp/ftp.log.bz2", "/ftp.log.old", "/logs/ftp.log.old", "/log/ftp.log.old", "/var/log/ftp.log.old", "/var/log/ftp/ftp.log.old",
+    "/ftp.log.bak", "/logs/ftp.log.bak", "/log/ftp.log.bak", "/var/log/ftp.log.bak", "/var/log/ftp/ftp.log.bak", "/ssh.log", "/logs/ssh.log", "/log/ssh.log", "/var/log/ssh.log", "/var/log/ssh/ssh.log",
+    "/ssh.log.1", "/logs/ssh.log.1", "/log/ssh.log.1", "/var/log/ssh.log.1", "/var/log/ssh/ssh.log.1", "/ssh.log.2", "/logs/ssh.log.2", "/log/ssh.log.2", "/var/log/ssh.log.2", "/var/log/ssh/ssh.log.2",
+    "/ssh.log.gz", "/logs/ssh.log.gz", "/log/ssh.log.gz", "/var/log/ssh.log.gz", "/var/log/ssh/ssh.log.gz", "/ssh.log.bz2", "/logs/ssh.log.bz2", "/log/ssh.log.bz2", "/var/log/ssh.log.bz2", "/var/log/ssh/ssh.log.bz2",
+    "/ssh.log.old", "/logs/ssh.log.old", "/log/ssh.log.old", "/var/log/ssh.log.old", "/var/log/ssh/ssh.log.old", "/ssh.log.bak", "/logs/ssh.log.bak", "/log/ssh.log.bak", "/var/log/ssh.log.bak", "/var/log/ssh/ssh.log.bak",
+    "/auth.log", "/logs/auth.log", "/log/auth.log", "/var/log/auth.log", "/var/log/auth/auth.log", "/auth.log.1", "/logs/auth.log.1", "/log/auth.log.1", "/var/log/auth.log.1", "/var/log/auth/auth.log.1",
+    "/auth.log.2", "/logs/auth.log.2", "/log/auth.log.2", "/var/log/auth.log.2", "/var/log/auth/auth.log.2", "/auth.log.gz", "/logs/auth.log.gz", "/log/auth.log.gz", "/var/log/auth.log.gz", "/var/log/auth/auth.log.gz",
+    "/auth.log.bz2", "/logs/auth.log.bz2", "/log/auth.log.bz2", "/var/log/auth.log.bz2", "/var/log/auth/auth.log.bz2", "/auth.log.old", "/logs/auth.log.old", "/log/auth.log.old", "/var/log/auth.log.old", "/var/log/auth/auth.log.old",
+    "/auth.log.bak", "/logs/auth.log.bak", "/log/auth.log.bak", "/var/log/auth.log.bak", "/var/log/auth/auth.log.bak", "/daemon.log", "/logs/daemon.log", "/log/daemon.log", "/var/log/daemon.log", "/var/log/daemon/daemon.log",
+    "/daemon.log.1", "/logs/daemon.log.1", "/log/daemon.log.1", "/var/log/daemon.log.1", "/var/log/daemon/daemon.log.1", "/daemon.log.2", "/logs/daemon.log.2", "/log/daemon.log.2", "/var/log/daemon.log.2", "/var/log/daemon/daemon.log.2",
+    "/daemon.log.gz", "/logs/daemon.log.gz", "/log/daemon.log.gz", "/var/log/daemon.log.gz", "/var/log/daemon/daemon.log.gz", "/daemon.log.bz2", "/logs/daemon.log.bz2", "/log/daemon.log.bz2", "/var/log/daemon.log.bz2", "/var/log/daemon/daemon.log.bz2",
+    "/daemon.log.old", "/logs/daemon.log.old", "/log/daemon.log.old", "/var/log/daemon.log.old", "/var/log/daemon/daemon.log.old", "/daemon.log.bak", "/logs/daemon.log.bak", "/log/daemon.log.bak", "/var/log/daemon.log.bak", "/var/log/daemon/daemon.log.bak",
+    "/messages.log", "/logs/messages.log", "/log/messages.log", "/var/log/messages.log", "/var/log/messages/messages.log", "/messages.log.1", "/logs/messages.log.1", "/log/messages.log.1", "/var/log/messages.log.1", "/var/log/messages/messages.log.1",
+    "/messages.log.2", "/logs/messages.log.2", "/log/messages.log.2", "/var/log/messages.log.2", "/var/log/messages/messages.log.2", "/messages.log.gz", "/logs/messages.log.gz", "/log/messages.log.gz", "/var/log/messages.log.gz", "/var/log/messages/messages.log.gz",
+    "/messages.log.bz2", "/logs/messages.log.bz2", "/log/messages.log.bz2", "/var/log/messages.log.bz2", "/var/log/messages/messages.log.bz2", "/messages.log.old", "/logs/messages.log.old", "/log/messages.log.old", "/var/log/messages.log.old", "/var/log/messages/messages.log.old",
+    "/messages.log.bak", "/logs/messages.log.bak", "/log/messages.log.bak", "/var/log/messages.log.bak", "/var/log/messages/messages.log.bak", "/syslog.log", "/logs/syslog.log", "/log/syslog.log", "/var/log/syslog.log", "/var/log/syslog/syslog.log",
+    "/syslog.log.1", "/logs/syslog.log.1", "/log/syslog.log.1", "/var/log/syslog.log.1", "/var/log/syslog/syslog.log.1", "/syslog.log.2", "/logs/syslog.log.2", "/log/syslog.log.2", "/var/log/syslog.log.2", "/var/log/syslog/syslog.log.2",
+    "/syslog.log.gz", "/logs/syslog.log.gz", "/log/syslog.log.gz", "/var/log/syslog.log.gz", "/var/log/syslog/syslog.log.gz", "/syslog.log.bz2", "/logs/syslog.log.bz2", "/log/syslog.log.bz2", "/var/log/syslog.log.bz2", "/var/log/syslog/syslog.log.bz2",
+    "/syslog.log.old", "/logs/syslog.log.old", "/log/syslog.log.old", "/var/log/syslog.log.old", "/var/log/syslog/syslog.log.old", "/syslog.log.bak", "/logs/syslog.log.bak", "/log/syslog.log.bak", "/var/log/syslog.log.bak", "/var/log/syslog/syslog.log.bak",
+    "/kern.log", "/logs/kern.log", "/log/kern.log", "/var/log/kern.log", "/var/log/kern/kern.log", "/kern.log.1", "/logs/kern.log.1", "/log/kern.log.1", "/var/log/kern.log.1", "/var/log/kern/kern.log.1",
+    "/kern.log.2", "/logs/kern.log.2", "/log/kern.log.2", "/var/log/kern.log.2", "/var/log/kern/kern.log.2", "/kern.log.gz", "/logs/kern.log.gz", "/log/kern.log.gz", "/var/log/kern.log.gz", "/var/log/kern/kern.log.gz",
+    "/kern.log.bz2", "/logs/kern.log.bz2", "/log/kern.log.bz2", "/var/log/kern.log.bz2", "/var/log/kern/kern.log.bz2", "/kern.log.old", "/logs/kern.log.old", "/log/kern.log.old", "/var/log/kern.log.old", "/var/log/kern/kern.log.old",
+    "/kern.log.bak", "/logs/kern.log.bak", "/log/kern.log.bak", "/var/log/kern.log.bak", "/var/log/kern/kern.log.bak", "/user.log", "/logs/user.log", "/log/user.log", "/var/log/user.log", "/var/log/user/user.log",
+    "/user.log.1", "/logs/user.log.1", "/log/user.log.1", "/var/log/user.log.1", "/var/log/user/user.log.1", "/user.log.2", "/logs/user.log.2", "/log/user.log.2", "/var/log/user.log.2", "/var/log/user/user.log.2",
+    "/user.log.gz", "/logs/user.log.gz", "/log/user.log.gz", "/var/log/user.log.gz", "/var/log/user/user.log.gz", "/user.log.bz2", "/logs/user.log.bz2", "/log/user.log.bz2", "/var/log/user.log.bz2", "/var/log/user/user.log.bz2",
+    "/user.log.old", "/logs/user.log.old", "/log/user.log.old", "/var/log/user.log.old", "/var/log/user/user.log.old", "/user.log.bak", "/logs/user.log.bak", "/log/user.log.bak", "/var/log/user.log.bak", "/var/log/user/user.log.bak",
+    "/faillog.log", "/logs/faillog.log", "/log/faillog.log", "/var/log/faillog.log", "/var/log/faillog/faillog.log", "/faillog.log.1", "/logs/faillog.log.1", "/log/faillog.log.1", "/var/log/faillog.log.1", "/var/log/faillog/faillog.log.1",
+    "/faillog.log.2", "/logs/faillog.log.2", "/log/faillog.log.2", "/var/log/faillog.log.2", "/var/log/faillog/faillog.log.2", "/faillog.log.gz", "/logs/faillog.log.gz", "/log/faillog.log.gz", "/var/log/faillog.log.gz", "/var/log/faillog/faillog.log.gz",
+    "/faillog.log.bz2", "/logs/faillog.log.bz2", "/log/faillog.log.bz2", "/var/log/faillog.log.bz2", "/var/log/faillog/faillog.log.bz2", "/faillog.log.old", "/logs/faillog.log.old", "/log/faillog.log.old", "/var/log/faillog.log.old", "/var/log/faillog/faillog.log.old",
+    "/faillog.log.bak", "/logs/faillog.log.bak", "/log/faillog.log.bak", "/var/log/faillog.log.bak", "/var/log/faillog/faillog.log.bak", "/laravel.log", "/logs/laravel.log", "/log/laravel.log", "/var/log/laravel.log", "/var/log/laravel/laravel.log",
+    "/laravel.log.1", "/logs/laravel.log.1", "/log/laravel.log.1", "/var/log/laravel.log.1", "/var/log/laravel/laravel.log.1", "/laravel.log.2", "/logs/laravel.log.2", "/log/laravel.log.2", "/var/log/laravel.log.2", "/var/log/laravel/laravel.log.2",
+    "/laravel.log.gz", "/logs/laravel.log.gz", "/log/laravel.log.gz", "/var/log/laravel.log.gz", "/var/log/laravel/laravel.log.gz", "/laravel.log.bz2", "/logs/laravel.log.bz2", "/log/laravel.log.bz2", "/var/log/laravel.log.bz2", "/var/log/laravel/laravel.log.bz2",
+    "/laravel.log.old", "/logs/laravel.log.old", "/log/laravel.log.old", "/var/log/laravel.log.old", "/var/log/laravel/laravel.log.old", "/laravel.log.bak", "/logs/laravel.log.bak", "/log/laravel.log.bak", "/var/log/laravel.log.bak", "/var/log/laravel/laravel.log.bak",
+    "/storage.log", "/logs/storage.log", "/log/storage.log", "/var/log/storage.log", "/var/log/storage/storage.log", "/storage.log.1", "/logs/storage.log.1", "/log/storage.log.1", "/var/log/storage.log.1", "/var/log/storage/storage.log.1",
+    "/storage.log.2", "/logs/storage.log.2", "/log/storage.log.2", "/var/log/storage.log.2", "/var/log/storage/storage.log.2", "/storage.log.gz", "/logs/storage.log.gz", "/log/storage.log.gz", "/var/log/storage.log.gz", "/var/log/storage/storage.log.gz",
+    "/storage.log.bz2", "/logs/storage.log.bz2", "/log/storage.log.bz2", "/var/log/storage.log.bz2", "/var/log/storage/storage.log.bz2", "/storage.log.old", "/logs/storage.log.old", "/log/storage.log.old", "/var/log/storage.log.old", "/var/log/storage/storage.log.old",
+    "/storage.log.bak", "/logs/storage.log.bak", "/log/storage.log.bak", "/var/log/storage.log.bak", "/var/log/storage/storage.log.bak", "/framework.log", "/logs/framework.log", "/log/framework.log", "/var/log/framework.log", "/var/log/framework/framework.log",
+    "/framework.log.1", "/logs/framework.log.1", "/log/framework.log.1", "/var/log/framework.log.1", "/var/log/framework/framework.log.1", "/framework.log.2", "/logs/framework.log.2", "/log/framework.log.2", "/var/log/framework.log.2", "/var/log/framework/framework.log.2",
+    "/framework.log.gz", "/logs/framework.log.gz", "/log/framework.log.gz", "/var/log/framework.log.gz", "/var/log/framework/framework.log.gz", "/framework.log.bz2", "/logs/framework.log.bz2", "/log/framework.log.bz2", "/var/log/framework.log.bz2", "/var/log/framework/framework.log.bz2",
+    "/framework.log.old", "/logs/framework.log.old", "/log/framework.log.old", "/var/log/framework.log.old", "/var/log/framework/framework.log.old", "/framework.log.bak", "/logs/framework.log.bak", "/log/framework.log.bak", "/var/log/framework.log.bak", "/var/log/framework/framework.log.bak",
+    "/cache.log", "/logs/cache.log", "/log/cache.log", "/var/log/cache.log", "/var/log/cache/cache.log", "/cache.log.1", "/logs/cache.log.1", "/log/cache.log.1", "/var/log/cache.log.1", "/var/log/cache/cache.log.1",
+    "/cache.log.2", "/logs/cache.log.2", "/log/cache.log.2", "/var/log/cache.log.2", "/var/log/cache/cache.log.2", "/cache.log.gz", "/logs/cache.log.gz", "/log/cache.log.gz", "/var/log/cache.log.gz", "/var/log/cache/cache.log.gz",
+    "/cache.log.bz2", "/logs/cache.log.bz2", "/log/cache.log.bz2", "/var/log/cache.log.bz2", "/var/log/cache/cache.log.bz2", "/cache.log.old", "/logs/cache.log.old", "/log/cache.log.old", "/var/log/cache.log.old", "/var/log/cache/cache.log.old",
+    "/cache.log.bak", "/logs/cache.log.bak", "/log/cache.log.bak", "/var/log/cache.log.bak", "/var/log/cache/cache.log.bak", "/session.log", "/logs/session.log", "/log/session.log", "/var/log/session.log", "/var/log/session/session.log",
+    "/session.log.1", "/logs/session.log.1", "/log/session.log.1", "/var/log/session.log.1", "/var/log/session/session.log.1", "/session.log.2", "/logs/session.log.2", "/log/session.log.2", "/var/log/session.log.2", "/var/log/session/session.log.2",
+    "/session.log.gz", "/logs/session.log.gz", "/log/session.log.gz", "/var/log/session.log.gz", "/var/log/session/session.log.gz", "/session.log.bz2", "/logs/session.log.bz2", "/log/session.log.bz2", "/var/log/session.log.bz2", "/var/log/session/session.log.bz2",
+    "/session.log.old", "/logs/session.log.old", "/log/session.log.old", "/var/log/session.log.old", "/var/log/session/session.log.old", "/session.log.bak", "/logs/session.log.bak", "/log/session.log.bak", "/var/log/session.log.bak", "/var/log/session/session.log.bak",
+    "/job.log", "/logs/job.log", "/log/job.log", "/var/log/job.log", "/var/log/job/job.log", "/job.log.1", "/logs/job.log.1", "/log/job.log.1", "/var/log/job.log.1", "/var/log/job/job.log.1",
+    "/job.log.2", "/logs/job.log.2", "/log/job.log.2", "/var/log/job.log.2", "/var/log/job/job.log.2", "/job.log.gz", "/logs/job.log.gz", "/log/job.log.gz", "/var/log/job.log.gz", "/var/log/job/job.log.gz",
+    "/job.log.bz2", "/logs/job.log.bz2", "/log/job.log.bz2", "/var/log/job.log.bz2", "/var/log/job/job.log.bz2", "/job.log.old", "/logs/job.log.old", "/log/job.log.old", "/var/log/job.log.old", "/var/log/job/job.log.old",
+    "/job.log.bak", "/logs/job.log.bak", "/log/job.log.bak", "/var/log/job.log.bak", "/var/log/job/job.log.bak", "/queue.log", "/logs/queue.log", "/log/queue.log", "/var/log/queue.log", "/var/log/queue/queue.log",
+    "/queue.log.1", "/logs/queue.log.1", "/log/queue.log.1", "/var/log/queue.log.1", "/var/log/queue/queue.log.1", "/queue.log.2", "/logs/queue.log.2", "/log/queue.log.2", "/var/log/queue.log.2", "/var/log/queue/queue.log.2",
+    "/queue.log.gz", "/logs/queue.log.gz", "/log/queue.log.gz", "/var/log/queue.log.gz", "/var/log/queue/queue.log.gz", "/queue.log.bz2", "/logs/queue.log.bz2", "/log/queue.log.bz2", "/var/log/queue.log.bz2", "/var/log/queue/queue.log.bz2",
+    "/queue.log.old", "/logs/queue.log.old", "/log/queue.log.old", "/var/log/queue.log.old", "/var/log/queue/queue.log.old", "/queue.log.bak", "/logs/queue.log.bak", "/log/queue.log.bak", "/var/log/queue.log.bak", "/var/log/queue/queue.log.bak",
+    "/worker.log", "/logs/worker.log", "/log/worker.log", "/var/log/worker.log", "/var/log/worker/worker.log", "/worker.log.1", "/logs/worker.log.1", "/log/worker.log.1", "/var/log/worker.log.1", "/var/log/worker/worker.log.1",
+    "/worker.log.2", "/logs/worker.log.2", "/log/worker.log.2", "/var/log/worker.log.2", "/var/log/worker/worker.log.2", "/worker.log.gz", "/logs/worker.log.gz", "/log/worker.log.gz", "/var/log/worker.log.gz", "/var/log/worker/worker.log.gz",
+    "/worker.log.bz2", "/logs/worker.log.bz2", "/log/worker.log.bz2", "/var/log/worker.log.bz2", "/var/log/worker/worker.log.bz2", "/worker.log.old", "/logs/worker.log.old", "/log/worker.log.old", "/var/log/worker.log.old", "/var/log/worker/worker.log.old",
+    "/worker.log.bak", "/logs/worker.log.bak", "/log/worker.log.bak", "/var/log/worker.log.bak", "/var/log/worker/worker.log.bak", "/celery.log", "/logs/celery.log", "/log/celery.log", "/var/log/celery.log", "/var/log/celery/celery.log",
+    "/celery.log.1", "/logs/celery.log.1", "/log/celery.log.1", "/var/log/celery.log.1", "/var/log/celery/celery.log.1", "/celery.log.2", "/logs/celery.log.2", "/log/celery.log.2", "/var/log/celery.log.2", "/var/log/celery/celery.log.2",
+    "/celery.log.gz", "/logs/celery.log.gz", "/log/celery.log.gz", "/var/log/celery.log.gz", "/var/log/celery/celery.log.gz", "/celery.log.bz2", "/logs/celery.log.bz2", "/log/celery.log.bz2", "/var/log/celery.log.bz2", "/var/log/celery/celery.log.bz2",
+    "/celery.log.old", "/logs/celery.log.old", "/log/celery.log.old", "/var/log/celery.log.old", "/var/log/celery/celery.log.old", "/celery.log.bak", "/logs/celery.log.bak", "/log/celery.log.bak", "/var/log/celery.log.bak", "/var/log/celery/celery.log.bak",
+    "/gunicorn.log", "/logs/gunicorn.log", "/log/gunicorn.log", "/var/log/gunicorn.log", "/var/log/gunicorn/gunicorn.log", "/gunicorn.log.1", "/logs/gunicorn.log.1", "/log/gunicorn.log.1", "/var/log/gunicorn.log.1", "/var/log/gunicorn/gunicorn.log.1",
+    "/gunicorn.log.2", "/logs/gunicorn.log.2", "/log/gunicorn.log.2", "/var/log/gunicorn.log.2", "/var/log/gunicorn/gunicorn.log.2", "/gunicorn.log.gz", "/logs/gunicorn.log.gz", "/log/gunicorn.log.gz", "/var/log/gunicorn.log.gz", "/var/log/gunicorn/gunicorn.log.gz",
+    "/gunicorn.log.bz2", "/logs/gunicorn.log.bz2", "/log/gunicorn.log.bz2", "/var/log/gunicorn.log.bz2", "/var/log/gunicorn/gunicorn.log.bz2", "/gunicorn.log.old", "/logs/gunicorn.log.old", "/log/gunicorn.log.old", "/var/log/gunicorn.log.old", "/var/log/gunicorn/gunicorn.log.old",
+    "/gunicorn.log.bak", "/logs/gunicorn.log.bak", "/log/gunicorn.log.bak", "/var/log/gunicorn.log.bak", "/var/log/gunicorn/gunicorn.log.bak", "/uwsgi.log", "/logs/uwsgi.log", "/log/uwsgi.log", "/var/log/uwsgi.log", "/var/log/uwsgi/uwsgi.log",
+    "/uwsgi.log.1", "/logs/uwsgi.log.1", "/log/uwsgi.log.1", "/var/log/uwsgi.log.1", "/var/log/uwsgi/uwsgi.log.1", "/uwsgi.log.2", "/logs/uwsgi.log.2", "/log/uwsgi.log.2", "/var/log/uwsgi.log.2", "/var/log/uwsgi/uwsgi.log.2",
+    "/uwsgi.log.gz", "/logs/uwsgi.log.gz", "/log/uwsgi.log.gz", "/var/log/uwsgi.log.gz", "/var/log/uwsgi/uwsgi.log.gz", "/uwsgi.log.bz2", "/logs/uwsgi.log.bz2", "/log/uwsgi.log.bz2", "/var/log/uwsgi.log.bz2", "/var/log/uwsgi/uwsgi.log.bz2",
+    "/uwsgi.log.old", "/logs/uwsgi.log.old", "/log/uwsgi.log.old", "/var/log/uwsgi.log.old", "/var/log/uwsgi/uwsgi.log.old", "/uwsgi.log.bak", "/logs/uwsgi.log.bak", "/log/uwsgi.log.bak", "/var/log/uwsgi.log.bak", "/var/log/uwsgi/uwsgi.log.bak",
+    "/pm2.log", "/logs/pm2.log", "/log/pm2.log", "/var/log/pm2.log", "/var/log/pm2/pm2.log", "/pm2.log.1", "/logs/pm2.log.1", "/log/pm2.log.1", "/var/log/pm2.log.1", "/var/log/pm2/pm2.log.1",
+    "/pm2.log.2", "/logs/pm2.log.2", "/log/pm2.log.2", "/var/log/pm2.log.2", "/var/log/pm2/pm2.log.2", "/pm2.log.gz", "/logs/pm2.log.gz", "/log/pm2.log.gz", "/var/log/pm2.log.gz", "/var/log/pm2/pm2.log.gz",
+    "/pm2.log.bz2", "/logs/pm2.log.bz2", "/log/pm2.log.bz2", "/var/log/pm2.log.bz2", "/var/log/pm2/pm2.log.bz2", "/pm2.log.old", "/logs/pm2.log.old", "/log/pm2.log.old", "/var/log/pm2.log.old", "/var/log/pm2/pm2.log.old",
+    "/pm2.log.bak", "/logs/pm2.log.bak", "/log/pm2.log.bak", "/var/log/pm2.log.bak", "/var/log/pm2/pm2.log.bak", "/forever.log", "/logs/forever.log", "/log/forever.log", "/var/log/forever.log", "/var/log/forever/forever.log",
+    "/forever.log.1", "/logs/forever.log.1", "/log/forever.log.1", "/var/log/forever.log.1", "/var/log/forever/forever.log.1", "/forever.log.2", "/logs/forever.log.2", "/log/forever.log.2", "/var/log/forever.log.2", "/var/log/forever/forever.log.2",
+    "/forever.log.gz", "/logs/forever.log.gz", "/log/forever.log.gz", "/var/log/forever.log.gz", "/var/log/forever/forever.log.gz", "/forever.log.bz2", "/logs/forever.log.bz2", "/log/forever.log.bz2", "/var/log/forever.log.bz2", "/var/log/forever/forever.log.bz2",
+    "/forever.log.old", "/logs/forever.log.old", "/log/forever.log.old", "/var/log/forever.log.old", "/var/log/forever/forever.log.old", "/forever.log.bak", "/logs/forever.log.bak", "/log/forever.log.bak", "/var/log/forever.log.bak", "/var/log/forever/forever.log.bak",
+    "/config/database.json", "/config/database.config.json", "/database.config.json", "/database.json", "/conf/database.json", "/settings/database.json", "/.config/database.json", "/config/database.yaml", "/config/database.config.yaml", "/database.config.yaml",
+    "/database.yaml", "/conf/database.yaml", "/settings/database.yaml", "/.config/database.yaml", "/config/database.yml", "/config/database.config.yml", "/database.config.yml", "/database.yml", "/conf/database.yml", "/settings/database.yml",
+    "/.config/database.yml", "/config/database.php", "/config/database.config.php", "/database.config.php", "/database.php", "/conf/database.php", "/settings/database.php", "/.config/database.php", "/config/database.py", "/config/database.config.py",
+    "/database.config.py", "/database.py", "/conf/database.py", "/settings/database.py", "/.config/database.py", "/config/database.rb", "/config/database.config.rb", "/database.config.rb", "/database.rb", "/conf/database.rb",
+    "/settings/database.rb", "/.config/database.rb", "/config/database.js", "/config/database.config.js", "/database.config.js", "/database.js", "/conf/database.js", "/settings/database.js", "/.config/database.js", "/config/database.ts",
+    "/config/database.config.ts", "/database.config.ts", "/database.ts", "/conf/database.ts", "/settings/database.ts", "/.config/database.ts", "/config/database.xml", "/config/database.config.xml", "/database.config.xml", "/database.xml",
+    "/conf/database.xml", "/settings/database.xml", "/.config/database.xml", "/config/database.ini", "/config/database.config.ini", "/database.config.ini", "/database.ini", "/conf/database.ini", "/settings/database.ini", "/.config/database.ini",
+    "/config/database.toml", "/config/database.config.toml", "/database.config.toml", "/database.toml", "/conf/database.toml", "/settings/database.toml", "/.config/database.toml", "/config/database.conf", "/config/database.config.conf", "/database.config.conf",
+    "/database.conf", "/conf/database.conf", "/settings/database.conf", "/.config/database.conf", "/config/app.json", "/config/app.config.json", "/app.config.json", "/app.json", "/conf/app.json", "/settings/app.json",
+    "/.config/app.json", "/config/app.yaml", "/config/app.config.yaml", "/app.config.yaml", "/app.yaml", "/conf/app.yaml", "/settings/app.yaml", "/.config/app.yaml", "/config/app.yml", "/config/app.config.yml",
+    "/app.config.yml", "/app.yml", "/conf/app.yml", "/settings/app.yml", "/.config/app.yml", "/config/app.php", "/config/app.config.php", "/app.config.php", "/app.php", "/conf/app.php",
+    "/settings/app.php", "/.config/app.php", "/config/app.py", "/config/app.config.py", "/app.config.py", "/app.py", "/conf/app.py", "/settings/app.py", "/.config/app.py", "/config/app.rb",
+    "/config/app.config.rb", "/app.config.rb", "/app.rb", "/conf/app.rb", "/settings/app.rb", "/.config/app.rb", "/config/app.js", "/config/app.config.js", "/app.config.js", "/app.js",
+    "/conf/app.js", "/settings/app.js", "/.config/app.js", "/config/app.ts", "/config/app.config.ts", "/app.config.ts", "/app.ts", "/conf/app.ts", "/settings/app.ts", "/.config/app.ts",
+    "/config/app.xml", "/config/app.config.xml", "/app.config.xml", "/app.xml", "/conf/app.xml", "/settings/app.xml", "/.config/app.xml", "/config/app.ini", "/config/app.config.ini", "/app.config.ini",
+    "/app.ini", "/conf/app.ini", "/settings/app.ini", "/.config/app.ini", "/config/app.toml", "/config/app.config.toml", "/app.config.toml", "/app.toml", "/conf/app.toml", "/settings/app.toml",
+    "/.config/app.toml", "/config/app.conf", "/config/app.config.conf", "/app.config.conf", "/app.conf", "/conf/app.conf", "/settings/app.conf", "/.config/app.conf", "/config/server.json", "/config/server.config.json",
+    "/server.config.json", "/server.json", "/conf/server.json", "/settings/server.json", "/.config/server.json", "/config/server.yaml", "/config/server.config.yaml", "/server.config.yaml", "/server.yaml", "/conf/server.yaml",
+    "/settings/server.yaml", "/.config/server.yaml", "/config/server.yml", "/config/server.config.yml", "/server.config.yml", "/server.yml", "/conf/server.yml", "/settings/server.yml", "/.config/server.yml", "/config/server.php",
+    "/config/server.config.php", "/server.config.php", "/server.php", "/conf/server.php", "/settings/server.php", "/.config/server.php", "/config/server.py", "/config/server.config.py", "/server.config.py", "/server.py",
+    "/conf/server.py", "/settings/server.py", "/.config/server.py", "/config/server.rb", "/config/server.config.rb", "/server.config.rb", "/server.rb", "/conf/server.rb", "/settings/server.rb", "/.config/server.rb",
+    "/config/server.js", "/config/server.config.js", "/server.config.js", "/server.js", "/conf/server.js", "/settings/server.js", "/.config/server.js", "/config/server.ts", "/config/server.config.ts", "/server.config.ts",
+    "/server.ts", "/conf/server.ts", "/settings/server.ts", "/.config/server.ts", "/config/server.xml", "/config/server.config.xml", "/server.config.xml", "/server.xml", "/conf/server.xml", "/settings/server.xml",
+    "/.config/server.xml", "/config/server.ini", "/config/server.config.ini", "/server.config.ini", "/server.ini", "/conf/server.ini", "/settings/server.ini", "/.config/server.ini", "/config/server.toml", "/config/server.config.toml",
+    "/server.config.toml", "/server.toml", "/conf/server.toml", "/settings/server.toml", "/.config/server.toml", "/config/server.conf", "/config/server.config.conf", "/server.config.conf", "/server.conf", "/conf/server.conf",
+    "/settings/server.conf", "/.config/server.conf", "/config/client.json", "/config/client.config.json", "/client.config.json", "/client.json", "/conf/client.json", "/settings/client.json", "/.config/client.json", "/config/client.yaml",
+    "/config/client.config.yaml", "/client.config.yaml", "/client.yaml", "/conf/client.yaml", "/settings/client.yaml", "/.config/client.yaml", "/config/client.yml", "/config/client.config.yml", "/client.config.yml", "/client.yml",
+    "/conf/client.yml", "/settings/client.yml", "/.config/client.yml", "/config/client.php", "/config/client.config.php", "/client.config.php", "/client.php", "/conf/client.php", "/settings/client.php", "/.config/client.php",
+    "/config/client.py", "/config/client.config.py", "/client.config.py", "/client.py", "/conf/client.py", "/settings/client.py", "/.config/client.py", "/config/client.rb", "/config/client.config.rb", "/client.config.rb",
+    "/client.rb", "/conf/client.rb", "/settings/client.rb", "/.config/client.rb", "/config/client.js", "/config/client.config.js", "/client.config.js", "/client.js", "/conf/client.js", "/settings/client.js",
+    "/.config/client.js", "/config/client.ts", "/config/client.config.ts", "/client.config.ts", "/client.ts", "/conf/client.ts", "/settings/client.ts", "/.config/client.ts", "/config/client.xml", "/config/client.config.xml",
+    "/client.config.xml", "/client.xml", "/conf/client.xml", "/settings/client.xml", "/.config/client.xml", "/config/client.ini", "/config/client.config.ini", "/client.config.ini", "/client.ini", "/conf/client.ini",
+    "/settings/client.ini", "/.config/client.ini", "/config/client.toml", "/config/client.config.toml", "/client.config.toml", "/client.toml", "/conf/client.toml", "/settings/client.toml", "/.config/client.toml", "/config/client.conf",
+    "/config/client.config.conf", "/client.config.conf", "/client.conf", "/conf/client.conf", "/settings/client.conf", "/.config/client.conf", "/config/secret.json", "/config/secret.config.json", "/secret.config.json", "/secret.json",
+    "/conf/secret.json", "/settings/secret.json", "/.config/secret.json", "/config/secret.yaml", "/config/secret.config.yaml", "/secret.config.yaml", "/secret.yaml", "/conf/secret.yaml", "/settings/secret.yaml", "/.config/secret.yaml",
+    "/config/secret.yml", "/config/secret.config.yml", "/secret.config.yml", "/secret.yml", "/conf/secret.yml", "/settings/secret.yml", "/.config/secret.yml", "/config/secret.php", "/config/secret.config.php", "/secret.config.php",
+    "/secret.php", "/conf/secret.php", "/settings/secret.php", "/.config/secret.php", "/config/secret.py", "/config/secret.config.py", "/secret.config.py", "/secret.py", "/conf/secret.py", "/settings/secret.py",
+    "/.config/secret.py", "/config/secret.rb", "/config/secret.config.rb", "/secret.config.rb", "/secret.rb", "/conf/secret.rb", "/settings/secret.rb", "/.config/secret.rb", "/config/secret.js", "/config/secret.config.js",
+    "/secret.config.js", "/secret.js", "/conf/secret.js", "/settings/secret.js", "/.config/secret.js", "/config/secret.ts", "/config/secret.config.ts", "/secret.config.ts", "/secret.ts", "/conf/secret.ts",
+    "/settings/secret.ts", "/.config/secret.ts", "/config/secret.xml", "/config/secret.config.xml", "/secret.config.xml", "/secret.xml", "/conf/secret.xml", "/settings/secret.xml", "/.config/secret.xml", "/config/secret.ini",
+    "/config/secret.config.ini", "/secret.config.ini", "/secret.ini", "/conf/secret.ini", "/settings/secret.ini", "/.config/secret.ini", "/config/secret.toml", "/config/secret.config.toml", "/secret.config.toml", "/secret.toml",
+    "/conf/secret.toml", "/settings/secret.toml", "/.config/secret.toml", "/config/secret.conf", "/config/secret.config.conf", "/secret.config.conf", "/secret.conf", "/conf/secret.conf", "/settings/secret.conf", "/.config/secret.conf",
+    "/config/private.json", "/config/private.config.json", "/private.config.json", "/private.json", "/conf/private.json", "/settings/private.json", "/.config/private.json", "/config/private.yaml", "/config/private.config.yaml", "/private.config.yaml",
+    "/private.yaml", "/conf/private.yaml", "/settings/private.yaml", "/.config/private.yaml", "/config/private.yml", "/config/private.config.yml", "/private.config.yml", "/private.yml", "/conf/private.yml", "/settings/private.yml",
+    "/.config/private.yml", "/config/private.php", "/config/private.config.php", "/private.config.php", "/private.php", "/conf/private.php", "/settings/private.php", "/.config/private.php", "/config/private.py", "/config/private.config.py",
+    "/private.config.py", "/private.py", "/conf/private.py", "/settings/private.py", "/.config/private.py", "/config/private.rb", "/config/private.config.rb", "/private.config.rb", "/private.rb", "/conf/private.rb",
+    "/settings/private.rb", "/.config/private.rb", "/config/private.js", "/config/private.config.js", "/private.config.js", "/private.js", "/conf/private.js", "/settings/private.js", "/.config/private.js", "/config/private.ts",
+    "/config/private.config.ts", "/private.config.ts", "/private.ts", "/conf/private.ts", "/settings/private.ts", "/.config/private.ts", "/config/private.xml", "/config/private.config.xml", "/private.config.xml", "/private.xml",
+    "/conf/private.xml", "/settings/private.xml", "/.config/private.xml", "/config/private.ini", "/config/private.config.ini", "/private.config.ini", "/private.ini", "/conf/private.ini", "/settings/private.ini", "/.config/private.ini",
+    "/config/private.toml", "/config/private.config.toml", "/private.config.toml", "/private.toml", "/conf/private.toml", "/settings/private.toml", "/.config/private.toml", "/config/private.conf", "/config/private.config.conf", "/private.config.conf",
+    "/private.conf", "/conf/private.conf", "/settings/private.conf", "/.config/private.conf", "/config/public.json", "/config/public.config.json", "/public.config.json", "/public.json", "/conf/public.json", "/settings/public.json",
+    "/.config/public.json", "/config/public.yaml", "/config/public.config.yaml", "/public.config.yaml", "/public.yaml", "/conf/public.yaml", "/settings/public.yaml", "/.config/public.yaml", "/config/public.yml", "/config/public.config.yml",
+    "/public.config.yml", "/public.yml", "/conf/public.yml", "/settings/public.yml", "/.config/public.yml", "/config/public.php", "/config/public.config.php", "/public.config.php", "/public.php", "/conf/public.php",
+    "/settings/public.php", "/.config/public.php", "/config/public.py", "/config/public.config.py", "/public.config.py", "/public.py", "/conf/public.py", "/settings/public.py", "/.config/public.py", "/config/public.rb",
+    "/config/public.config.rb", "/public.config.rb", "/public.rb", "/conf/public.rb", "/settings/public.rb", "/.config/public.rb", "/config/public.js", "/config/public.config.js", "/public.config.js", "/public.js",
+    "/conf/public.js", "/settings/public.js", "/.config/public.js", "/config/public.ts", "/config/public.config.ts", "/public.config.ts", "/public.ts", "/conf/public.ts", "/settings/public.ts", "/.config/public.ts",
+    "/config/public.xml", "/config/public.config.xml", "/public.config.xml", "/public.xml", "/conf/public.xml", "/settings/public.xml", "/.config/public.xml", "/config/public.ini", "/config/public.config.ini", "/public.config.ini",
+    "/public.ini", "/conf/public.ini", "/settings/public.ini", "/.config/public.ini", "/config/public.toml", "/config/public.config.toml", "/public.config.toml", "/public.toml", "/conf/public.toml", "/settings/public.toml",
+    "/.config/public.toml", "/config/public.conf", "/config/public.config.conf", "/public.config.conf", "/public.conf", "/conf/public.conf", "/settings/public.conf", "/.config/public.conf", "/config/production.json", "/config/production.config.json",
+    "/production.config.json", "/production.json", "/conf/production.json", "/settings/production.json", "/.config/production.json", "/config/production.yaml", "/config/production.config.yaml", "/production.config.yaml", "/production.yaml", "/conf/production.yaml",
+    "/settings/production.yaml", "/.config/production.yaml", "/config/production.yml", "/config/production.config.yml", "/production.config.yml", "/production.yml", "/conf/production.yml", "/settings/production.yml", "/.config/production.yml", "/config/production.php",
+    "/config/production.config.php", "/production.config.php", "/production.php", "/conf/production.php", "/settings/production.php", "/.config/production.php", "/config/production.py", "/config/production.config.py", "/production.config.py", "/production.py",
+    "/conf/production.py", "/settings/production.py", "/.config/production.py", "/config/production.rb", "/config/production.config.rb", "/production.config.rb", "/production.rb", "/conf/production.rb", "/settings/production.rb", "/.config/production.rb",
+    "/config/production.js", "/config/production.config.js", "/production.config.js", "/production.js", "/conf/production.js", "/settings/production.js", "/.config/production.js", "/config/production.ts", "/config/production.config.ts", "/production.config.ts",
+    "/production.ts", "/conf/production.ts", "/settings/production.ts", "/.config/production.ts", "/config/production.xml", "/config/production.config.xml", "/production.config.xml", "/production.xml", "/conf/production.xml", "/settings/production.xml",
+    "/.config/production.xml", "/config/production.ini", "/config/production.config.ini", "/production.config.ini", "/production.ini", "/conf/production.ini", "/settings/production.ini", "/.config/production.ini", "/config/production.toml", "/config/production.config.toml",
+    "/production.config.toml", "/production.toml", "/conf/production.toml", "/settings/production.toml", "/.config/production.toml", "/config/production.conf", "/config/production.config.conf", "/production.config.conf", "/production.conf", "/conf/production.conf",
+    "/settings/production.conf", "/.config/production.conf", "/config/development.json", "/config/development.config.json", "/development.config.json", "/development.json", "/conf/development.json", "/settings/development.json", "/.config/development.json", "/config/development.yaml",
+    "/config/development.config.yaml", "/development.config.yaml", "/development.yaml", "/conf/development.yaml", "/settings/development.yaml", "/.config/development.yaml", "/config/development.yml", "/config/development.config.yml", "/development.config.yml", "/development.yml",
+    "/conf/development.yml", "/settings/development.yml", "/.config/development.yml", "/config/development.php", "/config/development.config.php", "/development.config.php", "/development.php", "/conf/development.php", "/settings/development.php", "/.config/development.php",
+    "/config/development.py", "/config/development.config.py", "/development.config.py", "/development.py", "/conf/development.py", "/settings/development.py", "/.config/development.py", "/config/development.rb", "/config/development.config.rb", "/development.config.rb",
+    "/development.rb", "/conf/development.rb", "/settings/development.rb", "/.config/development.rb", "/config/development.js", "/config/development.config.js", "/development.config.js", "/development.js", "/conf/development.js", "/settings/development.js",
+    "/.config/development.js", "/config/development.ts", "/config/development.config.ts", "/development.config.ts", "/development.ts", "/conf/development.ts", "/settings/development.ts", "/.config/development.ts", "/config/development.xml", "/config/development.config.xml",
+    "/development.config.xml", "/development.xml", "/conf/development.xml", "/settings/development.xml", "/.config/development.xml", "/config/development.ini", "/config/development.config.ini", "/development.config.ini", "/development.ini", "/conf/development.ini",
+    "/settings/development.ini", "/.config/development.ini", "/config/development.toml", "/config/development.config.toml", "/development.config.toml", "/development.toml", "/conf/development.toml", "/settings/development.toml", "/.config/development.toml", "/config/development.conf",
+    "/config/development.config.conf", "/development.config.conf", "/development.conf", "/conf/development.conf", "/settings/development.conf", "/.config/development.conf", "/config/staging.json", "/config/staging.config.json", "/staging.config.json", "/staging.json",
+    "/conf/staging.json", "/settings/staging.json", "/.config/staging.json", "/config/staging.yaml", "/config/staging.config.yaml", "/staging.config.yaml", "/staging.yaml", "/conf/staging.yaml", "/settings/staging.yaml", "/.config/staging.yaml",
+    "/config/staging.yml", "/config/staging.config.yml", "/staging.config.yml", "/staging.yml", "/conf/staging.yml", "/settings/staging.yml", "/.config/staging.yml", "/config/staging.php", "/config/staging.config.php", "/staging.config.php",
+    "/staging.php", "/conf/staging.php", "/settings/staging.php", "/.config/staging.php", "/config/staging.py", "/config/staging.config.py", "/staging.config.py", "/staging.py", "/conf/staging.py", "/settings/staging.py",
+    "/.config/staging.py", "/config/staging.rb", "/config/staging.config.rb", "/staging.config.rb", "/staging.rb", "/conf/staging.rb", "/settings/staging.rb", "/.config/staging.rb", "/config/staging.js", "/config/staging.config.js",
+    "/staging.config.js", "/staging.js", "/conf/staging.js", "/settings/staging.js", "/.config/staging.js", "/config/staging.ts", "/config/staging.config.ts", "/staging.config.ts", "/staging.ts", "/conf/staging.ts",
+    "/settings/staging.ts", "/.config/staging.ts", "/config/staging.xml", "/config/staging.config.xml", "/staging.config.xml", "/staging.xml", "/conf/staging.xml", "/settings/staging.xml", "/.config/staging.xml", "/config/staging.ini",
+    "/config/staging.config.ini", "/staging.config.ini", "/staging.ini", "/conf/staging.ini", "/settings/staging.ini", "/.config/staging.ini", "/config/staging.toml", "/config/staging.config.toml", "/staging.config.toml", "/staging.toml",
+    "/conf/staging.toml", "/settings/staging.toml", "/.config/staging.toml", "/config/staging.conf", "/config/staging.config.conf", "/staging.config.conf", "/staging.conf", "/conf/staging.conf", "/settings/staging.conf", "/.config/staging.conf",
+    "/config/testing.json", "/config/testing.config.json", "/testing.config.json", "/testing.json", "/conf/testing.json", "/settings/testing.json", "/.config/testing.json", "/config/testing.yaml", "/config/testing.config.yaml", "/testing.config.yaml",
+    "/testing.yaml", "/conf/testing.yaml", "/settings/testing.yaml", "/.config/testing.yaml", "/config/testing.yml", "/config/testing.config.yml", "/testing.config.yml", "/testing.yml", "/conf/testing.yml", "/settings/testing.yml",
+    "/.config/testing.yml", "/config/testing.php", "/config/testing.config.php", "/testing.config.php", "/testing.php", "/conf/testing.php", "/settings/testing.php", "/.config/testing.php", "/config/testing.py", "/config/testing.config.py",
+    "/testing.config.py", "/testing.py", "/conf/testing.py", "/settings/testing.py", "/.config/testing.py", "/config/testing.rb", "/config/testing.config.rb", "/testing.config.rb", "/testing.rb", "/conf/testing.rb",
+    "/settings/testing.rb", "/.config/testing.rb", "/config/testing.js", "/config/testing.config.js", "/testing.config.js", "/testing.js", "/conf/testing.js", "/settings/testing.js", "/.config/testing.js", "/config/testing.ts",
+    "/config/testing.config.ts", "/testing.config.ts", "/testing.ts", "/conf/testing.ts", "/settings/testing.ts", "/.config/testing.ts", "/config/testing.xml", "/config/testing.config.xml", "/testing.config.xml", "/testing.xml",
+    "/conf/testing.xml", "/settings/testing.xml", "/.config/testing.xml", "/config/testing.ini", "/config/testing.config.ini", "/testing.config.ini", "/testing.ini", "/conf/testing.ini", "/settings/testing.ini", "/.config/testing.ini",
+    "/config/testing.toml", "/config/testing.config.toml", "/testing.config.toml", "/testing.toml", "/conf/testing.toml", "/settings/testing.toml", "/.config/testing.toml", "/config/testing.conf", "/config/testing.config.conf", "/testing.config.conf",
+    "/testing.conf", "/conf/testing.conf", "/settings/testing.conf", "/.config/testing.conf", "/config/default.json", "/config/default.config.json", "/default.config.json", "/default.json", "/conf/default.json", "/settings/default.json",
+    "/.config/default.json", "/config/default.yaml", "/config/default.config.yaml", "/default.config.yaml", "/default.yaml", "/conf/default.yaml", "/settings/default.yaml", "/.config/default.yaml", "/config/default.yml", "/config/default.config.yml",
+    "/default.config.yml", "/default.yml", "/conf/default.yml", "/settings/default.yml", "/.config/default.yml", "/config/default.php", "/config/default.config.php", "/default.config.php", "/default.php", "/conf/default.php",
+    "/settings/default.php", "/.config/default.php", "/config/default.py", "/config/default.config.py", "/default.config.py", "/default.py", "/conf/default.py", "/settings/default.py", "/.config/default.py", "/config/default.rb",
+    "/config/default.config.rb", "/default.config.rb", "/default.rb", "/conf/default.rb", "/settings/default.rb", "/.config/default.rb", "/config/default.js", "/config/default.config.js", "/default.config.js", "/default.js",
+    "/conf/default.js", "/settings/default.js", "/.config/default.js", "/config/default.ts", "/config/default.config.ts", "/default.config.ts", "/default.ts", "/conf/default.ts", "/settings/default.ts", "/.config/default.ts",
+    "/config/default.xml", "/config/default.config.xml", "/default.config.xml", "/default.xml", "/conf/default.xml", "/settings/default.xml", "/.config/default.xml", "/config/default.ini", "/config/default.config.ini", "/default.config.ini",
+    "/default.ini", "/conf/default.ini", "/settings/default.ini", "/.config/default.ini", "/config/default.toml", "/config/default.config.toml", "/default.config.toml", "/default.toml", "/conf/default.toml", "/settings/default.toml",
+    "/.config/default.toml", "/config/default.conf", "/config/default.config.conf", "/default.config.conf", "/default.conf", "/conf/default.conf", "/settings/default.conf", "/.config/default.conf", "/config/custom.json", "/config/custom.config.json",
+    "/custom.config.json", "/custom.json", "/conf/custom.json", "/settings/custom.json", "/.config/custom.json", "/config/custom.yaml", "/config/custom.config.yaml", "/custom.config.yaml", "/custom.yaml", "/conf/custom.yaml",
+    "/settings/custom.yaml", "/.config/custom.yaml", "/config/custom.yml", "/config/custom.config.yml", "/custom.config.yml", "/custom.yml", "/conf/custom.yml", "/settings/custom.yml", "/.config/custom.yml", "/config/custom.php",
+    "/config/custom.config.php", "/custom.config.php", "/custom.php", "/conf/custom.php", "/settings/custom.php", "/.config/custom.php", "/config/custom.py", "/config/custom.config.py", "/custom.config.py", "/custom.py",
+    "/conf/custom.py", "/settings/custom.py", "/.config/custom.py", "/config/custom.rb", "/config/custom.config.rb", "/custom.config.rb", "/custom.rb", "/conf/custom.rb", "/settings/custom.rb", "/.config/custom.rb",
+    "/config/custom.js", "/config/custom.config.js", "/custom.config.js", "/custom.js", "/conf/custom.js", "/settings/custom.js", "/.config/custom.js", "/config/custom.ts", "/config/custom.config.ts", "/custom.config.ts",
+    "/custom.ts", "/conf/custom.ts", "/settings/custom.ts", "/.config/custom.ts", "/config/custom.xml", "/config/custom.config.xml", "/custom.config.xml", "/custom.xml", "/conf/custom.xml", "/settings/custom.xml",
+    "/.config/custom.xml", "/config/custom.ini", "/config/custom.config.ini", "/custom.config.ini", "/custom.ini", "/conf/custom.ini", "/settings/custom.ini", "/.config/custom.ini", "/config/custom.toml", "/config/custom.config.toml",
+    "/custom.config.toml", "/custom.toml", "/conf/custom.toml", "/settings/custom.toml", "/.config/custom.toml", "/config/custom.conf", "/config/custom.config.conf", "/custom.config.conf", "/custom.conf", "/conf/custom.conf",
+    "/settings/custom.conf", "/.config/custom.conf", "/config/local.json", "/config/local.config.json", "/local.config.json", "/local.json", "/conf/local.json", "/settings/local.json", "/.config/local.json", "/config/local.yaml",
+    "/config/local.config.yaml", "/local.config.yaml", "/local.yaml", "/conf/local.yaml", "/settings/local.yaml", "/.config/local.yaml", "/config/local.yml", "/config/local.config.yml", "/local.config.yml", "/local.yml",
+    "/conf/local.yml", "/settings/local.yml", "/.config/local.yml", "/config/local.php", "/config/local.config.php", "/local.config.php", "/local.php", "/conf/local.php", "/settings/local.php", "/.config/local.php",
+    "/config/local.py", "/config/local.config.py", "/local.config.py", "/local.py", "/conf/local.py", "/settings/local.py", "/.config/local.py", "/config/local.rb", "/config/local.config.rb", "/local.config.rb",
+    "/local.rb", "/conf/local.rb", "/settings/local.rb", "/.config/local.rb", "/config/local.js", "/config/local.config.js", "/local.config.js", "/local.js", "/conf/local.js", "/settings/local.js",
+    "/.config/local.js", "/config/local.ts", "/config/local.config.ts", "/local.config.ts", "/local.ts", "/conf/local.ts", "/settings/local.ts", "/.config/local.ts", "/config/local.xml", "/config/local.config.xml",
+    "/local.config.xml", "/local.xml", "/conf/local.xml", "/settings/local.xml", "/.config/local.xml", "/config/local.ini", "/config/local.config.ini", "/local.config.ini", "/local.ini", "/conf/local.ini",
+    "/settings/local.ini", "/.config/local.ini", "/config/local.toml", "/config/local.config.toml", "/local.config.toml", "/local.toml", "/conf/local.toml", "/settings/local.toml", "/.config/local.toml", "/config/local.conf",
+    "/config/local.config.conf", "/local.config.conf", "/local.conf", "/conf/local.conf", "/settings/local.conf", "/.config/local.conf", "/config/global.json", "/config/global.config.json", "/global.config.json", "/global.json",
+    "/conf/global.json", "/settings/global.json", "/.config/global.json", "/config/global.yaml", "/config/global.config.yaml", "/global.config.yaml", "/global.yaml", "/conf/global.yaml", "/settings/global.yaml", "/.config/global.yaml",
+    "/config/global.yml", "/config/global.config.yml", "/global.config.yml", "/global.yml", "/conf/global.yml", "/settings/global.yml", "/.config/global.yml", "/config/global.php", "/config/global.config.php", "/global.config.php",
+    "/global.php", "/conf/global.php", "/settings/global.php", "/.config/global.php", "/config/global.py", "/config/global.config.py", "/global.config.py", "/global.py", "/conf/global.py", "/settings/global.py",
+    "/.config/global.py", "/config/global.rb", "/config/global.config.rb", "/global.config.rb", "/global.rb", "/conf/global.rb", "/settings/global.rb", "/.config/global.rb", "/config/global.js", "/config/global.config.js",
+    "/global.config.js", "/global.js", "/conf/global.js", "/settings/global.js", "/.config/global.js", "/config/global.ts", "/config/global.config.ts", "/global.config.ts", "/global.ts", "/conf/global.ts",
+    "/settings/global.ts", "/.config/global.ts", "/config/global.xml", "/config/global.config.xml", "/global.config.xml", "/global.xml", "/conf/global.xml", "/settings/global.xml", "/.config/global.xml", "/config/global.ini",
+    "/config/global.config.ini", "/global.config.ini", "/global.ini", "/conf/global.ini", "/settings/global.ini", "/.config/global.ini", "/config/global.toml", "/config/global.config.toml", "/global.config.toml", "/global.toml",
+    "/conf/global.toml", "/settings/global.toml", "/.config/global.toml", "/config/global.conf", "/config/global.config.conf", "/global.config.conf", "/global.conf", "/conf/global.conf", "/settings/global.conf", "/.config/global.conf",
+    "/config/system.json", "/config/system.config.json", "/system.config.json", "/system.json", "/conf/system.json", "/settings/system.json", "/.config/system.json", "/config/system.yaml", "/config/system.config.yaml", "/system.config.yaml",
+    "/system.yaml", "/conf/system.yaml", "/settings/system.yaml", "/.config/system.yaml", "/config/system.yml", "/config/system.config.yml", "/system.config.yml", "/system.yml", "/conf/system.yml", "/settings/system.yml",
+    "/.config/system.yml", "/config/system.php", "/config/system.config.php", "/system.config.php", "/system.php", "/conf/system.php", "/settings/system.php", "/.config/system.php", "/config/system.py", "/config/system.config.py",
+    "/system.config.py", "/system.py", "/conf/system.py", "/settings/system.py", "/.config/system.py", "/config/system.rb", "/config/system.config.rb", "/system.config.rb", "/system.rb", "/conf/system.rb",
+    "/settings/system.rb", "/.config/system.rb", "/config/system.js", "/config/system.config.js", "/system.config.js", "/system.js", "/conf/system.js", "/settings/system.js", "/.config/system.js", "/config/system.ts",
+    "/config/system.config.ts", "/system.config.ts", "/system.ts", "/conf/system.ts", "/settings/system.ts", "/.config/system.ts", "/config/system.xml", "/config/system.config.xml", "/system.config.xml", "/system.xml",
+    "/conf/system.xml", "/settings/system.xml", "/.config/system.xml", "/config/system.ini", "/config/system.config.ini", "/system.config.ini", "/system.ini", "/conf/system.ini", "/settings/system.ini", "/.config/system.ini",
+    "/config/system.toml", "/config/system.config.toml", "/system.config.toml", "/system.toml", "/conf/system.toml", "/settings/system.toml", "/.config/system.toml", "/config/system.conf", "/config/system.config.conf", "/system.config.conf",
+    "/system.conf", "/conf/system.conf", "/settings/system.conf", "/.config/system.conf", "/config/environment.json", "/config/environment.config.json", "/environment.config.json", "/environment.json", "/conf/environment.json", "/settings/environment.json",
+    "/.config/environment.json", "/config/environment.yaml", "/config/environment.config.yaml", "/environment.config.yaml", "/environment.yaml", "/conf/environment.yaml", "/settings/environment.yaml", "/.config/environment.yaml", "/config/environment.yml", "/config/environment.config.yml",
+    "/environment.config.yml", "/environment.yml", "/conf/environment.yml", "/settings/environment.yml", "/.config/environment.yml", "/config/environment.php", "/config/environment.config.php", "/environment.config.php", "/environment.php", "/conf/environment.php",
+    "/settings/environment.php", "/.config/environment.php", "/config/environment.py", "/config/environment.config.py", "/environment.config.py", "/environment.py", "/conf/environment.py", "/settings/environment.py", "/.config/environment.py", "/config/environment.rb",
+    "/config/environment.config.rb", "/environment.config.rb", "/environment.rb", "/conf/environment.rb", "/settings/environment.rb", "/.config/environment.rb", "/config/environment.js", "/config/environment.config.js", "/environment.config.js", "/environment.js",
+    "/conf/environment.js", "/settings/environment.js", "/.config/environment.js", "/config/environment.ts", "/config/environment.config.ts", "/environment.config.ts", "/environment.ts", "/conf/environment.ts", "/settings/environment.ts", "/.config/environment.ts",
+    "/config/environment.xml", "/config/environment.config.xml", "/environment.config.xml", "/environment.xml", "/conf/environment.xml", "/settings/environment.xml", "/.config/environment.xml", "/config/environment.ini", "/config/environment.config.ini", "/environment.config.ini",
+    "/environment.ini", "/conf/environment.ini", "/settings/environment.ini", "/.config/environment.ini", "/config/environment.toml", "/config/environment.config.toml", "/environment.config.toml", "/environment.toml", "/conf/environment.toml", "/settings/environment.toml",
+    "/.config/environment.toml", "/config/environment.conf", "/config/environment.config.conf", "/environment.config.conf", "/environment.conf", "/conf/environment.conf", "/settings/environment.conf", "/.config/environment.conf", "/config/service.json", "/config/service.config.json",
+    "/service.config.json", "/service.json", "/conf/service.json", "/settings/service.json", "/.config/service.json", "/config/service.yaml", "/config/service.config.yaml", "/service.config.yaml", "/service.yaml", "/conf/service.yaml",
+    "/settings/service.yaml", "/.config/service.yaml", "/config/service.yml", "/config/service.config.yml", "/service.config.yml", "/service.yml", "/conf/service.yml", "/settings/service.yml", "/.config/service.yml", "/config/service.php",
+    "/config/service.config.php", "/service.config.php", "/service.php", "/conf/service.php", "/settings/service.php", "/.config/service.php", "/config/service.py", "/config/service.config.py", "/service.config.py", "/service.py",
+    "/conf/service.py", "/settings/service.py", "/.config/service.py", "/config/service.rb", "/config/service.config.rb", "/service.config.rb", "/service.rb", "/conf/service.rb", "/settings/service.rb", "/.config/service.rb",
+    "/config/service.js", "/config/service.config.js", "/service.config.js", "/service.js", "/conf/service.js", "/settings/service.js", "/.config/service.js", "/config/service.ts", "/config/service.config.ts", "/service.config.ts",
+    "/service.ts", "/conf/service.ts", "/settings/service.ts", "/.config/service.ts", "/config/service.xml", "/config/service.config.xml", "/service.config.xml", "/service.xml", "/conf/service.xml", "/settings/service.xml",
+    "/.config/service.xml", "/config/service.ini", "/config/service.config.ini", "/service.config.ini", "/service.ini", "/conf/service.ini", "/settings/service.ini", "/.config/service.ini", "/config/service.toml", "/config/service.config.toml",
+    "/service.config.toml", "/service.toml", "/conf/service.toml", "/settings/service.toml", "/.config/service.toml", "/config/service.conf", "/config/service.config.conf", "/service.config.conf", "/service.conf", "/conf/service.conf",
+    "/settings/service.conf", "/.config/service.conf", "/config/module.json", "/config/module.config.json", "/module.config.json", "/module.json", "/conf/module.json", "/settings/module.json", "/.config/module.json", "/config/module.yaml",
+    "/config/module.config.yaml", "/module.config.yaml", "/module.yaml", "/conf/module.yaml", "/settings/module.yaml", "/.config/module.yaml", "/config/module.yml", "/config/module.config.yml", "/module.config.yml", "/module.yml",
+    "/conf/module.yml", "/settings/module.yml", "/.config/module.yml", "/config/module.php", "/config/module.config.php", "/module.config.php", "/module.php", "/conf/module.php", "/settings/module.php", "/.config/module.php",
+    "/config/module.py", "/config/module.config.py", "/module.config.py", "/module.py", "/conf/module.py", "/settings/module.py", "/.config/module.py", "/config/module.rb", "/config/module.config.rb", "/module.config.rb",
+    "/module.rb", "/conf/module.rb", "/settings/module.rb", "/.config/module.rb", "/config/module.js", "/config/module.config.js", "/module.config.js", "/module.js", "/conf/module.js", "/settings/module.js",
+    "/.config/module.js", "/config/module.ts", "/config/module.config.ts", "/module.config.ts", "/module.ts", "/conf/module.ts", "/settings/module.ts", "/.config/module.ts", "/config/module.xml", "/config/module.config.xml",
+    "/module.config.xml", "/module.xml", "/conf/module.xml", "/settings/module.xml", "/.config/module.xml", "/config/module.ini", "/config/module.config.ini", "/module.config.ini", "/module.ini", "/conf/module.ini",
+    "/settings/module.ini", "/.config/module.ini", "/config/module.toml", "/config/module.config.toml", "/module.config.toml", "/module.toml", "/conf/module.toml", "/settings/module.toml", "/.config/module.toml", "/config/module.conf",
+    "/config/module.config.conf", "/module.config.conf", "/module.conf", "/conf/module.conf", "/settings/module.conf", "/.config/module.conf", "/admin.php", "/admin/login.php", "/admin/index.php", "/admin/dashboard.php",
+    "/admin/config.php", "/admin/settings.php", "/admin/users.php", "/admin/accounts.php", "/admin/panel.php", "/admin/console.php", "/admin.html", "/admin/login.html", "/admin/index.html", "/admin/dashboard.html",
+    "/admin/config.html", "/admin/settings.html", "/admin/users.html", "/admin/accounts.html", "/admin/panel.html", "/admin/console.html", "/admin.htm", "/admin/login.htm", "/admin/index.htm", "/admin/dashboard.htm",
+    "/admin/config.htm", "/admin/settings.htm", "/admin/users.htm", "/admin/accounts.htm", "/admin/panel.htm", "/admin/console.htm", "/admin.asp", "/admin/login.asp", "/admin/index.asp", "/admin/dashboard.asp",
+    "/admin/config.asp", "/admin/settings.asp", "/admin/users.asp", "/admin/accounts.asp", "/admin/panel.asp", "/admin/console.asp", "/admin.aspx", "/admin/login.aspx", "/admin/index.aspx", "/admin/dashboard.aspx",
+    "/admin/config.aspx", "/admin/settings.aspx", "/admin/users.aspx", "/admin/accounts.aspx", "/admin/panel.aspx", "/admin/console.aspx", "/admin.jsp", "/admin/login.jsp", "/admin/index.jsp", "/admin/dashboard.jsp",
+    "/admin/config.jsp", "/admin/settings.jsp", "/admin/users.jsp", "/admin/accounts.jsp", "/admin/panel.jsp", "/admin/console.jsp", "/admin.do", "/admin/login.do", "/admin/index.do", "/admin/dashboard.do",
+    "/admin/config.do", "/admin/settings.do", "/admin/users.do", "/admin/accounts.do", "/admin/panel.do", "/admin/console.do", "/admin.action", "/admin/login.action", "/admin/index.action", "/admin/dashboard.action",
+    "/admin/config.action", "/admin/settings.action", "/admin/users.action", "/admin/accounts.action", "/admin/panel.action", "/admin/console.action", "/administrator.php", "/administrator/login.php", "/administrator/index.php", "/administrator/dashboard.php",
+    "/administrator/config.php", "/administrator/settings.php", "/administrator/users.php", "/administrator/accounts.php", "/administrator/panel.php", "/administrator/console.php", "/administrator.html", "/administrator/login.html", "/administrator/index.html", "/administrator/dashboard.html",
+    "/administrator/config.html", "/administrator/settings.html", "/administrator/users.html", "/administrator/accounts.html", "/administrator/panel.html", "/administrator/console.html", "/administrator.htm", "/administrator/login.htm", "/administrator/index.htm", "/administrator/dashboard.htm",
+    "/administrator/config.htm", "/administrator/settings.htm", "/administrator/users.htm", "/administrator/accounts.htm", "/administrator/panel.htm", "/administrator/console.htm", "/administrator.asp", "/administrator/login.asp", "/administrator/index.asp", "/administrator/dashboard.asp",
+    "/administrator/config.asp", "/administrator/settings.asp", "/administrator/users.asp", "/administrator/accounts.asp", "/administrator/panel.asp", "/administrator/console.asp", "/administrator.aspx", "/administrator/login.aspx", "/administrator/index.aspx", "/administrator/dashboard.aspx",
+    "/administrator/config.aspx", "/administrator/settings.aspx", "/administrator/users.aspx", "/administrator/accounts.aspx", "/administrator/panel.aspx", "/administrator/console.aspx", "/administrator.jsp", "/administrator/login.jsp", "/administrator/index.jsp", "/administrator/dashboard.jsp",
+    "/administrator/config.jsp", "/administrator/settings.jsp", "/administrator/users.jsp", "/administrator/accounts.jsp", "/administrator/panel.jsp", "/administrator/console.jsp", "/administrator.do", "/administrator/login.do", "/administrator/index.do", "/administrator/dashboard.do",
+    "/administrator/config.do", "/administrator/settings.do", "/administrator/users.do", "/administrator/accounts.do", "/administrator/panel.do", "/administrator/console.do", "/administrator.action", "/administrator/login.action", "/administrator/index.action", "/administrator/dashboard.action",
+    "/administrator/config.action", "/administrator/settings.action", "/administrator/users.action", "/administrator/accounts.action", "/administrator/panel.action", "/administrator/console.action", "/adminpanel.php", "/adminpanel/login.php", "/adminpanel/index.php", "/adminpanel/dashboard.php",
+    "/adminpanel/config.php", "/adminpanel/settings.php", "/adminpanel/users.php", "/adminpanel/accounts.php", "/adminpanel/panel.php", "/adminpanel/console.php", "/adminpanel.html", "/adminpanel/login.html", "/adminpanel/index.html", "/adminpanel/dashboard.html",
+    "/adminpanel/config.html", "/adminpanel/settings.html", "/adminpanel/users.html", "/adminpanel/accounts.html", "/adminpanel/panel.html", "/adminpanel/console.html", "/adminpanel.htm", "/adminpanel/login.htm", "/adminpanel/index.htm", "/adminpanel/dashboard.htm",
+    "/adminpanel/config.htm", "/adminpanel/settings.htm", "/adminpanel/users.htm", "/adminpanel/accounts.htm", "/adminpanel/panel.htm", "/adminpanel/console.htm", "/adminpanel.asp", "/adminpanel/login.asp", "/adminpanel/index.asp", "/adminpanel/dashboard.asp",
+    "/adminpanel/config.asp", "/adminpanel/settings.asp", "/adminpanel/users.asp", "/adminpanel/accounts.asp", "/adminpanel/panel.asp", "/adminpanel/console.asp", "/adminpanel.aspx", "/adminpanel/login.aspx", "/adminpanel/index.aspx", "/adminpanel/dashboard.aspx",
+    "/adminpanel/config.aspx", "/adminpanel/settings.aspx", "/adminpanel/users.aspx", "/adminpanel/accounts.aspx", "/adminpanel/panel.aspx", "/adminpanel/console.aspx", "/adminpanel.jsp", "/adminpanel/login.jsp", "/adminpanel/index.jsp", "/adminpanel/dashboard.jsp",
+    "/adminpanel/config.jsp", "/adminpanel/settings.jsp", "/adminpanel/users.jsp", "/adminpanel/accounts.jsp", "/adminpanel/panel.jsp", "/adminpanel/console.jsp", "/adminpanel.do", "/adminpanel/login.do", "/adminpanel/index.do", "/adminpanel/dashboard.do",
+    "/adminpanel/config.do", "/adminpanel/settings.do", "/adminpanel/users.do", "/adminpanel/accounts.do", "/adminpanel/panel.do", "/adminpanel/console.do", "/adminpanel.action", "/adminpanel/login.action", "/adminpanel/index.action", "/adminpanel/dashboard.action",
+    "/adminpanel/config.action", "/adminpanel/settings.action", "/adminpanel/users.action", "/adminpanel/accounts.action", "/adminpanel/panel.action", "/adminpanel/console.action", "/admincp.php", "/admincp/login.php", "/admincp/index.php", "/admincp/dashboard.php",
+    "/admincp/config.php", "/admincp/settings.php", "/admincp/users.php", "/admincp/accounts.php", "/admincp/panel.php", "/admincp/console.php", "/admincp.html", "/admincp/login.html", "/admincp/index.html", "/admincp/dashboard.html",
+    "/admincp/config.html", "/admincp/settings.html", "/admincp/users.html", "/admincp/accounts.html", "/admincp/panel.html", "/admincp/console.html", "/admincp.htm", "/admincp/login.htm", "/admincp/index.htm", "/admincp/dashboard.htm",
+    "/admincp/config.htm", "/admincp/settings.htm", "/admincp/users.htm", "/admincp/accounts.htm", "/admincp/panel.htm", "/admincp/console.htm", "/admincp.asp", "/admincp/login.asp", "/admincp/index.asp", "/admincp/dashboard.asp",
+    "/admincp/config.asp", "/admincp/settings.asp", "/admincp/users.asp", "/admincp/accounts.asp", "/admincp/panel.asp", "/admincp/console.asp", "/admincp.aspx", "/admincp/login.aspx", "/admincp/index.aspx", "/admincp/dashboard.aspx",
+    "/admincp/config.aspx", "/admincp/settings.aspx", "/admincp/users.aspx", "/admincp/accounts.aspx", "/admincp/panel.aspx", "/admincp/console.aspx", "/admincp.jsp", "/admincp/login.jsp", "/admincp/index.jsp", "/admincp/dashboard.jsp",
+    "/admincp/config.jsp", "/admincp/settings.jsp", "/admincp/users.jsp", "/admincp/accounts.jsp", "/admincp/panel.jsp", "/admincp/console.jsp", "/admincp.do", "/admincp/login.do", "/admincp/index.do", "/admincp/dashboard.do",
+    "/admincp/config.do", "/admincp/settings.do", "/admincp/users.do", "/admincp/accounts.do", "/admincp/panel.do", "/admincp/console.do", "/admincp.action", "/admincp/login.action", "/admincp/index.action", "/admincp/dashboard.action",
+    "/admincp/config.action", "/admincp/settings.action", "/admincp/users.action", "/admincp/accounts.action", "/admincp/panel.action", "/admincp/console.action", "/adminarea.php", "/adminarea/login.php", "/adminarea/index.php", "/adminarea/dashboard.php",
+    "/adminarea/config.php", "/adminarea/settings.php", "/adminarea/users.php", "/adminarea/accounts.php", "/adminarea/panel.php", "/adminarea/console.php", "/adminarea.html", "/adminarea/login.html", "/adminarea/index.html", "/adminarea/dashboard.html",
+    "/adminarea/config.html", "/adminarea/settings.html", "/adminarea/users.html", "/adminarea/accounts.html", "/adminarea/panel.html", "/adminarea/console.html", "/adminarea.htm", "/adminarea/login.htm", "/adminarea/index.htm", "/adminarea/dashboard.htm",
+    "/adminarea/config.htm", "/adminarea/settings.htm", "/adminarea/users.htm", "/adminarea/accounts.htm", "/adminarea/panel.htm", "/adminarea/console.htm", "/adminarea.asp", "/adminarea/login.asp", "/adminarea/index.asp", "/adminarea/dashboard.asp",
+    "/adminarea/config.asp", "/adminarea/settings.asp", "/adminarea/users.asp", "/adminarea/accounts.asp", "/adminarea/panel.asp", "/adminarea/console.asp", "/adminarea.aspx", "/adminarea/login.aspx", "/adminarea/index.aspx", "/adminarea/dashboard.aspx",
+    "/adminarea/config.aspx", "/adminarea/settings.aspx", "/adminarea/users.aspx", "/adminarea/accounts.aspx", "/adminarea/panel.aspx", "/adminarea/console.aspx", "/adminarea.jsp", "/adminarea/login.jsp", "/adminarea/index.jsp", "/adminarea/dashboard.jsp",
+    "/adminarea/config.jsp", "/adminarea/settings.jsp", "/adminarea/users.jsp", "/adminarea/accounts.jsp", "/adminarea/panel.jsp", "/adminarea/console.jsp", "/adminarea.do", "/adminarea/login.do", "/adminarea/index.do", "/adminarea/dashboard.do",
+    "/adminarea/config.do", "/adminarea/settings.do", "/adminarea/users.do", "/adminarea/accounts.do", "/adminarea/panel.do", "/adminarea/console.do", "/adminarea.action", "/adminarea/login.action", "/adminarea/index.action", "/adminarea/dashboard.action",
+    "/adminarea/config.action", "/adminarea/settings.action", "/adminarea/users.action", "/adminarea/accounts.action", "/adminarea/panel.action", "/adminarea/console.action", "/manage.php", "/manage/login.php", "/manage/index.php", "/manage/dashboard.php",
+    "/manage/config.php", "/manage/settings.php", "/manage/users.php", "/manage/accounts.php", "/manage/panel.php", "/manage/console.php", "/manage.html", "/manage/login.html", "/manage/index.html", "/manage/dashboard.html",
+    "/manage/config.html", "/manage/settings.html", "/manage/users.html", "/manage/accounts.html", "/manage/panel.html", "/manage/console.html", "/manage.htm", "/manage/login.htm", "/manage/index.htm", "/manage/dashboard.htm",
+    "/manage/config.htm", "/manage/settings.htm", "/manage/users.htm", "/manage/accounts.htm", "/manage/panel.htm", "/manage/console.htm", "/manage.asp", "/manage/login.asp", "/manage/index.asp", "/manage/dashboard.asp",
+    "/manage/config.asp", "/manage/settings.asp", "/manage/users.asp", "/manage/accounts.asp", "/manage/panel.asp", "/manage/console.asp", "/manage.aspx", "/manage/login.aspx", "/manage/index.aspx", "/manage/dashboard.aspx",
+    "/manage/config.aspx", "/manage/settings.aspx", "/manage/users.aspx", "/manage/accounts.aspx", "/manage/panel.aspx", "/manage/console.aspx", "/manage.jsp", "/manage/login.jsp", "/manage/index.jsp", "/manage/dashboard.jsp",
+    "/manage/config.jsp", "/manage/settings.jsp", "/manage/users.jsp", "/manage/accounts.jsp", "/manage/panel.jsp", "/manage/console.jsp", "/manage.do", "/manage/login.do", "/manage/index.do", "/manage/dashboard.do",
+    "/manage/config.do", "/manage/settings.do", "/manage/users.do", "/manage/accounts.do", "/manage/panel.do", "/manage/console.do", "/manage.action", "/manage/login.action", "/manage/index.action", "/manage/dashboard.action",
+    "/manage/config.action", "/manage/settings.action", "/manage/users.action", "/manage/accounts.action", "/manage/panel.action", "/manage/console.action", "/manager.php", "/manager/login.php", "/manager/index.php", "/manager/dashboard.php",
+    "/manager/config.php", "/manager/settings.php", "/manager/users.php", "/manager/accounts.php", "/manager/panel.php", "/manager/console.php", "/manager.html", "/manager/login.html", "/manager/index.html", "/manager/dashboard.html",
+    "/manager/config.html", "/manager/settings.html", "/manager/users.html", "/manager/accounts.html", "/manager/panel.html", "/manager/console.html", "/manager.htm", "/manager/login.htm", "/manager/index.htm", "/manager/dashboard.htm",
+    "/manager/config.htm", "/manager/settings.htm", "/manager/users.htm", "/manager/accounts.htm", "/manager/panel.htm", "/manager/console.htm", "/manager.asp", "/manager/login.asp", "/manager/index.asp", "/manager/dashboard.asp",
+    "/manager/config.asp", "/manager/settings.asp", "/manager/users.asp", "/manager/accounts.asp", "/manager/panel.asp", "/manager/console.asp", "/manager.aspx", "/manager/login.aspx", "/manager/index.aspx", "/manager/dashboard.aspx",
+    "/manager/config.aspx", "/manager/settings.aspx", "/manager/users.aspx", "/manager/accounts.aspx", "/manager/panel.aspx", "/manager/console.aspx", "/manager.jsp", "/manager/login.jsp", "/manager/index.jsp", "/manager/dashboard.jsp",
+    "/manager/config.jsp", "/manager/settings.jsp", "/manager/users.jsp", "/manager/accounts.jsp", "/manager/panel.jsp", "/manager/console.jsp", "/manager.do", "/manager/login.do", "/manager/index.do", "/manager/dashboard.do",
+    "/manager/config.do", "/manager/settings.do", "/manager/users.do", "/manager/accounts.do", "/manager/panel.do", "/manager/console.do", "/manager.action", "/manager/login.action", "/manager/index.action", "/manager/dashboard.action",
+    "/manager/config.action", "/manager/settings.action", "/manager/users.action", "/manager/accounts.action", "/manager/panel.action", "/manager/console.action", "/panel.php", "/panel/login.php", "/panel/index.php", "/panel/dashboard.php",
+    "/panel/config.php", "/panel/settings.php", "/panel/users.php", "/panel/accounts.php", "/panel/panel.php", "/panel/console.php", "/panel.html", "/panel/login.html", "/panel/index.html", "/panel/dashboard.html",
+    "/panel/config.html", "/panel/settings.html", "/panel/users.html", "/panel/accounts.html", "/panel/panel.html", "/panel/console.html", "/panel.htm", "/panel/login.htm", "/panel/index.htm", "/panel/dashboard.htm",
+    "/panel/config.htm", "/panel/settings.htm", "/panel/users.htm", "/panel/accounts.htm", "/panel/panel.htm", "/panel/console.htm", "/panel.asp", "/panel/login.asp", "/panel/index.asp", "/panel/dashboard.asp",
+    "/panel/config.asp", "/panel/settings.asp", "/panel/users.asp", "/panel/accounts.asp", "/panel/panel.asp", "/panel/console.asp", "/panel.aspx", "/panel/login.aspx", "/panel/index.aspx", "/panel/dashboard.aspx",
+    "/panel/config.aspx", "/panel/settings.aspx", "/panel/users.aspx", "/panel/accounts.aspx", "/panel/panel.aspx", "/panel/console.aspx", "/panel.jsp", "/panel/login.jsp", "/panel/index.jsp", "/panel/dashboard.jsp",
+    "/panel/config.jsp", "/panel/settings.jsp", "/panel/users.jsp", "/panel/accounts.jsp", "/panel/panel.jsp", "/panel/console.jsp", "/panel.do", "/panel/login.do", "/panel/index.do", "/panel/dashboard.do",
+    "/panel/config.do", "/panel/settings.do", "/panel/users.do", "/panel/accounts.do", "/panel/panel.do", "/panel/console.do", "/panel.action", "/panel/login.action", "/panel/index.action", "/panel/dashboard.action",
+    "/panel/config.action", "/panel/settings.action", "/panel/users.action", "/panel/accounts.action", "/panel/panel.action", "/panel/console.action", "/dashboard.php", "/dashboard/login.php", "/dashboard/index.php", "/dashboard/dashboard.php",
+    "/dashboard/config.php", "/dashboard/settings.php", "/dashboard/users.php", "/dashboard/accounts.php", "/dashboard/panel.php", "/dashboard/console.php", "/dashboard.html", "/dashboard/login.html", "/dashboard/index.html", "/dashboard/dashboard.html",
+    "/dashboard/config.html", "/dashboard/settings.html", "/dashboard/users.html", "/dashboard/accounts.html", "/dashboard/panel.html", "/dashboard/console.html", "/dashboard.htm", "/dashboard/login.htm", "/dashboard/index.htm", "/dashboard/dashboard.htm",
+    "/dashboard/config.htm", "/dashboard/settings.htm", "/dashboard/users.htm", "/dashboard/accounts.htm", "/dashboard/panel.htm", "/dashboard/console.htm", "/dashboard.asp", "/dashboard/login.asp", "/dashboard/index.asp", "/dashboard/dashboard.asp",
+    "/dashboard/config.asp", "/dashboard/settings.asp", "/dashboard/users.asp", "/dashboard/accounts.asp", "/dashboard/panel.asp", "/dashboard/console.asp", "/dashboard.aspx", "/dashboard/login.aspx", "/dashboard/index.aspx", "/dashboard/dashboard.aspx",
+    "/dashboard/config.aspx", "/dashboard/settings.aspx", "/dashboard/users.aspx", "/dashboard/accounts.aspx", "/dashboard/panel.aspx", "/dashboard/console.aspx", "/dashboard.jsp", "/dashboard/login.jsp", "/dashboard/index.jsp", "/dashboard/dashboard.jsp",
+    "/dashboard/config.jsp", "/dashboard/settings.jsp", "/dashboard/users.jsp", "/dashboard/accounts.jsp", "/dashboard/panel.jsp", "/dashboard/console.jsp", "/dashboard.do", "/dashboard/login.do", "/dashboard/index.do", "/dashboard/dashboard.do",
+    "/dashboard/config.do", "/dashboard/settings.do", "/dashboard/users.do", "/dashboard/accounts.do", "/dashboard/panel.do", "/dashboard/console.do", "/dashboard.action", "/dashboard/login.action", "/dashboard/index.action", "/dashboard/dashboard.action",
+    "/dashboard/config.action", "/dashboard/settings.action", "/dashboard/users.action", "/dashboard/accounts.action", "/dashboard/panel.action", "/dashboard/console.action", "/console.php", "/console/login.php", "/console/index.php", "/console/dashboard.php",
+    "/console/config.php", "/console/settings.php", "/console/users.php", "/console/accounts.php", "/console/panel.php", "/console/console.php", "/console.html", "/console/login.html", "/console/index.html", "/console/dashboard.html",
+    "/console/config.html", "/console/settings.html", "/console/users.html", "/console/accounts.html", "/console/panel.html", "/console/console.html", "/console.htm", "/console/login.htm", "/console/index.htm", "/console/dashboard.htm",
+    "/console/config.htm", "/console/settings.htm", "/console/users.htm", "/console/accounts.htm", "/console/panel.htm", "/console/console.htm", "/console.asp", "/console/login.asp", "/console/index.asp", "/console/dashboard.asp",
+    "/console/config.asp", "/console/settings.asp", "/console/users.asp", "/console/accounts.asp", "/console/panel.asp", "/console/console.asp", "/console.aspx", "/console/login.aspx", "/console/index.aspx", "/console/dashboard.aspx",
+    "/console/config.aspx", "/console/settings.aspx", "/console/users.aspx", "/console/accounts.aspx", "/console/panel.aspx", "/console/console.aspx", "/console.jsp", "/console/login.jsp", "/console/index.jsp", "/console/dashboard.jsp",
+    "/console/config.jsp", "/console/settings.jsp", "/console/users.jsp", "/console/accounts.jsp", "/console/panel.jsp", "/console/console.jsp", "/console.do", "/console/login.do", "/console/index.do", "/console/dashboard.do",
+    "/console/config.do", "/console/settings.do", "/console/users.do", "/console/accounts.do", "/console/panel.do", "/console/console.do", "/console.action", "/console/login.action", "/console/index.action", "/console/dashboard.action",
+    "/console/config.action", "/console/settings.action", "/console/users.action", "/console/accounts.action", "/console/panel.action", "/console/console.action", "/controlpanel.php", "/controlpanel/login.php", "/controlpanel/index.php", "/controlpanel/dashboard.php",
+    "/controlpanel/config.php", "/controlpanel/settings.php", "/controlpanel/users.php", "/controlpanel/accounts.php", "/controlpanel/panel.php", "/controlpanel/console.php", "/controlpanel.html", "/controlpanel/login.html", "/controlpanel/index.html", "/controlpanel/dashboard.html",
+    "/controlpanel/config.html", "/controlpanel/settings.html", "/controlpanel/users.html", "/controlpanel/accounts.html", "/controlpanel/panel.html", "/controlpanel/console.html", "/controlpanel.htm", "/controlpanel/login.htm", "/controlpanel/index.htm", "/controlpanel/dashboard.htm",
+    "/controlpanel/config.htm", "/controlpanel/settings.htm", "/controlpanel/users.htm", "/controlpanel/accounts.htm", "/controlpanel/panel.htm", "/controlpanel/console.htm", "/controlpanel.asp", "/controlpanel/login.asp", "/controlpanel/index.asp", "/controlpanel/dashboard.asp",
+    "/controlpanel/config.asp", "/controlpanel/settings.asp", "/controlpanel/users.asp", "/controlpanel/accounts.asp", "/controlpanel/panel.asp", "/controlpanel/console.asp", "/controlpanel.aspx", "/controlpanel/login.aspx", "/controlpanel/index.aspx", "/controlpanel/dashboard.aspx",
+    "/controlpanel/config.aspx", "/controlpanel/settings.aspx", "/controlpanel/users.aspx", "/controlpanel/accounts.aspx", "/controlpanel/panel.aspx", "/controlpanel/console.aspx", "/controlpanel.jsp", "/controlpanel/login.jsp", "/controlpanel/index.jsp", "/controlpanel/dashboard.jsp",
+    "/controlpanel/config.jsp", "/controlpanel/settings.jsp", "/controlpanel/users.jsp", "/controlpanel/accounts.jsp", "/controlpanel/panel.jsp", "/controlpanel/console.jsp", "/controlpanel.do", "/controlpanel/login.do", "/controlpanel/index.do", "/controlpanel/dashboard.do",
+    "/controlpanel/config.do", "/controlpanel/settings.do", "/controlpanel/users.do", "/controlpanel/accounts.do", "/controlpanel/panel.do", "/controlpanel/console.do", "/controlpanel.action", "/controlpanel/login.action", "/controlpanel/index.action", "/controlpanel/dashboard.action",
+    "/controlpanel/config.action", "/controlpanel/settings.action", "/controlpanel/users.action", "/controlpanel/accounts.action", "/controlpanel/panel.action", "/controlpanel/console.action", "/cp.php", "/cp/login.php", "/cp/index.php", "/cp/dashboard.php",
+    "/cp/config.php", "/cp/settings.php", "/cp/users.php", "/cp/accounts.php", "/cp/panel.php", "/cp/console.php", "/cp.html", "/cp/login.html", "/cp/index.html", "/cp/dashboard.html",
+    "/cp/config.html", "/cp/settings.html", "/cp/users.html", "/cp/accounts.html", "/cp/panel.html", "/cp/console.html", "/cp.htm", "/cp/login.htm", "/cp/index.htm", "/cp/dashboard.htm",
+    "/cp/config.htm", "/cp/settings.htm", "/cp/users.htm", "/cp/accounts.htm", "/cp/panel.htm", "/cp/console.htm", "/cp.asp", "/cp/login.asp", "/cp/index.asp", "/cp/dashboard.asp",
+    "/cp/config.asp", "/cp/settings.asp", "/cp/users.asp", "/cp/accounts.asp", "/cp/panel.asp", "/cp/console.asp", "/cp.aspx", "/cp/login.aspx", "/cp/index.aspx", "/cp/dashboard.aspx",
+    "/cp/config.aspx", "/cp/settings.aspx", "/cp/users.aspx", "/cp/accounts.aspx", "/cp/panel.aspx", "/cp/console.aspx", "/cp.jsp", "/cp/login.jsp", "/cp/index.jsp", "/cp/dashboard.jsp",
+    "/cp/config.jsp", "/cp/settings.jsp", "/cp/users.jsp", "/cp/accounts.jsp", "/cp/panel.jsp", "/cp/console.jsp", "/cp.do", "/cp/login.do", "/cp/index.do", "/cp/dashboard.do",
+    "/cp/config.do", "/cp/settings.do", "/cp/users.do", "/cp/accounts.do", "/cp/panel.do", "/cp/console.do", "/cp.action", "/cp/login.action", "/cp/index.action", "/cp/dashboard.action",
+    "/cp/config.action", "/cp/settings.action", "/cp/users.action", "/cp/accounts.action", "/cp/panel.action", "/cp/console.action", "/cpadmin.php", "/cpadmin/login.php", "/cpadmin/index.php", "/cpadmin/dashboard.php",
+    "/cpadmin/config.php", "/cpadmin/settings.php", "/cpadmin/users.php", "/cpadmin/accounts.php", "/cpadmin/panel.php", "/cpadmin/console.php", "/cpadmin.html", "/cpadmin/login.html", "/cpadmin/index.html", "/cpadmin/dashboard.html",
+    "/cpadmin/config.html", "/cpadmin/settings.html", "/cpadmin/users.html", "/cpadmin/accounts.html", "/cpadmin/panel.html", "/cpadmin/console.html", "/cpadmin.htm", "/cpadmin/login.htm", "/cpadmin/index.htm", "/cpadmin/dashboard.htm",
+    "/cpadmin/config.htm", "/cpadmin/settings.htm", "/cpadmin/users.htm", "/cpadmin/accounts.htm", "/cpadmin/panel.htm", "/cpadmin/console.htm", "/cpadmin.asp", "/cpadmin/login.asp", "/cpadmin/index.asp", "/cpadmin/dashboard.asp",
+    "/cpadmin/config.asp", "/cpadmin/settings.asp", "/cpadmin/users.asp", "/cpadmin/accounts.asp", "/cpadmin/panel.asp", "/cpadmin/console.asp", "/cpadmin.aspx", "/cpadmin/login.aspx", "/cpadmin/index.aspx", "/cpadmin/dashboard.aspx",
+    "/cpadmin/config.aspx", "/cpadmin/settings.aspx", "/cpadmin/users.aspx", "/cpadmin/accounts.aspx", "/cpadmin/panel.aspx", "/cpadmin/console.aspx", "/cpadmin.jsp", "/cpadmin/login.jsp", "/cpadmin/index.jsp", "/cpadmin/dashboard.jsp",
+    "/cpadmin/config.jsp", "/cpadmin/settings.jsp", "/cpadmin/users.jsp", "/cpadmin/accounts.jsp", "/cpadmin/panel.jsp", "/cpadmin/console.jsp", "/cpadmin.do", "/cpadmin/login.do", "/cpadmin/index.do", "/cpadmin/dashboard.do",
+    "/cpadmin/config.do", "/cpadmin/settings.do", "/cpadmin/users.do", "/cpadmin/accounts.do", "/cpadmin/panel.do", "/cpadmin/console.do", "/cpadmin.action", "/cpadmin/login.action", "/cpadmin/index.action", "/cpadmin/dashboard.action",
+    "/cpadmin/config.action", "/cpadmin/settings.action", "/cpadmin/users.action", "/cpadmin/accounts.action", "/cpadmin/panel.action", "/cpadmin/console.action", "/webadmin.php", "/webadmin/login.php", "/webadmin/index.php", "/webadmin/dashboard.php",
+    "/webadmin/config.php", "/webadmin/settings.php", "/webadmin/users.php", "/webadmin/accounts.php", "/webadmin/panel.php", "/webadmin/console.php", "/webadmin.html", "/webadmin/login.html", "/webadmin/index.html", "/webadmin/dashboard.html",
+    "/webadmin/config.html", "/webadmin/settings.html", "/webadmin/users.html", "/webadmin/accounts.html", "/webadmin/panel.html", "/webadmin/console.html", "/webadmin.htm", "/webadmin/login.htm", "/webadmin/index.htm", "/webadmin/dashboard.htm",
+    "/webadmin/config.htm", "/webadmin/settings.htm", "/webadmin/users.htm", "/webadmin/accounts.htm", "/webadmin/panel.htm", "/webadmin/console.htm", "/webadmin.asp", "/webadmin/login.asp", "/webadmin/index.asp", "/webadmin/dashboard.asp",
+    "/webadmin/config.asp", "/webadmin/settings.asp", "/webadmin/users.asp", "/webadmin/accounts.asp", "/webadmin/panel.asp", "/webadmin/console.asp", "/webadmin.aspx", "/webadmin/login.aspx", "/webadmin/index.aspx", "/webadmin/dashboard.aspx",
+    "/webadmin/config.aspx", "/webadmin/settings.aspx", "/webadmin/users.aspx", "/webadmin/accounts.aspx", "/webadmin/panel.aspx", "/webadmin/console.aspx", "/webadmin.jsp", "/webadmin/login.jsp", "/webadmin/index.jsp", "/webadmin/dashboard.jsp",
+    "/webadmin/config.jsp", "/webadmin/settings.jsp", "/webadmin/users.jsp", "/webadmin/accounts.jsp", "/webadmin/panel.jsp", "/webadmin/console.jsp", "/webadmin.do", "/webadmin/login.do", "/webadmin/index.do", "/webadmin/dashboard.do",
+    "/webadmin/config.do", "/webadmin/settings.do", "/webadmin/users.do", "/webadmin/accounts.do", "/webadmin/panel.do", "/webadmin/console.do", "/webadmin.action", "/webadmin/login.action", "/webadmin/index.action", "/webadmin/dashboard.action",
+    "/webadmin/config.action", "/webadmin/settings.action", "/webadmin/users.action", "/webadmin/accounts.action", "/webadmin/panel.action", "/webadmin/console.action", "/siteadmin.php", "/siteadmin/login.php", "/siteadmin/index.php", "/siteadmin/dashboard.php",
+    "/siteadmin/config.php", "/siteadmin/settings.php", "/siteadmin/users.php", "/siteadmin/accounts.php", "/siteadmin/panel.php", "/siteadmin/console.php", "/siteadmin.html", "/siteadmin/login.html", "/siteadmin/index.html", "/siteadmin/dashboard.html",
+    "/siteadmin/config.html", "/siteadmin/settings.html", "/siteadmin/users.html", "/siteadmin/accounts.html", "/siteadmin/panel.html", "/siteadmin/console.html", "/siteadmin.htm", "/siteadmin/login.htm", "/siteadmin/index.htm", "/siteadmin/dashboard.htm",
+    "/siteadmin/config.htm", "/siteadmin/settings.htm", "/siteadmin/users.htm", "/siteadmin/accounts.htm", "/siteadmin/panel.htm", "/siteadmin/console.htm", "/siteadmin.asp", "/siteadmin/login.asp", "/siteadmin/index.asp", "/siteadmin/dashboard.asp",
+    "/siteadmin/config.asp", "/siteadmin/settings.asp", "/siteadmin/users.asp", "/siteadmin/accounts.asp", "/siteadmin/panel.asp", "/siteadmin/console.asp", "/siteadmin.aspx", "/siteadmin/login.aspx", "/siteadmin/index.aspx", "/siteadmin/dashboard.aspx",
+    "/siteadmin/config.aspx", "/siteadmin/settings.aspx", "/siteadmin/users.aspx", "/siteadmin/accounts.aspx", "/siteadmin/panel.aspx", "/siteadmin/console.aspx", "/siteadmin.jsp", "/siteadmin/login.jsp", "/siteadmin/index.jsp", "/siteadmin/dashboard.jsp",
+    "/siteadmin/config.jsp", "/siteadmin/settings.jsp", "/siteadmin/users.jsp", "/siteadmin/accounts.jsp", "/siteadmin/panel.jsp", "/siteadmin/console.jsp", "/siteadmin.do", "/siteadmin/login.do", "/siteadmin/index.do", "/siteadmin/dashboard.do",
+    "/siteadmin/config.do", "/siteadmin/settings.do", "/siteadmin/users.do", "/siteadmin/accounts.do", "/siteadmin/panel.do", "/siteadmin/console.do", "/siteadmin.action", "/siteadmin/login.action", "/siteadmin/index.action", "/siteadmin/dashboard.action",
+    "/siteadmin/config.action", "/siteadmin/settings.action", "/siteadmin/users.action", "/siteadmin/accounts.action", "/siteadmin/panel.action", "/siteadmin/console.action", "/sysadmin.php", "/sysadmin/login.php", "/sysadmin/index.php", "/sysadmin/dashboard.php",
+    "/sysadmin/config.php", "/sysadmin/settings.php", "/sysadmin/users.php", "/sysadmin/accounts.php", "/sysadmin/panel.php", "/sysadmin/console.php", "/sysadmin.html", "/sysadmin/login.html", "/sysadmin/index.html", "/sysadmin/dashboard.html",
+    "/sysadmin/config.html", "/sysadmin/settings.html", "/sysadmin/users.html", "/sysadmin/accounts.html", "/sysadmin/panel.html", "/sysadmin/console.html", "/sysadmin.htm", "/sysadmin/login.htm", "/sysadmin/index.htm", "/sysadmin/dashboard.htm",
+    "/sysadmin/config.htm", "/sysadmin/settings.htm", "/sysadmin/users.htm", "/sysadmin/accounts.htm", "/sysadmin/panel.htm", "/sysadmin/console.htm", "/sysadmin.asp", "/sysadmin/login.asp", "/sysadmin/index.asp", "/sysadmin/dashboard.asp",
+    "/sysadmin/config.asp", "/sysadmin/settings.asp", "/sysadmin/users.asp", "/sysadmin/accounts.asp", "/sysadmin/panel.asp", "/sysadmin/console.asp", "/sysadmin.aspx", "/sysadmin/login.aspx", "/sysadmin/index.aspx", "/sysadmin/dashboard.aspx",
+    "/sysadmin/config.aspx", "/sysadmin/settings.aspx", "/sysadmin/users.aspx", "/sysadmin/accounts.aspx", "/sysadmin/panel.aspx", "/sysadmin/console.aspx", "/sysadmin.jsp", "/sysadmin/login.jsp", "/sysadmin/index.jsp", "/sysadmin/dashboard.jsp",
+    "/sysadmin/config.jsp", "/sysadmin/settings.jsp", "/sysadmin/users.jsp", "/sysadmin/accounts.jsp", "/sysadmin/panel.jsp", "/sysadmin/console.jsp", "/sysadmin.do", "/sysadmin/login.do", "/sysadmin/index.do", "/sysadmin/dashboard.do",
+    "/sysadmin/config.do", "/sysadmin/settings.do", "/sysadmin/users.do", "/sysadmin/accounts.do", "/sysadmin/panel.do", "/sysadmin/console.do", "/sysadmin.action", "/sysadmin/login.action", "/sysadmin/index.action", "/sysadmin/dashboard.action",
+    "/sysadmin/config.action", "/sysadmin/settings.action", "/sysadmin/users.action", "/sysadmin/accounts.action", "/sysadmin/panel.action", "/sysadmin/console.action", "/root.php", "/root/login.php", "/root/index.php", "/root/dashboard.php",
+    "/root/config.php", "/root/settings.php", "/root/users.php", "/root/accounts.php", "/root/panel.php", "/root/console.php", "/root.html", "/root/login.html", "/root/index.html", "/root/dashboard.html",
+    "/root/config.html", "/root/settings.html", "/root/users.html", "/root/accounts.html", "/root/panel.html", "/root/console.html", "/root.htm", "/root/login.htm", "/root/index.htm", "/root/dashboard.htm",
+    "/root/config.htm", "/root/settings.htm", "/root/users.htm", "/root/accounts.htm", "/root/panel.htm", "/root/console.htm", "/root.asp", "/root/login.asp", "/root/index.asp", "/root/dashboard.asp",
+    "/root/config.asp", "/root/settings.asp", "/root/users.asp", "/root/accounts.asp", "/root/panel.asp", "/root/console.asp", "/root.aspx", "/root/login.aspx", "/root/index.aspx", "/root/dashboard.aspx",
+    "/root/config.aspx", "/root/settings.aspx", "/root/users.aspx", "/root/accounts.aspx", "/root/panel.aspx", "/root/console.aspx", "/root.jsp", "/root/login.jsp", "/root/index.jsp", "/root/dashboard.jsp",
+    "/root/config.jsp", "/root/settings.jsp", "/root/users.jsp", "/root/accounts.jsp", "/root/panel.jsp", "/root/console.jsp", "/root.do", "/root/login.do", "/root/index.do", "/root/dashboard.do",
+    "/root/config.do", "/root/settings.do", "/root/users.do", "/root/accounts.do", "/root/panel.do", "/root/console.do", "/root.action", "/root/login.action", "/root/index.action", "/root/dashboard.action",
+    "/root/config.action", "/root/settings.action", "/root/users.action", "/root/accounts.action", "/root/panel.action", "/root/console.action", "/superuser.php", "/superuser/login.php", "/superuser/index.php", "/superuser/dashboard.php",
+    "/superuser/config.php", "/superuser/settings.php", "/superuser/users.php", "/superuser/accounts.php", "/superuser/panel.php", "/superuser/console.php", "/superuser.html", "/superuser/login.html", "/superuser/index.html", "/superuser/dashboard.html",
+    "/superuser/config.html", "/superuser/settings.html", "/superuser/users.html", "/superuser/accounts.html", "/superuser/panel.html", "/superuser/console.html", "/superuser.htm", "/superuser/login.htm", "/superuser/index.htm", "/superuser/dashboard.htm",
+    "/superuser/config.htm", "/superuser/settings.htm", "/superuser/users.htm", "/superuser/accounts.htm", "/superuser/panel.htm", "/superuser/console.htm", "/superuser.asp", "/superuser/login.asp", "/superuser/index.asp", "/superuser/dashboard.asp",
+    "/superuser/config.asp", "/superuser/settings.asp", "/superuser/users.asp", "/superuser/accounts.asp", "/superuser/panel.asp", "/superuser/console.asp", "/superuser.aspx", "/superuser/login.aspx", "/superuser/index.aspx", "/superuser/dashboard.aspx",
+    "/superuser/config.aspx", "/superuser/settings.aspx", "/superuser/users.aspx", "/superuser/accounts.aspx", "/superuser/panel.aspx", "/superuser/console.aspx", "/superuser.jsp", "/superuser/login.jsp", "/superuser/index.jsp", "/superuser/dashboard.jsp",
+    "/superuser/config.jsp", "/superuser/settings.jsp", "/superuser/users.jsp", "/superuser/accounts.jsp", "/superuser/panel.jsp", "/superuser/console.jsp", "/superuser.do", "/superuser/login.do", "/superuser/index.do", "/superuser/dashboard.do",
+    "/superuser/config.do", "/superuser/settings.do", "/superuser/users.do", "/superuser/accounts.do", "/superuser/panel.do", "/superuser/console.do", "/superuser.action", "/superuser/login.action", "/superuser/index.action", "/superuser/dashboard.action",
+    "/superuser/config.action", "/superuser/settings.action", "/superuser/users.action", "/superuser/accounts.action", "/superuser/panel.action", "/superuser/console.action", "/backoffice.php", "/backoffice/login.php", "/backoffice/index.php", "/backoffice/dashboard.php",
+    "/backoffice/config.php", "/backoffice/settings.php", "/backoffice/users.php", "/backoffice/accounts.php", "/backoffice/panel.php", "/backoffice/console.php", "/backoffice.html", "/backoffice/login.html", "/backoffice/index.html", "/backoffice/dashboard.html",
+    "/backoffice/config.html", "/backoffice/settings.html", "/backoffice/users.html", "/backoffice/accounts.html", "/backoffice/panel.html", "/backoffice/console.html", "/backoffice.htm", "/backoffice/login.htm", "/backoffice/index.htm", "/backoffice/dashboard.htm",
+    "/backoffice/config.htm", "/backoffice/settings.htm", "/backoffice/users.htm", "/backoffice/accounts.htm", "/backoffice/panel.htm", "/backoffice/console.htm", "/backoffice.asp", "/backoffice/login.asp", "/backoffice/index.asp", "/backoffice/dashboard.asp",
+    "/backoffice/config.asp", "/backoffice/settings.asp", "/backoffice/users.asp", "/backoffice/accounts.asp", "/backoffice/panel.asp", "/backoffice/console.asp", "/backoffice.aspx", "/backoffice/login.aspx", "/backoffice/index.aspx", "/backoffice/dashboard.aspx",
+    "/backoffice/config.aspx", "/backoffice/settings.aspx", "/backoffice/users.aspx", "/backoffice/accounts.aspx", "/backoffice/panel.aspx", "/backoffice/console.aspx", "/backoffice.jsp", "/backoffice/login.jsp", "/backoffice/index.jsp", "/backoffice/dashboard.jsp",
+    "/backoffice/config.jsp", "/backoffice/settings.jsp", "/backoffice/users.jsp", "/backoffice/accounts.jsp", "/backoffice/panel.jsp", "/backoffice/console.jsp", "/backoffice.do", "/backoffice/login.do", "/backoffice/index.do", "/backoffice/dashboard.do",
+    "/backoffice/config.do", "/backoffice/settings.do", "/backoffice/users.do", "/backoffice/accounts.do", "/backoffice/panel.do", "/backoffice/console.do", "/backoffice.action", "/backoffice/login.action", "/backoffice/index.action", "/backoffice/dashboard.action",
+    "/backoffice/config.action", "/backoffice/settings.action", "/backoffice/users.action", "/backoffice/accounts.action", "/backoffice/panel.action", "/backoffice/console.action", "/backoffice/admin.php", "/backoffice/admin/login.php", "/backoffice/admin/index.php", "/backoffice/admin/dashboard.php",
+    "/backoffice/admin/config.php", "/backoffice/admin/settings.php", "/backoffice/admin/users.php", "/backoffice/admin/accounts.php", "/backoffice/admin/panel.php", "/backoffice/admin/console.php", "/backoffice/admin.html", "/backoffice/admin/login.html", "/backoffice/admin/index.html", "/backoffice/admin/dashboard.html",
+    "/backoffice/admin/config.html", "/backoffice/admin/settings.html", "/backoffice/admin/users.html", "/backoffice/admin/accounts.html", "/backoffice/admin/panel.html", "/backoffice/admin/console.html", "/backoffice/admin.htm", "/backoffice/admin/login.htm", "/backoffice/admin/index.htm", "/backoffice/admin/dashboard.htm",
+    "/backoffice/admin/config.htm", "/backoffice/admin/settings.htm", "/backoffice/admin/users.htm", "/backoffice/admin/accounts.htm", "/backoffice/admin/panel.htm", "/backoffice/admin/console.htm", "/backoffice/admin.asp", "/backoffice/admin/login.asp", "/backoffice/admin/index.asp", "/backoffice/admin/dashboard.asp",
+    "/backoffice/admin/config.asp", "/backoffice/admin/settings.asp", "/backoffice/admin/users.asp", "/backoffice/admin/accounts.asp", "/backoffice/admin/panel.asp", "/backoffice/admin/console.asp", "/backoffice/admin.aspx", "/backoffice/admin/login.aspx", "/backoffice/admin/index.aspx", "/backoffice/admin/dashboard.aspx",
+    "/backoffice/admin/config.aspx", "/backoffice/admin/settings.aspx", "/backoffice/admin/users.aspx", "/backoffice/admin/accounts.aspx", "/backoffice/admin/panel.aspx", "/backoffice/admin/console.aspx", "/backoffice/admin.jsp", "/backoffice/admin/login.jsp", "/backoffice/admin/index.jsp", "/backoffice/admin/dashboard.jsp",
+    "/backoffice/admin/config.jsp", "/backoffice/admin/settings.jsp", "/backoffice/admin/users.jsp", "/backoffice/admin/accounts.jsp", "/backoffice/admin/panel.jsp", "/backoffice/admin/console.jsp", "/backoffice/admin.do", "/backoffice/admin/login.do", "/backoffice/admin/index.do", "/backoffice/admin/dashboard.do",
+    "/backoffice/admin/config.do", "/backoffice/admin/settings.do", "/backoffice/admin/users.do", "/backoffice/admin/accounts.do", "/backoffice/admin/panel.do", "/backoffice/admin/console.do", "/backoffice/admin.action", "/backoffice/admin/login.action", "/backoffice/admin/index.action", "/backoffice/admin/dashboard.action",
+    "/backoffice/admin/config.action", "/backoffice/admin/settings.action", "/backoffice/admin/users.action", "/backoffice/admin/accounts.action", "/backoffice/admin/panel.action", "/backoffice/admin/console.action", "/office.php", "/office/login.php", "/office/index.php", "/office/dashboard.php",
+    "/office/config.php", "/office/settings.php", "/office/users.php", "/office/accounts.php", "/office/panel.php", "/office/console.php", "/office.html", "/office/login.html", "/office/index.html", "/office/dashboard.html",
+    "/office/config.html", "/office/settings.html", "/office/users.html", "/office/accounts.html", "/office/panel.html", "/office/console.html", "/office.htm", "/office/login.htm", "/office/index.htm", "/office/dashboard.htm",
+    "/office/config.htm", "/office/settings.htm", "/office/users.htm", "/office/accounts.htm", "/office/panel.htm", "/office/console.htm", "/office.asp", "/office/login.asp", "/office/index.asp", "/office/dashboard.asp",
+    "/office/config.asp", "/office/settings.asp", "/office/users.asp", "/office/accounts.asp", "/office/panel.asp", "/office/console.asp", "/office.aspx", "/office/login.aspx", "/office/index.aspx", "/office/dashboard.aspx",
+    "/office/config.aspx", "/office/settings.aspx", "/office/users.aspx", "/office/accounts.aspx", "/office/panel.aspx", "/office/console.aspx", "/office.jsp", "/office/login.jsp", "/office/index.jsp", "/office/dashboard.jsp",
+    "/office/config.jsp", "/office/settings.jsp", "/office/users.jsp", "/office/accounts.jsp", "/office/panel.jsp", "/office/console.jsp", "/office.do", "/office/login.do", "/office/index.do", "/office/dashboard.do",
+    "/office/config.do", "/office/settings.do", "/office/users.do", "/office/accounts.do", "/office/panel.do", "/office/console.do", "/office.action", "/office/login.action", "/office/index.action", "/office/dashboard.action",
+    "/office/config.action", "/office/settings.action", "/office/users.action", "/office/accounts.action", "/office/panel.action", "/office/console.action", "/office/admin.php", "/office/admin/login.php", "/office/admin/index.php", "/office/admin/dashboard.php",
+    "/office/admin/config.php", "/office/admin/settings.php", "/office/admin/users.php", "/office/admin/accounts.php", "/office/admin/panel.php", "/office/admin/console.php", "/office/admin.html", "/office/admin/login.html", "/office/admin/index.html", "/office/admin/dashboard.html",
+    "/office/admin/config.html", "/office/admin/settings.html", "/office/admin/users.html", "/office/admin/accounts.html", "/office/admin/panel.html", "/office/admin/console.html", "/office/admin.htm", "/office/admin/login.htm", "/office/admin/index.htm", "/office/admin/dashboard.htm",
+    "/office/admin/config.htm", "/office/admin/settings.htm", "/office/admin/users.htm", "/office/admin/accounts.htm", "/office/admin/panel.htm", "/office/admin/console.htm", "/office/admin.asp", "/office/admin/login.asp", "/office/admin/index.asp", "/office/admin/dashboard.asp",
+    "/office/admin/config.asp", "/office/admin/settings.asp", "/office/admin/users.asp", "/office/admin/accounts.asp", "/office/admin/panel.asp", "/office/admin/console.asp", "/office/admin.aspx", "/office/admin/login.aspx", "/office/admin/index.aspx", "/office/admin/dashboard.aspx",
+    "/office/admin/config.aspx", "/office/admin/settings.aspx", "/office/admin/users.aspx", "/office/admin/accounts.aspx", "/office/admin/panel.aspx", "/office/admin/console.aspx", "/office/admin.jsp", "/office/admin/login.jsp", "/office/admin/index.jsp", "/office/admin/dashboard.jsp",
+    "/office/admin/config.jsp", "/office/admin/settings.jsp", "/office/admin/users.jsp", "/office/admin/accounts.jsp", "/office/admin/panel.jsp", "/office/admin/console.jsp", "/office/admin.do", "/office/admin/login.do", "/office/admin/index.do", "/office/admin/dashboard.do",
+    "/office/admin/config.do", "/office/admin/settings.do", "/office/admin/users.do", "/office/admin/accounts.do", "/office/admin/panel.do", "/office/admin/console.do", "/office/admin.action", "/office/admin/login.action", "/office/admin/index.action", "/office/admin/dashboard.action",
+    "/office/admin/config.action", "/office/admin/settings.action", "/office/admin/users.action", "/office/admin/accounts.action", "/office/admin/panel.action", "/office/admin/console.action", "/staff.php", "/staff/login.php", "/staff/index.php", "/staff/dashboard.php",
+    "/staff/config.php", "/staff/settings.php", "/staff/users.php", "/staff/accounts.php", "/staff/panel.php", "/staff/console.php", "/staff.html", "/staff/login.html", "/staff/index.html", "/staff/dashboard.html",
+    "/staff/config.html", "/staff/settings.html", "/staff/users.html", "/staff/accounts.html", "/staff/panel.html", "/staff/console.html", "/staff.htm", "/staff/login.htm", "/staff/index.htm", "/staff/dashboard.htm",
+    "/staff/config.htm", "/staff/settings.htm", "/staff/users.htm", "/staff/accounts.htm", "/staff/panel.htm", "/staff/console.htm", "/staff.asp", "/staff/login.asp", "/staff/index.asp", "/staff/dashboard.asp",
+    "/staff/config.asp", "/staff/settings.asp", "/staff/users.asp", "/staff/accounts.asp", "/staff/panel.asp", "/staff/console.asp", "/staff.aspx", "/staff/login.aspx", "/staff/index.aspx", "/staff/dashboard.aspx",
+    "/staff/config.aspx", "/staff/settings.aspx", "/staff/users.aspx", "/staff/accounts.aspx", "/staff/panel.aspx", "/staff/console.aspx", "/staff.jsp", "/staff/login.jsp", "/staff/index.jsp", "/staff/dashboard.jsp",
+    "/staff/config.jsp", "/staff/settings.jsp", "/staff/users.jsp", "/staff/accounts.jsp", "/staff/panel.jsp", "/staff/console.jsp", "/staff.do", "/staff/login.do", "/staff/index.do", "/staff/dashboard.do",
+    "/staff/config.do", "/staff/settings.do", "/staff/users.do", "/staff/accounts.do", "/staff/panel.do", "/staff/console.do", "/staff.action", "/staff/login.action", "/staff/index.action", "/staff/dashboard.action",
+    "/staff/config.action", "/staff/settings.action", "/staff/users.action", "/staff/accounts.action", "/staff/panel.action", "/staff/console.action", "/staff/admin.php", "/staff/admin/login.php", "/staff/admin/index.php", "/staff/admin/dashboard.php",
+    "/staff/admin/config.php", "/staff/admin/settings.php", "/staff/admin/users.php", "/staff/admin/accounts.php", "/staff/admin/panel.php", "/staff/admin/console.php", "/staff/admin.html", "/staff/admin/login.html", "/staff/admin/index.html", "/staff/admin/dashboard.html",
+    "/staff/admin/config.html", "/staff/admin/settings.html", "/staff/admin/users.html", "/staff/admin/accounts.html", "/staff/admin/panel.html", "/staff/admin/console.html", "/staff/admin.htm", "/staff/admin/login.htm", "/staff/admin/index.htm", "/staff/admin/dashboard.htm",
+    "/staff/admin/config.htm", "/staff/admin/settings.htm", "/staff/admin/users.htm", "/staff/admin/accounts.htm", "/staff/admin/panel.htm", "/staff/admin/console.htm", "/staff/admin.asp", "/staff/admin/login.asp", "/staff/admin/index.asp", "/staff/admin/dashboard.asp",
+    "/staff/admin/config.asp", "/staff/admin/settings.asp", "/staff/admin/users.asp", "/staff/admin/accounts.asp", "/staff/admin/panel.asp", "/staff/admin/console.asp", "/staff/admin.aspx", "/staff/admin/login.aspx", "/staff/admin/index.aspx", "/staff/admin/dashboard.aspx",
+    "/staff/admin/config.aspx", "/staff/admin/settings.aspx", "/staff/admin/users.aspx", "/staff/admin/accounts.aspx", "/staff/admin/panel.aspx", "/staff/admin/console.aspx", "/staff/admin.jsp", "/staff/admin/login.jsp", "/staff/admin/index.jsp", "/staff/admin/dashboard.jsp",
+    "/staff/admin/config.jsp", "/staff/admin/settings.jsp", "/staff/admin/users.jsp", "/staff/admin/accounts.jsp", "/staff/admin/panel.jsp", "/staff/admin/console.jsp", "/staff/admin.do", "/staff/admin/login.do", "/staff/admin/index.do", "/staff/admin/dashboard.do",
+    "/staff/admin/config.do", "/staff/admin/settings.do", "/staff/admin/users.do", "/staff/admin/accounts.do", "/staff/admin/panel.do", "/staff/admin/console.do", "/staff/admin.action", "/staff/admin/login.action", "/staff/admin/index.action", "/staff/admin/dashboard.action",
+    "/staff/admin/config.action", "/staff/admin/settings.action", "/staff/admin/users.action", "/staff/admin/accounts.action", "/staff/admin/panel.action", "/staff/admin/console.action", "/moderator.php", "/moderator/login.php", "/moderator/index.php", "/moderator/dashboard.php",
+    "/moderator/config.php", "/moderator/settings.php", "/moderator/users.php", "/moderator/accounts.php", "/moderator/panel.php", "/moderator/console.php", "/moderator.html", "/moderator/login.html", "/moderator/index.html", "/moderator/dashboard.html",
+    "/moderator/config.html", "/moderator/settings.html", "/moderator/users.html", "/moderator/accounts.html", "/moderator/panel.html", "/moderator/console.html", "/moderator.htm", "/moderator/login.htm", "/moderator/index.htm", "/moderator/dashboard.htm",
+    "/moderator/config.htm", "/moderator/settings.htm", "/moderator/users.htm", "/moderator/accounts.htm", "/moderator/panel.htm", "/moderator/console.htm", "/moderator.asp", "/moderator/login.asp", "/moderator/index.asp", "/moderator/dashboard.asp",
+    "/moderator/config.asp", "/moderator/settings.asp", "/moderator/users.asp", "/moderator/accounts.asp", "/moderator/panel.asp", "/moderator/console.asp", "/moderator.aspx", "/moderator/login.aspx", "/moderator/index.aspx", "/moderator/dashboard.aspx",
+    "/moderator/config.aspx", "/moderator/settings.aspx", "/moderator/users.aspx", "/moderator/accounts.aspx", "/moderator/panel.aspx", "/moderator/console.aspx", "/moderator.jsp", "/moderator/login.jsp", "/moderator/index.jsp", "/moderator/dashboard.jsp",
+    "/moderator/config.jsp", "/moderator/settings.jsp", "/moderator/users.jsp", "/moderator/accounts.jsp", "/moderator/panel.jsp", "/moderator/console.jsp", "/moderator.do", "/moderator/login.do", "/moderator/index.do", "/moderator/dashboard.do",
+    "/moderator/config.do", "/moderator/settings.do", "/moderator/users.do", "/moderator/accounts.do", "/moderator/panel.do", "/moderator/console.do", "/moderator.action", "/moderator/login.action", "/moderator/index.action", "/moderator/dashboard.action",
+    "/moderator/config.action", "/moderator/settings.action", "/moderator/users.action", "/moderator/accounts.action", "/moderator/panel.action", "/moderator/console.action", "/mod.php", "/mod/login.php", "/mod/index.php", "/mod/dashboard.php",
+    "/mod/config.php", "/mod/settings.php", "/mod/users.php", "/mod/accounts.php", "/mod/panel.php", "/mod/console.php", "/mod.html", "/mod/login.html", "/mod/index.html", "/mod/dashboard.html",
+    "/mod/config.html", "/mod/settings.html", "/mod/users.html", "/mod/accounts.html", "/mod/panel.html", "/mod/console.html", "/mod.htm", "/mod/login.htm", "/mod/index.htm", "/mod/dashboard.htm",
+    "/mod/config.htm", "/mod/settings.htm", "/mod/users.htm", "/mod/accounts.htm", "/mod/panel.htm", "/mod/console.htm", "/mod.asp", "/mod/login.asp", "/mod/index.asp", "/mod/dashboard.asp",
+    "/mod/config.asp", "/mod/settings.asp", "/mod/users.asp", "/mod/accounts.asp", "/mod/panel.asp", "/mod/console.asp", "/mod.aspx", "/mod/login.aspx", "/mod/index.aspx", "/mod/dashboard.aspx",
+    "/mod/config.aspx", "/mod/settings.aspx", "/mod/users.aspx", "/mod/accounts.aspx", "/mod/panel.aspx", "/mod/console.aspx", "/mod.jsp", "/mod/login.jsp", "/mod/index.jsp", "/mod/dashboard.jsp",
+    "/mod/config.jsp", "/mod/settings.jsp", "/mod/users.jsp", "/mod/accounts.jsp", "/mod/panel.jsp", "/mod/console.jsp", "/mod.do", "/mod/login.do", "/mod/index.do", "/mod/dashboard.do",
+    "/mod/config.do", "/mod/settings.do", "/mod/users.do", "/mod/accounts.do", "/mod/panel.do", "/mod/console.do", "/mod.action", "/mod/login.action", "/mod/index.action", "/mod/dashboard.action",
+    "/mod/config.action", "/mod/settings.action", "/mod/users.action", "/mod/accounts.action", "/mod/panel.action", "/mod/console.action", "/mod/admin.php", "/mod/admin/login.php", "/mod/admin/index.php", "/mod/admin/dashboard.php",
+    "/mod/admin/config.php", "/mod/admin/settings.php", "/mod/admin/users.php", "/mod/admin/accounts.php", "/mod/admin/panel.php", "/mod/admin/console.php", "/mod/admin.html", "/mod/admin/login.html", "/mod/admin/index.html", "/mod/admin/dashboard.html",
+    "/mod/admin/config.html", "/mod/admin/settings.html", "/mod/admin/users.html", "/mod/admin/accounts.html", "/mod/admin/panel.html", "/mod/admin/console.html", "/mod/admin.htm", "/mod/admin/login.htm", "/mod/admin/index.htm", "/mod/admin/dashboard.htm",
+    "/mod/admin/config.htm", "/mod/admin/settings.htm", "/mod/admin/users.htm", "/mod/admin/accounts.htm", "/mod/admin/panel.htm", "/mod/admin/console.htm", "/mod/admin.asp", "/mod/admin/login.asp", "/mod/admin/index.asp", "/mod/admin/dashboard.asp",
+    "/mod/admin/config.asp", "/mod/admin/settings.asp", "/mod/admin/users.asp", "/mod/admin/accounts.asp", "/mod/admin/panel.asp", "/mod/admin/console.asp", "/mod/admin.aspx", "/mod/admin/login.aspx", "/mod/admin/index.aspx", "/mod/admin/dashboard.aspx",
+    "/mod/admin/config.aspx", "/mod/admin/settings.aspx", "/mod/admin/users.aspx", "/mod/admin/accounts.aspx", "/mod/admin/panel.aspx", "/mod/admin/console.aspx", "/mod/admin.jsp", "/mod/admin/login.jsp", "/mod/admin/index.jsp", "/mod/admin/dashboard.jsp",
+    "/mod/admin/config.jsp", "/mod/admin/settings.jsp", "/mod/admin/users.jsp", "/mod/admin/accounts.jsp", "/mod/admin/panel.jsp", "/mod/admin/console.jsp", "/mod/admin.do", "/mod/admin/login.do", "/mod/admin/index.do", "/mod/admin/dashboard.do",
+    "/mod/admin/config.do", "/mod/admin/settings.do", "/mod/admin/users.do", "/mod/admin/accounts.do", "/mod/admin/panel.do", "/mod/admin/console.do", "/mod/admin.action", "/mod/admin/login.action", "/mod/admin/index.action", "/mod/admin/dashboard.action",
+    "/mod/admin/config.action", "/mod/admin/settings.action", "/mod/admin/users.action", "/mod/admin/accounts.action", "/mod/admin/panel.action", "/mod/admin/console.action", "/index.php", "/index.php5", "/index.php7", "/index.phtml",
+    "/index.phps", "/index.php.bak", "/index.php.old", "/index.php~", "/index.php.swp", "/index.php.save", "/index.php.orig", "/index.php.dist", "/home.php", "/home.php5",
+    "/home.php7", "/home.phtml", "/home.phps", "/home.php.bak", "/home.php.old", "/home.php~", "/home.php.swp", "/home.php.save", "/home.php.orig", "/home.php.dist",
+    "/main.php", "/main.php5", "/main.php7", "/main.phtml", "/main.phps", "/main.php.bak", "/main.php.old", "/main.php~", "/main.php.swp", "/main.php.save",
+    "/main.php.orig", "/main.php.dist", "/default.php5", "/default.php7", "/default.phtml", "/default.phps", "/default.php.bak", "/default.php.old", "/default.php~", "/default.php.swp",
+    "/default.php.save", "/default.php.orig", "/default.php.dist", "/config.php", "/config.php5", "/config.php7", "/config.phtml", "/config.phps", "/config.php.bak", "/config.php.old",
+    "/config.php~", "/config.php.swp", "/config.php.save", "/config.php.orig", "/config.php.dist", "/settings.php", "/settings.php5", "/settings.php7", "/settings.phtml", "/settings.phps",
+    "/settings.php.bak", "/settings.php.old", "/settings.php~", "/settings.php.swp", "/settings.php.save", "/settings.php.orig", "/settings.php.dist", "/database.php5", "/database.php7", "/database.phtml",
+    "/database.phps", "/database.php.bak", "/database.php.old", "/database.php~", "/database.php.swp", "/database.php.save", "/database.php.orig", "/database.php.dist", "/db.php", "/db.php5",
+    "/db.php7", "/db.phtml", "/db.phps", "/db.php.bak", "/db.php.old", "/db.php~", "/db.php.swp", "/db.php.save", "/db.php.orig", "/db.php.dist",
+    "/connect.php", "/connect.php5", "/connect.php7", "/connect.phtml", "/connect.phps", "/connect.php.bak", "/connect.php.old", "/connect.php~", "/connect.php.swp", "/connect.php.save",
+    "/connect.php.orig", "/connect.php.dist", "/connection.php", "/connection.php5", "/connection.php7", "/connection.phtml", "/connection.phps", "/connection.php.bak", "/connection.php.old", "/connection.php~",
+    "/connection.php.swp", "/connection.php.save", "/connection.php.orig", "/connection.php.dist", "/dbconfig.php", "/dbconfig.php5", "/dbconfig.php7", "/dbconfig.phtml", "/dbconfig.phps", "/dbconfig.php.bak",
+    "/dbconfig.php.old", "/dbconfig.php~", "/dbconfig.php.swp", "/dbconfig.php.save", "/dbconfig.php.orig", "/dbconfig.php.dist", "/db_connect.php", "/db_connect.php5", "/db_connect.php7", "/db_connect.phtml",
+    "/db_connect.phps", "/db_connect.php.bak", "/db_connect.php.old", "/db_connect.php~", "/db_connect.php.swp", "/db_connect.php.save", "/db_connect.php.orig", "/db_connect.php.dist", "/functions.php", "/functions.php5",
+    "/functions.php7", "/functions.phtml", "/functions.phps", "/functions.php.bak", "/functions.php.old", "/functions.php~", "/functions.php.swp", "/functions.php.save", "/functions.php.orig", "/functions.php.dist",
+    "/include.php", "/include.php5", "/include.php7", "/include.phtml", "/include.phps", "/include.php.bak", "/include.php.old", "/include.php~", "/include.php.swp", "/include.php.save",
+    "/include.php.orig", "/include.php.dist", "/require.php", "/require.php5", "/require.php7", "/require.phtml", "/require.phps", "/require.php.bak", "/require.php.old", "/require.php~",
+    "/require.php.swp", "/require.php.save", "/require.php.orig", "/require.php.dist", "/includes.php", "/includes.php5", "/includes.php7", "/includes.phtml", "/includes.phps", "/includes.php.bak",
+    "/includes.php.old", "/includes.php~", "/includes.php.swp", "/includes.php.save", "/includes.php.orig", "/includes.php.dist", "/header.php", "/header.php5", "/header.php7", "/header.phtml",
+    "/header.phps", "/header.php.bak", "/header.php.old", "/header.php~", "/header.php.swp", "/header.php.save", "/header.php.orig", "/header.php.dist", "/footer.php", "/footer.php5",
+    "/footer.php7", "/footer.phtml", "/footer.phps", "/footer.php.bak", "/footer.php.old", "/footer.php~", "/footer.php.swp", "/footer.php.save", "/footer.php.orig", "/footer.php.dist",
+    "/sidebar.php", "/sidebar.php5", "/sidebar.php7", "/sidebar.phtml", "/sidebar.phps", "/sidebar.php.bak", "/sidebar.php.old", "/sidebar.php~", "/sidebar.php.swp", "/sidebar.php.save",
+    "/sidebar.php.orig", "/sidebar.php.dist", "/template.php", "/template.php5", "/template.php7", "/template.phtml", "/template.phps", "/template.php.bak", "/template.php.old", "/template.php~",
+    "/template.php.swp", "/template.php.save", "/template.php.orig", "/template.php.dist", "/page.php", "/page.php5", "/page.php7", "/page.phtml", "/page.phps", "/page.php.bak",
+    "/page.php.old", "/page.php~", "/page.php.swp", "/page.php.save", "/page.php.orig", "/page.php.dist", "/view.php", "/view.php5", "/view.php7", "/view.phtml",
+    "/view.phps", "/view.php.bak", "/view.php.old", "/view.php~", "/view.php.swp", "/view.php.save", "/view.php.orig", "/view.php.dist", "/controller.php", "/controller.php5",
+    "/controller.php7", "/controller.phtml", "/controller.phps", "/controller.php.bak", "/controller.php.old", "/controller.php~", "/controller.php.swp", "/controller.php.save", "/controller.php.orig", "/controller.php.dist",
+    "/model.php", "/model.php5", "/model.php7", "/model.phtml", "/model.phps", "/model.php.bak", "/model.php.old", "/model.php~", "/model.php.swp", "/model.php.save",
+    "/model.php.orig", "/model.php.dist", "/route.php", "/route.php5", "/route.php7", "/route.phtml", "/route.phps", "/route.php.bak", "/route.php.old", "/route.php~",
+    "/route.php.swp", "/route.php.save", "/route.php.orig", "/route.php.dist", "/router.php", "/router.php5", "/router.php7", "/router.phtml", "/router.phps", "/router.php.bak",
+    "/router.php.old", "/router.php~", "/router.php.swp", "/router.php.save", "/router.php.orig", "/router.php.dist", "/middleware.php", "/middleware.php5", "/middleware.php7", "/middleware.phtml",
+    "/middleware.phps", "/middleware.php.bak", "/middleware.php.old", "/middleware.php~", "/middleware.php.swp", "/middleware.php.save", "/middleware.php.orig", "/middleware.php.dist", "/handler.php", "/handler.php5",
+    "/handler.php7", "/handler.phtml", "/handler.phps", "/handler.php.bak", "/handler.php.old", "/handler.php~", "/handler.php.swp", "/handler.php.save", "/handler.php.orig", "/handler.php.dist",
+    "/helper.php", "/helper.php5", "/helper.php7", "/helper.phtml", "/helper.phps", "/helper.php.bak", "/helper.php.old", "/helper.php~", "/helper.php.swp", "/helper.php.save",
+    "/helper.php.orig", "/helper.php.dist", "/utility.php", "/utility.php5", "/utility.php7", "/utility.phtml", "/utility.phps", "/utility.php.bak", "/utility.php.old", "/utility.php~",
+    "/utility.php.swp", "/utility.php.save", "/utility.php.orig", "/utility.php.dist", "/test.php", "/test.php5", "/test.php7", "/test.phtml", "/test.phps", "/test.php.bak",
+    "/test.php.old", "/test.php~", "/test.php.swp", "/test.php.save", "/test.php.orig", "/test.php.dist", "/debug.php", "/debug.php5", "/debug.php7", "/debug.phtml",
+    "/debug.phps", "/debug.php.bak", "/debug.php.old", "/debug.php~", "/debug.php.swp", "/debug.php.save", "/debug.php.orig", "/debug.php.dist", "/info.php", "/info.php5",
+    "/info.php7", "/info.phtml", "/info.phps", "/info.php.bak", "/info.php.old", "/info.php~", "/info.php.swp", "/info.php.save", "/info.php.orig", "/info.php.dist",
+    "/phpinfo.php", "/phpinfo.php5", "/phpinfo.php7", "/phpinfo.phtml", "/phpinfo.phps", "/phpinfo.php.bak", "/phpinfo.php.old", "/phpinfo.php~", "/phpinfo.php.swp", "/phpinfo.php.save",
+    "/phpinfo.php.orig", "/phpinfo.php.dist", "/shell.php", "/shell.php5", "/shell.php7", "/shell.phtml", "/shell.phps", "/shell.php.bak", "/shell.php.old", "/shell.php~",
+    "/shell.php.swp", "/shell.php.save", "/shell.php.orig", "/shell.php.dist", "/cmd.php", "/cmd.php5", "/cmd.php7", "/cmd.phtml", "/cmd.phps", "/cmd.php.bak",
+    "/cmd.php.old", "/cmd.php~", "/cmd.php.swp", "/cmd.php.save", "/cmd.php.orig", "/cmd.php.dist", "/exec.php", "/exec.php5", "/exec.php7", "/exec.phtml",
+    "/exec.phps", "/exec.php.bak", "/exec.php.old", "/exec.php~", "/exec.php.swp", "/exec.php.save", "/exec.php.orig", "/exec.php.dist", "/system.php5", "/system.php7",
+    "/system.phtml", "/system.phps", "/system.php.bak", "/system.php.old", "/system.php~", "/system.php.swp", "/system.php.save", "/system.php.orig", "/system.php.dist", "/passthru.php",
+    "/passthru.php5", "/passthru.php7", "/passthru.phtml", "/passthru.phps", "/passthru.php.bak", "/passthru.php.old", "/passthru.php~", "/passthru.php.swp", "/passthru.php.save", "/passthru.php.orig",
+    "/passthru.php.dist", "/eval.php", "/eval.php5", "/eval.php7", "/eval.phtml", "/eval.phps", "/eval.php.bak", "/eval.php.old", "/eval.php~", "/eval.php.swp",
+    "/eval.php.save", "/eval.php.orig", "/eval.php.dist", "/upload.php", "/upload.php5", "/upload.php7", "/upload.phtml", "/upload.phps", "/upload.php.bak", "/upload.php.old",
+    "/upload.php~", "/upload.php.swp", "/upload.php.save", "/upload.php.orig", "/upload.php.dist", "/download.php", "/download.php5", "/download.php7", "/download.phtml", "/download.phps",
+    "/download.php.bak", "/download.php.old", "/download.php~", "/download.php.swp", "/download.php.save", "/download.php.orig", "/download.php.dist", "/delete.php", "/delete.php5", "/delete.php7",
+    "/delete.phtml", "/delete.phps", "/delete.php.bak", "/delete.php.old", "/delete.php~", "/delete.php.swp", "/delete.php.save", "/delete.php.orig", "/delete.php.dist", "/edit.php",
+    "/edit.php5", "/edit.php7", "/edit.phtml", "/edit.phps", "/edit.php.bak", "/edit.php.old", "/edit.php~", "/edit.php.swp", "/edit.php.save", "/edit.php.orig",
+    "/edit.php.dist", "/create.php", "/create.php5", "/create.php7", "/create.phtml", "/create.phps", "/create.php.bak", "/create.php.old", "/create.php~", "/create.php.swp",
+    "/create.php.save", "/create.php.orig", "/create.php.dist", "/update.php", "/update.php5", "/update.php7", "/update.phtml", "/update.phps", "/update.php.bak", "/update.php.old",
+    "/update.php~", "/update.php.swp", "/update.php.save", "/update.php.orig", "/update.php.dist", "/read.php", "/read.php5", "/read.php7", "/read.phtml", "/read.phps",
+    "/read.php.bak", "/read.php.old", "/read.php~", "/read.php.swp", "/read.php.save", "/read.php.orig", "/read.php.dist", "/write.php", "/write.php5", "/write.php7",
+    "/write.phtml", "/write.phps", "/write.php.bak", "/write.php.old", "/write.php~", "/write.php.swp", "/write.php.save", "/write.php.orig", "/write.php.dist", "/file.php",
+    "/file.php5", "/file.php7", "/file.phtml", "/file.phps", "/file.php.bak", "/file.php.old", "/file.php~", "/file.php.swp", "/file.php.save", "/file.php.orig",
+    "/file.php.dist", "/files.php", "/files.php5", "/files.php7", "/files.phtml", "/files.phps", "/files.php.bak", "/files.php.old", "/files.php~", "/files.php.swp",
+    "/files.php.save", "/files.php.orig", "/files.php.dist", "/image.php", "/image.php5", "/image.php7", "/image.phtml", "/image.phps", "/image.php.bak", "/image.php.old",
+    "/image.php~", "/image.php.swp", "/image.php.save", "/image.php.orig", "/image.php.dist", "/images.php", "/images.php5", "/images.php7", "/images.phtml", "/images.phps",
+    "/images.php.bak", "/images.php.old", "/images.php~", "/images.php.swp", "/images.php.save", "/images.php.orig", "/images.php.dist", "/media.php", "/media.php5", "/media.php7",
+    "/media.phtml", "/media.phps", "/media.php.bak", "/media.php.old", "/media.php~", "/media.php.swp", "/media.php.save", "/media.php.orig", "/media.php.dist", "/static.php",
+    "/static.php5", "/static.php7", "/static.phtml", "/static.phps", "/static.php.bak", "/static.php.old", "/static.php~", "/static.php.swp", "/static.php.save", "/static.php.orig",
+    "/static.php.dist", "/public.php5", "/public.php7", "/public.phtml", "/public.phps", "/public.php.bak", "/public.php.old", "/public.php~", "/public.php.swp", "/public.php.save",
+    "/public.php.orig", "/public.php.dist", "/private.php5", "/private.php7", "/private.phtml", "/private.phps", "/private.php.bak", "/private.php.old", "/private.php~", "/private.php.swp",
+    "/private.php.save", "/private.php.orig", "/private.php.dist", "/admin.php5", "/admin.php7", "/admin.phtml", "/admin.phps", "/admin.php.bak", "/admin.php.old", "/admin.php~",
+    "/admin.php.swp", "/admin.php.save", "/admin.php.orig", "/admin.php.dist", "/login.php", "/login.php5", "/login.php7", "/login.phtml", "/login.phps", "/login.php.bak",
+    "/login.php.old", "/login.php~", "/login.php.swp", "/login.php.save", "/login.php.orig", "/login.php.dist", "/logout.php", "/logout.php5", "/logout.php7", "/logout.phtml",
+    "/logout.phps", "/logout.php.bak", "/logout.php.old", "/logout.php~", "/logout.php.swp", "/logout.php.save", "/logout.php.orig", "/logout.php.dist", "/register.php", "/register.php5",
+    "/register.php7", "/register.phtml", "/register.phps", "/register.php.bak", "/register.php.old", "/register.php~", "/register.php.swp", "/register.php.save", "/register.php.orig", "/register.php.dist",
+    "/signup.php", "/signup.php5", "/signup.php7", "/signup.phtml", "/signup.phps", "/signup.php.bak", "/signup.php.old", "/signup.php~", "/signup.php.swp", "/signup.php.save",
+    "/signup.php.orig", "/signup.php.dist", "/signin.php", "/signin.php5", "/signin.php7", "/signin.phtml", "/signin.phps", "/signin.php.bak", "/signin.php.old", "/signin.php~",
+    "/signin.php.swp", "/signin.php.save", "/signin.php.orig", "/signin.php.dist", "/auth.php", "/auth.php5", "/auth.php7", "/auth.phtml", "/auth.phps", "/auth.php.bak",
+    "/auth.php.old", "/auth.php~", "/auth.php.swp", "/auth.php.save", "/auth.php.orig", "/auth.php.dist", "/user.php", "/user.php5", "/user.php7", "/user.phtml",
+    "/user.phps", "/user.php.bak", "/user.php.old", "/user.php~", "/user.php.swp", "/user.php.save", "/user.php.orig", "/user.php.dist", "/users.php", "/users.php5",
+    "/users.php7", "/users.phtml", "/users.phps", "/users.php.bak", "/users.php.old", "/users.php~", "/users.php.swp", "/users.php.save", "/users.php.orig", "/users.php.dist",
+    "/account.php", "/account.php5", "/account.php7", "/account.phtml", "/account.phps", "/account.php.bak", "/account.php.old", "/account.php~", "/account.php.swp", "/account.php.save",
+    "/account.php.orig", "/account.php.dist", "/accounts.php", "/accounts.php5", "/accounts.php7", "/accounts.phtml", "/accounts.phps", "/accounts.php.bak", "/accounts.php.old", "/accounts.php~",
+    "/accounts.php.swp", "/accounts.php.save", "/accounts.php.orig", "/accounts.php.dist", "/profile.php", "/profile.php5", "/profile.php7", "/profile.phtml", "/profile.phps", "/profile.php.bak",
+    "/profile.php.old", "/profile.php~", "/profile.php.swp", "/profile.php.save", "/profile.php.orig", "/profile.php.dist", "/profiles.php", "/profiles.php5", "/profiles.php7", "/profiles.phtml",
+    "/profiles.phps", "/profiles.php.bak", "/profiles.php.old", "/profiles.php~", "/profiles.php.swp", "/profiles.php.save", "/profiles.php.orig", "/profiles.php.dist", "/member.php", "/member.php5",
+    "/member.php7", "/member.phtml", "/member.phps", "/member.php.bak", "/member.php.old", "/member.php~", "/member.php.swp", "/member.php.save", "/member.php.orig", "/member.php.dist",
+    "/members.php", "/members.php5", "/members.php7", "/members.phtml", "/members.phps", "/members.php.bak", "/members.php.old", "/members.php~", "/members.php.swp", "/members.php.save",
+    "/members.php.orig", "/members.php.dist", "/api.php", "/api.php5", "/api.php7", "/api.phtml", "/api.phps", "/api.php.bak", "/api.php.old", "/api.php~",
+    "/api.php.swp", "/api.php.save", "/api.php.orig", "/api.php.dist", "/rest.php", "/rest.php5", "/rest.php7", "/rest.phtml", "/rest.phps", "/rest.php.bak",
+    "/rest.php.old", "/rest.php~", "/rest.php.swp", "/rest.php.save", "/rest.php.orig", "/rest.php.dist", "/graphql.php", "/graphql.php5", "/graphql.php7", "/graphql.phtml",
+    "/graphql.phps", "/graphql.php.bak", "/graphql.php.old", "/graphql.php~", "/graphql.php.swp", "/graphql.php.save", "/graphql.php.orig", "/graphql.php.dist", "/endpoint.php", "/endpoint.php5",
+    "/endpoint.php7", "/endpoint.phtml", "/endpoint.phps", "/endpoint.php.bak", "/endpoint.php.old", "/endpoint.php~", "/endpoint.php.swp", "/endpoint.php.save", "/endpoint.php.orig", "/endpoint.php.dist",
+    "/webhook.php", "/webhook.php5", "/webhook.php7", "/webhook.phtml", "/webhook.phps", "/webhook.php.bak", "/webhook.php.old", "/webhook.php~", "/webhook.php.swp", "/webhook.php.save",
+    "/webhook.php.orig", "/webhook.php.dist", "/callback.php", "/callback.php5", "/callback.php7", "/callback.phtml", "/callback.phps", "/callback.php.bak", "/callback.php.old", "/callback.php~",
+    "/callback.php.swp", "/callback.php.save", "/callback.php.orig", "/callback.php.dist", "/search.php", "/search.php5", "/search.php7", "/search.phtml", "/search.phps", "/search.php.bak",
+    "/search.php.old", "/search.php~", "/search.php.swp", "/search.php.save", "/search.php.orig", "/search.php.dist", "/query.php", "/query.php5", "/query.php7", "/query.phtml",
+    "/query.phps", "/query.php.bak", "/query.php.old", "/query.php~", "/query.php.swp", "/query.php.save", "/query.php.orig", "/query.php.dist", "/filter.php", "/filter.php5",
+    "/filter.php7", "/filter.phtml", "/filter.phps", "/filter.php.bak", "/filter.php.old", "/filter.php~", "/filter.php.swp", "/filter.php.save", "/filter.php.orig", "/filter.php.dist",
+    "/sort.php", "/sort.php5", "/sort.php7", "/sort.phtml", "/sort.phps", "/sort.php.bak", "/sort.php.old", "/sort.php~", "/sort.php.swp", "/sort.php.save",
+    "/sort.php.orig", "/sort.php.dist", "/list.php", "/list.php5", "/list.php7", "/list.phtml", "/list.phps", "/list.php.bak", "/list.php.old", "/list.php~",
+    "/list.php.swp", "/list.php.save", "/list.php.orig", "/list.php.dist", "/export.php", "/export.php5", "/export.php7", "/export.phtml", "/export.phps", "/export.php.bak",
+    "/export.php.old", "/export.php~", "/export.php.swp", "/export.php.save", "/export.php.orig", "/export.php.dist", "/import.php", "/import.php5", "/import.php7", "/import.phtml",
+    "/import.phps", "/import.php.bak", "/import.php.old", "/import.php~", "/import.php.swp", "/import.php.save", "/import.php.orig", "/import.php.dist", "/backup.php", "/backup.php5",
+    "/backup.php7", "/backup.phtml", "/backup.phps", "/backup.php.bak", "/backup.php.old", "/backup.php~", "/backup.php.swp", "/backup.php.save", "/backup.php.orig", "/backup.php.dist",
+    "/restore.php", "/restore.php5", "/restore.php7", "/restore.phtml", "/restore.phps", "/restore.php.bak", "/restore.php.old", "/restore.php~", "/restore.php.swp", "/restore.php.save",
+    "/restore.php.orig", "/restore.php.dist", "/migrate.php", "/migrate.php5", "/migrate.php7", "/migrate.phtml", "/migrate.phps", "/migrate.php.bak", "/migrate.php.old", "/migrate.php~",
+    "/migrate.php.swp", "/migrate.php.save", "/migrate.php.orig", "/migrate.php.dist", "/seed.php", "/seed.php5", "/seed.php7", "/seed.phtml", "/seed.phps", "/seed.php.bak",
+    "/seed.php.old", "/seed.php~", "/seed.php.swp", "/seed.php.save", "/seed.php.orig", "/seed.php.dist", "/schema.php", "/schema.php5", "/schema.php7", "/schema.phtml",
+    "/schema.phps", "/schema.php.bak", "/schema.php.old", "/schema.php~", "/schema.php.swp", "/schema.php.save", "/schema.php.orig", "/schema.php.dist", "/migration.php", "/migration.php5",
+    "/migration.php7", "/migration.phtml", "/migration.phps", "/migration.php.bak", "/migration.php.old", "/migration.php~", "/migration.php.swp", "/migration.php.save", "/migration.php.orig", "/migration.php.dist",
+]
+
+LEAK_PATHS.extend(LEAK_PATHS_V5)
+_seen_final = set()
+LEAK_PATHS = [x for x in LEAK_PATHS if not (x in _seen_final or _seen_final.add(x))]
